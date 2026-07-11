@@ -35,123 +35,577 @@ def draw_crop_marks(c, x, y, w, h, length=0.6*cm, offset=0.15*cm):
     c.line(x + w + offset, y + h, x + w + offset + length, y + h)
     c.line(x + w, y + h + offset, x + w, y + h + offset + length)
 
-def draw_contact(c, cx, cy, label, nc=False):
-    """Draws a ladder logic contact (NO or NC)."""
-    c.setStrokeColor(colors.HexColor('#2C3E50'))
-    c.setLineWidth(0.8)
+def draw_badge(c, bx, by, text, badge_type="input"):
+    """Draws a beautiful rounded badge for input/output terminals."""
+    w = 0.5 * cm
+    h = 0.28 * cm
     
-    # Left and right lead lines
-    c.line(cx - 3.5*mm, cy, cx - 1.2*mm, cy)
-    c.line(cx + 1.2*mm, cy, cx + 3.5*mm, cy)
-    
-    # Parallel contact plates
-    c.line(cx - 1.2*mm, cy - 2.5*mm, cx - 1.2*mm, cy + 2.5*mm)
-    c.line(cx + 1.2*mm, cy - 2.5*mm, cx + 1.2*mm, cy + 2.5*mm)
-    
-    if nc:
-        # Diagonal line for NC
-        c.line(cx - 2.2*mm, cy - 3.0*mm, cx + 2.2*mm, cy + 3.0*mm)
+    if badge_type == "input":
+        bg_color = colors.HexColor('#27AE60')  # Green for Inputs
+    else:
+        bg_color = colors.HexColor('#2980B9')  # Blue for Outputs
         
-    # Contact label
-    c.setFillColor(colors.HexColor('#2C3E50'))
-    c.setFont("Helvetica-Bold", 6.5)
-    c.drawCentredString(cx, cy + 3.2*mm, label)
+    c.setFillColor(bg_color)
+    c.setStrokeColor(bg_color)
+    c.roundRect(bx - w/2, by - h/2, w, h, 0.06*cm, fill=True, stroke=True)
+    
+    # Text inside badge
+    c.setFillColor(colors.white)
+    c.setFont("Helvetica-Bold", 6.0)
+    c.drawCentredString(bx, by - 2, text)
 
-def draw_coil(c, cx, cy, label):
-    """Draws a ladder logic coil."""
+def draw_switch_icon(c, sx, sy, position="left"):
+    """Draws a tiny slide switch symbol on the card showing knob on the left/right."""
+    # Outer frame
+    c.setStrokeColor(colors.HexColor('#7F8C8D'))
+    c.setFillColor(colors.white)
+    c.setLineWidth(0.5)
+    sw_w = 0.22 * cm
+    sw_h = 0.12 * cm
+    c.rect(sx - sw_w/2, sy - sw_h/2, sw_w, sw_h, fill=True, stroke=True)
+    
+    # Switch slider knob
+    c.setFillColor(colors.HexColor('#2C3E50'))  # Dark blue knob
+    knob_w = 0.1 * cm
+    knob_h = 0.09 * cm
+    if position == "left":
+        c.rect(sx - sw_w/2 + 0.015*cm, sy - knob_h/2, knob_w, knob_h, fill=True, stroke=False)
+    else:
+        c.rect(sx + sw_w/2 - knob_w - 0.015*cm, sy - knob_h/2, knob_w, knob_h, fill=True, stroke=False)
+
+def draw_corner_boxes(c, x, y, task, card_w, card_h):
+    """Draws beautiful styled corner info badges for exercise number and branding."""
+    # Left Corner Box (Exercise number)
+    box_x = x + 0.08 * cm
+    box_y = y + 0.5 * cm
+    box_w = 0.56 * cm
+    box_h = 0.22 * cm
+    
+    c.setFillColor(colors.HexColor('#F2F4F4'))  # Very light grey
+    c.setStrokeColor(colors.HexColor('#BDC3C7'))
+    c.setLineWidth(0.4)
+    c.roundRect(box_x, box_y, box_w, box_h, 0.04*cm, fill=True, stroke=True)
+    
+    c.setFillColor(colors.HexColor('#2C3E50'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.drawCentredString(box_x + box_w/2.0, box_y + box_h/2.0 - 1.5, f"U{task.get('id', '')}")
+    
+    # Right Corner Box (Branding)
+    rbox_x = x + card_w - 0.72 * cm
+    rbox_y = y + 0.5 * cm
+    rbox_w = 0.64 * cm
+    rbox_h = 0.54 * cm
+    
+    c.setFillColor(colors.HexColor('#EBF5FB'))  # Light blue
+    c.setStrokeColor(colors.HexColor('#AED6F1'))
+    c.setLineWidth(0.4)
+    c.roundRect(rbox_x, rbox_y, rbox_w, rbox_h, 0.04*cm, fill=True, stroke=True)
+    
+    c.setFont("Helvetica-Bold", 3.5)
+    c.setFillColor(colors.HexColor('#2980B9'))
+    c.drawCentredString(rbox_x + rbox_w/2.0, rbox_y + 0.38*cm, "logiBUS")
+    c.drawCentredString(rbox_x + rbox_w/2.0, rbox_y + 0.26*cm, "Mini")
+    c.drawCentredString(rbox_x + rbox_w/2.0, rbox_y + 0.14*cm, "Trainer")
+    c.setFont("Helvetica-Bold", 2.8)
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.drawCentredString(rbox_x + rbox_w/2.0, rbox_y + 0.04*cm, "4diac\u2122")
+
+# --- VECTOR GRAPHICS DRAWING FUNCTIONS ---
+
+def draw_garage_door(c, cx, cy):
+    """Draws a garage door simulation vector graphic."""
+    # Garage body
+    c.setFillColor(colors.HexColor('#ECF0F1'))
+    c.setStrokeColor(colors.HexColor('#7F8C8D'))
+    c.setLineWidth(0.8)
+    c.rect(cx - 0.9*cm, cy - 0.8*cm, 1.8*cm, 1.5*cm, fill=True, stroke=True)
+    
+    # Roof (Triangular)
+    p = c.beginPath()
+    p.moveTo(cx - 1.0*cm, cy + 0.7*cm)
+    p.lineTo(cx, cy + 1.2*cm)
+    p.lineTo(cx + 1.0*cm, cy + 0.7*cm)
+    p.close()
+    c.setFillColor(colors.HexColor('#E74C3C'))
+    c.drawPath(p, fill=True, stroke=True)
+    
+    # Door frame/opening
+    c.setFillColor(colors.HexColor('#BDC3C7'))
+    c.rect(cx - 0.6*cm, cy - 0.8*cm, 1.2*cm, 1.2*cm, fill=True, stroke=True)
+    
+    # Rolling door slats
+    c.setStrokeColor(colors.HexColor('#95A5A6'))
+    c.setLineWidth(0.6)
+    for sy in range(1, 11):
+        y_pos = cy - 0.8*cm + sy*0.11*cm
+        c.line(cx - 0.6*cm, y_pos, cx + 0.6*cm, y_pos)
+        
+    # Flashing light
+    c.setFillColor(colors.HexColor('#E67E22'))
+    c.circle(cx - 0.6*cm, cy + 0.9*cm, 0.1*cm, fill=True, stroke=True)
+    
+    # Direction arrow
+    c.setStrokeColor(colors.HexColor('#2980B9'))
+    c.setLineWidth(1.0)
+    c.line(cx + 1.05*cm, cy - 0.3*cm, cx + 1.05*cm, cy + 0.3*cm)
+    c.line(cx + 0.97*cm, cy + 0.15*cm, cx + 1.05*cm, cy + 0.3*cm)
+    c.line(cx + 1.13*cm, cy + 0.15*cm, cx + 1.05*cm, cy + 0.3*cm)
+
+def draw_mixer_tank(c, cx, cy):
+    """Draws a chemical mixer tank vector graphic."""
+    # Tank outline
+    c.setFillColor(colors.HexColor('#ECF0F1'))
+    c.setStrokeColor(colors.HexColor('#7F8C8D'))
+    c.setLineWidth(0.8)
+    c.roundRect(cx - 0.6*cm, cy - 0.8*cm, 1.2*cm, 1.6*cm, 0.12*cm, fill=True, stroke=True)
+    
+    # Water level
+    c.setFillColor(colors.HexColor('#3498DB'))
+    c.roundRect(cx - 0.56*cm, cy - 0.8*cm, 1.12*cm, 1.0*cm, 0.08*cm, fill=True, stroke=False)
+    
+    # Re-stroke tank border
+    c.setStrokeColor(colors.HexColor('#7F8C8D'))
+    c.setFillColor(colors.transparent)
+    c.roundRect(cx - 0.6*cm, cy - 0.8*cm, 1.2*cm, 1.6*cm, 0.12*cm, fill=False, stroke=True)
+    
+    # Mixer Motor & Shaft
+    c.setFillColor(colors.HexColor('#34495E'))
+    c.rect(cx - 0.2*cm, cy + 0.8*cm, 0.4*cm, 0.25*cm, fill=True, stroke=True)
+    c.setStrokeColor(colors.HexColor('#2C3E50'))
+    c.setLineWidth(1.0)
+    c.line(cx, cy + 0.8*cm, cx, cy - 0.4*cm)
+    
+    # Stirrer blades
+    c.rect(cx - 0.4*cm, cy - 0.4*cm, 0.8*cm, 0.12*cm, fill=True, stroke=True)
+    c.rect(cx - 0.25*cm, cy - 0.15*cm, 0.5*cm, 0.08*cm, fill=True, stroke=True)
+    
+    # Pipes
+    c.setStrokeColor(colors.HexColor('#7F8C8D'))
+    c.setLineWidth(1.5)
+    c.line(cx - 0.9*cm, cy + 0.5*cm, cx - 0.6*cm, cy + 0.5*cm)
+    c.line(cx + 0.6*cm, cy - 0.6*cm, cx + 0.9*cm, cy - 0.6*cm)
+    
+    # Level indicators
+    c.setFillColor(colors.HexColor('#E74C3C'))
+    c.circle(cx + 0.6*cm, cy + 0.2*cm, 0.06*cm, fill=True, stroke=False)
+    c.circle(cx + 0.6*cm, cy - 0.5*cm, 0.06*cm, fill=True, stroke=False)
+
+def draw_traffic_light(c, cx, cy):
+    """Draws a traffic light vector graphic."""
+    # Mast
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.rect(cx - 0.06*cm, cy - 1.1*cm, 0.12*cm, 0.4*cm, fill=True, stroke=False)
+    
+    # Housing
+    c.setFillColor(colors.HexColor('#2C3E50'))
+    c.setStrokeColor(colors.HexColor('#34495E'))
+    c.setLineWidth(0.8)
+    c.roundRect(cx - 0.38*cm, cy - 0.7*cm, 0.76*cm, 1.5*cm, 0.1*cm, fill=True, stroke=True)
+    
+    # Lights
+    c.setFillColor(colors.HexColor('#E74C3C'))
+    c.circle(cx, cy + 0.38*cm, 0.18*cm, fill=True, stroke=True)
+    c.setFillColor(colors.HexColor('#F1C40F'))
+    c.circle(cx, cy, 0.18*cm, fill=True, stroke=True)
+    c.setFillColor(colors.HexColor('#2ECC71'))
+    c.circle(cx, cy - 0.38*cm, 0.18*cm, fill=True, stroke=True)
+
+def draw_conveyor_belt(c, cx, cy):
+    """Draws a conveyor belt vector graphic."""
+    # Wheels
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setStrokeColor(colors.HexColor('#34495E'))
+    c.setLineWidth(0.8)
+    c.circle(cx - 0.7*cm, cy - 0.3*cm, 0.18*cm, fill=True, stroke=True)
+    c.circle(cx + 0.7*cm, cy - 0.3*cm, 0.18*cm, fill=True, stroke=True)
+    
+    # Loop
+    c.setStrokeColor(colors.HexColor('#34495E'))
+    c.setLineWidth(1.0)
+    c.roundRect(cx - 0.9*cm, cy - 0.48*cm, 1.8*cm, 0.36*cm, 0.18*cm, fill=False, stroke=True)
+    
+    # Box
+    c.setFillColor(colors.HexColor('#D35400'))
+    c.setStrokeColor(colors.HexColor('#A04000'))
+    c.rect(cx - 0.3*cm, cy - 0.12*cm, 0.6*cm, 0.4*cm, fill=True, stroke=True)
+    
+    # Tape
+    c.setStrokeColor(colors.HexColor('#F39C12'))
+    c.setLineWidth(0.6)
+    c.line(cx, cy - 0.12*cm, cx, cy + 0.28*cm)
+    
+    # Arrow
+    c.setStrokeColor(colors.HexColor('#27AE60'))
+    c.setLineWidth(1.0)
+    c.line(cx - 0.3*cm, cy + 0.45*cm, cx + 0.3*cm, cy + 0.45*cm)
+    c.line(cx + 0.18*cm, cy + 0.38*cm, cx + 0.3*cm, cy + 0.45*cm)
+    c.line(cx + 0.18*cm, cy + 0.52*cm, cx + 0.3*cm, cy + 0.45*cm)
+
+def draw_default_logic(c, cx, cy):
+    """Draws a standard SR Flip-Flop function block as a fallback."""
+    c.setFillColor(colors.HexColor('#F8F9F9'))
+    c.setStrokeColor(colors.HexColor('#2C3E50'))
+    c.setLineWidth(0.8)
+    c.rect(cx - 0.5*cm, cy - 0.7*cm, 1.0*cm, 1.4*cm, fill=True, stroke=True)
+    
+    # Title
+    c.setFillColor(colors.HexColor('#2C3E50'))
+    c.setFont("Helvetica-Bold", 7.5)
+    c.drawCentredString(cx, cy + 0.35*cm, "SR")
+    
+    # Inputs
+    c.setFont("Helvetica", 5.0)
+    c.drawString(cx - 0.4*cm, cy + 0.05*cm, "S")
+    c.drawString(cx - 0.4*cm, cy - 0.35*cm, "R")
+    c.line(cx - 0.8*cm, cy + 0.1*cm, cx - 0.5*cm, cy + 0.1*cm)
+    c.line(cx - 0.8*cm, cy - 0.3*cm, cx - 0.5*cm, cy - 0.3*cm)
+    
+    # Output
+    c.drawRightString(cx + 0.4*cm, cy + 0.05*cm, "Q")
+    c.line(cx + 0.5*cm, cy + 0.1*cm, cx + 0.8*cm, cy + 0.1*cm)
+
+# --- SCHEMATIC CONNECTION LINES ROUTER ---
+
+def draw_task_connections(c, x, y, task):
+    """Draws lines from bottom/top pins to the center graphic box, with vertical labels."""
+    inputs = task.get("inputs", {})
+    outputs = task.get("outputs", {})
+    
+    # Graphic bounding box
+    g_left = x + 3.0 * cm
+    g_right = x + 6.0 * cm
+    g_bottom = y + 2.0 * cm
+    g_top = y + 5.0 * cm
+    
+    # Start/End constraints to prevent drawing over badge boxes
+    start_y = y + 0.44 * cm
+    end_y = y + 6.56 * cm
+    
+    c.setStrokeColor(colors.HexColor('#2C3E50'))
+    c.setLineWidth(0.6)
+    
+    # Draw inputs connections
+    for k, label in inputs.items():
+        if not k.startswith("I") or not k[1:].isdigit():
+            continue
+        i = int(k[1:])
+        px = x + i * cm
+        
+        # Connect segment from border to badge
+        c.line(px, y, px, y + 0.16*cm)
+        
+        if i < 3:  # I1, I2 -> go up and right
+            target_y = y + 2.3 * cm + (i - 1) * 0.4 * cm
+            c.line(px, start_y, px, target_y)
+            c.line(px, target_y, g_left, target_y)
+            
+            # Label (shifted horizontally to the right of the line, preventing overlaps)
+            c.saveState()
+            c.setFillColor(colors.HexColor('#7F8C8D'))
+            c.setFont("Helvetica-Bold", 4.5)
+            c.translate(px + 0.22*cm, y + 0.55*cm)
+            c.rotate(90)
+            c.drawString(0, 0, label)
+            c.restoreState()
+            
+        elif i > 6:  # I7, I8 -> go up and left
+            target_y = y + 2.3 * cm + (8 - i) * 0.4 * cm
+            c.line(px, start_y, px, target_y)
+            c.line(px, target_y, g_right, target_y)
+            
+            # Label
+            c.saveState()
+            c.setFillColor(colors.HexColor('#7F8C8D'))
+            c.setFont("Helvetica-Bold", 4.5)
+            c.translate(px + 0.22*cm, y + 0.55*cm)
+            c.rotate(90)
+            c.drawString(0, 0, label)
+            c.restoreState()
+            
+        else:  # I3, I4, I5, I6 -> go straight up
+            c.line(px, start_y, px, g_bottom)
+            
+            # Label
+            c.saveState()
+            c.setFillColor(colors.HexColor('#7F8C8D'))
+            c.setFont("Helvetica-Bold", 4.5)
+            c.translate(px + 0.22*cm, y + 0.55*cm)
+            c.rotate(90)
+            c.drawString(0, 0, label)
+            c.restoreState()
+
+    # Draw outputs connections
+    for k, label in outputs.items():
+        if not k.startswith("Q") or not k[1:].isdigit():
+            continue
+        i = int(k[1:])
+        px = x + i * cm
+        
+        # Connect segment from border to badge
+        c.line(px, y + 7.0*cm, px, y + 6.84*cm)
+        
+        if i < 3:  # Q1, Q2 -> go down and right
+            target_y = y + 4.7 * cm - (i - 1) * 0.4 * cm
+            c.line(px, end_y, px, target_y)
+            c.line(px, target_y, g_left, target_y)
+            
+            # Label (shifted horizontally to the left of the line, preventing overlaps)
+            c.saveState()
+            c.setFillColor(colors.HexColor('#7F8C8D'))
+            c.setFont("Helvetica-Bold", 4.5)
+            c.translate(px - 0.12*cm, y + 6.45*cm)
+            c.rotate(90)
+            c.drawRightString(0, 0, label)
+            c.restoreState()
+            
+        elif i > 6:  # Q7, Q8 -> go down and left
+            target_y = y + 4.7 * cm - (8 - i) * 0.4 * cm
+            c.line(px, end_y, px, target_y)
+            c.line(px, target_y, g_right, target_y)
+            
+            # Label
+            c.saveState()
+            c.setFillColor(colors.HexColor('#7F8C8D'))
+            c.setFont("Helvetica-Bold", 4.5)
+            c.translate(px - 0.12*cm, y + 6.45*cm)
+            c.rotate(90)
+            c.drawRightString(0, 0, label)
+            c.restoreState()
+            
+        else:  # Q3, Q4, Q5, Q6 -> go straight down
+            c.line(px, end_y, px, g_top)
+            
+            # Label
+            c.saveState()
+            c.setFillColor(colors.HexColor('#7F8C8D'))
+            c.setFont("Helvetica-Bold", 4.5)
+            c.translate(px - 0.12*cm, y + 6.45*cm)
+            c.rotate(90)
+            c.drawRightString(0, 0, label)
+            c.restoreState()
+
+def draw_logic_gates(c, x, y):
+    """Draws the AND, OR, NOT logic gate schematic matching TC100, docking directly to pins."""
     c.setStrokeColor(colors.HexColor('#2C3E50'))
     c.setLineWidth(0.8)
     
-    # Lead lines
-    c.line(cx - 5.0*mm, cy, cx - 2.5*mm, cy)
-    c.line(cx + 2.5*mm, cy, cx + 5.0*mm, cy)
+    # Gate positions
+    and_x = x + 3.0 * cm
+    or_x = x + 5.0 * cm
+    not_x = x + 7.5 * cm
+    cy = y + 3.5 * cm
     
-    # Coil brackets/parentheses representation (or circle)
+    # Draw gates
+    # AND gate
+    and_w = 0.5 * cm
+    and_h = 0.75 * cm
+    c.setFillColor(colors.HexColor('#FDF2E9'))  # light orange
+    c.setStrokeColor(colors.HexColor('#E67E22'))
+    c.rect(and_x - and_w/2, cy - and_h/2, and_w, and_h, fill=True, stroke=True)
+    c.setFillColor(colors.HexColor('#D35400'))
+    c.setFont("Helvetica-Bold", 8)
+    c.drawCentredString(and_x, cy - 2.5, "&")
+    
+    # OR gate
+    or_w = 0.5 * cm
+    or_h = 0.75 * cm
+    c.setFillColor(colors.HexColor('#FDF2E9'))
+    c.setStrokeColor(colors.HexColor('#E67E22'))
+    c.rect(or_x - or_w/2, cy - or_h/2, or_w, or_h, fill=True, stroke=True)
+    c.setFillColor(colors.HexColor('#D35400'))
+    c.setFont("Helvetica-Bold", 8)
+    c.drawCentredString(or_x, cy - 3.0, ">=1")
+    
+    # NOT gate
+    not_w = 0.5 * cm
+    not_h = 0.75 * cm
+    c.setFillColor(colors.HexColor('#FDF2E9'))
+    c.setStrokeColor(colors.HexColor('#E67E22'))
+    c.rect(not_x - not_w/2, cy - not_h/2, not_w, not_h, fill=True, stroke=True)
+    c.setFillColor(colors.HexColor('#D35400'))
+    c.setFont("Helvetica-Bold", 8)
+    c.drawCentredString(not_x, cy - 2.5, "1")
+    
+    # NOT inversion bubble on output
+    bubble_r = 0.05 * cm
     c.setFillColor(colors.white)
-    c.circle(cx, cy, 2.5*mm, fill=True, stroke=True)
+    c.setStrokeColor(colors.HexColor('#E67E22'))
+    c.circle(not_x + not_w/2 + bubble_r, cy, bubble_r, fill=True, stroke=True)
     
-    # Coil label
-    c.setFillColor(colors.HexColor('#2C3E50'))
-    c.setFont("Helvetica-Bold", 6.5)
-    c.drawCentredString(cx, cy + 3.2*mm, label)
+    # Start/End constraints to prevent drawing over badge boxes
+    start_y = y + 0.44 * cm
+    end_y = y + 6.56 * cm
+    
+    # Draw connections
+    c.setStrokeColor(colors.HexColor('#2C3E50'))
+    c.setLineWidth(0.6)
+    
+    # AND connection lines (I1 at 1cm, I2 at 2cm -> AND; output -> Q1 at 1cm)
+    c.line(x + 1.0*cm, y, x + 1.0*cm, y + 0.16*cm) # line segment under badge
+    c.line(x + 1.0*cm, start_y, x + 1.0*cm, cy + 0.15*cm)
+    c.line(x + 1.0*cm, cy + 0.15*cm, and_x - and_w/2, cy + 0.15*cm)
+    
+    c.line(x + 2.0*cm, y, x + 2.0*cm, y + 0.16*cm) # line segment under badge
+    c.line(x + 2.0*cm, start_y, x + 2.0*cm, cy - 0.15*cm)
+    c.line(x + 2.0*cm, cy - 0.15*cm, and_x - and_w/2, cy - 0.15*cm)
+    
+    c.line(and_x + and_w/2, cy, and_x + 0.4*cm, cy)
+    c.line(and_x + 0.4*cm, cy, and_x + 0.4*cm, cy + 0.7*cm)
+    c.line(and_x + 0.4*cm, cy + 0.7*cm, x + 1.0*cm, cy + 0.7*cm)
+    c.line(x + 1.0*cm, cy + 0.7*cm, x + 1.0*cm, end_y)
+    c.line(x + 1.0*cm, y + 7.0*cm, x + 1.0*cm, y + 6.84*cm) # line segment above badge
+    
+    # OR connection lines (I4 at 4cm, I5 at 5cm -> OR; output -> Q2 at 2cm)
+    c.line(x + 4.0*cm, y, x + 4.0*cm, y + 0.16*cm) # line segment under badge
+    c.line(x + 4.0*cm, start_y, x + 4.0*cm, cy + 0.15*cm)
+    c.line(x + 4.0*cm, cy + 0.15*cm, or_x - or_w/2, cy + 0.15*cm)
+    
+    c.line(x + 5.0*cm, y, x + 5.0*cm, y + 0.16*cm) # line segment under badge
+    c.line(x + 5.0*cm, start_y, x + 5.0*cm, cy - 0.15*cm)
+    c.line(x + 5.0*cm, cy - 0.15*cm, or_x - or_w/2, cy - 0.15*cm)
+    
+    c.line(or_x + or_w/2, cy, or_x + 0.4*cm, cy)
+    c.line(or_x + 0.4*cm, cy, or_x + 0.4*cm, cy + 1.1*cm)
+    c.line(or_x + 0.4*cm, cy + 1.1*cm, x + 2.0*cm, cy + 1.1*cm)
+    c.line(x + 2.0*cm, cy + 1.1*cm, x + 2.0*cm, end_y)
+    c.line(x + 2.0*cm, y + 7.0*cm, x + 2.0*cm, y + 6.84*cm) # line segment above badge
+    
+    # NOT connection lines (I7 at 7cm -> NOT; output -> Q3 at 3cm)
+    c.line(x + 7.0*cm, y, x + 7.0*cm, y + 0.16*cm) # line segment under badge
+    c.line(x + 7.0*cm, start_y, x + 7.0*cm, cy)
+    c.line(x + 7.0*cm, cy, not_x - not_w/2, cy)
+    
+    c.line(not_x + not_w/2 + 2*bubble_r, cy, not_x + 0.4*cm, cy)
+    c.line(not_x + 0.4*cm, cy, not_x + 0.4*cm, cy + 1.5*cm)
+    c.line(not_x + 0.4*cm, cy + 1.5*cm, x + 3.0*cm, cy + 1.5*cm)
+    c.line(x + 3.0*cm, cy + 1.5*cm, x + 3.0*cm, end_y)
+    c.line(x + 3.0*cm, y + 7.0*cm, x + 3.0*cm, y + 6.84*cm) # line segment above badge
 
-def draw_dotted_grid(c, x, y, w, h, step=0.4*cm):
-    """Draws a subtle dotted background grid for the exercise area."""
-    c.setFillColor(colors.HexColor('#BDC3C7'))
+    # Print labels vertically next to lines (shifted horizontally to prevent overlaying)
+    # I1 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 1.0*cm + 0.22*cm, y + 0.55*cm)
+    c.rotate(90)
+    c.drawString(0, 0, "Und-Eingang 1")
+    c.restoreState()
     
-    nx = int(w / step) + 1
-    ny = int(h / step) + 1
+    # I2 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 2.0*cm + 0.22*cm, y + 0.55*cm)
+    c.rotate(90)
+    c.drawString(0, 0, "Und-Eingang 2")
+    c.restoreState()
     
-    for i in range(1, nx - 1):
-        for j in range(1, ny - 1):
-            px = x + i * step
-            py = y + j * step
-            c.circle(px, py, 0.4*mm, fill=True, stroke=False)
+    # I4 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 4.0*cm + 0.22*cm, y + 0.55*cm)
+    c.rotate(90)
+    c.drawString(0, 0, "Oder-Eingang 1")
+    c.restoreState()
+    
+    # I5 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 5.0*cm + 0.22*cm, y + 0.55*cm)
+    c.rotate(90)
+    c.drawString(0, 0, "Oder-Eingang 2")
+    c.restoreState()
+    
+    # I7 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 7.0*cm + 0.22*cm, y + 0.55*cm)
+    c.rotate(90)
+    c.drawString(0, 0, "Nicht-Eingang")
+    c.restoreState()
+    
+    # Q1 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 1.0*cm - 0.12*cm, y + 6.45*cm)
+    c.rotate(90)
+    c.drawRightString(0, 0, "Ausgang AND")
+    c.restoreState()
+    
+    # Q2 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 2.0*cm - 0.12*cm, y + 6.45*cm)
+    c.rotate(90)
+    c.drawRightString(0, 0, "Ausgang OR")
+    c.restoreState()
+    
+    # Q3 label
+    c.saveState()
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 4.5)
+    c.translate(x + 3.0*cm - 0.12*cm, y + 6.45*cm)
+    c.rotate(90)
+    c.drawRightString(0, 0, "Ausgang NOT")
+    c.restoreState()
 
-def draw_card(c, x, y):
-    """Draws a single logiBUS® Mini-Trainer card with border markings and a sample task."""
+# --- DRAW CARD BASE LAYOUT ---
+
+def draw_card_base(c, x, y, task):
+    """Draws borders, ticks, badges, and side controls for the overlay card."""
     card_w = 9.0 * cm
     card_h = 7.0 * cm
     
-    # Draw base card boundary (cut line)
+    # Base card boundary (cut line)
     c.setStrokeColor(colors.HexColor('#BDC3C7'))
     c.setLineWidth(0.4)
     c.rect(x, y, card_w, card_h, stroke=True, fill=False)
     
-    # Badge sizes
-    tb_badge_w = 0.55 * cm
-    tb_badge_h = 0.3 * cm
-    
-    lr_badge_w = 1.1 * cm
-    lr_badge_h = 0.3 * cm
+    # --- CORNER TEXTS (Clean & small branding/ID in dedicated info boxes) ---
+    draw_corner_boxes(c, x, y, task, card_w, card_h)
     
     # --- BOTTOM MARGIN: DIGITAL INPUTS (I1 to I8) ---
     for i in range(1, 9):
         px = x + i * cm
-        # Tick line pointing inward
+        
+        # Line segment extending from bottom border to badge box
         c.setStrokeColor(colors.HexColor('#27AE60'))
         c.setLineWidth(0.8)
-        c.line(px, y, px, y + 0.15*cm)
+        c.line(px, y, px, y + 0.16*cm)
         
-        # Badge
-        c.setFillColor(colors.HexColor('#E8F8F5'))
-        c.setStrokeColor(colors.HexColor('#2ECC71'))
-        c.setLineWidth(0.5)
-        c.roundRect(px - tb_badge_w/2, y + 0.15*cm, tb_badge_w, tb_badge_h, 0.06*cm, fill=True, stroke=True)
-        
-        # Label
-        c.setFillColor(colors.HexColor('#1E8449'))
-        c.setFont("Helvetica-Bold", 6.5)
-        c.drawCentredString(px, y + 0.23*cm, f"I{i}")
+        # Badge rounded rectangle
+        draw_badge(c, px, y + 0.3*cm, f"I{i}", badge_type="input")
         
     # --- TOP MARGIN: DIGITAL OUTPUTS (Q1 to Q8) ---
     for i in range(1, 9):
         px = x + i * cm
         py = y + card_h
-        # Tick line pointing inward
+        
+        # Line segment extending from top border to badge box
         c.setStrokeColor(colors.HexColor('#2980B9'))
         c.setLineWidth(0.8)
-        c.line(px, py, px, py - 0.15*cm)
+        c.line(px, py, px, py - 0.16*cm)
         
-        # Badge
-        c.setFillColor(colors.HexColor('#EBF5FB'))
-        c.setStrokeColor(colors.HexColor('#3498DB'))
-        c.setLineWidth(0.5)
-        c.roundRect(px - tb_badge_w/2, py - 0.45*cm, tb_badge_w, tb_badge_h, 0.06*cm, fill=True, stroke=True)
+        # Badge rounded rectangle
+        draw_badge(c, px, py - 0.3*cm, f"Q{i}", badge_type="output")
         
-        # Label
-        c.setFillColor(colors.HexColor('#1B4F72'))
-        c.setFont("Helvetica-Bold", 6.5)
-        c.drawCentredString(px, py - 0.37*cm, f"Q{i}")
+    # --- LEFT MARGIN: SIDE LABELS & SWITCHES ---
+    c.setStrokeColor(colors.HexColor('#95A5A6'))
+    c.setLineWidth(0.6)
+    left_ticks = [1.0, 2.0, 3.5, 4.5, 6.0]
+    for ty_val in left_ticks:
+        c.line(x, y + ty_val*cm, x + 0.12*cm, y + ty_val*cm)
         
-    # --- LEFT MARGIN: ANALOG INPUTS & SWITCHES ---
-    left_controls = [
-        {"y_rel": 1.0, "label": "AI1", "type": "analog"},
-        {"y_rel": 2.0, "label": "AI1/I1", "type": "switch"},
-        {"y_rel": 3.5, "label": "AI2", "type": "analog"},
-        {"y_rel": 4.5, "label": "AI2/I2", "type": "switch"},
-        {"y_rel": 6.0, "label": "Enc", "type": "encoder"}
-    ]
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 5.0)
+    c.drawString(x + 0.15*cm, y + 1.0*cm - 1.5, "AI1")
+    c.drawString(x + 0.15*cm, y + 3.5*cm - 1.5, "AI2")
+    c.drawString(x + 0.15*cm, y + 6.0*cm - 1.5, "Enc")
     
     for ctrl in left_controls:
         cy_val = y + ctrl["y_rel"] * cm
@@ -184,40 +638,44 @@ def draw_card(c, x, y):
         # Text
         c.setFillColor(text_color)
         c.setFont("Helvetica-Bold", 6.0)
-        c.drawCentredString(x + 0.17*cm + lr_badge_w/2, cy_val - 0.7*mm, ctrl["label"])
+        c.drawCentredString(x + 0.17*cm + lr_badge_w/2, cy_val - 2, ctrl["label"])
         
     # --- RIGHT MARGIN: SLIDER & SWITCH ---
     # Slider AI3 Track (2.0 to 6.0 cm)
     c.setStrokeColor(colors.HexColor('#BDC3C7'))
-    c.setLineWidth(2.2)
-    c.line(x + 8.8*cm, y + 2.0*cm, x + 8.8*cm, y + 6.0*cm)
+    c.setLineWidth(1.5)
+    c.line(x + card_w - 0.2*cm, y + 2.0*cm, x + card_w - 0.2*cm, y + 6.0*cm)
     
     # Slider Knob representation at 3.5cm
     c.setFillColor(colors.HexColor('#7F8C8D'))
     c.setStrokeColor(colors.HexColor('#34495E'))
-    c.setLineWidth(0.5)
-    c.rect(x + 8.71*cm, y + 3.35*cm, 0.18*cm, 0.3*cm, fill=True, stroke=True)
+    c.setLineWidth(0.4)
+    c.rect(x + card_w - 0.26*cm, y + 3.4*cm, 0.12*cm, 0.2*cm, fill=True, stroke=True)
     
-    # Tick mark for Slider center (AI3) at 3.5cm
-    c.setStrokeColor(colors.HexColor('#E67E22'))
-    c.setLineWidth(0.8)
-    c.line(x + 9.0*cm, y + 3.5*cm, x + 8.65*cm, y + 3.5*cm)
+    # Label AI3
+    c.setFillColor(colors.HexColor('#7F8C8D'))
+    c.setFont("Helvetica-Bold", 5.0)
+    c.drawRightString(x + card_w - 0.35*cm, y + 3.5*cm - 1.5, "AI3")
     
-    # Slider Badge
-    c.setFillColor(colors.HexColor('#FDF2E9'))
-    c.setStrokeColor(colors.HexColor('#F39C12'))
-    c.setLineWidth(0.5)
-    c.roundRect(x + 8.8*cm - 0.17*cm - lr_badge_w, y + 3.5*cm - lr_badge_h/2, lr_badge_w, lr_badge_h, 0.06*cm, fill=True, stroke=True)
+    # Switch AI3/I3 at 6.5cm (toggled left)
+    draw_switch_icon(c, x + card_w - 0.3*cm, y + 6.5*cm, position="left")
+    c.drawRightString(x + card_w - 0.55*cm, y + 6.5*cm - 1.5, "AI3/I3")
+
+def draw_card(c, x, y, task=None):
+    """Draws a single logiBUS® Mini-Trainer card with border markings and task details."""
+    card_w = 9.0 * cm
+    card_h = 7.0 * cm
     
     c.setFillColor(colors.HexColor('#935116'))
     c.setFont("Helvetica-Bold", 6.0)
-    c.drawCentredString(x + 8.8*cm - 0.17*cm - lr_badge_w/2, y + 3.5*cm - 0.7*mm, "AI3")
+    c.drawCentredString(x + 8.8*cm - 0.17*cm - lr_badge_w/2, y + 3.5*cm - 2, "AI3")
     
-    # Switch AI3 vs I3 at 6.5cm
-    cy_val = y + 6.5*cm
+    # Draw standard base card layout (borders, corner info boxes, badges, switch icons)
+    draw_card_base(c, x, y, task)
     
-    # To prevent overlap with Q8, we shift the badge down to y + 5.9*cm and draw a neat routing line
-    badge_y = y + 5.9*cm
+    # Center coordinates of drawing area
+    gc_x = x + 4.5 * cm
+    gc_y = y + 3.5 * cm
     
     # Tick mark at 6.5cm
     c.setStrokeColor(colors.HexColor('#7F8C8D'))
@@ -235,7 +693,7 @@ def draw_card(c, x, y):
     
     c.setFillColor(colors.HexColor('#2C3E50'))
     c.setFont("Helvetica-Bold", 6.0)
-    c.drawCentredString(x + 9.0*cm - 0.17*cm - lr_badge_w/2, badge_y - 0.7*mm, "AI3/I3")
+    c.drawCentredString(x + 9.0*cm - 0.17*cm - lr_badge_w/2, badge_y - 2, "AI3/I3")
     
     # --- TASK / EXERCISE CENTRAL AREA ---
     # Task bounds: x + 1.7*cm to x + 7.3*cm, y + 0.7*cm to y + 6.3*cm
@@ -317,34 +775,66 @@ def draw_card(c, x, y):
     c.drawRightString(tx_start + t_w - 0.2*cm, meta_y + 0.25*cm, "Klasse: _________")
     c.drawRightString(tx_start + t_w - 0.2*cm, meta_y, "Bewertung: ______")
 
-def generate_single_card_pdf(filename="logiBUS_single_card.pdf"):
-    """Generates a PDF containing exactly one card centered on an A4 sheet with crop marks."""
+# --- PDF GENERATOR FUNCTIONS ---
+
+def generate_single_card_pdf(filename="logiBUS_single_card.pdf", tasks=None):
+    """Generates a PDF containing centered cards for all tasks, one card per page."""
+    if tasks is None:
+        tasks = load_tasks()
+        
     c = canvas.Canvas(filename, pagesize=A4)
     
     page_w, page_h = A4
     card_w = 9.0 * cm
     card_h = 7.0 * cm
     
-    # Compute center coordinates
     x = (page_w - card_w) / 2.0
     y = (page_h - card_h) / 2.0
     
-    # Draw Page Title and Help Info (outside crop marks)
-    c.setFillColor(colors.HexColor('#2C3E50'))
-    c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(page_w/2, page_h - 2*cm, "logiBUS\u00ae Mini-Trainer - Einzelschablone")
-    c.setFont("Helvetica", 9)
-    c.setFillColor(colors.HexColor('#7F8C8D'))
-    c.drawCentredString(page_w/2, page_h - 2.5*cm, "Druckeinstellungen: 100% Gr\u00f6\u00dfe (Tats\u00e4chliche Gr\u00f6\u00dfe), Hochformat")
-    c.drawCentredString(page_w/2, page_h - 2.9*cm, f"Kartengr\u00f6\u00dfe: {card_w/cm:.1f} cm x {card_h/cm:.1f} cm. Bitte an den Schnittmarken ausschneiden.")
-    
-    # Draw card
-    draw_card(c, x, y)
-    
-    # Draw crop marks
-    draw_crop_marks(c, x, y, card_w, card_h)
-    
-    c.showPage()
+    for task in tasks:
+        # Draw Page Title and Help Info (outside crop marks)
+        c.setFillColor(colors.HexColor('#2C3E50'))
+        c.setFont("Helvetica-Bold", 14)
+        c.drawCentredString(page_w/2, page_h - 2*cm, "logiBUS\u00ae Mini-Trainer - Einzelschablone")
+        c.setFont("Helvetica", 9)
+        c.setFillColor(colors.HexColor('#7F8C8D'))
+        c.drawCentredString(page_w/2, page_h - 2.5*cm, "Druckeinstellungen: 100% Gr\u00f6\u00dfe (Tats\u00e4chliche Gr\u00f6\u00dfe), Hochformat")
+        c.drawCentredString(page_w/2, page_h - 2.9*cm, f"Kartengr\u00f6\u00dfe: {card_w/cm:.1f} cm x {card_h/cm:.1f} cm. Bitte an den Schnittmarken ausschneiden.")
+        
+        # Draw card
+        draw_card(c, x, y, task)
+        
+        # Draw crop marks
+        draw_crop_marks(c, x, y, card_w, card_h)
+        
+        # Draw task description (outside the card area, at the bottom of the page)
+        c.setFont("Helvetica-Bold", 10)
+        c.setFillColor(colors.HexColor('#2C3E50'))
+        c.drawCentredString(page_w/2, 4*cm, "AUFGABENBESCHREIBUNG:")
+        
+        c.setFont("Helvetica", 9)
+        c.setFillColor(colors.HexColor('#34495E'))
+        desc = task.get("description", "")
+        
+        # Simple line wrapping
+        words = desc.split(' ')
+        lines = []
+        curr = ""
+        for w in words:
+            test = curr + " " + w if curr else w
+            if c.stringWidth(test, "Helvetica", 9) < (page_w - 4*cm):
+                curr = test
+            else:
+                lines.append(curr)
+                curr = w
+        if curr:
+            lines.append(curr)
+            
+        for idx, l in enumerate(lines[:5]):
+            c.drawCentredString(page_w/2, 3.4*cm - idx*14, l)
+            
+        c.showPage()
+        
     try:
         c.save()
         print(f"Successfully generated {filename}")
@@ -352,8 +842,11 @@ def generate_single_card_pdf(filename="logiBUS_single_card.pdf"):
         print(f"Error: Could not save single card PDF to '{filename}'. Reason: {e}")
         print("Please check if the file is currently open in another program (e.g. Acrobat Reader) or if you lack write permissions.")
 
-def generate_multi_cards_pdf(filename="logiBUS_multi_cards.pdf"):
-    """Generates a PDF containing a paper-saving grid of 8 cards (2 columns x 4 rows)."""
+def generate_multi_cards_pdf(filename="logiBUS_multi_cards.pdf", tasks=None):
+    """Generates a PDF containing a paper-saving grid of cards (2 columns x 4 rows) for all tasks."""
+    if tasks is None:
+        tasks = load_tasks()
+        
     c = canvas.Canvas(filename, pagesize=A4)
     
     page_w, page_h = A4
@@ -362,25 +855,37 @@ def generate_multi_cards_pdf(filename="logiBUS_multi_cards.pdf"):
     
     cols = 2
     rows = 4
+    cards_per_page = cols * rows
     
-    # Calculate starting offsets to perfectly center the grid on A4
+    # Center grid on A4
     grid_w = cols * card_w
     grid_h = rows * card_h
     
     start_x = (page_w - grid_w) / 2.0
     start_y = (page_h - grid_h) / 2.0
     
-    # Draw background cutting helpers and crop marks around the outer edge of the grid
-    draw_crop_marks(c, start_x, start_y, grid_w, grid_h, length=0.8*cm, offset=0.2*cm)
+    num_pages = (len(tasks) + cards_per_page - 1) // cards_per_page
     
-    # Draw each card in the grid
-    for row in range(rows):
-        for col in range(cols):
-            x = start_x + col * card_w
-            y = start_y + row * card_h
-            draw_card(c, x, y)
+    for page_idx in range(num_pages):
+        draw_crop_marks(c, start_x, start_y, grid_w, grid_h, length=0.8*cm, offset=0.2*cm)
+        
+        for slot in range(cards_per_page):
+            task_idx = page_idx * cards_per_page + slot
+            if task_idx >= len(tasks):
+                break
+                
+            task = tasks[task_idx]
+            col = slot % cols
+            row = slot // cols
             
-    c.showPage()
+            grid_row = (rows - 1) - row
+            x = start_x + col * card_w
+            y = start_y + grid_row * card_h
+            
+            draw_card(c, x, y, task)
+            
+        c.showPage()
+        
     try:
         c.save()
         print(f"Successfully generated {filename}")
@@ -389,5 +894,6 @@ def generate_multi_cards_pdf(filename="logiBUS_multi_cards.pdf"):
         print("Please check if the file is currently open in another program (e.g. Acrobat Reader) or if you lack write permissions.")
 
 if __name__ == "__main__":
-    generate_single_card_pdf()
-    generate_multi_cards_pdf()
+    tasks_list = load_tasks()
+    generate_single_card_pdf(tasks=tasks_list)
+    generate_multi_cards_pdf(tasks=tasks_list)

@@ -1,0 +1,313 @@
+[
+  {
+    "id": 1,
+    "title": "GARAGENTOR-STEUERUNG",
+    "subtitle": "Uebung 1: Torsteuerung",
+    "description": "Ein- und Ausfahren des Tors mit Endlagenschaltern und Sicherheitslichtschranke.",
+    "graphics_type": "garage_door",
+    "inputs": {
+      "I1": "Taster Auf",
+      "I2": "Taster Zu",
+      "I3": "Endsch. Oben",
+      "I4": "Endsch. Unten",
+      "I5": "Lichtschranke"
+    },
+    "outputs": {
+      "Q1": "Motor Auf",
+      "Q2": "Motor Zu",
+      "Q3": "Warnleuchte"
+    }
+  },
+  {
+    "id": 2,
+    "title": "MISCHERTANK-STEUERUNG",
+    "subtitle": "Uebung 2: Fuellsteuerung",
+    "description": "Befuellen des Tanks bis Max-Stand, Ruehren fuer 10s, danach Entleeren.",
+    "graphics_type": "mixer_tank",
+    "inputs": {
+      "I1": "Start Taster",
+      "I2": "Stop Taster",
+      "I3": "Sensor Min",
+      "I4": "Sensor Max"
+    },
+    "outputs": {
+      "Q1": "Zulaufventil",
+      "Q2": "Mischermotor",
+      "Q3": "Ablaufventil"
+    }
+  },
+  {
+    "id": 3,
+    "title": "AMPELSTEUERUNG",
+    "subtitle": "Uebung 3: Standard-Ampel",
+    "description": "Standard-Ampelzyklus Rot -> Rot-Gelb -> Gruen -> Gelb -> Rot.",
+    "graphics_type": "traffic_light",
+    "inputs": {
+      "I1": "Anforderg. Fussg.",
+      "I2": "Schluesselsch."
+    },
+    "outputs": {
+      "Q1": "Ampel Rot",
+      "Q2": "Ampel Gelb",
+      "Q3": "Ampel Gruen",
+      "Q4": "Fussg. Rot",
+      "Q5": "Fussg. Gruen"
+    }
+  },
+  {
+    "id": 4,
+    "title": "FOERDERBAND-STEUERUNG",
+    "subtitle": "Uebung 4: Paket-Sortierung",
+    "description": "Band laeuft bei Paketerkennung an. Lichtschranke stoppt nach Durchlauf.",
+    "graphics_type": "conveyor_belt",
+    "inputs": {
+      "I1": "Freigabe Band",
+      "I2": "LS Eingang",
+      "I3": "LS Ausgang",
+      "I4": "Not-Aus"
+    },
+    "outputs": {
+      "Q1": "Bandmotor",
+      "Q2": "Strichcode-Sc."
+    }
+  },
+  {
+    "id": 5,
+    "title": "WENDESCHUETZSCHALTUNG",
+    "subtitle": "Uebung 5: Verriegelungen",
+    "description": "Motor-Wendeschuetzschaltung. Die Drehrichtungen Links (Q1) und Rechts (Q2) muessen gegenseitig elektrisch verriegelt sein, um Kurzschluesse zu verhindern. Not-Aus (I4) stoppt das System sofort.",
+    "graphics_type": "default",
+    "inputs": {
+      "I1": "Taster Aus",
+      "I2": "Taster Linkslauf",
+      "I3": "Taster Rechtslauf",
+      "I4": "Not-Aus"
+    },
+    "outputs": {
+      "Q1": "Schuetz Links",
+      "Q2": "Schuetz Rechts",
+      "Q3": "Meldeleuchte Stoerung"
+    }
+  },
+  {
+    "id": 6,
+    "title": "TREPPENHAUS-LICHT",
+    "subtitle": "Uebung 6: Zeitfunktionen",
+    "description": "Tastendruck an einem der Eingaenge schaltet das Licht (Q1) ein. Nach 30 Sekunden blinkt das Licht zur Ausschaltwarnung. Nach weiteren 10 Sekunden schaltet das Licht komplett aus.",
+    "graphics_type": "default",
+    "inputs": {
+      "I1": "Taster EG",
+      "I2": "Taster 1. OG",
+      "I3": "Taster 2. OG"
+    },
+    "outputs": {
+      "Q1": "Treppenhauslicht",
+      "Q2": "Warnleuchte"
+    }
+  },
+  {
+    "id": 7,
+    "title": "KREUZUNGS-AMPEL (GRAFCET)",
+    "subtitle": "Uebung 7: Schrittketten",
+    "description": "Schrittkette Kreuzungsampel: Rot -> Rot-Gelb -> Gruen -> Gelb -> Rot. Der Fussgaenger-Anforderungstaster (I1) fordert die Fussgaengerampel an (Rot Q4 -> Gruen Q5).",
+    "graphics_type": "traffic_light",
+    "inputs": {
+      "I1": "Anforderg. Fussg.",
+      "I2": "Schluesselsch. Auto"
+    },
+    "outputs": {
+      "Q1": "Ampel Rot",
+      "Q2": "Ampel Gelb",
+      "Q3": "Ampel Gruen",
+      "Q4": "Fussg. Rot",
+      "Q5": "Fussg. Gruen"
+    }
+  },
+  {
+    "id": 8,
+    "title": "ANALOG-FUELLSTAND",
+    "subtitle": "Uebung 8: Analogwert",
+    "description": "Ein analoger Sensor an AI1 misst den Tankinhalt. Bei unter 10 % springt die Zulaufpumpe (Q1) an. Bei ueber 90 % schaltet die Pumpe ab und eine Warn-LED (Q2) leuchtet. Potentiometer AI1 simuliert den Sensor.",
+    "graphics_type": "mixer_tank",
+    "inputs": {
+      "I1": "Freigabe Automatik",
+      "I2": "Taster Not-Aus",
+      "AI1": "Fuellstand (0-10V)",
+      "AI1/I1": "Poti AI1 aktivieren",
+      "AI2": "Max-Grenze Poti",
+      "AI2/I2": "Poti AI2 aktivieren",
+      "AI3": "Slider Sollwert",
+      "AI3/I3": "Slider aktivieren"
+    },
+    "outputs": {
+      "Q1": "Zulaufpumpe Q1",
+      "Q2": "Warn-LED Q2",
+      "Q3": "Mischermotor Q3"
+    }
+  },
+  {
+    "id": 9,
+    "title": "GRUNDLOGIK-SCHALTUNG",
+    "subtitle": "Uebung 9: Logische Gatter",
+    "description": "Verknuepfung elementarer Logikfunktionen: UND-Verknuepfung (I1, I2 -> Q1), ODER-Verknuepfung (I4, I5 -> Q2) und NICHT-Verknuepfung (I7 -> Q3).",
+    "graphics_type": "logic_gates",
+    "inputs": {
+      "I1": "Und-Eingang 1",
+      "I2": "Und-Eingang 2",
+      "I4": "Oder-Eingang 1",
+      "I5": "Oder-Eingang 2",
+      "I7": "Nicht-Eingang"
+    },
+    "outputs": {
+      "Q1": "Ausgang AND (Q1)",
+      "Q2": "Ausgang OR (Q2)",
+      "Q3": "Ausgang NOT (Q3)"
+    }
+  },
+  {
+    "id": 10,
+    "title": "FLURLICHT-STEUERUNG",
+    "subtitle": "Uebung 10: Mehrstellen-Licht",
+    "description": "Flurlichtsteuerung. Vier Taster an verschiedenen Tueren (I1, I3, I5, I7) schalten sieben Flurleuchten (Q1 bis Q7) zeitgesteuert ein.",
+    "graphics_type": "default",
+    "inputs": {
+      "I1": "Taster Tuer 1",
+      "I3": "Taster Tuer 2",
+      "I5": "Taster Tuer 3",
+      "I7": "Taster Tuer 4"
+    },
+    "outputs": {
+      "Q1": "Flurlicht Q1",
+      "Q2": "Flurlicht Q2",
+      "Q3": "Flurlicht Q3",
+      "Q4": "Flurlicht Q4",
+      "Q5": "Flurlicht Q5",
+      "Q6": "Flurlicht Q6",
+      "Q7": "Flurlicht Q7"
+    }
+  },
+  {
+    "id": 11,
+    "title": "HAUSHEIZUNG-STEUERUNG",
+    "subtitle": "Uebung 11: Temperaturregelung",
+    "description": "Heizungsregelung fuer ein Einfamilienhaus. Steuert Brenner (Q2) und Umwaelzpumpe (Q4) anhand der Raumtemperatur (AI1) und der Boilertemperatur (AI2). STB Schutz (I4) verriegelt das System.",
+    "graphics_type": "mixer_tank",
+    "inputs": {
+      "I1": "System Ein",
+      "I2": "Reset Alarm",
+      "I4": "STB Schutzschalter",
+      "AI1": "Raumtemp. Wohnz.",
+      "AI2": "Boilertemp. Wasser"
+    },
+    "outputs": {
+      "Q1": "System Betrieb",
+      "Q2": "Brenner Ein",
+      "Q3": "ALERT Stoerung",
+      "Q4": "Umwaelzpumpe"
+    }
+  },
+  {
+    "id": 12,
+    "title": "STERN-DREIECK-STEUERUNG",
+    "subtitle": "Uebung 12: Motoranlauf",
+    "description": "Anlaufsteuerung eines Drehstrommotors. Start Stern (I1) aktiviert Haupt- (Q1) und Sternschuetz (Q2). Umschaltung auf Dreieckschuetz (Q3) nach Zeit oder Taster (I3). Stop-Taster (I5).",
+    "graphics_type": "default",
+    "inputs": {
+      "I1": "Start Stern",
+      "I3": "Umschalt. Dreieck",
+      "I5": "Stop Taster"
+    },
+    "outputs": {
+      "Q1": "Hauptschuetz K1",
+      "Q2": "Sternschuetz K2",
+      "Q3": "Dreieckschuetz K3"
+    }
+  },
+  {
+    "id": 13,
+    "title": "SYSTEM-TESTKARTE",
+    "subtitle": "Uebung 13: Signaltest",
+    "description": "Testkarte zur Ueberpruefung der Hardware-Verkabelung. Standardbelegungen wie Start (I3), Stop (I4) und Reset (I5) schalten Meldeleuchten.",
+    "graphics_type": "default",
+    "inputs": {
+      "I3": "Start-Taster (A2)",
+      "I4": "Stop-Taster (A3)",
+      "I5": "Reset-Taster (A4)"
+    },
+    "outputs": {
+      "Q1": "Meldeleuchte D0",
+      "Q2": "Meldeleuchte D1"
+    }
+  },
+  {
+    "id": 14,
+    "title": "LOGISCHE VERKNUEPFUNG",
+    "subtitle": "Uebung 14: Logikkombination",
+    "description": "Grundlegende Verknuepfungen: UND-Gatter (I1, I2 -> Q1), ODER-Gatter (I4, I5 -> Q2) und NICHT-Gatter (I7 -> Q3) auf einer Karte.",
+    "graphics_type": "logic_gates",
+    "inputs": {
+      "I1": "Und-Eingang 1",
+      "I2": "Und-Eingang 2",
+      "I4": "Oder-Eingang 1",
+      "I5": "Oder-Eingang 2",
+      "I7": "Nicht-Eingang"
+    },
+    "outputs": {
+      "Q1": "Ausgang AND (Q1)",
+      "Q2": "Ausgang OR (Q2)",
+      "Q3": "Ausgang NOT (Q3)"
+    }
+  },
+  {
+    "id": 15,
+    "title": "WENDESCHUETZ-STEUERUNG",
+    "subtitle": "Uebung 15: Wendeschuetz",
+    "description": "Wendeschuetzschaltung zur Steuerung der Drehrichtung eines Motors. Elektrische gegenseitige Verriegelung fuer Rechtslauf (Q2) und Linkslauf (Q3) mit Stop-Taster (I5).",
+    "graphics_type": "default",
+    "inputs": {
+      "I2": "Taster Rechts",
+      "I3": "Taster Links",
+      "I5": "Stop-Taster"
+    },
+    "outputs": {
+      "Q2": "Schuetz Rechts K1",
+      "Q3": "Schuetz Links K2"
+    }
+  },
+  {
+    "id": 16,
+    "title": "PARKHAUS-COUNTER",
+    "subtitle": "Uebung 16: Parkhaussteuerung",
+    "description": "Steuerung einer Ampelanlage fuer ein Parkhaus. Autos einfahren (I1, I3) und ausfahren (I8) zaehlt. Bei Vollbelegung leuchtet Rot (Q2), sonst Gruen (Q1). Reset-Zaehler ueber I2.",
+    "graphics_type": "garage_door",
+    "inputs": {
+      "I1": "LS Einfahrt",
+      "I2": "Reset Zaehler",
+      "I3": "Taster +1 Auto",
+      "I8": "LS Ausfahrt"
+    },
+    "outputs": {
+      "Q1": "Ampel Gruen",
+      "Q2": "Ampel Rot"
+    }
+  },
+  {
+    "id": 17,
+    "title": "FLIESSBAND-DREHRICHTUNG",
+    "subtitle": "Uebung 17: Montagebandsteuerung",
+    "description": "Steuerung eines bidirektionalen Montagebands. Steuerung des Bandmotors fuer Linkslauf (Q1) und Rechtslauf (Q2). Endlagen-LS (I3, I7) und Not-Aus-Taster (I4).",
+    "graphics_type": "conveyor_belt",
+    "inputs": {
+      "I1": "System Ein/Aus",
+      "I3": "LS links",
+      "I4": "Not-Aus",
+      "I5": "Reset Stoerung",
+      "I7": "LS rechts"
+    },
+    "outputs": {
+      "Q1": "Band Links Q1",
+      "Q2": "Band Rechts Q2",
+      "Q3": "ALERT Alarm Q3"
+    }
+  }
+]
