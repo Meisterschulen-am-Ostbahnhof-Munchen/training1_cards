@@ -184,7 +184,7 @@ def draw_card(c, x, y):
         # Text
         c.setFillColor(text_color)
         c.setFont("Helvetica-Bold", 6.0)
-        c.drawCentredString(x + 0.17*cm + lr_badge_w/2, cy_val - 2, ctrl["label"])
+        c.drawCentredString(x + 0.17*cm + lr_badge_w/2, cy_val - 0.7*mm, ctrl["label"])
         
     # --- RIGHT MARGIN: SLIDER & SWITCH ---
     # Slider AI3 Track (2.0 to 6.0 cm)
@@ -211,7 +211,7 @@ def draw_card(c, x, y):
     
     c.setFillColor(colors.HexColor('#935116'))
     c.setFont("Helvetica-Bold", 6.0)
-    c.drawCentredString(x + 8.8*cm - 0.17*cm - lr_badge_w/2, y + 3.5*cm - 2, "AI3")
+    c.drawCentredString(x + 8.8*cm - 0.17*cm - lr_badge_w/2, y + 3.5*cm - 0.7*mm, "AI3")
     
     # Switch AI3 vs I3 at 6.5cm
     cy_val = y + 6.5*cm
@@ -235,7 +235,7 @@ def draw_card(c, x, y):
     
     c.setFillColor(colors.HexColor('#2C3E50'))
     c.setFont("Helvetica-Bold", 6.0)
-    c.drawCentredString(x + 9.0*cm - 0.17*cm - lr_badge_w/2, badge_y - 2, "AI3/I3")
+    c.drawCentredString(x + 9.0*cm - 0.17*cm - lr_badge_w/2, badge_y - 0.7*mm, "AI3/I3")
     
     # --- TASK / EXERCISE CENTRAL AREA ---
     # Task bounds: x + 1.7*cm to x + 7.3*cm, y + 0.7*cm to y + 6.3*cm
