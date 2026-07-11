@@ -76,7 +76,7 @@ def draw_dotted_grid(c, x, y, w, h, step=0.4*cm):
         for j in range(1, ny - 1):
             px = x + i * step
             py = y + j * step
-            c.circle(px, py, 0.4, fill=True, stroke=False)
+            c.circle(px, py, 0.4*mm, fill=True, stroke=False)
 
 def draw_card(c, x, y):
     """Draws a single logiBUS® Mini-Trainer card with border markings and a sample task."""
