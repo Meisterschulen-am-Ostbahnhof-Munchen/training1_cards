@@ -1,7 +1,18 @@
-from reportlab.lib.pagesizes import A4
-from reportlab.lib import colors
-from reportlab.lib.units import cm, mm
-from reportlab.pdfgen import canvas
+import json
+import sys
+
+try:
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib import colors
+    from reportlab.lib.units import cm, mm
+    from reportlab.pdfgen import canvas
+except ModuleNotFoundError:
+    print("=" * 80)
+    print("FEHLER: Die Bibliothek 'reportlab' ist nicht installiert.")
+    print("Bitte installiere ReportLab mit folgendem Befehl, um die Karten zu generieren:")
+    print("    pip install reportlab")
+    print("=" * 80)
+    sys.exit(1)
 
 def draw_crop_marks(c, x, y, w, h, length=0.6*cm, offset=0.15*cm):
     """Draws professional crop marks at the corners of a card."""
