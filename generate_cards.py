@@ -306,7 +306,7 @@ def draw_card(c, x, y):
     c.drawRightString(tx_start + t_w - 0.2*cm, meta_y + 0.25*cm, "Klasse: _________")
     c.drawRightString(tx_start + t_w - 0.2*cm, meta_y, "Bewertung: ______")
 
-def generate_single_card_pdf(filename="logibus_single_card.pdf"):
+def generate_single_card_pdf(filename="logiBUS_single_card.pdf"):
     """Generates a PDF containing exactly one card centered on an A4 sheet with crop marks."""
     c = canvas.Canvas(filename, pagesize=A4)
     
@@ -341,7 +341,7 @@ def generate_single_card_pdf(filename="logibus_single_card.pdf"):
         print(f"Error: Could not save single card PDF to '{filename}'. Reason: {e}")
         print("Please check if the file is currently open in another program (e.g. Acrobat Reader) or if you lack write permissions.")
 
-def generate_multi_cards_pdf(filename="logibus_multi_cards.pdf"):
+def generate_multi_cards_pdf(filename="logiBUS_multi_cards.pdf"):
     """Generates a PDF containing a paper-saving grid of 8 cards (2 columns x 4 rows)."""
     c = canvas.Canvas(filename, pagesize=A4)
     
