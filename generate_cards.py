@@ -15,6 +15,10 @@ except ModuleNotFoundError:
     print("=" * 80)
     sys.exit(1)
 
+# Global badge sizes
+lr_badge_w = 1.1 * cm
+lr_badge_h = 0.3 * cm
+
 def load_tasks(filepath="aufgaben.json"):
     """Loads exercises/tasks from a JSON file."""
     if not os.path.isabs(filepath):
@@ -90,6 +94,59 @@ def draw_switch_icon(c, sx, sy, position="left"):
         c.rect(sx - sw_w/2 + 0.015*cm, sy - knob_h/2, knob_w, knob_h, fill=True, stroke=False)
     else:
         c.rect(sx + sw_w/2 - knob_w - 0.015*cm, sy - knob_h/2, knob_w, knob_h, fill=True, stroke=False)
+
+def draw_contact(c, cx, cy, label, nc=False):
+    """Draws a ladder logic contact (NO or NC)."""
+    c.setStrokeColor(colors.HexColor('#2C3E50'))
+    c.setLineWidth(0.8)
+    
+    # Left and right lead lines
+    c.line(cx - 3.5*mm, cy, cx - 1.2*mm, cy)
+    c.line(cx + 1.2*mm, cy, cx + 3.5*mm, cy)
+    
+    # Parallel contact plates
+    c.line(cx - 1.2*mm, cy - 2.5*mm, cx - 1.2*mm, cy + 2.5*mm)
+    c.line(cx + 1.2*mm, cy - 2.5*mm, cx + 1.2*mm, cy + 2.5*mm)
+    
+    if nc:
+        # Diagonal line for NC
+        c.line(cx - 2.2*mm, cy - 3.0*mm, cx + 2.2*mm, cy + 3.0*mm)
+        
+    # Contact label
+    c.setFillColor(colors.HexColor('#2C3E50'))
+    c.setFont("Helvetica-Bold", 6.5)
+    c.drawCentredString(cx, cy + 3.2*mm, label)
+
+def draw_coil(c, cx, cy, label):
+    """Draws a ladder logic coil."""
+    c.setStrokeColor(colors.HexColor('#2C3E50'))
+    c.setLineWidth(0.8)
+    
+    # Lead lines
+    c.line(cx - 5.0*mm, cy, cx - 2.5*mm, cy)
+    c.line(cx + 2.5*mm, cy, cx + 5.0*mm, cy)
+    
+    # Coil brackets/parentheses representation (or circle)
+    c.setFillColor(colors.white)
+    c.circle(cx, cy, 2.5*mm, fill=True, stroke=True)
+    
+    # Coil label
+    c.setFillColor(colors.HexColor('#2C3E50'))
+    c.setFont("Helvetica-Bold", 6.5)
+    c.drawCentredString(cx, cy + 3.2*mm, label)
+
+def draw_dotted_grid(c, x, y, w, h, step=0.4*cm):
+    """Draws a subtle dotted background grid for the exercise area."""
+    c.setFillColor(colors.HexColor('#BDC3C7'))
+    
+    nx = int(w / step) + 1
+    ny = int(h / step) + 1
+    
+    for i in range(1, nx - 1):
+        for j in range(1, ny - 1):
+            px = x + i * step
+            py = y + j * step
+            c.circle(px, py, 0.4, fill=True, stroke=False)
 
 def draw_corner_boxes(c, x, y, task, card_w, card_h):
     """Draws beautiful styled corner info badges for exercise number and branding."""
@@ -625,6 +682,14 @@ def draw_card_base(c, x, y, task):
     c.drawString(x + 0.15*cm, y + 3.5*cm - 1.5, "AI2")
     c.drawString(x + 0.15*cm, y + 6.0*cm - 1.5, "Enc")
     
+    left_controls = [
+        {"y_rel": 1.0, "label": "AI1", "type": "analog"},
+        {"y_rel": 2.0, "label": "AI1/I1", "type": "switch"},
+        {"y_rel": 3.5, "label": "AI2", "type": "analog"},
+        {"y_rel": 4.5, "label": "AI2/I2", "type": "switch"},
+        {"y_rel": 6.0, "label": "Enc", "type": "encoder"}
+    ]
+    
     for ctrl in left_controls:
         cy_val = y + ctrl["y_rel"] * cm
         # Tick line
@@ -683,6 +748,8 @@ def draw_card(c, x, y, task=None):
     """Draws a single logiBUS® Mini-Trainer card with border markings and task details."""
     card_w = 9.0 * cm
     card_h = 7.0 * cm
+    cy_val = y + 6.5 * cm
+    badge_y = y + 5.9 * cm
     
     c.setFillColor(colors.HexColor('#935116'))
     c.setFont("Helvetica-Bold", 6.0)
