@@ -1,5 +1,6 @@
 import json
 import sys
+import os
 
 try:
     from reportlab.lib.pagesizes import A4
@@ -13,6 +14,23 @@ except ModuleNotFoundError:
     print("    pip install reportlab")
     print("=" * 80)
     sys.exit(1)
+
+def load_tasks(filepath="aufgaben.json"):
+    """Loads exercises/tasks from a JSON file."""
+    if not os.path.isabs(filepath):
+        # Resolve relative to the script directory
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        filepath = os.path.join(script_dir, filepath)
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"Error: Task file '{filepath}' not found.")
+        sys.exit(1)
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON from '{filepath}': {e}")
+        sys.exit(1)
+
 
 def draw_crop_marks(c, x, y, w, h, length=0.6*cm, offset=0.15*cm):
     """Draws professional crop marks at the corners of a card."""
