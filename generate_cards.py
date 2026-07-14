@@ -807,50 +807,36 @@ def draw_card(c, x, y, task=None):
     c.setFont("Helvetica-Bold", 4.2)
     c.drawRightString(tx_start + t_w - 0.15*cm, ty_start + t_h - 0.2*cm, "Powered by 4diac\u2122")
     c.setFont("Helvetica-Bold", 7.5)
-    c.drawString(tx_start + 0.15*cm, ty_start + t_h - 0.5*cm, "\u00dcBUNG 1: SELBSTHALTUNG")
-    
-    # Draw Ladder Diagram (LD) Schematic
-    # Left Rail
-    c.setStrokeColor(colors.HexColor('#2C3E50'))
-    c.setLineWidth(1.0)
-    c.line(tx_start + 0.5*cm, ty_start + 1.5*cm, tx_start + 0.5*cm, ty_start + 4.2*cm)
-    # Right Rail
-    c.line(tx_start + t_w - 0.5*cm, ty_start + 1.5*cm, tx_start + t_w - 0.5*cm, ty_start + 4.2*cm)
-    
-    # Rung 1 at y = ty_start + 3.5cm
-    ry = ty_start + 3.5 * cm
-    c.line(tx_start + 0.5*cm, ry, tx_start + 1.0*cm, ry)
-    draw_contact(c, tx_start + 1.4*cm, ry, "I1 (Start)")
-    c.line(tx_start + 1.8*cm, ry, tx_start + 2.4*cm, ry)
-    draw_contact(c, tx_start + 2.8*cm, ry, "I2 (Stop)", nc=True)
-    c.line(tx_start + 3.2*cm, ry, tx_start + 4.2*cm, ry)
-    draw_coil(c, tx_start + 4.6*cm, ry, "Q1")
-    c.line(tx_start + 5.0*cm, ry, tx_start + t_w - 0.5*cm, ry)
-    
-    # Rung 1 Parallel Branch (Self-holding contact Q1) at y = ty_start + 2.5cm
-    ry_branch = ty_start + 2.5 * cm
-    # Vertical drop lines
-    c.line(tx_start + 0.8*cm, ry, tx_start + 0.8*cm, ry_branch)
-    c.line(tx_start + 2.0*cm, ry, tx_start + 2.0*cm, ry_branch)
-    # Horizontal branch with contact
-    c.line(tx_start + 0.8*cm, ry_branch, tx_start + 1.0*cm, ry_branch)
-    draw_contact(c, tx_start + 1.4*cm, ry_branch, "Q1")
-    c.line(tx_start + 1.8*cm, ry_branch, tx_start + 2.0*cm, ry_branch)
+    task_title = f"\u00dcBUNG {task.get('id', '')}: {task.get('title', '')}" if task else "\u00dcBUNG 1: SELBSTHALTUNG"
+    c.drawString(tx_start + 0.15*cm, ty_start + t_h - 0.5*cm, task_title)
     
     # Text Description Box
+    desc_y = ty_start + 0.8 * cm
+    desc_h = 0.55 * cm
     c.setFillColor(colors.HexColor('#F8F9F9'))
     c.setStrokeColor(colors.HexColor('#BDC3C7'))
     c.setLineWidth(0.4)
-    desc_y = ty_start + 0.8 * cm
-    desc_h = 0.55 * cm
     c.roundRect(tx_start + 0.15*cm, desc_y, t_w - 0.3*cm, desc_h, 0.05*cm, fill=True, stroke=True)
     
+    desc = task.get("description", "") if task else ""
+    words = desc.split(' ')
+    desc_lines = []
+    curr = ""
+    for w in words:
+        test = curr + " " + w if curr else w
+        if c.stringWidth(test, "Helvetica", 4.8) < (t_w - 0.5*cm):
+            curr = test
+        else:
+            desc_lines.append(curr)
+            curr = w
+    if curr:
+        desc_lines.append(curr)
+        
     c.setFillColor(colors.HexColor('#34495E'))
-    c.setFont("Helvetica", 5)
-    c.drawString(tx_start + 0.25*cm, desc_y + 0.38*cm, "Beschreibung: Tastendruck auf I1 schaltet Ausgang Q1 ein.")
-    c.drawString(tx_start + 0.25*cm, desc_y + 0.24*cm, "Q1 haelt sich selbst ueber den Hilfskontakt Q1.")
-    c.drawString(tx_start + 0.25*cm, desc_y + 0.1*cm, "Oeffner I2 unterbricht den Selbsthaltekreis und schaltet Q1 aus.")
-    
+    c.setFont("Helvetica", 4.8)
+    for idx, line in enumerate(desc_lines[:3]):
+        c.drawString(tx_start + 0.25*cm, desc_y + 0.38*cm - idx*0.14*cm, line)
+        
     # Metadata Footer
     meta_y = ty_start + 0.15 * cm
     c.setFillColor(colors.HexColor('#7F8C8D'))
@@ -859,6 +845,32 @@ def draw_card(c, x, y, task=None):
     c.drawString(tx_start + 0.2*cm, meta_y, "Datum: ______________________")
     c.drawRightString(tx_start + t_w - 0.2*cm, meta_y + 0.25*cm, "Klasse: _________")
     c.drawRightString(tx_start + t_w - 0.2*cm, meta_y, "Bewertung: ______")
+    
+    # Graphics router
+    graphics_type = task.get("graphics_type", "default") if task else "default"
+    if graphics_type == "logic_gates":
+        draw_logic_gates(c, x, y)
+    else:
+        # Central graphic box outline
+        c.setStrokeColor(colors.HexColor('#2C3E50'))
+        c.setLineWidth(0.8)
+        c.rect(x + 3.0*cm, y + 2.0*cm, 3.0*cm, 3.0*cm, fill=False, stroke=True)
+        
+        # Draw dynamic vector graphics inside central box
+        if graphics_type == "garage_door":
+            draw_garage_door(c, gc_x, gc_y)
+        elif graphics_type == "mixer_tank":
+            draw_mixer_tank(c, gc_x, gc_y)
+        elif graphics_type == "traffic_light":
+            draw_traffic_light(c, gc_x, gc_y)
+        elif graphics_type == "conveyor_belt":
+            draw_conveyor_belt(c, gc_x, gc_y)
+        else:
+            draw_default_logic(c, gc_x, gc_y)
+            
+        # Draw connection lines from pins
+        if task:
+            draw_task_connections(c, x, y, task)
 
 # --- PDF GENERATOR FUNCTIONS ---
 
