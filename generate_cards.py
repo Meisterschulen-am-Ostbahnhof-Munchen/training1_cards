@@ -1,393 +1,1254 @@
-import json
+"""Automated Training Card Generator for 4diac Exercises.
+
+Generates 7cm x 9cm portrait training cards from 4diac .SUB exercise files,
+matching the logiBUS Mini-Trainer hardware overlay layout and rendering logic
+blocks in the IEC 61499 SVG style using the narrow, engineering TGL font.
+"""
+
+import os
 import sys
+import re
+import glob
+import base64
+import argparse
+from dataclasses import dataclass
+from typing import List, Dict, Tuple, Optional
 
-try:
-    from reportlab.lib.pagesizes import A4
-    from reportlab.lib import colors
-    from reportlab.lib.units import cm, mm
-    from reportlab.pdfgen import canvas
-except ModuleNotFoundError:
-    print("=" * 80)
-    print("FEHLER: Die Bibliothek 'reportlab' ist nicht installiert.")
-    print("Bitte installiere ReportLab mit folgendem Befehl, um die Karten zu generieren:")
-    print("    pip install reportlab")
-    print("=" * 80)
-    sys.exit(1)
+# Add path to IEC61499_FunctionBlock_SVG renderer
+SVG_LIB_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG"
+if SVG_LIB_PATH not in sys.path and os.path.exists(SVG_LIB_PATH):
+    sys.path.append(SVG_LIB_PATH)
 
-def draw_crop_marks(c, x, y, w, h, length=0.6*cm, offset=0.15*cm):
-    """Draws professional crop marks at the corners of a card."""
+from iec61499_network_to_svg import (
+    NetworkParser, TypeResolver, NetworkSVGRenderer, NetworkLayoutEngine,
+    load_block_size_settings, FBInstance, Connection, NetworkModel,
+    _xml_escape
+)
+
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.units import cm, mm
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+import svglib.svglib as svglib
+from reportlab.graphics import renderPDF
+
+# Card geometry: 7.0 cm x 9.0 cm (Hochformat / Portrait)
+# 1 cm = 50 SVG units (Card is 350 x 450 units)
+CARD_W_MM = 70.0
+CARD_H_MM = 90.0
+SVG_W = 350.0
+SVG_H = 450.0
+UNITS_PER_CM = 50.0
+
+DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
+DEFAULT_EXERCISES_DIR = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen"
+DEFAULT_TYPE_LIBS = [
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib"
+]
+
+TGL_17_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-17_std.ttf"
+TGL_16_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-16_std.ttf"
+
+
+def init_tgl_fonts():
+    """Registers TGL fonts in ReportLab and svglib."""
+    if os.path.exists(TGL_17_PATH):
+        try:
+            pdfmetrics.registerFont(TTFont("TGL 0-17_std", TGL_17_PATH))
+            pdfmetrics.registerFont(TTFont("TGL 0-17", TGL_17_PATH))
+            svglib.register_font("TGL 0-17_std", TGL_17_PATH)
+            svglib.register_font("TGL 0-17", TGL_17_PATH)
+        except Exception:
+            pass
+
+    if os.path.exists(TGL_16_PATH):
+        try:
+            pdfmetrics.registerFont(TTFont("TGL 0-16_std", TGL_16_PATH))
+            pdfmetrics.registerFont(TTFont("TGL 0-16", TGL_16_PATH))
+            svglib.register_font("TGL 0-16_std", TGL_16_PATH)
+            svglib.register_font("TGL 0-16", TGL_16_PATH)
+        except Exception:
+            pass
+
+
+init_tgl_fonts()
+
+
+def get_embedded_font_style() -> str:
+    """Generates an SVG <style> tag embedding the TGL font files as base64 Data URIs."""
+    parts = ["  <style>"]
+    if os.path.exists(TGL_17_PATH):
+        try:
+            with open(TGL_17_PATH, "rb") as f:
+                b64_17 = base64.b64encode(f.read()).decode("ascii")
+            parts.append(f'''    @font-face {{
+      font-family: "TGL 0-17_std";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_17}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}
+    @font-face {{
+      font-family: "TGL 0-17";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_17}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}''')
+        except Exception:
+            pass
+
+    if os.path.exists(TGL_16_PATH):
+        try:
+            with open(TGL_16_PATH, "rb") as f:
+                b64_16 = base64.b64encode(f.read()).decode("ascii")
+            parts.append(f'''    @font-face {{
+      font-family: "TGL 0-16_std";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_16}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}
+    @font-face {{
+      font-family: "TGL 0-16";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_16}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}''')
+        except Exception:
+            pass
+
+    parts.append("  </style>")
+    return "\n".join(parts)
+
+
+def identify_passthrough(instance: FBInstance) -> Optional[Tuple[str, str, str]]:
+    """Identifies pass-through instances (e.g. logiBUS_IXA_TO_logiBUS_QXA, logiBUS_IX_TO_logiBUS_QX).
+
+    Returns (input_pin, output_pin, conn_type) or None.
+    """
+    params = instance.parameters
+    in_val = params.get("Input", "")
+    out_val = params.get("Output", "")
+
+    m_in = re.search(r"Input_I(\d+)", in_val, re.IGNORECASE) or re.search(r"^I(\d+)$", in_val)
+    m_out = re.search(r"Output_Q(\d+)", out_val, re.IGNORECASE) or re.search(r"^Q(\d+)$", out_val)
+
+    if m_in and m_out:
+        in_pin = f"I{m_in.group(1)}"
+        out_pin = f"Q{m_out.group(1)}"
+        conn_type = "adapter" if ("IXA" in instance.type_name or "QXA" in instance.type_name or "AX" in instance.type_name) else "data"
+        return in_pin, out_pin, conn_type
+
+    if "TO_logiBUS" in instance.type_name or "TO_" in instance.type_name:
+        m_in = re.search(r"I(\d+)", in_val) or re.search(r"I(\d+)", instance.name)
+        m_out = re.search(r"Q(\d+)", out_val) or re.search(r"Q(\d+)", instance.name)
+        if m_in and m_out:
+            in_pin = f"I{m_in.group(1)}"
+            out_pin = f"Q{m_out.group(1)}"
+            conn_type = "adapter" if ("IXA" in instance.type_name or "AX" in instance.type_name) else "data"
+            return in_pin, out_pin, conn_type
+
+    return None
+
+
+def identify_io_pin(instance: FBInstance) -> Optional[str]:
+    """Determines whether an instance represents a hardware IO terminal (I1..I8, Q1..Q8, AI1..AI3).
+
+    Returns the pin name (e.g. 'I1', 'Q2', 'AI1') or None if it is a logic block.
+    """
+    # If instance is a pass-through block connecting both input and output, it's not a single terminal
+    if identify_passthrough(instance):
+        return None
+
+    name = instance.name
+    type_name = instance.type_name
+    params = instance.parameters
+
+    # Check Input parameter
+    input_param = params.get("Input", "")
+    m = re.match(r"^Input_I(\d+)$", input_param)
+    if m:
+        return f"I{m.group(1)}"
+
+    # Check Output parameter
+    output_param = params.get("Output", "")
+    m = re.match(r"^Output_Q(\d+)$", output_param)
+    if m:
+        return f"Q{m.group(1)}"
+
+    # Check instance name patterns
+    m = re.search(r"DigitalInput_I(\d+)", name, re.IGNORECASE)
+    if m:
+        return f"I{m.group(1)}"
+
+    m = re.search(r"DigitalOutput_Q(\d+)", name, re.IGNORECASE)
+    if m:
+        return f"Q{m.group(1)}"
+
+    m = re.search(r"AnalogInput_I?(\d+)", name, re.IGNORECASE)
+    if m:
+        return f"AI{m.group(1)}"
+
+    m = re.search(r"AnalogInput_AI(\d+)", name, re.IGNORECASE)
+    if m:
+        return f"AI{m.group(1)}"
+
+    # Check type patterns
+    if "logiBUS::io::DI::" in type_name and name.startswith("I"):
+        return name
+    if "logiBUS::io::DQ::" in type_name and name.startswith("Q"):
+        return name
+
+    return None
+
+
+@dataclass
+class TerminalPin:
+    name: str
+    direction: str  # 'input' or 'output'
+    x: float
+    y: float
+    port_side: str  # 'left' or 'right'
+
+
+def get_pin_positions() -> Dict[str, TerminalPin]:
+    """Returns the positions of all pins on the 350x450 card."""
+    pins = {}
+
+    # Digital Inputs I1 to I8 along left margin
+    # Located at 1.0, 2.0, ..., 8.0 cm from top (50, 100, ..., 400)
+    for i in range(1, 9):
+        pin_name = f"I{i}"
+        py = i * UNITS_PER_CM
+        pins[pin_name] = TerminalPin(
+            name=pin_name,
+            direction="input",
+            x=0.0,
+            y=py,
+            port_side="left"
+        )
+
+    # Analog Inputs AI1 to AI8 along left margin (same physical slots)
+    for i in range(1, 9):
+        pin_name = f"AI{i}"
+        py = i * UNITS_PER_CM
+        pins[pin_name] = TerminalPin(
+            name=pin_name,
+            direction="input",
+            x=0.0,
+            y=py,
+            port_side="left"
+        )
+
+    # Digital Outputs Q1 to Q8 along right margin
+    for i in range(1, 9):
+        pin_name = f"Q{i}"
+        py = i * UNITS_PER_CM
+        pins[pin_name] = TerminalPin(
+            name=pin_name,
+            direction="output",
+            x=SVG_W,
+            y=py,
+            port_side="right"
+        )
+
+    return pins
+
+
+def wrap_text(text: str, max_chars: int = 55) -> List[str]:
+    """Simple greedy word wrapper."""
+    words = text.split()
+    lines = []
+    curr = []
+    curr_len = 0
+    for w in words:
+        if curr_len + len(w) + (1 if curr else 0) <= max_chars:
+            curr.append(w)
+            curr_len += len(w) + (1 if len(curr) > 1 else 0)
+        else:
+            if curr:
+                lines.append(" ".join(curr))
+            curr = [w]
+            curr_len = len(w)
+    if curr:
+        lines.append(" ".join(curr))
+    return lines
+
+
+def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -> str:
+    """Parses a .SUB file and generates a complete 70mm x 90mm SVG training card."""
+    if type_libs is None:
+        type_libs = list(DEFAULT_TYPE_LIBS)
+
+    # Add the folder containing the .SUB file
+    sub_dir = os.path.dirname(os.path.abspath(subapp_file))
+    if sub_dir not in type_libs:
+        type_libs.append(sub_dir)
+
+    # 1. Parse and resolve types
+    parser = NetworkParser()
+    model = parser.parse(subapp_file)
+    resolver = TypeResolver(type_libs)
+    resolver.resolve(model)
+
+    # 2. Standard layout engine to get accurate FB sizes and internal port positions
+    settings = load_block_size_settings()
+    layout_engine = NetworkLayoutEngine(settings=settings)
+    layout_engine.layout(model)
+    renderer = NetworkSVGRenderer(show_shadow=True, show_grid=False, settings=settings)
+
+    # 3. Classify instances into IO pins, pass-throughs, and Logic blocks
+    io_map = {}  # instance_name -> pin_name (e.g. 'DigitalInput_I1' -> 'I1')
+    logic_instances = []
+    passthroughs = []
+
+    for inst in model.instances:
+        pt = identify_passthrough(inst)
+        if pt:
+            passthroughs.append((inst, pt[0], pt[1], pt[2]))
+            continue
+        pin = identify_io_pin(inst)
+        if pin:
+            io_map[inst.name] = pin
+        else:
+            logic_instances.append(inst)
+
+    pins = get_pin_positions()
+
+    # 4. Map connections and find active pins
+    card_connections = []
+    active_pins = set()
+
+    # Add synthesized connections for pass-through instances (e.g. logiBUS_IXA_TO_logiBUS_QXA)
+    for inst, in_pin, out_pin, conn_type in passthroughs:
+        active_pins.add(in_pin)
+        active_pins.add(out_pin)
+        synth_conn = Connection(
+            source=f"{in_pin}.OUT",
+            destination=f"{out_pin}.IN",
+            conn_type=conn_type
+        )
+        card_connections.append({
+            "conn": synth_conn,
+            "source_pin": in_pin,
+            "source_inst": None,
+            "source_port": "",
+            "dest_pin": out_pin,
+            "dest_inst": None,
+            "dest_port": "",
+            "color": renderer.ADAPTER_PORT_COLOR if conn_type == "adapter" else renderer.BOOL_PORT_COLOR,
+            "double_line": (conn_type == "adapter")
+        })
+
+    for conn in model.connections:
+        src_parts = conn.source.split(".")
+        dst_parts = conn.destination.split(".")
+        src_inst = src_parts[0]
+        dst_inst = dst_parts[0]
+
+        source_pin = io_map.get(src_inst)
+        dest_pin = io_map.get(dst_inst)
+
+        if source_pin:
+            active_pins.add(source_pin)
+        if dest_pin:
+            active_pins.add(dest_pin)
+
+        card_connections.append({
+            "conn": conn,
+            "source_pin": source_pin,
+            "source_inst": None if source_pin else src_inst,
+            "source_port": src_parts[1] if len(src_parts) > 1 else "",
+            "dest_pin": dest_pin,
+            "dest_inst": None if dest_pin else dst_inst,
+            "dest_port": dst_parts[1] if len(dst_parts) > 1 else ""
+        })
+
+    # 5. Position logic blocks inside the card area
+    # Badges sit at x=0..16 on left, x=334..350 on right.
+    # Safe horizontal range for logic blocks: [35.0, 315.0]
+    # Safe vertical range for logic blocks: [30.0, 395.0]
+    if len(logic_instances) == 1:
+        # Single block (like AX_AND_2 in Uebung_002a_AX)
+        inst = logic_instances[0]
+        # Centered horizontally
+        inst.render_x = (SVG_W - inst.block_width) / 2.0
+
+        # Vertically: find connected input pins
+        connected_input_y = []
+        for cinfo in card_connections:
+            if cinfo["source_pin"] and cinfo["source_pin"] in pins:
+                connected_input_y.append(pins[cinfo["source_pin"]].y)
+
+        if connected_input_y:
+            target_mid_y = sum(connected_input_y) / len(connected_input_y)
+        else:
+            target_mid_y = 1.5 * UNITS_PER_CM
+
+        # Center the block's input ports around target_mid_y
+        inst.render_y = target_mid_y - inst.block_height / 2.0
+        # Ensure block stays within safe margins
+        inst.render_y = max(30.0, min(inst.render_y, 395.0 - inst.block_height))
+
+    elif len(logic_instances) > 1:
+        # Multiple blocks: scale their original 4diac coordinates into the card's safe interior area
+        min_4d_x = min(inst.x for inst in logic_instances)
+        max_4d_x = max(inst.x for inst in logic_instances)
+        min_4d_y = min(inst.y for inst in logic_instances)
+        max_4d_y = max(inst.y for inst in logic_instances)
+
+        raw_span_x = max_4d_x - min_4d_x
+        span_4d_y = max(0.0, max_4d_y - min_4d_y)
+
+        x_safe_min = 40.0
+        x_safe_max = 310.0
+        y_safe_min = 35.0
+        y_safe_max = 395.0
+
+        max_block_h = max(inst.block_height for inst in logic_instances)
+        avail_h = max(0.0, (y_safe_max - y_safe_min) - max_block_h)
+
+        # Calculate minimum vertical scale to prevent any blocks in the same column from overlapping
+        min_scale_needed = 0.05
+        sorted_by_y = sorted(logic_instances, key=lambda inst: inst.y)
+        for i in range(len(sorted_by_y) - 1):
+            inst_a = sorted_by_y[i]
+            inst_b = sorted_by_y[i + 1]
+            dy_4d = inst_b.y - inst_a.y
+            if dy_4d > 10.0:
+                req_scale = (inst_a.block_height + 16.0) / dy_4d
+                if req_scale > min_scale_needed:
+                    min_scale_needed = req_scale
+
+        max_scale_y = avail_h / span_4d_y if span_4d_y > 0 else 0.05
+        # Ensure scale is large enough to prevent collisions while fitting on card
+        scale_y = min(max_scale_y, max(0.05, min_scale_needed))
+        group_h = span_4d_y * scale_y + max_block_h
+
+        connected_ys = [pins[p].y for p in active_pins if p in pins]
+        if connected_ys:
+            target_mid_y = sum(connected_ys) / len(connected_ys)
+        else:
+            target_mid_y = (y_safe_min + y_safe_max) / 2.0
+
+        group_top_y = target_mid_y - group_h / 2.0
+        group_top_y = max(y_safe_min, min(group_top_y, y_safe_max - group_h))
+
+        # Horizontal placement: center blocks if in a single column
+        if raw_span_x < 50.0:
+            for inst in logic_instances:
+                inst.render_x = (SVG_W - inst.block_width) / 2.0
+                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
+        else:
+            for inst in logic_instances:
+                norm_x = (inst.x - min_4d_x) / raw_span_x
+                inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
+                inst.render_x = x_safe_min + norm_x * inst_avail_w
+                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
+
+    # Recompute port positions on the placed logic instances
+    instance_map = {}
+    for inst in logic_instances:
+        instance_map[inst.name] = inst
+        inst.port_positions = {}
+        # Event inputs
+        y = inst.render_y + 2 + renderer.PORT_ROW_HEIGHT / 2
+        for port in inst.event_inputs:
+            inst.port_positions[port.name] = (inst.render_x, y)
+            y += renderer.PORT_ROW_HEIGHT
+        # Event outputs
+        y = inst.render_y + 2 + renderer.PORT_ROW_HEIGHT / 2
+        for port in inst.event_outputs:
+            inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
+            y += renderer.PORT_ROW_HEIGHT
+        # Data inputs
+        y = inst.render_y + inst.name_section_bottom + 2 + renderer.PORT_ROW_HEIGHT / 2
+        for port in inst.data_inputs:
+            inst.port_positions[port.name] = (inst.render_x, y)
+            y += renderer.PORT_ROW_HEIGHT
+        # Data outputs
+        y = inst.render_y + inst.name_section_bottom + 2 + renderer.PORT_ROW_HEIGHT / 2
+        for port in inst.data_outputs:
+            inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
+            y += renderer.PORT_ROW_HEIGHT
+        # Sockets (adapter inputs)
+        y = inst.render_y + inst.adapter_section_top + 2 + renderer.PORT_ROW_HEIGHT / 2
+        for port in inst.sockets:
+            inst.port_positions[port.name] = (inst.render_x, y)
+            y += renderer.PORT_ROW_HEIGHT
+        # Plugs (adapter outputs)
+        y = inst.render_y + inst.adapter_section_top + 2 + renderer.PORT_ROW_HEIGHT / 2
+        for port in inst.plugs:
+            inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
+            y += renderer.PORT_ROW_HEIGHT
+
+    # 6. Build SVG content
+    svg = []
+    svg.append('<svg xmlns="http://www.w3.org/2000/svg"')
+    svg.append(f'     viewBox="0 0 {SVG_W} {SVG_H}"')
+    svg.append(f'     width="{CARD_W_MM}mm" height="{CARD_H_MM}mm">')
+
+    # Embedded TGL Font Style
+    svg.append(get_embedded_font_style())
+
+    # Drop shadow filter
+    svg.append('''  <defs>
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feOffset in="blur" dx="1" dy="1" result="offsetBlur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.35" result="shadowColor"/>
+      <feComposite in="shadowColor" in2="offsetBlur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>''')
+
+    # Base card background (White)
+    svg.append(f'  <rect x="0" y="0" width="{SVG_W}" height="{SVG_H}" fill="white"/>')
+
+    # Outer border (cut boundary)
+    svg.append(f'  <rect x="0.5" y="0.5" width="{SVG_W-1}" height="{SVG_H-1}" fill="none" stroke="#BDC3C7" stroke-width="1"/>')
+
+    # Subtle 1cm grid
+    for i in range(1, 7):
+        gx = i * UNITS_PER_CM
+        svg.append(f'  <line x1="{gx}" y1="0" x2="{gx}" y2="{SVG_H}" stroke="#F5F7F8" stroke-width="0.8"/>')
+    for j in range(1, 9):
+        gy = j * UNITS_PER_CM
+        svg.append(f'  <line x1="0" y1="{gy}" x2="{SVG_W}" y2="{gy}" stroke="#F5F7F8" stroke-width="0.8"/>')
+
+    # Connections group (rendered behind blocks)
+    svg.append('  <g id="connections">')
+    for cinfo in card_connections:
+        conn = cinfo["conn"]
+        src_pt = None
+        dst_pt = None
+
+        if cinfo["source_pin"] and cinfo["source_pin"] in pins:
+            pin = pins[cinfo["source_pin"]]
+            # Connect right from the apex of the semicircle badge on the left
+            src_pt = (15.0, pin.y)
+        elif cinfo["source_inst"] in instance_map:
+            inst = instance_map[cinfo["source_inst"]]
+            src_pt = inst.port_positions.get(cinfo["source_port"])
+
+        if cinfo["dest_pin"] and cinfo["dest_pin"] in pins:
+            pin = pins[cinfo["dest_pin"]]
+            # Connect directly to the apex of the semicircle badge on the right
+            dst_pt = (SVG_W - 15.0, pin.y)
+        elif cinfo["dest_inst"] in instance_map:
+            inst = instance_map[cinfo["dest_inst"]]
+            dst_pt = inst.port_positions.get(cinfo["dest_port"])
+
+        if src_pt and dst_pt:
+            sx, sy = src_pt
+            dx, dy = dst_pt
+
+            if abs(sy - dy) < 2.0 and sx <= dx:
+                waypoints = [src_pt, dst_pt]
+            elif sx > dx:
+                # Feedback or vertical cascade from right-side output to left-side input
+                # Route out of the right port, down/up through the inter-block gap, and into the left port
+                src_inst_obj = instance_map.get(cinfo.get("source_inst"))
+                dst_inst_obj = instance_map.get(cinfo.get("dest_inst"))
+                if src_inst_obj and dst_inst_obj:
+                    if src_inst_obj == dst_inst_obj:
+                        gap_y = src_inst_obj.render_y + src_inst_obj.block_height + 12.0
+                    elif dy > sy:
+                        gap_y = (src_inst_obj.render_y + src_inst_obj.block_height + dst_inst_obj.render_y) / 2.0
+                    else:
+                        gap_y = (dst_inst_obj.render_y + dst_inst_obj.block_height + src_inst_obj.render_y) / 2.0
+                else:
+                    gap_y = (sy + dy) / 2.0
+
+                out_x = sx + 14.0
+                in_x = dx - 14.0
+                waypoints = [
+                    (sx, sy),
+                    (out_x, sy),
+                    (out_x, gap_y),
+                    (in_x, gap_y),
+                    (in_x, dy),
+                    (dx, dy)
+                ]
+            else:
+                if cinfo.get("source_pin") and cinfo.get("dest_pin"):
+                    mid_x = (sx + dx) / 2.0
+                elif cinfo.get("source_pin"):
+                    pin_str = cinfo["source_pin"]
+                    m_p = re.search(r'\d+', pin_str)
+                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
+                    mid_x = min(dx - 12.0, sx + 18.0 + (pin_idx % 4) * 6.0)
+                elif cinfo.get("dest_pin"):
+                    pin_str = cinfo["dest_pin"]
+                    m_p = re.search(r'\d+', pin_str)
+                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
+                    mid_x = max(sx + 12.0, dx - 18.0 - (pin_idx % 4) * 6.0)
+                else:
+                    mid_x = (sx + dx) / 2.0
+
+                waypoints = [
+                    (sx, sy),
+                    (mid_x, sy),
+                    (mid_x, dy),
+                    (dx, dy)
+                ]
+
+            if conn and conn.conn_type == "adapter":
+                color = renderer.ADAPTER_PORT_COLOR
+                is_double = True
+            elif conn and hasattr(renderer, "_get_connection_color"):
+                try:
+                    color = renderer._get_connection_color(conn, model, instance_map)
+                    is_double = renderer._is_double_line_connection(conn, model, instance_map)
+                except Exception:
+                    color = cinfo.get("color", renderer.BOOL_PORT_COLOR)
+                    is_double = cinfo.get("double_line", False)
+            else:
+                color = cinfo.get("color", renderer.BOOL_PORT_COLOR)
+                is_double = cinfo.get("double_line", False)
+
+            svg.append(renderer._render_connection(waypoints, color, double_line=is_double))
+
+    svg.append('  </g>')
+
+    # Render logic FB instances
+    svg.append('  <g id="instances">')
+    for inst in logic_instances:
+        svg.append(renderer._render_instance(inst))
+    svg.append('  </g>')
+
+    # Left margin pins: I1 to I8 and AI1 to AI8 (only if used!)
+    for i in range(1, 9):
+        for pin_name in (f"I{i}", f"AI{i}"):
+            if pin_name not in active_pins:
+                continue
+            py = i * UNITS_PER_CM
+            # Semicircle / half-pill directly at x = 0 (radius = 13.5, height = 27, depth = 15)
+            svg.append(f'  <path d="M 0,{py-13.5:.1f} L 2,{py-13.5:.1f} A 13.5,13.5 0 0,1 2,{py+13.5:.1f} L 0,{py+13.5:.1f} Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
+            # Center marker (+)
+            svg.append(f'  <line x1="12" y1="{py}" x2="15" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
+            # Label in TGL font
+            font_size = "8" if len(pin_name) > 2 else "9.5"
+            svg.append(f'  <text x="7" y="{py+3.5:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="{font_size}" font-weight="bold" fill="#2C3E50" text-anchor="middle">{pin_name}</text>')
+
+    # Right margin pins: Q1 to Q8 (only if used!)
+    for i in range(1, 9):
+        pin_name = f"Q{i}"
+        if pin_name not in active_pins:
+            continue
+        py = i * UNITS_PER_CM
+        # Semicircle / half-pill directly at x = SVG_W (350)
+        svg.append(f'  <path d="M {SVG_W},{py-13.5:.1f} L {SVG_W-2},{py-13.5:.1f} A 13.5,13.5 0 0,0 {SVG_W-2},{py+13.5:.1f} L {SVG_W},{py+13.5:.1f} Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
+        # Center marker (+)
+        svg.append(f'  <line x1="{SVG_W-15}" y1="{py}" x2="{SVG_W-12}" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
+        # Label in TGL font
+        svg.append(f'  <text x="{SVG_W-7}" y="{py+3.5:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{pin_name}</text>')
+
+    # Bottom Center: Exercise Name, Line Break, Full-width Description
+    ex_name = model.name or os.path.splitext(os.path.basename(subapp_file))[0]
+    comment = model.comment or ""
+
+    # Exercise Name (bold, centered, font-size 10.5 pt)
+    svg.append(f'  <text x="175" y="415" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ex_name)}</text>')
+
+    # Description (wrapped across the full 7cm width, centered, font-size 7.5 pt)
+    if comment:
+        desc_lines = wrap_text(comment, max_chars=52)
+        desc_y = 428.0
+        for dline in desc_lines[:3]:
+            svg.append(f'  <text x="175" y="{desc_y:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">{_xml_escape(dline)}</text>')
+            desc_y += 10.0
+
+    svg.append('</svg>')
+    return "\n".join(svg)
+
+
+def draw_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: float, length: float = 6 * mm, offset: float = 2 * mm):
+    """Draws cutting crop marks around the card boundary."""
     c.setStrokeColor(colors.HexColor('#7F8C8D'))
-    c.setLineWidth(0.3)
-    
+    c.setLineWidth(0.4)
+
     # Bottom-Left
     c.line(x - offset - length, y, x - offset, y)
     c.line(x, y - offset - length, x, y - offset)
-    
+
     # Bottom-Right
     c.line(x + w + offset, y, x + w + offset + length, y)
     c.line(x + w, y - offset - length, x + w, y - offset)
-    
+
     # Top-Left
     c.line(x - offset - length, y + h, x - offset, y + h)
     c.line(x, y + h + offset, x, y + h + offset + length)
-    
+
     # Top-Right
     c.line(x + w + offset, y + h, x + w + offset + length, y + h)
     c.line(x + w, y + h + offset, x + w, y + h + offset + length)
 
-def draw_contact(c, cx, cy, label, nc=False):
-    """Draws a ladder logic contact (NO or NC)."""
-    c.setStrokeColor(colors.HexColor('#2C3E50'))
-    c.setLineWidth(0.8)
-    
-    # Left and right lead lines
-    c.line(cx - 3.5*mm, cy, cx - 1.2*mm, cy)
-    c.line(cx + 1.2*mm, cy, cx + 3.5*mm, cy)
-    
-    # Parallel contact plates
-    c.line(cx - 1.2*mm, cy - 2.5*mm, cx - 1.2*mm, cy + 2.5*mm)
-    c.line(cx + 1.2*mm, cy - 2.5*mm, cx + 1.2*mm, cy + 2.5*mm)
-    
-    if nc:
-        # Diagonal line for NC
-        c.line(cx - 2.2*mm, cy - 3.0*mm, cx + 2.2*mm, cy + 3.0*mm)
-        
-    # Contact label
-    c.setFillColor(colors.HexColor('#2C3E50'))
-    c.setFont("Helvetica-Bold", 6.5)
-    c.drawCentredString(cx, cy + 3.2*mm, label)
 
-def draw_coil(c, cx, cy, label):
-    """Draws a ladder logic coil."""
-    c.setStrokeColor(colors.HexColor('#2C3E50'))
-    c.setLineWidth(0.8)
-    
-    # Lead lines
-    c.line(cx - 5.0*mm, cy, cx - 2.5*mm, cy)
-    c.line(cx + 2.5*mm, cy, cx + 5.0*mm, cy)
-    
-    # Coil brackets/parentheses representation (or circle)
-    c.setFillColor(colors.white)
-    c.circle(cx, cy, 2.5*mm, fill=True, stroke=True)
-    
-    # Coil label
-    c.setFillColor(colors.HexColor('#2C3E50'))
-    c.setFont("Helvetica-Bold", 6.5)
-    c.drawCentredString(cx, cy + 3.2*mm, label)
+def render_card_on_pdf(c: canvas.Canvas, svg_content: str, x: float, y: float, w: float = 7.0 * cm, h: float = 9.0 * cm):
+    """Draws an SVG training card at the specified position on the ReportLab canvas."""
+    import io
+    bio = io.BytesIO(svg_content.encode("utf-8"))
+    drawing = svglib.svg2rlg(bio)
+    if drawing:
+        scale_x = w / drawing.width
+        scale_y = h / drawing.height
+        drawing.width = w
+        drawing.height = h
+        drawing.scale(scale_x, scale_y)
+        renderPDF.draw(drawing, c, x, y)
 
-def draw_dotted_grid(c, x, y, w, h, step=0.4*cm):
-    """Draws a subtle dotted background grid for the exercise area."""
-    c.setFillColor(colors.HexColor('#BDC3C7'))
-    
-    nx = int(w / step) + 1
-    ny = int(h / step) + 1
-    
-    for i in range(1, nx - 1):
-        for j in range(1, ny - 1):
-            px = x + i * step
-            py = y + j * step
-            c.circle(px, py, 0.4*mm, fill=True, stroke=False)
 
-def draw_card(c, x, y):
-    """Draws a single logiBUS® Mini-Trainer card with border markings and a sample task."""
-    card_w = 9.0 * cm
-    card_h = 7.0 * cm
-    
-    # Draw base card boundary (cut line)
-    c.setStrokeColor(colors.HexColor('#BDC3C7'))
-    c.setLineWidth(0.4)
-    c.rect(x, y, card_w, card_h, stroke=True, fill=False)
-    
-    # Badge sizes
-    tb_badge_w = 0.55 * cm
-    tb_badge_h = 0.3 * cm
-    
-    lr_badge_w = 1.1 * cm
-    lr_badge_h = 0.3 * cm
-    
-    # --- BOTTOM MARGIN: DIGITAL INPUTS (I1 to I8) ---
-    for i in range(1, 9):
-        px = x + i * cm
-        # Tick line pointing inward
-        c.setStrokeColor(colors.HexColor('#27AE60'))
-        c.setLineWidth(0.8)
-        c.line(px, y, px, y + 0.15*cm)
-        
-        # Badge
-        c.setFillColor(colors.HexColor('#E8F8F5'))
-        c.setStrokeColor(colors.HexColor('#2ECC71'))
-        c.setLineWidth(0.5)
-        c.roundRect(px - tb_badge_w/2, y + 0.15*cm, tb_badge_w, tb_badge_h, 0.06*cm, fill=True, stroke=True)
-        
-        # Label
-        c.setFillColor(colors.HexColor('#1E8449'))
-        c.setFont("Helvetica-Bold", 6.5)
-        c.drawCentredString(px, y + 0.23*cm, f"I{i}")
-        
-    # --- TOP MARGIN: DIGITAL OUTPUTS (Q1 to Q8) ---
-    for i in range(1, 9):
-        px = x + i * cm
-        py = y + card_h
-        # Tick line pointing inward
-        c.setStrokeColor(colors.HexColor('#2980B9'))
-        c.setLineWidth(0.8)
-        c.line(px, py, px, py - 0.15*cm)
-        
-        # Badge
-        c.setFillColor(colors.HexColor('#EBF5FB'))
-        c.setStrokeColor(colors.HexColor('#3498DB'))
-        c.setLineWidth(0.5)
-        c.roundRect(px - tb_badge_w/2, py - 0.45*cm, tb_badge_w, tb_badge_h, 0.06*cm, fill=True, stroke=True)
-        
-        # Label
-        c.setFillColor(colors.HexColor('#1B4F72'))
-        c.setFont("Helvetica-Bold", 6.5)
-        c.drawCentredString(px, py - 0.37*cm, f"Q{i}")
-        
-    # --- LEFT MARGIN: ANALOG INPUTS & SWITCHES ---
-    left_controls = [
-        {"y_rel": 1.0, "label": "AI1", "type": "analog"},
-        {"y_rel": 2.0, "label": "AI1/I1", "type": "switch"},
-        {"y_rel": 3.5, "label": "AI2", "type": "analog"},
-        {"y_rel": 4.5, "label": "AI2/I2", "type": "switch"},
-        {"y_rel": 6.0, "label": "Enc", "type": "encoder"}
-    ]
-    
-    for ctrl in left_controls:
-        cy_val = y + ctrl["y_rel"] * cm
-        # Tick line
-        c.setLineWidth(0.8)
-        if ctrl["type"] == "analog":
-            c.setStrokeColor(colors.HexColor('#E67E22'))
-            fill_color = colors.HexColor('#FDF2E9')
-            border_color = colors.HexColor('#F39C12')
-            text_color = colors.HexColor('#935116')
-        elif ctrl["type"] == "switch":
-            c.setStrokeColor(colors.HexColor('#7F8C8D'))
-            fill_color = colors.HexColor('#F2F4F4')
-            border_color = colors.HexColor('#95A5A6')
-            text_color = colors.HexColor('#2C3E50')
-        else: # encoder
-            c.setStrokeColor(colors.HexColor('#8E44AD'))
-            fill_color = colors.HexColor('#F5EEF8')
-            border_color = colors.HexColor('#9B59B6')
-            text_color = colors.HexColor('#5B2C6F')
-            
-        c.line(x, cy_val, x + 0.17*cm, cy_val)
-        
-        # Badge
-        c.setFillColor(fill_color)
-        c.setStrokeColor(border_color)
-        c.setLineWidth(0.5)
-        c.roundRect(x + 0.17*cm, cy_val - lr_badge_h/2, lr_badge_w, lr_badge_h, 0.06*cm, fill=True, stroke=True)
-        
-        # Text
-        c.setFillColor(text_color)
-        c.setFont("Helvetica-Bold", 6.0)
-        c.drawCentredString(x + 0.17*cm + lr_badge_w/2, cy_val - 0.7*mm, ctrl["label"])
-        
-    # --- RIGHT MARGIN: SLIDER & SWITCH ---
-    # Slider AI3 Track (2.0 to 6.0 cm)
-    c.setStrokeColor(colors.HexColor('#BDC3C7'))
-    c.setLineWidth(2.2)
-    c.line(x + 8.8*cm, y + 2.0*cm, x + 8.8*cm, y + 6.0*cm)
-    
-    # Slider Knob representation at 3.5cm
-    c.setFillColor(colors.HexColor('#7F8C8D'))
-    c.setStrokeColor(colors.HexColor('#34495E'))
-    c.setLineWidth(0.5)
-    c.rect(x + 8.71*cm, y + 3.35*cm, 0.18*cm, 0.3*cm, fill=True, stroke=True)
-    
-    # Tick mark for Slider center (AI3) at 3.5cm
-    c.setStrokeColor(colors.HexColor('#E67E22'))
-    c.setLineWidth(0.8)
-    c.line(x + 9.0*cm, y + 3.5*cm, x + 8.65*cm, y + 3.5*cm)
-    
-    # Slider Badge
-    c.setFillColor(colors.HexColor('#FDF2E9'))
-    c.setStrokeColor(colors.HexColor('#F39C12'))
-    c.setLineWidth(0.5)
-    c.roundRect(x + 8.8*cm - 0.17*cm - lr_badge_w, y + 3.5*cm - lr_badge_h/2, lr_badge_w, lr_badge_h, 0.06*cm, fill=True, stroke=True)
-    
-    c.setFillColor(colors.HexColor('#935116'))
-    c.setFont("Helvetica-Bold", 6.0)
-    c.drawCentredString(x + 8.8*cm - 0.17*cm - lr_badge_w/2, y + 3.5*cm - 0.7*mm, "AI3")
-    
-    # Switch AI3 vs I3 at 6.5cm
-    cy_val = y + 6.5*cm
-    
-    # To prevent overlap with Q8, we shift the badge down to y + 5.9*cm and draw a neat routing line
-    badge_y = y + 5.9*cm
-    
-    # Tick mark at 6.5cm
-    c.setStrokeColor(colors.HexColor('#7F8C8D'))
-    c.setLineWidth(0.8)
-    c.line(x + 9.0*cm - 0.17*cm, cy_val, x + 9.0*cm, cy_val)
-    
-    # Vertical indicator line from badge to tick
-    c.line(x + 9.0*cm - 0.17*cm, badge_y, x + 9.0*cm - 0.17*cm, cy_val)
-    
-    # Switch Badge
-    c.setFillColor(colors.HexColor('#F2F4F4'))
-    c.setStrokeColor(colors.HexColor('#95A5A6'))
-    c.setLineWidth(0.5)
-    c.roundRect(x + 9.0*cm - 0.17*cm - lr_badge_w, badge_y - lr_badge_h/2, lr_badge_w, lr_badge_h, 0.06*cm, fill=True, stroke=True)
-    
-    c.setFillColor(colors.HexColor('#2C3E50'))
-    c.setFont("Helvetica-Bold", 6.0)
-    c.drawCentredString(x + 9.0*cm - 0.17*cm - lr_badge_w/2, badge_y - 0.7*mm, "AI3/I3")
-    
-    # --- TASK / EXERCISE CENTRAL AREA ---
-    # Task bounds: x + 1.7*cm to x + 7.3*cm, y + 0.7*cm to y + 6.3*cm
-    tx_start = x + 1.7 * cm
-    ty_start = y + 0.7 * cm
-    t_w = 5.6 * cm
-    t_h = 5.6 * cm
-    
-    # Draw inner task border
-    c.setStrokeColor(colors.HexColor('#BDC3C7'))
-    c.setLineWidth(0.5)
-    c.rect(tx_start, ty_start, t_w, t_h, stroke=True, fill=False)
-    
-    # Dotted grid background
-    draw_dotted_grid(c, tx_start, ty_start, t_w, t_h, step=0.4*cm)
-    
-    # Header bar
-    hb_h = 0.65 * cm
-    c.setFillColor(colors.HexColor('#2C3E50'))
-    c.rect(tx_start, ty_start + t_h - hb_h, t_w, hb_h, fill=True, stroke=False)
-    
-    # Header text
-    c.setFillColor(colors.white)
-    c.setFont("Helvetica-Bold", 5.5)
-    c.drawString(tx_start + 0.15*cm, ty_start + t_h - 0.2*cm, "logiBUS\u00ae Mini-Trainer")
-    c.setFont("Helvetica-Bold", 4.2)
-    c.drawRightString(tx_start + t_w - 0.15*cm, ty_start + t_h - 0.2*cm, "Powered by 4diac\u2122")
-    c.setFont("Helvetica-Bold", 7.5)
-    c.drawString(tx_start + 0.15*cm, ty_start + t_h - 0.5*cm, "\u00dcBUNG 1: SELBSTHALTUNG")
-    
-    # Draw Ladder Diagram (LD) Schematic
-    # Left Rail
-    c.setStrokeColor(colors.HexColor('#2C3E50'))
-    c.setLineWidth(1.0)
-    c.line(tx_start + 0.5*cm, ty_start + 1.5*cm, tx_start + 0.5*cm, ty_start + 4.2*cm)
-    # Right Rail
-    c.line(tx_start + t_w - 0.5*cm, ty_start + 1.5*cm, tx_start + t_w - 0.5*cm, ty_start + 4.2*cm)
-    
-    # Rung 1 at y = ty_start + 3.5cm
-    ry = ty_start + 3.5 * cm
-    c.line(tx_start + 0.5*cm, ry, tx_start + 1.0*cm, ry)
-    draw_contact(c, tx_start + 1.4*cm, ry, "I1 (Start)")
-    c.line(tx_start + 1.8*cm, ry, tx_start + 2.4*cm, ry)
-    draw_contact(c, tx_start + 2.8*cm, ry, "I2 (Stop)", nc=True)
-    c.line(tx_start + 3.2*cm, ry, tx_start + 4.2*cm, ry)
-    draw_coil(c, tx_start + 4.6*cm, ry, "Q1")
-    c.line(tx_start + 5.0*cm, ry, tx_start + t_w - 0.5*cm, ry)
-    
-    # Rung 1 Parallel Branch (Self-holding contact Q1) at y = ty_start + 2.5cm
-    ry_branch = ty_start + 2.5 * cm
-    # Vertical drop lines
-    c.line(tx_start + 0.8*cm, ry, tx_start + 0.8*cm, ry_branch)
-    c.line(tx_start + 2.0*cm, ry, tx_start + 2.0*cm, ry_branch)
-    # Horizontal branch with contact
-    c.line(tx_start + 0.8*cm, ry_branch, tx_start + 1.0*cm, ry_branch)
-    draw_contact(c, tx_start + 1.4*cm, ry_branch, "Q1")
-    c.line(tx_start + 1.8*cm, ry_branch, tx_start + 2.0*cm, ry_branch)
-    
-    # Text Description Box
-    c.setFillColor(colors.HexColor('#F8F9F9'))
-    c.setStrokeColor(colors.HexColor('#BDC3C7'))
-    c.setLineWidth(0.4)
-    desc_y = ty_start + 0.8 * cm
-    desc_h = 0.55 * cm
-    c.roundRect(tx_start + 0.15*cm, desc_y, t_w - 0.3*cm, desc_h, 0.05*cm, fill=True, stroke=True)
-    
-    c.setFillColor(colors.HexColor('#34495E'))
-    c.setFont("Helvetica", 5)
-    c.drawString(tx_start + 0.25*cm, desc_y + 0.38*cm, "Beschreibung: Tastendruck auf I1 schaltet Ausgang Q1 ein.")
-    c.drawString(tx_start + 0.25*cm, desc_y + 0.24*cm, "Q1 haelt sich selbst ueber den Hilfskontakt Q1.")
-    c.drawString(tx_start + 0.25*cm, desc_y + 0.1*cm, "Oeffner I2 unterbricht den Selbsthaltekreis und schaltet Q1 aus.")
-    
-    # Metadata Footer
-    meta_y = ty_start + 0.15 * cm
-    c.setFillColor(colors.HexColor('#7F8C8D'))
-    c.setFont("Helvetica-Oblique", 4.5)
-    c.drawString(tx_start + 0.2*cm, meta_y + 0.25*cm, "Name: _______________________")
-    c.drawString(tx_start + 0.2*cm, meta_y, "Datum: ______________________")
-    c.drawRightString(tx_start + t_w - 0.2*cm, meta_y + 0.25*cm, "Klasse: _________")
-    c.drawRightString(tx_start + t_w - 0.2*cm, meta_y, "Bewertung: ______")
-
-def generate_single_card_pdf(filename="logiBUS_single_card.pdf"):
-    """Generates a PDF containing exactly one card centered on an A4 sheet with crop marks."""
-    c = canvas.Canvas(filename, pagesize=A4)
-    
+def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf"):
+    """Generates a single-card PDF page centered on A4 with crop marks."""
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    svg_content = generate_card_svg(subapp_file)
+    c = canvas.Canvas(output_pdf, pagesize=A4)
     page_w, page_h = A4
-    card_w = 9.0 * cm
-    card_h = 7.0 * cm
-    
-    # Compute center coordinates
+
+    card_w = 7.0 * cm
+    card_h = 9.0 * cm
+
     x = (page_w - card_w) / 2.0
     y = (page_h - card_h) / 2.0
-    
-    # Draw Page Title and Help Info (outside crop marks)
+
+    # Header title outside card
     c.setFillColor(colors.HexColor('#2C3E50'))
     c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(page_w/2, page_h - 2*cm, "logiBUS\u00ae Mini-Trainer - Einzelschablone")
+    c.drawCentredString(page_w / 2.0, page_h - 2.5 * cm, "logiBUS\u00ae Mini-Trainer - Trainingskarte")
     c.setFont("Helvetica", 9)
     c.setFillColor(colors.HexColor('#7F8C8D'))
-    c.drawCentredString(page_w/2, page_h - 2.5*cm, "Druckeinstellungen: 100% Gr\u00f6\u00dfe (Tats\u00e4chliche Gr\u00f6\u00dfe), Hochformat")
-    c.drawCentredString(page_w/2, page_h - 2.9*cm, f"Kartengr\u00f6\u00dfe: {card_w/cm:.1f} cm x {card_h/cm:.1f} cm. Bitte an den Schnittmarken ausschneiden.")
-    
-    # Draw card
-    draw_card(c, x, y)
-    
-    # Draw crop marks
-    draw_crop_marks(c, x, y, card_w, card_h)
-    
-    c.showPage()
-    try:
-        c.save()
-        print(f"Successfully generated {filename}")
-    except OSError as e:
-        print(f"Error: Could not save single card PDF to '{filename}'. Reason: {e}")
-        print("Please check if the file is currently open in another program (e.g. Acrobat Reader) or if you lack write permissions.")
+    c.drawCentredString(page_w / 2.0, page_h - 3.0 * cm, "Kartengr\u00f6\u00dfe: 7,0 cm x 9,0 cm (Hochformat). Bitte an den Schnittmarken ausschneiden.")
 
-def generate_multi_cards_pdf(filename="logiBUS_multi_cards.pdf"):
-    """Generates a PDF containing a paper-saving grid of 8 cards (2 columns x 4 rows)."""
-    c = canvas.Canvas(filename, pagesize=A4)
-    
+    # Render card
+    render_card_on_pdf(c, svg_content, x, y, card_w, card_h)
+
+    # Crop marks
+    draw_crop_marks(c, x, y, card_w, card_h)
+
+    # Exercise description at bottom of page
+    parser = NetworkParser()
+    model = parser.parse(subapp_file)
+    ex_name = model.name or os.path.splitext(os.path.basename(subapp_file))[0]
+    comment = model.comment or ""
+
+    c.setFont("Helvetica-Bold", 11)
+    c.setFillColor(colors.HexColor('#2C3E50'))
+    c.drawCentredString(page_w / 2.0, 3.5 * cm, f"\u00dcbung: {ex_name}")
+
+    if comment:
+        c.setFont("Helvetica", 9)
+        c.setFillColor(colors.HexColor('#566573'))
+        comment_lines = wrap_text(comment, max_chars=80)
+        curr_y = 3.0 * cm
+        for cline in comment_lines[:4]:
+            c.drawCentredString(page_w / 2.0, curr_y, cline)
+            curr_y -= 0.4 * cm
+
+    c.showPage()
+    c.save()
+    print(f"Generated single card PDF: {output_pdf}", flush=True)
+
+
+def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf"):
+    """Generates a multi-card PDF with a 2x3 grid (6 cards per A4 page) for easy printing and cutting."""
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    c = canvas.Canvas(output_pdf, pagesize=A4)
     page_w, page_h = A4
-    card_w = 9.0 * cm
-    card_h = 7.0 * cm
-    
+
+    card_w = 7.0 * cm
+    card_h = 9.0 * cm
+
     cols = 2
-    rows = 4
-    
-    # Calculate starting offsets to perfectly center the grid on A4
+    rows = 3
+    cards_per_page = cols * rows
+
     grid_w = cols * card_w
     grid_h = rows * card_h
-    
+
     start_x = (page_w - grid_w) / 2.0
     start_y = (page_h - grid_h) / 2.0
-    
-    # Draw background cutting helpers and crop marks around the outer edge of the grid
-    draw_crop_marks(c, start_x, start_y, grid_w, grid_h, length=0.8*cm, offset=0.2*cm)
-    
-    # Draw each card in the grid
-    for row in range(rows):
-        for col in range(cols):
+
+    total_files = len(subapp_files)
+    num_pages = (total_files + cards_per_page - 1) // cards_per_page
+
+    print(f"\nStarte Generierung: {total_files} Karten auf {num_pages} DIN-A4-Seiten...", flush=True)
+
+    for page_idx in range(num_pages):
+        draw_crop_marks(c, start_x, start_y, grid_w, grid_h, length=8 * mm, offset=3 * mm)
+
+        for slot in range(cards_per_page):
+            idx = page_idx * cards_per_page + slot
+            if idx >= total_files:
+                break
+
+            sub_file = subapp_files[idx]
+            sub_name = os.path.splitext(os.path.basename(sub_file))[0]
+            print(f"  [{idx + 1:3d}/{total_files}] (Seite {page_idx + 1:2d}/{num_pages}) {sub_name}...", flush=True)
+
+            col = slot % cols
+            row = slot // cols
+            grid_row = (rows - 1) - row
+
             x = start_x + col * card_w
-            y = start_y + row * card_h
-            draw_card(c, x, y)
-            
+            y = start_y + grid_row * card_h
+
+            try:
+                svg_content = generate_card_svg(sub_file)
+                render_card_on_pdf(c, svg_content, x, y, card_w, card_h)
+            except Exception as e:
+                print(f"    [WARNUNG] Fehler bei {sub_name}: {e}", flush=True)
+
+            draw_crop_marks(c, x, y, card_w, card_h, length=4 * mm, offset=1.5 * mm)
+
+        c.showPage()
+
+    c.save()
+    print(f"Generated multi card PDF: {output_pdf}\n", flush=True)
+
+
+def draw_offset_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: float, length: float = 3.5 * mm, offset: float = 1.5 * mm):
+    """Draws professional offset printing crop marks outside the trim box."""
+    c.setStrokeColor(colors.HexColor('#000000'))
+    c.setLineWidth(0.25)  # Hairline
+
+    # Bottom-Left corner (x, y)
+    c.line(x - offset - length, y, x - offset, y)
+    c.line(x, y - offset - length, x, y - offset)
+
+    # Bottom-Right corner (x + w, y)
+    c.line(x + w + offset, y, x + w + offset + length, y)
+    c.line(x + w, y - offset - length, x + w, y - offset)
+
+    # Top-Left corner (x, y + h)
+    c.line(x - offset - length, y + h, x - offset, y + h)
+    c.line(x, y + h + offset, x, y + h + offset + length)
+
+    # Top-Right corner (x + w, y + h)
+    c.line(x + w + offset, y + h, x + w + offset + length, y + h)
+    c.line(x + w, y + h + offset, x + w, y + h + offset + length)
+
+
+def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printshop.pdf", bleed_mm: float = 3.0, slug_mm: float = 6.0):
+    """Generates an offset print-ready PDF for commercial print shops.
+
+    - TrimBox: exactly 70.0 mm x 90.0 mm (defining the final cut size / Endformat).
+    - BleedBox: 76.0 mm x 96.0 mm (standard 3mm bleed).
+    - MediaBox: 82.0 mm x 102.0 mm (with 6mm slug margin).
+    - Crop marks (Schnittmarken): positioned outside the paper trim area pointing to the 70x90mm boundary.
+    """
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    card_w = 7.0 * cm
+    card_h = 9.0 * cm
+    bleed = bleed_mm * mm
+    margin = slug_mm * mm
+
+    page_w = card_w + 2 * margin
+    page_h = card_h + 2 * margin
+
+    c = canvas.Canvas(output_pdf, pagesize=(page_w, page_h))
+
+    # Set PDF prepress boxes
+    c.setTrimBox((margin, margin, margin + card_w, margin + card_h))
+    c.setBleedBox((margin - bleed, margin - bleed, margin + card_w + bleed, margin + card_h + bleed))
+
+    # Fill BleedBox area with background color so trimming tolerance has full bleed
+    c.setFillColor(colors.white)
+    c.rect(margin - bleed, margin - bleed, card_w + 2 * bleed, card_h + 2 * bleed, fill=1, stroke=0)
+
+    # Render card inside the TrimBox
+    svg_content = generate_card_svg(subapp_file)
+    render_card_on_pdf(c, svg_content, margin, margin, card_w, card_h)
+
+    # Draw offset crop marks in the margin outside the trim box
+    draw_offset_crop_marks(c, margin, margin, card_w, card_h, length=3.5 * mm, offset=1.5 * mm)
+
     c.showPage()
+    c.save()
+    print(f"Generated print shop offset PDF: {output_pdf}", flush=True)
+
+
+def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf"):
+    """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm."""
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    card_w = 7.0 * cm
+    card_h = 9.0 * cm
+    c = canvas.Canvas(output_pdf, pagesize=(card_w, card_h))
+    c.setTrimBox((0, 0, card_w, card_h))
+    svg_content = generate_card_svg(subapp_file)
+    render_card_on_pdf(c, svg_content, 0, 0, card_w, card_h)
+    c.showPage()
+    c.save()
+    print(f"Generated exact 70x90mm PDF: {output_pdf}", flush=True)
+
+
+def analyze_exercise_layout(
+    subapp_file: str,
+    resolver: Optional[TypeResolver] = None,
+    parser: Optional[NetworkParser] = None,
+    settings = None
+) -> Tuple[str, str, List[str]]:
+    """Analyzes a .SUB file for layout issues relative to the logiBUS card pin layout.
+
+    Returns (exercise_name, subapp_file, list_of_issue_descriptions).
+    """
+    ex_name = os.path.splitext(os.path.basename(subapp_file))[0]
+    if resolver is None:
+        type_libs = list(DEFAULT_TYPE_LIBS)
+        sub_dir = os.path.dirname(os.path.abspath(subapp_file))
+        if sub_dir not in type_libs:
+            type_libs.append(sub_dir)
+        resolver = TypeResolver(type_libs)
+    if parser is None:
+        parser = NetworkParser()
+    if settings is None:
+        settings = load_block_size_settings()
+
     try:
-        c.save()
-        print(f"Successfully generated {filename}")
-    except OSError as e:
-        print(f"Error: Could not save multi card PDF to '{filename}'. Reason: {e}")
-        print("Please check if the file is currently open in another program (e.g. Acrobat Reader) or if you lack write permissions.")
+        model = parser.parse(subapp_file)
+        resolver.resolve(model)
+        engine = NetworkLayoutEngine(settings=settings)
+        engine.layout(model)
+    except Exception as e:
+        return ex_name, subapp_file, [f"XML-Parse-Fehler: {e}"]
+
+    io_pins = {}     # name -> ('I'/'Q', pin_num, y, x)
+    blocks = {}      # name -> (type_name, y, x, inst)
+    connections = [] # (src_inst, src_port, dst_inst, dst_port)
+
+    for inst in model.instances:
+        pt = identify_passthrough(inst)
+        if pt:
+            continue
+        pin = identify_io_pin(inst)
+        if pin:
+            if pin.startswith('I') and pin[1:].isdigit():
+                io_pins[inst.name] = ('I', int(pin[1:]), inst.y, inst.x)
+            elif pin.startswith('AI') and pin[2:].isdigit():
+                io_pins[inst.name] = ('I', int(pin[2:]), inst.y, inst.x)
+            elif pin.startswith('Q') and pin[1:].isdigit():
+                io_pins[inst.name] = ('Q', int(pin[1:]), inst.y, inst.x)
+        else:
+            blocks[inst.name] = (inst.type_name, inst.y, inst.x, inst)
+
+    for conn in model.connections:
+        s_parts = conn.source.split('.')
+        d_parts = conn.destination.split('.')
+        s_inst = s_parts[0]
+        s_port = s_parts[1] if len(s_parts) > 1 else ''
+        d_inst = d_parts[0]
+        d_port = d_parts[1] if len(d_parts) > 1 else ''
+        connections.append((s_inst, s_port, d_inst, d_port))
+
+    issues = []
+    # 1. IO Pin Ordering in 4diac
+    inputs = sorted([(name, info) for name, info in io_pins.items() if info[0] == 'I'], key=lambda x: x[1][1])
+    for i in range(len(inputs) - 1):
+        for j in range(i + 1, len(inputs)):
+            n1, (t1, num1, y1, x1) = inputs[i]
+            n2, (t2, num2, y2, x2) = inputs[j]
+            if num1 < num2 and y2 < y1 - 100:
+                issues.append(f"Pin-Reihenfolge invertiert: Eingang I{num2} (`{n2}`, y={y2:g}) liegt oberhalb von I{num1} (`{n1}`, y={y1:g})")
+
+    outputs = sorted([(name, info) for name, info in io_pins.items() if info[0] == 'Q'], key=lambda x: x[1][1])
+    for i in range(len(outputs) - 1):
+        for j in range(i + 1, len(outputs)):
+            n1, (t1, num1, y1, x1) = outputs[i]
+            n2, (t2, num2, y2, x2) = outputs[j]
+            if num1 < num2 and y2 < y1 - 100:
+                issues.append(f"Pin-Reihenfolge invertiert: Ausgang Q{num2} (`{n2}`, y={y2:g}) liegt oberhalb von Q{num1} (`{n1}`, y={y1:g})")
+
+    # 2. Block placement relative to connected pins
+    for blk_name, (blk_type, blk_y, blk_x, b_inst) in blocks.items():
+        conn_in_pins = []
+        for src_inst, src_port, dst_inst, dst_port in connections:
+            if src_inst in io_pins and io_pins[src_inst][0] == 'I' and dst_inst == blk_name:
+                conn_in_pins.append((src_inst, io_pins[src_inst]))
+        for pin_name, (pt, pnum, py, px) in conn_in_pins:
+            for other_blk, (o_type, o_y, o_x, ob_inst) in blocks.items():
+                if other_blk == blk_name:
+                    continue
+                other_conn_pins = [io_pins[s] for s, sp, d, dp in connections if s in io_pins and io_pins[s][0] == 'I' and d == other_blk]
+                for (opt, onum, opy, opx) in other_conn_pins:
+                    if pnum > onum and blk_y < o_y - 200:
+                        issues.append(
+                            f"Baustein unglücklich platziert: `{blk_name}` ({blk_type.split('::')[-1]}, verbunden mit I{pnum}) "
+                            f"liegt bei y={blk_y:g} oberhalb von `{other_blk}` ({o_type.split('::')[-1]}, verbunden mit I{onum}, y={o_y:g}). "
+                            f"Empfehlung: `{blk_name}` in 4diac nach unten verschieben (unterhalb von `{other_blk}`, z.B. y > {o_y:g})."
+                        )
+
+    # 3. Same-block input port crossings (e.g. I1 to bottom port, I2 to top port)
+    blk_in_conns = {}
+    for src_inst, src_port, dst_inst, dst_port in connections:
+        if src_inst in io_pins and io_pins[src_inst][0] == 'I' and dst_inst in blocks:
+            inst = blocks[dst_inst][3]
+            all_in_ports = [p.name for p in inst.event_inputs] + [p.name for p in inst.data_inputs] + [p.name for p in inst.sockets]
+            if dst_port in all_in_ports:
+                port_idx = all_in_ports.index(dst_port)
+                pnum = io_pins[src_inst][1]
+                blk_in_conns.setdefault(dst_inst, []).append((pnum, dst_port, port_idx))
+
+    for blk_name, conns in blk_in_conns.items():
+        if len(conns) > 1:
+            conns_sorted = sorted(conns, key=lambda x: x[0])
+            for i in range(len(conns_sorted) - 1):
+                for j in range(i + 1, len(conns_sorted)):
+                    p1, port1, idx1 = conns_sorted[i]
+                    p2, port2, idx2 = conns_sorted[j]
+                    if p1 < p2 and idx1 > idx2:
+                        blk_type = blocks[blk_name][0].split('::')[-1]
+                        issues.append(
+                            f"Signalleitungen kreuzen sich an `{blk_name}` ({blk_type}): "
+                            f"Eingang I{p1} ist mit unterem Port `{port1}` (Position {idx1+1}) verbunden, "
+                            f"während I{p2} mit oberem Port `{port2}` (Position {idx2+1}) verbunden ist. "
+                            f"Hinweis: Am Baustein liegt `{port1}` unterhalb von `{port2}`, auf der Karte jedoch I{p1} oberhalb von I{p2}. "
+                            f"Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I{p1} für `{port2}` und I{p2} für `{port1}` "
+                            f"für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt."
+                        )
+
+    # 4. Same-block output port crossings (e.g. Q1 to bottom port, Q2 to top port)
+    blk_out_conns = {}
+    for src_inst, src_port, dst_inst, dst_port in connections:
+        if dst_inst in io_pins and io_pins[dst_inst][0] == 'Q' and src_inst in blocks:
+            inst = blocks[src_inst][3]
+            all_out_ports = [p.name for p in inst.event_outputs] + [p.name for p in inst.data_outputs] + [p.name for p in inst.plugs]
+            if src_port in all_out_ports:
+                port_idx = all_out_ports.index(src_port)
+                pnum = io_pins[dst_inst][1]
+                blk_out_conns.setdefault(src_inst, []).append((pnum, src_port, port_idx))
+
+    for blk_name, conns in blk_out_conns.items():
+        if len(conns) > 1:
+            conns_sorted = sorted(conns, key=lambda x: x[0])
+            for i in range(len(conns_sorted) - 1):
+                for j in range(i + 1, len(conns_sorted)):
+                    p1, port1, idx1 = conns_sorted[i]
+                    p2, port2, idx2 = conns_sorted[j]
+                    if p1 < p2 and idx1 > idx2:
+                        blk_type = blocks[blk_name][0].split('::')[-1]
+                        issues.append(
+                            f"Signalleitungen kreuzen sich an `{blk_name}` ({blk_type}): "
+                            f"Ausgang Q{p1} ist mit unterem Port `{port1}` (Position {idx1+1}) verbunden, "
+                            f"während Q{p2} mit oberem Port `{port2}` (Position {idx2+1}) verbunden ist. "
+                            f"Hinweis: Am Baustein liegt `{port1}` unterhalb von `{port2}`, auf der Karte jedoch Q{p1} oberhalb von Q{p2}. "
+                            f"Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q{p1} für `{port2}` und Q{p2} für `{port1}` "
+                            f"für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt."
+                        )
+
+    issues = list(dict.fromkeys(issues))
+    return ex_name, subapp_file, issues
+
+
+def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TODO.md") -> int:
+    """Scans subapp files for layout anomalies and writes a formatted fix-TODO.md checklist."""
+    type_libs = list(DEFAULT_TYPE_LIBS)
+    for f in subapp_files:
+        sdir = os.path.dirname(os.path.abspath(f))
+        if sdir not in type_libs:
+            type_libs.append(sdir)
+    resolver = TypeResolver(type_libs)
+    parser = NetworkParser()
+    settings = load_block_size_settings()
+
+    flagged = []
+    for f in subapp_files:
+        res = analyze_exercise_layout(f, resolver=resolver, parser=parser, settings=settings)
+        if res and res[2]:
+            flagged.append(res)
+
+    lines = [
+        "# 4diac Übungs-Layout Fix-TODOs (Karten-Optimierung)",
+        "",
+        "Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine oder IO-Pins im 4diac-Netzwerk nicht der physischen Pin-Reihenfolge des logiBUS® Mini-Trainers entspricht.",
+        "",
+        "> [!NOTE]",
+        "> Auf der physischen Trainingskarte (70 mm × 90 mm) sind die digitalen Eingänge **I1 bis I8 links** fest von oben (1,0 cm) nach unten (8,0 cm) angeordnet, und die Ausgänge **Q1 bis Q8 rechts** von 1,0 cm bis 8,0 cm.",
+        "> Wenn in 4diac ein Eingang mit höherer Nummer (z. B. I3) weiter oben gezeichnet ist als ein kleinerer (z. B. I1), ein Baustein unglücklich platziert ist, oder Eingänge an invertierte Anschlusspins am Baustein führen (z. B. I1 an unteren Port und I2 an oberen Port), müssen Verbindungslinien unschön über andere Leitungen kreuzen.",
+        "> Sobald die betroffenen FBs oder Anschlüsse in der 4diacIDE angepasst und gespeichert werden, erzeugt der Generator beim nächsten Durchlauf automatisch ein sauberes, kreuzungsfreies Kartenlayout!",
+        "",
+        "## Übersicht",
+        f"- **Geprüfte Übungen:** {len(subapp_files)}",
+        f"- **Übungen mit Optimierungsbedarf:** {len(flagged)}",
+        "",
+        "---",
+        "",
+        "## Offene Layout-TODOs",
+        ""
+    ]
+
+    for ex_name, fpath, issues in flagged:
+        rel_path = os.path.relpath(fpath, os.getcwd()) if os.path.isabs(fpath) else fpath
+        rel_path = rel_path.replace("\\", "/")
+        lines.append(f"- [ ] **{ex_name}** (`{rel_path}`)")
+        for iss in issues:
+            lines.append(f"  - {iss}")
+        lines.append("")
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+    return len(flagged)
+
+
+def main():
+    arg_parser = argparse.ArgumentParser(description="Generate 7x9cm portrait training cards from 4diac exercises.")
+    arg_parser.add_argument("--sub", type=str, default=DEFAULT_EXERCISE, help="Path to .SUB exercise file")
+    arg_parser.add_argument("--all", action="store_true", help="Generate multi-card PDF for all exercises in folder")
+    arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
+    arg_parser.add_argument("--check-layout", action="store_true", help="Analyze exercise layouts and generate fix-TODO.md")
+    arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
+    arg_parser.add_argument("--folder", type=str, default=DEFAULT_EXERCISES_DIR, help="Folder containing .SUB files")
+    arg_parser.add_argument("--output-dir", type=str, default="output", help="Root output directory (default: 'output')")
+    arg_parser.add_argument("--single-out", type=str, default=None, help="Custom output path for single card PDF")
+    arg_parser.add_argument("--multi-out", type=str, default=None, help="Custom output path for multi card PDF")
+    arg_parser.add_argument("--printshop-out", type=str, default=None, help="Custom output path for print shop offset PDF")
+    arg_parser.add_argument("--exact-out", type=str, default=None, help="Custom output path for exact 70x90mm PDF")
+    arg_parser.add_argument("--svg-out", type=str, default=None, help="Custom output path for standalone SVG")
+    arg_parser.add_argument("--todo-out", type=str, default="fix-TODO.md", help="Path to output fix-TODO.md file")
+    args = arg_parser.parse_args()
+
+    if args.check_layout:
+        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        if args.limit and args.limit > 0:
+            files = files[:args.limit]
+        print(f"Analysiere Layout von {len(files)} Übungen in {args.folder}...", flush=True)
+        if not files:
+            print("[LAYOUT-CHECK] Keine Übungen gefunden. Report wird nicht geschrieben.", flush=True)
+            return
+        if args.limit and args.todo_out == "fix-TODO.md":
+            print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. 'fix-TODO.md' wird nicht überschrieben (nutze ggf. --todo-out).", flush=True)
+            return
+        count = generate_fix_todo_report(files, args.todo_out)
+        print(f"[LAYOUT-CHECK] Fertig: {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        return
+
+    output_root = args.output_dir
+    single_dir = os.path.join(output_root, "single")
+    multi_dir = os.path.join(output_root, "multi")
+    printshop_dir = os.path.join(output_root, "printshop")
+    exact_dir = os.path.join(output_root, "exact_70x90")
+    svg_dir = os.path.join(output_root, "svg")
+
+    for d in (single_dir, multi_dir, printshop_dir, exact_dir, svg_dir):
+        os.makedirs(d, exist_ok=True)
+
+    if args.batch_all:
+        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        if args.limit and args.limit > 0:
+            files = files[:args.limit]
+        print(f"Batch generating cards for {len(files)} exercises into '{output_root}'...", flush=True)
+        for i, fpath in enumerate(files):
+            b_name = os.path.splitext(os.path.basename(fpath))[0]
+            print(f"[{i+1}/{len(files)}] Processing {b_name}...", flush=True)
+            try:
+                svg_content = generate_card_svg(fpath)
+                with open(os.path.join(svg_dir, f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
+                    f.write(svg_content)
+                generate_single_card_pdf(fpath, os.path.join(single_dir, f"{b_name}_single.pdf"))
+                generate_printshop_pdf(fpath, os.path.join(printshop_dir, f"{b_name}_printshop.pdf"))
+                generate_exact_size_pdf(fpath, os.path.join(exact_dir, f"{b_name}_exact_70x90.pdf"))
+            except Exception as e:
+                print(f"  [WARNUNG] Fehler bei {b_name}: {e}", flush=True)
+        # Also generate combined multi-card sheet
+        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
+        generate_multi_cards_pdf(files, multi_out)
+
+        # Generate fix-TODO.md
+        if not args.limit and files:
+            print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
+            count = generate_fix_todo_report(files, args.todo_out)
+            print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        elif args.limit:
+            print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
+
+    elif args.all:
+        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        if args.limit and args.limit > 0:
+            files = files[:args.limit]
+        print(f"Found {len(files)} exercises in {args.folder}", flush=True)
+        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
+        generate_multi_cards_pdf(files, multi_out)
+        if files:
+            first_base = os.path.splitext(os.path.basename(files[0]))[0]
+            svg_out = args.svg_out or os.path.join(svg_dir, f"{first_base}_card.svg")
+            svg_content = generate_card_svg(files[0])
+            with open(svg_out, "w", encoding="utf-8") as f:
+                f.write(svg_content)
+            print(f"Saved SVG: {svg_out}", flush=True)
+
+            single_out = args.single_out or os.path.join(single_dir, f"{first_base}_single.pdf")
+            generate_single_card_pdf(files[0], single_out)
+
+            printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{first_base}_printshop.pdf")
+            generate_printshop_pdf(files[0], printshop_out)
+
+            exact_out = args.exact_out or os.path.join(exact_dir, f"{first_base}_exact_70x90.pdf")
+            generate_exact_size_pdf(files[0], exact_out)
+
+        # Generate fix-TODO.md
+        if not args.limit and files:
+            print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
+            count = generate_fix_todo_report(files, args.todo_out)
+            print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        elif args.limit:
+            print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
+
+    else:
+        target_sub = args.sub
+        if not os.path.isabs(target_sub) and not os.path.exists(target_sub):
+            candidate = os.path.join(args.folder, target_sub)
+            if os.path.exists(candidate):
+                target_sub = candidate
+
+        print(f"Processing exercise: {target_sub}", flush=True)
+        base_name = os.path.splitext(os.path.basename(target_sub))[0]
+
+        # Check layout and notify
+        res = analyze_exercise_layout(target_sub)
+        if res and res[2]:
+            print(f"\n[LAYOUT-HINWEIS] {len(res[2])} Optimierungshinweise für {base_name}:", flush=True)
+            for iss in res[2]:
+                print(f"  * {iss}", flush=True)
+            print(f"  (Detaillierte Liste aller Übungen siehe auch '{args.todo_out}')\n", flush=True)
+
+        # Standalone SVG
+        svg_out = args.svg_out or os.path.join(svg_dir, f"{base_name}_card.svg")
+        svg_content = generate_card_svg(target_sub)
+        with open(svg_out, "w", encoding="utf-8") as f:
+            f.write(svg_content)
+        print(f"Saved SVG: {svg_out}", flush=True)
+
+        # Variant 1: Single card on DIN A4
+        single_out = args.single_out or os.path.join(single_dir, f"{base_name}_single.pdf")
+        generate_single_card_pdf(target_sub, single_out)
+
+        # Variant 2: Multi card sheet (6 cards on A4)
+        multi_out = args.multi_out or os.path.join(multi_dir, f"{base_name}_multi.pdf")
+        multi_list = [target_sub] * 6
+        generate_multi_cards_pdf(multi_list, multi_out)
+
+        # Variant 3: Print shop offset PDF (TrimBox=70x90mm, crop marks outside)
+        printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{base_name}_printshop.pdf")
+        generate_printshop_pdf(target_sub, printshop_out)
+
+        # Variant 3b: Print shop exact 70x90mm PDF (MediaBox=70x90mm)
+        exact_out = args.exact_out or os.path.join(exact_dir, f"{base_name}_exact_70x90.pdf")
+        generate_exact_size_pdf(target_sub, exact_out)
+
+    print("Generation complete!", flush=True)
+
 
 if __name__ == "__main__":
-    generate_single_card_pdf()
-    generate_multi_cards_pdf()
+    main()
+
