@@ -31,11 +31,11 @@ read its module docstring for the details if a new doc hits a fourth case.
 
 2. Render the Markdown to styled PDF using the integrated script:
    ```bash
-   python .claude/skills/render-doc-pdf/scripts/render_pdf.py <doc>.md [<doc>.pdf]
+   /tmp/.../scratchpad/mdvenv/bin/python .claude/skills/render-doc-pdf/scripts/render_pdf.py <doc>.md [<doc>.pdf]
    ```
    Or to render all documentation files in the repository:
    ```bash
-   python .claude/skills/render-doc-pdf/scripts/render_pdf.py --all
+   /tmp/.../scratchpad/mdvenv/bin/python .claude/skills/render-doc-pdf/scripts/render_pdf.py --all
    ```
    The script automatically executes preprocessing in-process, renders styled HTML beside the source file (ensuring relative assets resolve), and invokes headless Chrome/Edge to generate the final PDF cleanly.
 

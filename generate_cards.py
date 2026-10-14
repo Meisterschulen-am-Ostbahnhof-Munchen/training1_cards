@@ -554,7 +554,9 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 src_inst_obj = instance_map.get(cinfo.get("source_inst"))
                 dst_inst_obj = instance_map.get(cinfo.get("dest_inst"))
                 if src_inst_obj and dst_inst_obj:
-                    if dy > sy:
+                    if src_inst_obj == dst_inst_obj:
+                        gap_y = src_inst_obj.render_y + src_inst_obj.block_height + 12.0
+                    elif dy > sy:
                         gap_y = (src_inst_obj.render_y + src_inst_obj.block_height + dst_inst_obj.render_y) / 2.0
                     else:
                         gap_y = (dst_inst_obj.render_y + dst_inst_obj.block_height + src_inst_obj.render_y) / 2.0
@@ -859,6 +861,10 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
     c.setTrimBox((margin, margin, margin + card_w, margin + card_h))
     c.setBleedBox((margin - bleed, margin - bleed, margin + card_w + bleed, margin + card_h + bleed))
 
+    # Fill BleedBox area with background color so trimming tolerance has full bleed
+    c.setFillColor(colors.white)
+    c.rect(margin - bleed, margin - bleed, card_w + 2 * bleed, card_h + 2 * bleed, fill=1, stroke=0)
+
     # Render card inside the TrimBox
     svg_content = generate_card_svg(subapp_file)
     render_card_on_pdf(c, svg_content, margin, margin, card_w, card_h)
@@ -1006,7 +1012,9 @@ def analyze_exercise_layout(
                             f"Signalleitungen kreuzen sich an `{blk_name}` ({blk_type}): "
                             f"Eingang I{p1} ist mit unterem Port `{port1}` (Position {idx1+1}) verbunden, "
                             f"während I{p2} mit oberem Port `{port2}` (Position {idx2+1}) verbunden ist. "
-                            f"Empfehlung: In 4diac die Eingangsbelegung anpassen (z. B. I{p1} für `{port2}` und I{p2} für `{port1}` verwenden)."
+                            f"Hinweis: Am Baustein liegt `{port1}` unterhalb von `{port2}`, auf der Karte jedoch I{p1} oberhalb von I{p2}. "
+                            f"Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I{p1} für `{port2}` und I{p2} für `{port1}` "
+                            f"für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt."
                         )
 
     # 4. Same-block output port crossings (e.g. Q1 to bottom port, Q2 to top port)
@@ -1033,7 +1041,9 @@ def analyze_exercise_layout(
                             f"Signalleitungen kreuzen sich an `{blk_name}` ({blk_type}): "
                             f"Ausgang Q{p1} ist mit unterem Port `{port1}` (Position {idx1+1}) verbunden, "
                             f"während Q{p2} mit oberem Port `{port2}` (Position {idx2+1}) verbunden ist. "
-                            f"Empfehlung: In 4diac die Ausgangsbelegung anpassen (z. B. Q{p1} für `{port2}` und Q{p2} für `{port1}` verwenden)."
+                            f"Hinweis: Am Baustein liegt `{port1}` unterhalb von `{port2}`, auf der Karte jedoch Q{p1} oberhalb von Q{p2}. "
+                            f"Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q{p1} für `{port2}` und Q{p2} für `{port1}` "
+                            f"für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt."
                         )
 
     issues = list(dict.fromkeys(issues))
@@ -1113,6 +1123,12 @@ def main():
         if args.limit and args.limit > 0:
             files = files[:args.limit]
         print(f"Analysiere Layout von {len(files)} Übungen in {args.folder}...", flush=True)
+        if not files:
+            print("[LAYOUT-CHECK] Keine Übungen gefunden. Report wird nicht geschrieben.", flush=True)
+            return
+        if args.limit and args.todo_out == "fix-TODO.md":
+            print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. 'fix-TODO.md' wird nicht überschrieben (nutze ggf. --todo-out).", flush=True)
+            return
         count = generate_fix_todo_report(files, args.todo_out)
         print(f"[LAYOUT-CHECK] Fertig: {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
         return
@@ -1149,9 +1165,12 @@ def main():
         generate_multi_cards_pdf(files, multi_out)
 
         # Generate fix-TODO.md
-        print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
-        count = generate_fix_todo_report(files, args.todo_out)
-        print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        if not args.limit and files:
+            print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
+            count = generate_fix_todo_report(files, args.todo_out)
+            print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        elif args.limit:
+            print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
 
     elif args.all:
         files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
@@ -1178,9 +1197,12 @@ def main():
             generate_exact_size_pdf(files[0], exact_out)
 
         # Generate fix-TODO.md
-        print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
-        count = generate_fix_todo_report(files, args.todo_out)
-        print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        if not args.limit and files:
+            print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
+            count = generate_fix_todo_report(files, args.todo_out)
+            print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        elif args.limit:
+            print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
 
     else:
         target_sub = args.sub
