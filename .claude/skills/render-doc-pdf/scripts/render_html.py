@@ -21,44 +21,43 @@ import re
 import sys
 import markdown
 
-src_path = sys.argv[1]
-out_html_path = sys.argv[2]
-
-with open(src_path, "r", encoding="utf-8") as f:
-    md_text = f.read()
-
-# Strip YAML frontmatter if present
-md_text = re.sub(r"^---\n.*?\n---\n", "", md_text, count=1, flags=re.DOTALL)
+from pathlib import Path
+from typing import Union
 
 
-def strip_file_links(m):
-    return f"`{m.group(1)}`"
+def render_markdown_to_html(src_path: Union[str, Path], out_html_path: Union[str, Path]) -> None:
+    """Converts a (preprocessed) Markdown file into print-ready HTML."""
+    with open(src_path, "r", encoding="utf-8") as f:
+        md_text = f.read()
 
+    # Strip YAML frontmatter if present
+    md_text = re.sub(r"^---\n.*?\n---\n", "", md_text, count=1, flags=re.DOTALL)
 
-md_text = re.sub(r"\[`([^`]+)`\]\(file://[^)]+\)", strip_file_links, md_text)
-md_text = re.sub(r"\[([^\]]+)\]\(file://[^)]+\)", strip_file_links, md_text)
+    def strip_file_links(m):
+        return f"`{m.group(1)}`"
 
+    md_text = re.sub(r"\[`([^`]+)`\]\(file://[^)]+\)", strip_file_links, md_text)
+    md_text = re.sub(r"\[([^\]]+)\]\(file://[^)]+\)", strip_file_links, md_text)
 
-def latex_to_plain(expr):
-    expr = expr.strip()
-    expr = re.sub(r"\\text\{([^{}]*)\}", r"\1", expr)      # innermost braces first -
-    expr = re.sub(r"\\mathbf\{([^{}]*)\}", r"\1", expr)    # \text{} nests inside \mathbf{}
-    expr = re.sub(r"\^\{([^{}]*)\}", r"^\1", expr)
-    expr = expr.replace("\\,", " ").replace("\\pm", "\u00b1")
-    expr = expr.replace("\\le", "\u2264").replace("\\ge", "\u2265")
-    expr = re.sub(r"\s+", " ", expr).strip()
-    return expr
+    def latex_to_plain(expr):
+        expr = expr.strip()
+        expr = re.sub(r"\\text\{([^{}]*)\}", r"\1", expr)      # innermost braces first -
+        expr = re.sub(r"\\mathbf\{([^{}]*)\}", r"\1", expr)    # \text{} nests inside \mathbf{}
+        expr = re.sub(r"\^\{([^{}]*)\}", r"^\1", expr)
+        expr = expr.replace("\\,", " ").replace("\\pm", "\u00b1")
+        expr = expr.replace("\\le", "\u2264").replace("\\ge", "\u2265")
+        expr = re.sub(r"\s+", " ", expr).strip()
+        return expr
 
+    md_text = re.sub(r"\$\$(.+?)\$\$", lambda m: latex_to_plain(m.group(1)), md_text, flags=re.S)
+    md_text = re.sub(r"\$(.+?)\$", lambda m: latex_to_plain(m.group(1)), md_text)
 
-md_text = re.sub(r"\$\$(.+?)\$\$", lambda m: latex_to_plain(m.group(1)), md_text, flags=re.S)
-md_text = re.sub(r"\$(.+?)\$", lambda m: latex_to_plain(m.group(1)), md_text)
+    html_body = markdown.markdown(md_text, extensions=["extra", "sane_lists", "toc"])
 
-html_body = markdown.markdown(md_text, extensions=["extra", "sane_lists", "toc"])
+    title_match = re.search(r"^#\s+(.+)$", md_text, flags=re.M)
+    title = title_match.group(1).strip() if title_match else "Dokument"
 
-title_match = re.search(r"^#\s+(.+)$", md_text, flags=re.M)
-title = title_match.group(1).strip() if title_match else "Dokument"
-
-html = f"""<!doctype html>
+    html = f"""<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
@@ -143,7 +142,15 @@ html = f"""<!doctype html>
 </html>
 """
 
-with open(out_html_path, "w", encoding="utf-8") as f:
-    f.write(html)
+    with open(out_html_path, "w", encoding="utf-8") as f:
+        f.write(html)
 
-print("wrote", out_html_path)
+    print("wrote", out_html_path)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) >= 3:
+        render_markdown_to_html(sys.argv[1], sys.argv[2])
+    else:
+        print("Usage: python render_html.py <input.md> <output.html>")
+        sys.exit(1)
