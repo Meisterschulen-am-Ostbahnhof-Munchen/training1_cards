@@ -16,6 +16,12 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parents[3]
 
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+from preprocess_md import preprocess_markdown
+from render_html import render_markdown_to_html
+
 BROWSER_CANDIDATES = [
     Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe"),
     Path(r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"),
@@ -52,22 +58,16 @@ def render_md_to_pdf(md_file: Path, pdf_file: Path = None, browser_exe: str = No
         user_data = tmp_path / "browser_profile"
         user_data.mkdir(parents=True, exist_ok=True)
         
-        # 1. Preprocess Markdown
-        subprocess.run(
-            [sys.executable, str(SCRIPT_DIR / "preprocess_md.py"), str(md_file), str(pre_md)],
-            check=True
-        )
+        # 1. Preprocess Markdown (in-process)
+        preprocess_markdown(md_file, pre_md)
         
-        # 2. Render to HTML (place in same folder so relative assets/images resolve)
-        subprocess.run(
-            [sys.executable, str(SCRIPT_DIR / "render_html.py"), str(pre_md), str(html_file)],
-            check=True
-        )
+        # 2. Render to HTML (in-process, placed in same folder so relative assets resolve)
+        render_markdown_to_html(pre_md, html_file)
         
         # 3. Print to PDF via Chrome/Edge
         html_uri = html_file.as_uri()
         cmd = [
-            browser_exe,
+            str(Path(browser_exe).resolve()),
             "--headless=new",
             "--disable-gpu",
             "--no-sandbox",
@@ -78,7 +78,14 @@ def render_md_to_pdf(md_file: Path, pdf_file: Path = None, browser_exe: str = No
         ]
         
         try:
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+            result = subprocess.run(  # nosec B603
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=30,
+                shell=False,
+                check=False
+            )
             if not pdf_file.is_file() or pdf_file.stat().st_size == 0:
                 raise RuntimeError(f"PDF-Generierung fehlgeschlagen. Output: {result.stderr or result.stdout}")
             print(f"    [OK] PDF erstellt: {pdf_file.name} ({pdf_file.stat().st_size} Bytes)")

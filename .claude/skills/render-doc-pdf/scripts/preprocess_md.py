@@ -27,80 +27,90 @@ Usage: python preprocess_md.py <input.md> <output.md>
 import re
 import sys
 
-src_path = sys.argv[1]
-out_path = sys.argv[2]
+from pathlib import Path
+from typing import Union
 
-lines = open(src_path, encoding="utf-8").read().split("\n")
 
-# --- Fix 1: blank line before a list that directly follows a paragraph ---
-list_item_re = re.compile(r"^(?:-|\d+\.)\s")
-fixed = []
-prev_was_list_item = False
-for line in lines:
-    is_list_item = bool(list_item_re.match(line))
-    if is_list_item and not prev_was_list_item and fixed and fixed[-1].strip() != "":
-        fixed.append("")
-    fixed.append(line)
-    if line.strip() != "":
-        prev_was_list_item = is_list_item
-lines = fixed
+def preprocess_markdown(src_path: Union[str, Path], out_path: Union[str, Path]) -> None:
+    """Normalizes Markdown for python-markdown."""
+    with open(src_path, "r", encoding="utf-8") as f:
+        lines = f.read().split("\n")
 
-# --- Fix 2: flatten multi-line "- **Label:** ..." bullets into paragraphs ---
-# Only bullets that actually have indented continuation lines are touched -
-# a plain single-line "- **Key:** value" bullet (e.g. a metadata list) is left
-# as a real list item, since there's nothing fragile about those.
-label_re = re.compile(r"^- \*\*(.+?)\*\*:?\s*(.*)$")
+    # --- Fix 1: blank line before a list that directly follows a paragraph ---
+    list_item_re = re.compile(r"^(?:-|\d+\.)\s")
+    fixed = []
+    prev_was_list_item = False
+    for line in lines:
+        is_list_item = bool(list_item_re.match(line))
+        if is_list_item and not prev_was_list_item and fixed and fixed[-1].strip() != "":
+            fixed.append("")
+        fixed.append(line)
+        if line.strip() != "":
+            prev_was_list_item = is_list_item
+    lines = fixed
 
-out = []
-i = 0
-n = len(lines)
-while i < n:
-    line = lines[i]
-    m = label_re.match(line)
-    has_continuation = m is not None and (i + 1) < n and lines[i + 1].startswith("  ")
-    if m and has_continuation:
-        label, rest = m.group(1).rstrip(":"), m.group(2)
-        if out and out[-1].strip() != "":
-            out.append("")
-        out.append(f"**{label}:** {rest}".rstrip())
-        out.append("")
-        i += 1
-        while i < n and (lines[i].startswith("  ") or lines[i].strip() == ""):
-            if lines[i].strip() == "":
+    # --- Fix 2: flatten multi-line "- **Label:** ..." bullets into paragraphs ---
+    label_re = re.compile(r"^- \*\*(.+?)\*\*:?\s*(.*)$")
+
+    out = []
+    i = 0
+    n = len(lines)
+    while i < n:
+        line = lines[i]
+        m = label_re.match(line)
+        has_continuation = m is not None and (i + 1) < n and lines[i + 1].startswith("  ")
+        if m and has_continuation:
+            label, rest = m.group(1).rstrip(":"), m.group(2)
+            if out and out[-1].strip() != "":
                 out.append("")
-            else:
-                out.append(lines[i][2:])
+            out.append(f"**{label}:** {rest}".rstrip())
+            out.append("")
             i += 1
-        continue
-    out.append(line)
-    i += 1
+            while i < n and (lines[i].startswith("  ") or lines[i].strip() == ""):
+                if lines[i].strip() == "":
+                    out.append("")
+                else:
+                    out.append(lines[i][2:])
+                i += 1
+            continue
+        out.append(line)
+        i += 1
 
-text = "\n".join(out)
+    text = "\n".join(out)
 
-# --- Fix 3: normalize any fenced code block still left indented ---
-lines2 = text.split("\n")
-out2 = []
-in_code = False
-fence_indent = 0
-for idx, line in enumerate(lines2):
-    stripped = line.strip()
-    is_fence = stripped.startswith("```")
-    if is_fence and not in_code:
-        fence_indent = len(line) - len(line.lstrip(" "))
-        if out2 and out2[-1].strip() != "":
-            out2.append("")
-        out2.append(line[fence_indent:])
-        in_code = True
-    elif is_fence and in_code:
-        out2.append(line[fence_indent:] if line.startswith(" " * fence_indent) else line.lstrip())
-        in_code = False
-        nxt = lines2[idx + 1] if idx + 1 < len(lines2) else ""
-        if nxt.strip() != "":
-            out2.append("")
-    elif in_code:
-        out2.append(line[fence_indent:] if line.startswith(" " * fence_indent) else line)
+    # --- Fix 3: normalize any fenced code block still left indented ---
+    lines2 = text.split("\n")
+    out2 = []
+    in_code = False
+    fence_indent = 0
+    for idx, line in enumerate(lines2):
+        stripped = line.strip()
+        is_fence = stripped.startswith("```")
+        if is_fence and not in_code:
+            fence_indent = len(line) - len(line.lstrip(" "))
+            if out2 and out2[-1].strip() != "":
+                out2.append("")
+            out2.append(line[fence_indent:])
+            in_code = True
+        elif is_fence and in_code:
+            out2.append(line[fence_indent:] if line.startswith(" " * fence_indent) else line.lstrip())
+            in_code = False
+            nxt = lines2[idx + 1] if idx + 1 < len(lines2) else ""
+            if nxt.strip() != "":
+                out2.append("")
+        elif in_code:
+            out2.append(line[fence_indent:] if line.startswith(" " * fence_indent) else line)
+        else:
+            out2.append(line)
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(out2))
+    print("wrote", out_path)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) >= 3:
+        preprocess_markdown(sys.argv[1], sys.argv[2])
     else:
-        out2.append(line)
-
-open(out_path, "w", encoding="utf-8").write("\n".join(out2))
-print("wrote", out_path)
+        print("Usage: python preprocess_md.py <input.md> <output.md>")
+        sys.exit(1)
