@@ -89,7 +89,10 @@ python generate_cards.py --all
 # 4. Alle Uebungen vollstaendig einzeln in alle Unterordner generieren
 python generate_cards.py --batch-all
 
-# 5. Eigene Ausgabepfade oder anderes Basisverzeichnis angeben
+# 5. Testlauf fuer z.B. nur die ersten 6 Uebungen limitieren
+python generate_cards.py --all --limit 6
+
+# 6. Eigene Ausgabepfade oder anderes Basisverzeichnis angeben
 python generate_cards.py --output-dir my_cards --sub Uebung_002a_AX.SUB
 ```
 
@@ -103,6 +106,7 @@ python generate_cards.py --output-dir my_cards --sub Uebung_002a_AX.SUB
 | `--output-dir` | Pfad | `output` | Basis-Ausgabeordner mit Unterordnern je Typ |
 | `--all` | Flag | `False` | Mehrseitigen Sammelbogen für alle `.SUB`-Dateien erzeugen |
 | `--batch-all` | Flag | `False` | Alle Karten-Varianten für jede Übung im Ordner erzeugen |
+| `--limit` | Zahl | `None` | Maximale Anzahl an Übungen (z. B. `6` für Testläufe) |
 | `--folder` | Pfad | `.../test_AX/Uebungen` | Quellverzeichnis für den `--all`-Modus |
 | `--single-out` | Pfad | `output/single/...` | Individueller Ausgabepfad für Einzelkarte (DIN-A4) |
 | `--multi-out` | Pfad | `output/multi/...` | Individueller Ausgabepfad für Sammelbogen (DIN-A4) |
