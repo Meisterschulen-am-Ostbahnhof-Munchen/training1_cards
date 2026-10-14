@@ -517,7 +517,16 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         inst.render_y = max(30.0, min(inst.render_y, 395.0 - inst.block_height))
 
     elif len(logic_instances) > 1:
-        # Multiple blocks: scale their original 4diac coordinates into the card's safe interior area
+        # Snap blocks that are in different columns but placed on roughly the same row in 4diac (dy <= 60.0)
+        # to the exact same row to prevent artificial vertical staggering
+        sorted_logic = sorted(logic_instances, key=lambda inst: inst.y)
+        for i in range(len(sorted_logic)):
+            for j in range(i + 1, len(sorted_logic)):
+                inst_a = sorted_logic[i]
+                inst_b = sorted_logic[j]
+                if abs(inst_a.y - inst_b.y) <= 60.0 and abs(inst_a.x - inst_b.x) > 300.0:
+                    inst_b.y = inst_a.y
+
         min_4d_x = min(inst.x for inst in logic_instances)
         max_4d_x = max(inst.x for inst in logic_instances)
         min_4d_y = min(inst.y for inst in logic_instances)
@@ -526,8 +535,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         raw_span_x = max_4d_x - min_4d_x
         span_4d_y = max(0.0, max_4d_y - min_4d_y)
 
-        x_safe_min = 40.0
-        x_safe_max = 310.0
+        x_safe_min = 48.0
+        x_safe_max = 285.0
         y_safe_min = 35.0
         y_safe_max = 395.0
 
@@ -541,7 +550,7 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             inst_a = sorted_by_y[i]
             inst_b = sorted_by_y[i + 1]
             dy_4d = inst_b.y - inst_a.y
-            if dy_4d > 10.0:
+            if dy_4d > 10.0 and abs(inst_a.x - inst_b.x) <= 300.0:
                 req_scale = (inst_a.block_height + 16.0) / dy_4d
                 if req_scale > min_scale_needed:
                     min_scale_needed = req_scale
