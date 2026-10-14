@@ -29,31 +29,18 @@ read its module docstring for the details if a new doc hits a fourth case.
    /tmp/.../scratchpad/mdvenv/bin/pip install markdown
    ```
 
-2. Preprocess the source Markdown (always do this - skipping it is what causes
-   the rendering bugs described above):
+2. Render the Markdown to styled PDF using the integrated script:
    ```bash
-   mdvenv/bin/python scripts/preprocess_md.py <doc>.md /tmp/.../scratchpad/<doc>.pre.md
+   python .claude/skills/render-doc-pdf/scripts/render_pdf.py <doc>.md [<doc>.pdf]
    ```
-
-3. Render to styled HTML:
+   Or to render all documentation files in the repository:
    ```bash
-   mdvenv/bin/python scripts/render_html.py /tmp/.../scratchpad/<doc>.pre.md /tmp/.../scratchpad/<doc>.html
+   python .claude/skills/render-doc-pdf/scripts/render_pdf.py --all
    ```
-   The title shown in the PDF's `<title>` tag is taken from the document's first
-   `# H1` heading automatically.
+   The script automatically executes preprocessing in-process, renders styled HTML beside the source file (ensuring relative assets resolve), and invokes headless Chrome/Edge to generate the final PDF cleanly.
 
-4. Print to PDF with headless Chrome (the flags matter - without
-   `--no-pdf-header-footer` Chrome adds a URL/date/page-number header and footer
-   that does not belong in a delivered document):
-   ```bash
-   google-chrome --headless --no-sandbox --disable-gpu \
-     --print-to-pdf=<doc-dir>/<doc>.pdf --no-pdf-header-footer \
-     "file:///tmp/.../scratchpad/<doc>.html"
-   ```
-
-5. Open the resulting PDF (e.g. with `pdftotext -layout` or by reading a page as
-   an image) and sanity-check headings, code blocks, and tables actually
-   rendered - don't just trust that Chrome exited 0. Then commit the `.pdf`
+3. Open the resulting PDF (e.g. by reading a page as an image) and sanity-check
+   headings, code blocks, and tables actually rendered. Then commit the `.pdf`
    alongside the `.md` it was rendered from.
 
 ## When editing the .md yourself

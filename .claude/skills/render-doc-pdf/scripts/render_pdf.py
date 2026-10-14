@@ -53,18 +53,21 @@ def render_md_to_pdf(md_file: Path, pdf_file: Path = None, browser_exe: str = No
     
     with tempfile.TemporaryDirectory() as tmp_dir:
         tmp_path = Path(tmp_dir)
+        import uuid
+        unique_token = uuid.uuid4().hex[:8]
         pre_md = tmp_path / f"{md_file.stem}.pre.md"
-        html_file = md_file.parent / f"{md_file.stem}.tmp.html"
+        html_file = md_file.parent / f".tmp_{md_file.stem}_{unique_token}.html"
+        tmp_pdf = tmp_path / "output.pdf"
         user_data = tmp_path / "browser_profile"
         user_data.mkdir(parents=True, exist_ok=True)
         
         # 1. Preprocess Markdown (in-process)
         preprocess_markdown(md_file, pre_md)
         
-        # 2. Render to HTML (in-process, placed in same folder so relative assets resolve)
+        # 2. Render to HTML (in-process, placed beside source file so relative assets resolve)
         render_markdown_to_html(pre_md, html_file)
         
-        # 3. Print to PDF via Chrome/Edge
+        # 3. Print to PDF via Chrome/Edge into a temporary PDF first
         html_uri = html_file.as_uri()
         cmd = [
             str(Path(browser_exe).resolve()),
@@ -73,7 +76,7 @@ def render_md_to_pdf(md_file: Path, pdf_file: Path = None, browser_exe: str = No
             "--no-sandbox",
             "--no-pdf-header-footer",
             f"--user-data-dir={user_data}",
-            f"--print-to-pdf={pdf_file}",
+            f"--print-to-pdf={tmp_pdf}",
             html_uri,
         ]
         
@@ -86,14 +89,19 @@ def render_md_to_pdf(md_file: Path, pdf_file: Path = None, browser_exe: str = No
                 shell=False,
                 check=False
             )
-            if not pdf_file.is_file() or pdf_file.stat().st_size == 0:
-                raise RuntimeError(f"PDF-Generierung fehlgeschlagen. Output: {result.stderr or result.stdout}")
+            if result.returncode != 0 or not tmp_pdf.is_file() or tmp_pdf.stat().st_size == 0:
+                raise RuntimeError(f"PDF-Generierung fehlgeschlagen (code {result.returncode}). Output: {result.stderr or result.stdout}")
+            import shutil
+            shutil.move(str(tmp_pdf), str(pdf_file))
             print(f"    [OK] PDF erstellt: {pdf_file.name} ({pdf_file.stat().st_size} Bytes)")
         finally:
-            if html_file.exists():
-                html_file.unlink()
+            if html_file.is_file():
+                try:
+                    html_file.unlink()
+                except OSError:
+                    pass
 
-def render_all():
+def render_all() -> int:
     browser = find_browser()
     print(f"Verwende Browser: {browser}")
     
@@ -106,21 +114,25 @@ def render_all():
     
     if not md_files:
         print("Keine Markdown-Dateien gefunden.")
-        return
+        return 0
     
     print(f"Gefundene Markdown-Dateien: {len(md_files)}")
+    failed_count = 0
     for md in md_files:
         try:
             render_md_to_pdf(md, browser_exe=browser)
         except Exception as e:
+            failed_count += 1
             print(f"    [FEHLER] bei {md.name}: {e}")
+    
+    return 1 if failed_count > 0 else 0
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--all":
-        render_all()
+        sys.exit(render_all())
     elif len(sys.argv) > 1:
         target_md = Path(sys.argv[1])
         target_pdf = Path(sys.argv[2]) if len(sys.argv) > 2 else None
         render_md_to_pdf(target_md, target_pdf)
     else:
-        render_all()
+        sys.exit(render_all())

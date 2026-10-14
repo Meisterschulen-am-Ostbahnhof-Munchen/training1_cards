@@ -49,8 +49,22 @@ def render_markdown_to_html(src_path: Union[str, Path], out_html_path: Union[str
         expr = re.sub(r"\s+", " ", expr).strip()
         return expr
 
+    code_placeholders = []
+
+    def store_code(match):
+        idx = len(code_placeholders)
+        code_placeholders.append(match.group(0))
+        return f"__CODE_PLACEHOLDER_{idx}__"
+
+    # Match fenced code blocks (```...```) and inline code spans (`...`)
+    md_text = re.sub(r"(```[\s\S]*?```|`[^`\n]+`)", store_code, md_text)
+
     md_text = re.sub(r"\$\$(.+?)\$\$", lambda m: latex_to_plain(m.group(1)), md_text, flags=re.S)
     md_text = re.sub(r"\$(.+?)\$", lambda m: latex_to_plain(m.group(1)), md_text)
+
+    # Restore code blocks and spans
+    for idx, code_content in enumerate(code_placeholders):
+        md_text = md_text.replace(f"__CODE_PLACEHOLDER_{idx}__", code_content)
 
     html_body = markdown.markdown(md_text, extensions=["extra", "sane_lists", "toc"])
 

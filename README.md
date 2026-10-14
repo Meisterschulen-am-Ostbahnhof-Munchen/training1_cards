@@ -127,8 +127,10 @@ Wenn in 4diac ein Eingang mit höherer Nummer (z. B. $I_3$) weiter oben gezeichn
 
 Der Generator analysiert daher automatisch die Koordinaten aller Bausteine und Anschlüsse:
 - **Pin-Inversionen:** Erkennt, wenn $I_3$ im 4diac-Netzwerk über $I_1$ gezeichnet wurde.
-- **Ungünstig platzierte Logikbausteine:** Erkennt, wenn Bausteine zu tieferen Pins oberhalb von Bausteinen zu höheren Pins liegen (z. B. `AX_SPLIT_2` an $I_3$ liegt über Bausteinen zu $I_1$).
 - **TODO-Checkliste:** Speichert alle betroffenen Übungen mit präzisen Handlungsempfehlungen in [`fix-TODO.md`](fix-TODO.md). Nach dem Verschieben der Bausteine in 4diacIDE wird das Kartenlayout beim nächsten Durchlauf automatisch sauber und kreuzungsfrei gerendert.
+
+> [!TIP]
+> Die Datei [`aufgaben.json`](aufgaben.json) dient als externe Aufgaben-Referenzsammlung für Schulungsszenarien. Die Kartengenerierung selbst liest direkt die Metadaten, I/O-Pins und Netzwerke aus den Eclipse 4diac `.SUB`-Dateien aus.
 
 ---
 
