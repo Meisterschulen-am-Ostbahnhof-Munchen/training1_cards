@@ -335,6 +335,14 @@ def assign_connection_tracks(conns: List[Dict]) -> List[int]:
                 if crossing and ci['needs_bend'] and cj['needs_bend']:
                     if ti == tj:
                         cost += 3000
+
+                # 5. Near-horizontal parallel line collision between pin take-off and arrival segment
+                if abs(ci['other_y'] - cj['pin_y']) < 8.0:
+                    if ti <= tj:
+                        cost += 5000 + (tj - ti + 1) * 1000
+                if abs(cj['other_y'] - ci['pin_y']) < 8.0:
+                    if tj <= ti:
+                        cost += 5000 + (ti - tj + 1) * 1000
         return cost
 
     num_tracks = min(n, 5)
@@ -545,15 +553,17 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
         # Calculate minimum vertical scale to prevent any blocks in the same column from overlapping
         min_scale_needed = 0.05
-        sorted_by_y = sorted(logic_instances, key=lambda inst: inst.y)
-        for i in range(len(sorted_by_y) - 1):
-            inst_a = sorted_by_y[i]
-            inst_b = sorted_by_y[i + 1]
-            dy_4d = inst_b.y - inst_a.y
-            if dy_4d > 10.0 and abs(inst_a.x - inst_b.x) <= 300.0:
-                req_scale = (inst_a.block_height + 16.0) / dy_4d
-                if req_scale > min_scale_needed:
-                    min_scale_needed = req_scale
+        for i in range(len(logic_instances)):
+            for j in range(len(logic_instances)):
+                if i == j:
+                    continue
+                inst_a = logic_instances[i]
+                inst_b = logic_instances[j]
+                dy_4d = inst_b.y - inst_a.y
+                if dy_4d > 10.0 and abs(inst_a.x - inst_b.x) <= 400.0:
+                    req_scale = (inst_a.block_height + 16.0) / dy_4d
+                    if req_scale > min_scale_needed:
+                        min_scale_needed = req_scale
 
         max_scale_y = avail_h / span_4d_y if span_4d_y > 0 else 0.05
         # Ensure scale is large enough to prevent collisions while fitting on card
@@ -717,6 +727,109 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
     for item, t in zip(right_conns, assign_connection_tracks(right_conns)):
         item["cinfo"]["assigned_mid_x"] = max(item["sx"] + 12.0, item["dx"] - 18.0 - t * 6.0)
+
+    # Internal block-to-block connections (sx <= dx) that share a vertical routing channel
+    internal_conns = []
+    for cinfo in card_connections:
+        if not cinfo.get("source_pin") and not cinfo.get("dest_pin") and cinfo.get("src_pt") and cinfo.get("dst_pt"):
+            sx, sy = cinfo["src_pt"]
+            dx, dy = cinfo["dst_pt"]
+            if sx <= dx and abs(sy - dy) >= 2.0:
+                internal_conns.append({
+                    "cinfo": cinfo,
+                    "sx": sx,
+                    "dx": dx,
+                    "sy": sy,
+                    "dy": dy,
+                    "y_min": min(sy, dy),
+                    "y_max": max(sy, dy),
+                    "dest": (cinfo.get("dest_inst"), cinfo.get("dest_port")),
+                    "src": (cinfo.get("source_inst"), cinfo.get("source_port")),
+                })
+
+    # Group internal_conns into horizontal channels
+    channels = []
+    for iconn in internal_conns:
+        matched = False
+        for chan in channels:
+            chan_sx = max(c["sx"] for c in chan)
+            chan_dx = min(c["dx"] for c in chan)
+            if max(chan_sx, iconn["sx"]) < min(chan_dx, iconn["dx"]) - 10.0:
+                chan.append(iconn)
+                matched = True
+                break
+        if not matched:
+            channels.append([iconn])
+
+    for chan in channels:
+        if len(chan) <= 1:
+            continue
+        needs_tracks = False
+        for i in range(len(chan)):
+            for j in range(i + 1, len(chan)):
+                if max(chan[i]["y_min"], chan[j]["y_min"]) < min(chan[i]["y_max"], chan[j]["y_max"]) - 1.0:
+                    needs_tracks = True
+                    break
+            if needs_tracks:
+                break
+        if not needs_tracks:
+            continue
+
+        chan_sx = max(c["sx"] for c in chan)
+        chan_dx = min(c["dx"] for c in chan)
+        mid_base = (chan_sx + chan_dx) / 2.0
+
+        def eval_chan_cost(c_list, assignment):
+            cost = 0
+            m = len(c_list)
+            for i in range(m):
+                for j in range(i + 1, m):
+                    ci, cj = c_list[i], c_list[j]
+                    ti, tj = assignment[i], assignment[j]
+                    if ti == tj:
+                        if max(ci["y_min"], cj["y_min"]) < min(ci["y_max"], cj["y_max"]) - 1.0:
+                            cost += 10000
+                        elif ci["dest"] == cj["dest"]:
+                            cost -= 500
+                        elif ci["src"] == cj["src"]:
+                            cost -= 500
+                    elif ti < tj:
+                        if ci["y_min"] - 0.5 <= cj["sy"] <= ci["y_max"] + 0.5:
+                            cost += 2000
+                        if cj["y_min"] - 0.5 <= ci["dy"] <= cj["y_max"] + 0.5:
+                            cost += 2000
+                    else:
+                        if cj["y_min"] - 0.5 <= ci["sy"] <= cj["y_max"] + 0.5:
+                            cost += 2000
+                        if ci["y_min"] - 0.5 <= cj["dy"] <= ci["y_max"] + 0.5:
+                            cost += 2000
+            return cost
+
+        best_assignment = None
+        for num_tracks in range(2, min(len(chan) + 1, 5)):
+            domains = [list(range(num_tracks)) for _ in chan]
+            combos = list(itertools.product(*domains))
+            best_cost = float("inf")
+            cur_best = None
+            for a in combos:
+                c = eval_chan_cost(chan, a)
+                if c < best_cost:
+                    best_cost = c
+                    cur_best = a
+            if cur_best and best_cost < 10000:
+                best_assignment = cur_best
+                break
+            best_assignment = cur_best
+
+        if best_assignment:
+            unique_tracks = sorted(list(set(best_assignment)))
+            k = len(unique_tracks)
+            track_rank = {t: idx for idx, t in enumerate(unique_tracks)}
+            step = min(8.0, (chan_dx - chan_sx - 24.0) / max(1, k - 1)) if k > 1 else 0.0
+            for item, t in zip(chan, best_assignment):
+                rank = track_rank[t]
+                track_x = mid_base - (k - 1) * step / 2.0 + rank * step
+                item["cinfo"]["assigned_mid_x"] = max(chan_sx + 10.0, min(chan_dx - 10.0, track_x))
 
     # Connections group (rendered behind blocks)
     svg.append('  <g id="connections">')
