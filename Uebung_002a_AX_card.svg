@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 350.0 450.0"
+     width="70.0mm" height="90.0mm">
+
+  <style>
+    @font-face {
+      font-family: "TGL 0-17_std";
+      src: local("TGL 0-17_std");
+      font-style: normal;
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: "TGL 0-17";
+      src: local("TGL 0-17"), local("TGL 0-17 alt");
+      font-style: normal;
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: "TGL 0-16_std";
+      src: local("TGL 0-16_std");
+      font-style: normal;
+      font-weight: normal;
+    }
+    @font-face {
+      font-family: "TGL 0-16";
+      src: local("TGL 0-16");
+      font-style: normal;
+      font-weight: normal;
+    }
+  </style>
+  <defs>
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feOffset in="blur" dx="1" dy="1" result="offsetBlur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.35" result="shadowColor"/>
+      <feComposite in="shadowColor" in2="offsetBlur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="350.0" height="450.0" fill="white"/>
+  <rect x="0.5" y="0.5" width="349.0" height="449.0" fill="none" stroke="#BDC3C7" stroke-width="1"/>
+  <line x1="50.0" y1="0" x2="50.0" y2="450.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="100.0" y1="0" x2="100.0" y2="450.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="150.0" y1="0" x2="150.0" y2="450.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="200.0" y1="0" x2="200.0" y2="450.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="250.0" y1="0" x2="250.0" y2="450.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="300.0" y1="0" x2="300.0" y2="450.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="50.0" x2="350.0" y2="50.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="100.0" x2="350.0" y2="100.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="150.0" x2="350.0" y2="150.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="200.0" x2="350.0" y2="200.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="250.0" x2="350.0" y2="250.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="300.0" x2="350.0" y2="300.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F2F4F4" stroke-width="0.8"/>
+  <g id="connections">
+    <polyline points="221.4,84.5 268.0,84.5 273.0,79.5 273.0,55.0 278.0,50.0 298.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="221.4,84.5 268.0,84.5 273.0,79.5 273.0,55.0 278.0,50.0 298.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="52.0,50.0 72.0,50.0 77.0,55.0 77.0,79.5 82.0,84.5 128.6,84.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="52.0,50.0 72.0,50.0 77.0,55.0 77.0,79.5 82.0,84.5 128.6,84.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="52.0,100.0 128.6,101.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="52.0,100.0 128.6,101.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+  </g>
+  <g id="instances">
+    <g id="fb_AX_AND_2" transform="translate(128.6, 39.0)">
+      <path d="M 3 0
+            L 89.875 0
+            A 3 3 0 0 1 92.875 3
+            L 92.875 18
+            A 3 3 0 0 1 89.875 21
+            L 83.875 21
+            L 83.875 35
+            L 89.875 35
+            A 3 3 0 0 1 92.875 38
+            L 92.875 69
+            A 3 3 0 0 1 89.875 72
+            L 3 72
+            A 3 3 0 0 1 0 69
+            L 0 38
+            A 3 3 0 0 1 3 35
+            L 9 35
+            L 9 21
+            L 3 21
+            A 3 3 0 0 1 0 18
+            L 0 3
+            A 3 3 0 0 1 3 0
+            Z"
+            fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1.5"
+            stroke-linejoin="round" filter="url(#dropShadow)"/>
+      <!-- Name Section -->
+      <path d="M 13.0 20.0
+            L 27.0 20.0
+            A 1 1 0 0 1 28.0 21.0
+            L 28.0 24.0
+            L 26.5 24.0
+            L 26.5 26.666666666666668
+            L 28.0 26.666666666666668
+            L 28.0 35.0
+            A 1 1 0 0 1 27.0 36.0
+            L 13.0 36.0
+            A 1 1 0 0 1 12.0 35.0
+            L 12.0 26.666666666666668
+            L 13.5 26.666666666666668
+            L 13.5 24.0
+            L 12.0 24.0
+            L 12.0 21.0
+            A 1 1 0 0 1 13.0 20.0
+            Z"
+            fill="#87CEEB" stroke="#1565C0" stroke-width="1"/>
+      <text x="20.0" y="32.0"
+            font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="10" font-weight="bold"
+            fill="#000000" text-anchor="middle">Si</text>
+      <text x="30.0" y="32.0"
+            font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
+            fill="#000000">AX_AND_2</text>
+
+
+
+      <path d="M 0 38.5
+            L 5.0 38.5
+            L 5.0 40.166666666666664
+            L 7.5 40.166666666666664
+            L 7.5 38.5
+            L 10 38.5
+            L 10 48.5
+            L 7.5 48.5
+            L 7.5 46.833333333333336
+            L 5.0 46.833333333333336
+            L 5.0 48.5
+            L 0 48.5
+            Z" fill="none" stroke="#845DAF" stroke-width="1"/>
+      <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+            fill="#000000">IN1</text>
+      <path d="M 0 55.5
+            L 5.0 55.5
+            L 5.0 57.166666666666664
+            L 7.5 57.166666666666664
+            L 7.5 55.5
+            L 10 55.5
+            L 10 65.5
+            L 7.5 65.5
+            L 7.5 63.833333333333336
+            L 5.0 63.833333333333336
+            L 5.0 65.5
+            L 0 65.5
+            Z" fill="none" stroke="#845DAF" stroke-width="1"/>
+      <text x="13" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+            fill="#000000">IN2</text>
+      <path d="M 82.875 38.5
+            L 85.375 38.5
+            L 85.375 40.166666666666664
+            L 87.875 40.166666666666664
+            L 87.875 38.5
+            L 92.875 38.5
+            L 92.875 48.5
+            L 87.875 48.5
+            L 87.875 46.833333333333336
+            L 85.375 46.833333333333336
+            L 85.375 48.5
+            L 82.875 48.5
+            Z" fill="#845DAF"/>
+      <text x="79.875" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+            fill="#000000" text-anchor="end">OUT</text>
+      <!-- Instance Name -->
+      <text x="46.4375" y="-5"
+            font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+            fill="#000000" text-anchor="middle">AX_AND_2</text>
+    </g>
+  </g>
+  <line x1="0" y1="50.0" x2="28" y2="50.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="40.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="50.0" x2="42" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="48.0" x2="40" y2="52.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="54.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I1</text>
+  <line x1="0" y1="100.0" x2="28" y2="100.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="90.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="100.0" x2="42" y2="100.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="98.0" x2="40" y2="102.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I2</text>
+  <line x1="0" y1="150.0" x2="28" y2="150.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="140.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="150.0" x2="42" y2="150.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="148.0" x2="40" y2="152.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="154.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I3</text>
+  <line x1="0" y1="200.0" x2="28" y2="200.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="190.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="200.0" x2="42" y2="200.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="198.0" x2="40" y2="202.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="204.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I4</text>
+  <line x1="0" y1="250.0" x2="28" y2="250.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="240.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="250.0" x2="42" y2="250.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="248.0" x2="40" y2="252.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="254.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I5</text>
+  <line x1="0" y1="300.0" x2="28" y2="300.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="290.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="300.0" x2="42" y2="300.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="298.0" x2="40" y2="302.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="304.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I6</text>
+  <line x1="0" y1="350.0" x2="28" y2="350.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="340.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="350.0" x2="42" y2="350.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="348.0" x2="40" y2="352.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="354.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I7</text>
+  <line x1="0" y1="400.0" x2="28" y2="400.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="28" y="390.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="38" y1="400.0" x2="42" y2="400.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="40" y1="398.0" x2="40" y2="402.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="40" y="404.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I8</text>
+  <line x1="322" y1="50.0" x2="350.0" y2="50.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="40.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="50.0" x2="312" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="48.0" x2="310" y2="52.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="54.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q1</text>
+  <line x1="322" y1="100.0" x2="350.0" y2="100.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="90.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="100.0" x2="312" y2="100.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="98.0" x2="310" y2="102.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="104.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q2</text>
+  <line x1="322" y1="150.0" x2="350.0" y2="150.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="140.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="150.0" x2="312" y2="150.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="148.0" x2="310" y2="152.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="154.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q3</text>
+  <line x1="322" y1="200.0" x2="350.0" y2="200.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="190.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="200.0" x2="312" y2="200.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="198.0" x2="310" y2="202.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="204.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q4</text>
+  <line x1="322" y1="250.0" x2="350.0" y2="250.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="240.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="250.0" x2="312" y2="250.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="248.0" x2="310" y2="252.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="254.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q5</text>
+  <line x1="322" y1="300.0" x2="350.0" y2="300.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="290.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="300.0" x2="312" y2="300.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="298.0" x2="310" y2="302.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="304.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q6</text>
+  <line x1="322" y1="350.0" x2="350.0" y2="350.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="340.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="350.0" x2="312" y2="350.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="348.0" x2="310" y2="352.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="354.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q7</text>
+  <line x1="322" y1="400.0" x2="350.0" y2="400.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="298" y="390.0" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="308" y1="400.0" x2="312" y2="400.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <line x1="310" y1="398.0" x2="310" y2="402.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="310" y="404.0" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q8</text>
+  <rect x="26" y="8" width="30" height="15" rx="7.5" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="1"/>
+  <text x="41" y="19" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#7F8C8D" text-anchor="middle">AI1</text>
+  <rect x="68" y="7" width="8" height="22" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="0.8"/>
+  <text x="79" y="14" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#7F8C8D">H1</text>
+  <line x1="175" y1="0" x2="175" y2="8" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="160" y="8" width="30" height="15" rx="7.5" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="1"/>
+  <text x="175" y="19" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#7F8C8D" text-anchor="middle">AI2</text>
+  <rect x="202" y="7" width="8" height="22" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="0.8"/>
+  <text x="213" y="14" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#7F8C8D">H2</text>
+  <text x="310" y="19" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#7F8C8D" text-anchor="middle">ENC</text>
+  <line x1="115" y1="435" x2="115" y2="450.0" stroke="#7F8C8D" stroke-width="0.8"/>
+  <rect x="100" y="420" width="30" height="15" rx="7.5" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="1"/>
+  <text x="115" y="431" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#7F8C8D" text-anchor="middle">AI3</text>
+  <rect x="202" y="415" width="8" height="22" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="0.8"/>
+  <text x="213" y="424" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#7F8C8D">H3</text>
+  <rect x="135" y="420" width="170" height="18" rx="3" fill="#F8F9F9" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="220" y="432" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_002a_AX: DigitalInput_I1/_I2 mit AND auf ...</text>
+</svg>
