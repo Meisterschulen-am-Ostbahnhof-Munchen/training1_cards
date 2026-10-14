@@ -575,9 +575,15 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 if cinfo.get("source_pin") and cinfo.get("dest_pin"):
                     mid_x = (sx + dx) / 2.0
                 elif cinfo.get("source_pin"):
-                    mid_x = sx + 30.0
+                    pin_str = cinfo["source_pin"]
+                    m_p = re.search(r'\d+', pin_str)
+                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
+                    mid_x = min(dx - 12.0, sx + 18.0 + (pin_idx % 4) * 6.0)
                 elif cinfo.get("dest_pin"):
-                    mid_x = dx - 30.0
+                    pin_str = cinfo["dest_pin"]
+                    m_p = re.search(r'\d+', pin_str)
+                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
+                    mid_x = max(sx + 12.0, dx - 18.0 - (pin_idx % 4) * 6.0)
                 else:
                     mid_x = (sx + dx) / 2.0
 
@@ -881,63 +887,66 @@ def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_7
     print(f"Generated exact 70x90mm PDF: {output_pdf}", flush=True)
 
 
-def analyze_exercise_layout(subapp_file: str) -> Tuple[str, str, List[str]]:
+def analyze_exercise_layout(
+    subapp_file: str,
+    resolver: Optional[TypeResolver] = None,
+    parser: Optional[NetworkParser] = None,
+    settings = None
+) -> Tuple[str, str, List[str]]:
     """Analyzes a .SUB file for layout issues relative to the logiBUS card pin layout.
 
     Returns (exercise_name, subapp_file, list_of_issue_descriptions).
     """
-    import xml.etree.ElementTree as ET
     ex_name = os.path.splitext(os.path.basename(subapp_file))[0]
+    if resolver is None:
+        type_libs = list(DEFAULT_TYPE_LIBS)
+        sub_dir = os.path.dirname(os.path.abspath(subapp_file))
+        if sub_dir not in type_libs:
+            type_libs.append(sub_dir)
+        resolver = TypeResolver(type_libs)
+    if parser is None:
+        parser = NetworkParser()
+    if settings is None:
+        settings = load_block_size_settings()
+
     try:
-        tree = ET.parse(subapp_file)
-        root = tree.getroot()
+        model = parser.parse(subapp_file)
+        resolver.resolve(model)
+        engine = NetworkLayoutEngine(settings=settings)
+        engine.layout(model)
     except Exception as e:
         return ex_name, subapp_file, [f"XML-Parse-Fehler: {e}"]
 
-    io_pins = {}     # name -> (pin_type 'I'/'Q', pin_num, y, x)
-    blocks = {}      # name -> (type_name, y, x)
-    connections = [] # (src_inst, dst_inst)
+    io_pins = {}     # name -> ('I'/'Q', pin_num, y, x)
+    blocks = {}      # name -> (type_name, y, x, inst)
+    connections = [] # (src_inst, src_port, dst_inst, dst_port)
 
-    for elem in root.iter():
-        if elem.tag not in ('FB', 'SubApp'):
+    for inst in model.instances:
+        pt = identify_passthrough(inst)
+        if pt:
             continue
-        name = elem.get('Name', '')
-        type_name = elem.get('Type', '')
-        try:
-            y_val = float(elem.get('y', '0') or '0')
-            x_val = float(elem.get('x', '0') or '0')
-        except ValueError:
-            y_val = 0.0
-            x_val = 0.0
+        pin = identify_io_pin(inst)
+        if pin:
+            if pin.startswith('I') and pin[1:].isdigit():
+                io_pins[inst.name] = ('I', int(pin[1:]), inst.y, inst.x)
+            elif pin.startswith('AI') and pin[2:].isdigit():
+                io_pins[inst.name] = ('I', int(pin[2:]), inst.y, inst.x)
+            elif pin.startswith('Q') and pin[1:].isdigit():
+                io_pins[inst.name] = ('Q', int(pin[1:]), inst.y, inst.x)
+        else:
+            blocks[inst.name] = (inst.type_name, inst.y, inst.x, inst)
 
-        in_p = ''
-        out_p = ''
-        for p in elem.findall('Parameter'):
-            pname = p.get('Name', '')
-            pval = p.get('Value', '')
-            if pname == 'Input':
-                in_p = pval
-            if pname == 'Output':
-                out_p = pval
-
-        m_in = re.search(r'Input_I(\d+)', in_p) or re.search(r'DigitalInput_.*I(\d+)', name) or re.search(r'^I(\d+)$', name)
-        m_out = re.search(r'Output_Q(\d+)', out_p) or re.search(r'DigitalOutput_.*Q(\d+)', name) or re.search(r'^Q(\d+)$', name)
-
-        if m_in and not m_out:
-            io_pins[name] = ('I', int(m_in.group(1)), y_val, x_val)
-        elif m_out and not m_in:
-            io_pins[name] = ('Q', int(m_out.group(1)), y_val, x_val)
-        elif not m_in and not m_out:
-            blocks[name] = (type_name, y_val, x_val)
-
-    for conn in root.iter('Connection'):
-        src = conn.get('Source', '')
-        dst = conn.get('Destination', '')
-        if src and dst:
-            connections.append((src.split('.')[0], dst.split('.')[0]))
+    for conn in model.connections:
+        s_parts = conn.source.split('.')
+        d_parts = conn.destination.split('.')
+        s_inst = s_parts[0]
+        s_port = s_parts[1] if len(s_parts) > 1 else ''
+        d_inst = d_parts[0]
+        d_port = d_parts[1] if len(d_parts) > 1 else ''
+        connections.append((s_inst, s_port, d_inst, d_port))
 
     issues = []
-    # 1. IO Pin Ordering
+    # 1. IO Pin Ordering in 4diac
     inputs = sorted([(name, info) for name, info in io_pins.items() if info[0] == 'I'], key=lambda x: x[1][1])
     for i in range(len(inputs) - 1):
         for j in range(i + 1, len(inputs)):
@@ -955,16 +964,16 @@ def analyze_exercise_layout(subapp_file: str) -> Tuple[str, str, List[str]]:
                 issues.append(f"Pin-Reihenfolge invertiert: Ausgang Q{num2} (`{n2}`, y={y2:g}) liegt oberhalb von Q{num1} (`{n1}`, y={y1:g})")
 
     # 2. Block placement relative to connected pins
-    for blk_name, (blk_type, blk_y, blk_x) in blocks.items():
+    for blk_name, (blk_type, blk_y, blk_x, b_inst) in blocks.items():
         conn_in_pins = []
-        for src, dst in connections:
-            if src in io_pins and io_pins[src][0] == 'I' and dst == blk_name:
-                conn_in_pins.append((src, io_pins[src]))
+        for src_inst, src_port, dst_inst, dst_port in connections:
+            if src_inst in io_pins and io_pins[src_inst][0] == 'I' and dst_inst == blk_name:
+                conn_in_pins.append((src_inst, io_pins[src_inst]))
         for pin_name, (pt, pnum, py, px) in conn_in_pins:
-            for other_blk, (o_type, o_y, o_x) in blocks.items():
+            for other_blk, (o_type, o_y, o_x, ob_inst) in blocks.items():
                 if other_blk == blk_name:
                     continue
-                other_conn_pins = [io_pins[src] for src, dst in connections if src in io_pins and io_pins[src][0] == 'I' and dst == other_blk]
+                other_conn_pins = [io_pins[s] for s, sp, d, dp in connections if s in io_pins and io_pins[s][0] == 'I' and d == other_blk]
                 for (opt, onum, opy, opx) in other_conn_pins:
                     if pnum > onum and blk_y < o_y - 200:
                         issues.append(
@@ -973,15 +982,78 @@ def analyze_exercise_layout(subapp_file: str) -> Tuple[str, str, List[str]]:
                             f"Empfehlung: `{blk_name}` in 4diac nach unten verschieben (unterhalb von `{other_blk}`, z.B. y > {o_y:g})."
                         )
 
+    # 3. Same-block input port crossings (e.g. I1 to bottom port, I2 to top port)
+    blk_in_conns = {}
+    for src_inst, src_port, dst_inst, dst_port in connections:
+        if src_inst in io_pins and io_pins[src_inst][0] == 'I' and dst_inst in blocks:
+            inst = blocks[dst_inst][3]
+            all_in_ports = [p.name for p in inst.event_inputs] + [p.name for p in inst.data_inputs] + [p.name for p in inst.sockets]
+            if dst_port in all_in_ports:
+                port_idx = all_in_ports.index(dst_port)
+                pnum = io_pins[src_inst][1]
+                blk_in_conns.setdefault(dst_inst, []).append((pnum, dst_port, port_idx))
+
+    for blk_name, conns in blk_in_conns.items():
+        if len(conns) > 1:
+            conns_sorted = sorted(conns, key=lambda x: x[0])
+            for i in range(len(conns_sorted) - 1):
+                for j in range(i + 1, len(conns_sorted)):
+                    p1, port1, idx1 = conns_sorted[i]
+                    p2, port2, idx2 = conns_sorted[j]
+                    if p1 < p2 and idx1 > idx2:
+                        blk_type = blocks[blk_name][0].split('::')[-1]
+                        issues.append(
+                            f"Signalleitungen kreuzen sich an `{blk_name}` ({blk_type}): "
+                            f"Eingang I{p1} ist mit unterem Port `{port1}` (Position {idx1+1}) verbunden, "
+                            f"während I{p2} mit oberem Port `{port2}` (Position {idx2+1}) verbunden ist. "
+                            f"Empfehlung: In 4diac die Eingangsbelegung anpassen (z. B. I{p1} für `{port2}` und I{p2} für `{port1}` verwenden)."
+                        )
+
+    # 4. Same-block output port crossings (e.g. Q1 to bottom port, Q2 to top port)
+    blk_out_conns = {}
+    for src_inst, src_port, dst_inst, dst_port in connections:
+        if dst_inst in io_pins and io_pins[dst_inst][0] == 'Q' and src_inst in blocks:
+            inst = blocks[src_inst][3]
+            all_out_ports = [p.name for p in inst.event_outputs] + [p.name for p in inst.data_outputs] + [p.name for p in inst.plugs]
+            if src_port in all_out_ports:
+                port_idx = all_out_ports.index(src_port)
+                pnum = io_pins[dst_inst][1]
+                blk_out_conns.setdefault(src_inst, []).append((pnum, src_port, port_idx))
+
+    for blk_name, conns in blk_out_conns.items():
+        if len(conns) > 1:
+            conns_sorted = sorted(conns, key=lambda x: x[0])
+            for i in range(len(conns_sorted) - 1):
+                for j in range(i + 1, len(conns_sorted)):
+                    p1, port1, idx1 = conns_sorted[i]
+                    p2, port2, idx2 = conns_sorted[j]
+                    if p1 < p2 and idx1 > idx2:
+                        blk_type = blocks[blk_name][0].split('::')[-1]
+                        issues.append(
+                            f"Signalleitungen kreuzen sich an `{blk_name}` ({blk_type}): "
+                            f"Ausgang Q{p1} ist mit unterem Port `{port1}` (Position {idx1+1}) verbunden, "
+                            f"während Q{p2} mit oberem Port `{port2}` (Position {idx2+1}) verbunden ist. "
+                            f"Empfehlung: In 4diac die Ausgangsbelegung anpassen (z. B. Q{p1} für `{port2}` und Q{p2} für `{port1}` verwenden)."
+                        )
+
     issues = list(dict.fromkeys(issues))
     return ex_name, subapp_file, issues
 
 
 def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TODO.md") -> int:
     """Scans subapp files for layout anomalies and writes a formatted fix-TODO.md checklist."""
+    type_libs = list(DEFAULT_TYPE_LIBS)
+    for f in subapp_files:
+        sdir = os.path.dirname(os.path.abspath(f))
+        if sdir not in type_libs:
+            type_libs.append(sdir)
+    resolver = TypeResolver(type_libs)
+    parser = NetworkParser()
+    settings = load_block_size_settings()
+
     flagged = []
     for f in subapp_files:
-        res = analyze_exercise_layout(f)
+        res = analyze_exercise_layout(f, resolver=resolver, parser=parser, settings=settings)
         if res and res[2]:
             flagged.append(res)
 
@@ -992,8 +1064,8 @@ def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TO
         "",
         "> [!NOTE]",
         "> Auf der physischen Trainingskarte (70 mm × 90 mm) sind die digitalen Eingänge **I1 bis I8 links** fest von oben (1,0 cm) nach unten (8,0 cm) angeordnet, und die Ausgänge **Q1 bis Q8 rechts** von 1,0 cm bis 8,0 cm.",
-        "> Wenn in 4diac ein Eingang mit höherer Nummer (z. B. I3) weiter oben gezeichnet ist als ein kleinerer (z. B. I1), oder ein daran angeschlossener Baustein ganz oben platziert ist, müssen Verbindungslinien unschön über andere Leitungen kreuzen.",
-        "> Sobald die betroffenen FBs in der 4diacIDE nach unten verschoben und gespeichert werden, erzeugt der Generator beim nächsten Durchlauf automatisch ein sauberes, kreuzungsfreies Kartenlayout!",
+        "> Wenn in 4diac ein Eingang mit höherer Nummer (z. B. I3) weiter oben gezeichnet ist als ein kleinerer (z. B. I1), ein Baustein unglücklich platziert ist, oder Eingänge an invertierte Anschlusspins am Baustein führen (z. B. I1 an unteren Port und I2 an oberen Port), müssen Verbindungslinien unschön über andere Leitungen kreuzen.",
+        "> Sobald die betroffenen FBs oder Anschlüsse in der 4diacIDE angepasst und gespeichert werden, erzeugt der Generator beim nächsten Durchlauf automatisch ein sauberes, kreuzungsfreies Kartenlayout!",
         "",
         "## Übersicht",
         f"- **Geprüfte Übungen:** {len(subapp_files)}",
