@@ -653,6 +653,75 @@ def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS
     print(f"Generated multi card PDF: {output_pdf}")
 
 
+def draw_offset_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: float, length: float = 3.5 * mm, offset: float = 1.5 * mm):
+    """Draws professional offset printing crop marks outside the trim box."""
+    c.setStrokeColor(colors.HexColor('#000000'))
+    c.setLineWidth(0.25)  # Hairline
+
+    # Bottom-Left corner (x, y)
+    c.line(x - offset - length, y, x - offset, y)
+    c.line(x, y - offset - length, x, y - offset)
+
+    # Bottom-Right corner (x + w, y)
+    c.line(x + w + offset, y, x + w + offset + length, y)
+    c.line(x + w, y - offset - length, x + w, y - offset)
+
+    # Top-Left corner (x, y + h)
+    c.line(x - offset - length, y + h, x - offset, y + h)
+    c.line(x, y + h + offset, x, y + h + offset + length)
+
+    # Top-Right corner (x + w, y + h)
+    c.line(x + w + offset, y + h, x + w + offset + length, y + h)
+    c.line(x + w, y + h + offset, x + w, y + h + offset + length)
+
+
+def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printshop.pdf", bleed_mm: float = 3.0, slug_mm: float = 6.0):
+    """Generates an offset print-ready PDF for commercial print shops.
+
+    - TrimBox: exactly 70.0 mm x 90.0 mm (defining the final cut size / Endformat).
+    - BleedBox: 76.0 mm x 96.0 mm (standard 3mm bleed).
+    - MediaBox: 82.0 mm x 102.0 mm (with 6mm slug margin).
+    - Crop marks (Schnittmarken): positioned outside the paper trim area pointing to the 70x90mm boundary.
+    """
+    card_w = 7.0 * cm
+    card_h = 9.0 * cm
+    bleed = bleed_mm * mm
+    margin = slug_mm * mm
+
+    page_w = card_w + 2 * margin
+    page_h = card_h + 2 * margin
+
+    c = canvas.Canvas(output_pdf, pagesize=(page_w, page_h))
+
+    # Set PDF prepress boxes
+    c.setTrimBox((margin, margin, margin + card_w, margin + card_h))
+    c.setBleedBox((margin - bleed, margin - bleed, margin + card_w + bleed, margin + card_h + bleed))
+
+    # Render card inside the TrimBox
+    svg_content = generate_card_svg(subapp_file)
+    render_card_on_pdf(c, svg_content, margin, margin, card_w, card_h)
+
+    # Draw offset crop marks in the margin outside the trim box
+    draw_offset_crop_marks(c, margin, margin, card_w, card_h, length=3.5 * mm, offset=1.5 * mm)
+
+    c.showPage()
+    c.save()
+    print(f"Generated print shop offset PDF: {output_pdf}")
+
+
+def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf"):
+    """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm."""
+    card_w = 7.0 * cm
+    card_h = 9.0 * cm
+    c = canvas.Canvas(output_pdf, pagesize=(card_w, card_h))
+    c.setTrimBox((0, 0, card_w, card_h))
+    svg_content = generate_card_svg(subapp_file)
+    render_card_on_pdf(c, svg_content, 0, 0, card_w, card_h)
+    c.showPage()
+    c.save()
+    print(f"Generated exact 70x90mm PDF: {output_pdf}")
+
+
 def main():
     arg_parser = argparse.ArgumentParser(description="Generate 7x9cm portrait training cards from 4diac exercises.")
     arg_parser.add_argument("--sub", type=str, default=DEFAULT_EXERCISE, help="Path to .SUB exercise file")
@@ -660,6 +729,8 @@ def main():
     arg_parser.add_argument("--folder", type=str, default=DEFAULT_EXERCISES_DIR, help="Folder containing .SUB files")
     arg_parser.add_argument("--single-out", type=str, default="logiBUS_single_card.pdf", help="Output path for single card PDF")
     arg_parser.add_argument("--multi-out", type=str, default="logiBUS_multi_cards.pdf", help="Output path for multi card PDF")
+    arg_parser.add_argument("--printshop-out", type=str, default="logiBUS_printshop.pdf", help="Output path for print shop offset PDF")
+    arg_parser.add_argument("--exact-out", type=str, default="logiBUS_exact_70x90.pdf", help="Output path for exact 70x90mm PDF")
     args = arg_parser.parse_args()
 
     if args.all:
@@ -668,6 +739,8 @@ def main():
         generate_multi_cards_pdf(files, args.multi_out)
         if files:
             generate_single_card_pdf(files[0], args.single_out)
+            generate_printshop_pdf(files[0], args.printshop_out)
+            generate_exact_size_pdf(files[0], args.exact_out)
     else:
         target_sub = args.sub
         if not os.path.isabs(target_sub) and not os.path.exists(target_sub):
@@ -683,13 +756,22 @@ def main():
             f.write(svg_content)
         print(f"Saved SVG: {svg_out}")
 
+        # Variant 1: Single card on DIN A4
         generate_single_card_pdf(target_sub, args.single_out)
 
+        # Variant 2: Multi card sheet (6 cards on A4)
         multi_list = [target_sub] * 6
         generate_multi_cards_pdf(multi_list, args.multi_out)
+
+        # Variant 3: Print shop offset PDF (TrimBox=70x90mm, crop marks outside)
+        generate_printshop_pdf(target_sub, args.printshop_out)
+
+        # Variant 3b: Print shop exact 70x90mm PDF (MediaBox=70x90mm)
+        generate_exact_size_pdf(target_sub, args.exact_out)
 
     print("Generation complete!")
 
 
 if __name__ == "__main__":
     main()
+
