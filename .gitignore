@@ -221,3 +221,14 @@ __marimo__/
 
 *.jpg
 
+# Output directory: ignore batch-generated files, keep tracked sample reference cards
+output/**
+!output/
+!output/**/
+!output/exact_70x90/Uebung_002a_AX_exact_70x90.pdf
+!output/multi/Uebung_002a_AX_multi.pdf
+!output/printshop/Uebung_002a_AX_printshop.pdf
+!output/single/Uebung_002a_AX_single.pdf
+!output/svg/Uebung_002a_AX_card.svg
+
+
