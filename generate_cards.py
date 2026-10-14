@@ -12,6 +12,7 @@ import glob
 import base64
 import argparse
 import itertools
+from collections import defaultdict
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional, Set
 
@@ -57,6 +58,21 @@ DEFAULT_TYPE_LIBS = [
 
 TGL_17_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-17_std.ttf"
 TGL_16_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-16_std.ttf"
+
+EVENT_LABELS = {
+    "BUTTON_SINGLE_CLICK": "Klicken",
+    "BUTTON_LONG_PRESS_START": "drücken",
+    "BUTTON_LONG_PRESS_UP": "Loslassen",
+    "BUTTON_LONG_PRESS_HOLD": "Halten",
+    "BUTTON_PRESS_DOWN": "drücken",
+    "BUTTON_PRESS_END": "Loslassen",
+    "BUTTON_DOUBLE_CLICK": "Doppelklick",
+    "BUTTON_MULTIPLE_CLICK": "Mehrfachklick",
+    "SK_PRESSED": "Gedrückt",
+    "SK_RELEASED": "Losgelassen",
+    "BT_PRESSED_LATCHED": "Rastend Ein",
+    "BT_RELEASED_UNLATCHED": "Rastend Aus",
+}
 
 
 def init_tgl_fonts():
@@ -480,6 +496,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             "double_line": (conn_type == "adapter")
         })
 
+    inst_by_name = {inst.name: inst for inst in model.instances}
+
     for conn in model.connections:
         src_parts = conn.source.split(".")
         dst_parts = conn.destination.split(".")
@@ -494,6 +512,18 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         if dest_pin:
             active_pins.add(dest_pin)
 
+        event_name = None
+        event_label = None
+        src_fb = inst_by_name.get(src_inst)
+        if src_fb:
+            event_name = src_fb.parameters.get("InputEvent")
+            if event_name:
+                event_name = event_name.split("::")[-1].strip().strip('"\'')
+            if not event_name and "BUTTON_" in src_fb.name:
+                event_name = src_fb.name
+            if event_name:
+                event_label = EVENT_LABELS.get(event_name)
+
         card_connections.append({
             "conn": conn,
             "source_pin": source_pin,
@@ -501,7 +531,9 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             "source_port": src_parts[1] if len(src_parts) > 1 else "",
             "dest_pin": dest_pin,
             "dest_inst": None if dest_pin else dst_inst,
-            "dest_port": dst_parts[1] if len(dst_parts) > 1 else ""
+            "dest_port": dst_parts[1] if len(dst_parts) > 1 else "",
+            "event_name": event_name,
+            "event_label": event_label,
         })
 
     # 5. Position logic blocks inside the card area
@@ -908,7 +940,69 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 color = cinfo.get("color", renderer.BOOL_PORT_COLOR)
                 is_double = cinfo.get("double_line", False)
 
+            cinfo["waypoints"] = waypoints
+            cinfo["color"] = color
             svg.append(renderer._render_connection(waypoints, color, double_line=is_double))
+
+    # Connection event labels (pills) for multi-event or special event pins
+    pin_events = defaultdict(set)
+    for cinfo in card_connections:
+        spin = cinfo.get("source_pin")
+        ev_name = cinfo.get("event_name")
+        if spin and ev_name:
+            pin_events[spin].add(ev_name)
+
+    labeled_conns = []
+    for cinfo in card_connections:
+        ev_label = cinfo.get("event_label")
+        ev_name = cinfo.get("event_name")
+        spin = cinfo.get("source_pin")
+        if not ev_label or not cinfo.get("waypoints"):
+            continue
+        is_multi_event = spin and len(pin_events.get(spin, set())) > 1
+        is_special_event = ev_name and ev_name != "BUTTON_SINGLE_CLICK"
+        if is_multi_event or is_special_event:
+            labeled_conns.append(cinfo)
+
+    pin_groups = defaultdict(list)
+    for cinfo in labeled_conns:
+        spin = cinfo.get("source_pin")
+        if spin:
+            pin_groups[spin].append(cinfo)
+        else:
+            pin_groups[id(cinfo)].append(cinfo)
+
+    for group_key, grp in pin_groups.items():
+        horiz_conns = []
+        for cinfo in grp:
+            wps = cinfo["waypoints"]
+            if len(wps) >= 2:
+                p_start = wps[-2]
+                p_end = wps[-1]
+                if abs(p_start[1] - p_end[1]) < 1.0 and p_end[0] > p_start[0] + 20.0:
+                    horiz_conns.append((cinfo, p_start, p_end))
+
+        if not horiz_conns:
+            continue
+
+        max_start_x = max(p_s[0] for _, p_s, _ in horiz_conns)
+        min_end_x = min(p_e[0] for _, _, p_e in horiz_conns)
+        max_text_len = max(len(cinfo["event_label"]) for cinfo, _, _ in horiz_conns)
+        grp_pill_w = max(36.0, max_text_len * 4.2 + 8.0)
+
+        can_align = (min_end_x - max_start_x) >= (grp_pill_w + 10.0)
+        shared_x = (max_start_x + min_end_x) / 2.0 if can_align else None
+
+        for cinfo, p_start, p_end in horiz_conns:
+            ev_label = cinfo["event_label"]
+            conn_color = cinfo.get("color", "#63B31F")
+            lbl_x = shared_x if shared_x is not None else (p_start[0] + p_end[0]) / 2.0
+            lbl_y = p_end[1]
+            pill_w = grp_pill_w if can_align else max(36.0, len(ev_label) * 4.2 + 8.0)
+            pill_h = 9.0
+
+            svg.append(f'    <rect x="{lbl_x - pill_w/2.0:.1f}" y="{lbl_y - pill_h/2.0:.1f}" width="{pill_w:.1f}" height="{pill_h:.1f}" rx="3" fill="#FFFFFF" stroke="{conn_color}" stroke-width="1.0"/>')
+            svg.append(f'    <text x="{lbl_x:.1f}" y="{lbl_y + 2.2:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ev_label)}</text>')
 
     svg.append('  </g>')
 
