@@ -541,23 +541,16 @@ def draw_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: float, le
 
 def render_card_on_pdf(c: canvas.Canvas, svg_content: str, x: float, y: float, w: float = 7.0 * cm, h: float = 9.0 * cm):
     """Draws an SVG training card at the specified position on the ReportLab canvas."""
-    import tempfile
-    with tempfile.NamedTemporaryFile(suffix=".svg", delete=False, mode="w", encoding="utf-8") as tf:
-        tf.write(svg_content)
-        temp_path = tf.name
-
-    try:
-        drawing = svglib.svg2rlg(temp_path)
-        if drawing:
-            scale_x = w / drawing.width
-            scale_y = h / drawing.height
-            drawing.width = w
-            drawing.height = h
-            drawing.scale(scale_x, scale_y)
-            renderPDF.draw(drawing, c, x, y)
-    finally:
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
+    import io
+    bio = io.BytesIO(svg_content.encode("utf-8"))
+    drawing = svglib.svg2rlg(bio)
+    if drawing:
+        scale_x = w / drawing.width
+        scale_y = h / drawing.height
+        drawing.width = w
+        drawing.height = h
+        drawing.scale(scale_x, scale_y)
+        renderPDF.draw(drawing, c, x, y)
 
 
 def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf"):
@@ -606,7 +599,7 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
 
     c.showPage()
     c.save()
-    print(f"Generated single card PDF: {output_pdf}")
+    print(f"Generated single card PDF: {output_pdf}", flush=True)
 
 
 def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf"):
@@ -630,17 +623,23 @@ def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS
     start_x = (page_w - grid_w) / 2.0
     start_y = (page_h - grid_h) / 2.0
 
-    num_pages = (len(subapp_files) + cards_per_page - 1) // cards_per_page
+    total_files = len(subapp_files)
+    num_pages = (total_files + cards_per_page - 1) // cards_per_page
+
+    print(f"\nStarte Generierung: {total_files} Karten auf {num_pages} DIN-A4-Seiten...", flush=True)
 
     for page_idx in range(num_pages):
         draw_crop_marks(c, start_x, start_y, grid_w, grid_h, length=8 * mm, offset=3 * mm)
 
         for slot in range(cards_per_page):
             idx = page_idx * cards_per_page + slot
-            if idx >= len(subapp_files):
+            if idx >= total_files:
                 break
 
             sub_file = subapp_files[idx]
+            sub_name = os.path.splitext(os.path.basename(sub_file))[0]
+            print(f"  [{idx + 1:3d}/{total_files}] (Seite {page_idx + 1:2d}/{num_pages}) {sub_name}...", flush=True)
+
             col = slot % cols
             row = slot // cols
             grid_row = (rows - 1) - row
@@ -648,15 +647,18 @@ def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS
             x = start_x + col * card_w
             y = start_y + grid_row * card_h
 
-            svg_content = generate_card_svg(sub_file)
-            render_card_on_pdf(c, svg_content, x, y, card_w, card_h)
+            try:
+                svg_content = generate_card_svg(sub_file)
+                render_card_on_pdf(c, svg_content, x, y, card_w, card_h)
+            except Exception as e:
+                print(f"    [WARNUNG] Fehler bei {sub_name}: {e}", flush=True)
 
             draw_crop_marks(c, x, y, card_w, card_h, length=4 * mm, offset=1.5 * mm)
 
         c.showPage()
 
     c.save()
-    print(f"Generated multi card PDF: {output_pdf}")
+    print(f"Generated multi card PDF: {output_pdf}\n", flush=True)
 
 
 def draw_offset_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: float, length: float = 3.5 * mm, offset: float = 1.5 * mm):
@@ -715,7 +717,7 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
 
     c.showPage()
     c.save()
-    print(f"Generated print shop offset PDF: {output_pdf}")
+    print(f"Generated print shop offset PDF: {output_pdf}", flush=True)
 
 
 def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf"):
@@ -731,7 +733,7 @@ def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_7
     render_card_on_pdf(c, svg_content, 0, 0, card_w, card_h)
     c.showPage()
     c.save()
-    print(f"Generated exact 70x90mm PDF: {output_pdf}")
+    print(f"Generated exact 70x90mm PDF: {output_pdf}", flush=True)
 
 
 def main():
@@ -739,6 +741,7 @@ def main():
     arg_parser.add_argument("--sub", type=str, default=DEFAULT_EXERCISE, help="Path to .SUB exercise file")
     arg_parser.add_argument("--all", action="store_true", help="Generate multi-card PDF for all exercises in folder")
     arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
+    arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
     arg_parser.add_argument("--folder", type=str, default=DEFAULT_EXERCISES_DIR, help="Folder containing .SUB files")
     arg_parser.add_argument("--output-dir", type=str, default="output", help="Root output directory (default: 'output')")
     arg_parser.add_argument("--single-out", type=str, default=None, help="Custom output path for single card PDF")
@@ -760,10 +763,12 @@ def main():
 
     if args.batch_all:
         files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
-        print(f"Batch generating cards for {len(files)} exercises into '{output_root}'...")
+        if args.limit and args.limit > 0:
+            files = files[:args.limit]
+        print(f"Batch generating cards for {len(files)} exercises into '{output_root}'...", flush=True)
         for i, fpath in enumerate(files):
             b_name = os.path.splitext(os.path.basename(fpath))[0]
-            print(f"[{i+1}/{len(files)}] Processing {b_name}...")
+            print(f"[{i+1}/{len(files)}] Processing {b_name}...", flush=True)
             svg_content = generate_card_svg(fpath)
             with open(os.path.join(svg_dir, f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
                 f.write(svg_content)
@@ -775,7 +780,9 @@ def main():
         generate_multi_cards_pdf(files, multi_out)
     elif args.all:
         files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
-        print(f"Found {len(files)} exercises in {args.folder}")
+        if args.limit and args.limit > 0:
+            files = files[:args.limit]
+        print(f"Found {len(files)} exercises in {args.folder}", flush=True)
         multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
         generate_multi_cards_pdf(files, multi_out)
         if files:
@@ -784,7 +791,7 @@ def main():
             svg_content = generate_card_svg(files[0])
             with open(svg_out, "w", encoding="utf-8") as f:
                 f.write(svg_content)
-            print(f"Saved SVG: {svg_out}")
+            print(f"Saved SVG: {svg_out}", flush=True)
 
             single_out = args.single_out or os.path.join(single_dir, f"{first_base}_single.pdf")
             generate_single_card_pdf(files[0], single_out)
@@ -801,7 +808,7 @@ def main():
             if os.path.exists(candidate):
                 target_sub = candidate
 
-        print(f"Processing exercise: {target_sub}")
+        print(f"Processing exercise: {target_sub}", flush=True)
         base_name = os.path.splitext(os.path.basename(target_sub))[0]
 
         # Standalone SVG
@@ -809,7 +816,7 @@ def main():
         svg_content = generate_card_svg(target_sub)
         with open(svg_out, "w", encoding="utf-8") as f:
             f.write(svg_content)
-        print(f"Saved SVG: {svg_out}")
+        print(f"Saved SVG: {svg_out}", flush=True)
 
         # Variant 1: Single card on DIN A4
         single_out = args.single_out or os.path.join(single_dir, f"{base_name}_single.pdf")
@@ -828,7 +835,7 @@ def main():
         exact_out = args.exact_out or os.path.join(exact_dir, f"{base_name}_exact_70x90.pdf")
         generate_exact_size_pdf(target_sub, exact_out)
 
-    print("Generation complete!")
+    print("Generation complete!", flush=True)
 
 
 if __name__ == "__main__":
