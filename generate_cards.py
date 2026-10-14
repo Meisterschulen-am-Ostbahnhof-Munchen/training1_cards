@@ -995,14 +995,13 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
         for cinfo, p_start, p_end in horiz_conns:
             ev_label = cinfo["event_label"]
-            conn_color = cinfo.get("color", "#63B31F")
             lbl_x = shared_x if shared_x is not None else (p_start[0] + p_end[0]) / 2.0
             lbl_y = p_end[1]
-            pill_w = grp_pill_w if can_align else max(36.0, len(ev_label) * 4.2 + 8.0)
-            pill_h = 9.0
+            pill_w = max(36.0, len(ev_label) * 4.2 + 8.0)
+            pill_h = 7.5
 
-            svg.append(f'    <rect x="{lbl_x - pill_w/2.0:.1f}" y="{lbl_y - pill_h/2.0:.1f}" width="{pill_w:.1f}" height="{pill_h:.1f}" rx="3" fill="#FFFFFF" stroke="{conn_color}" stroke-width="1.0"/>')
-            svg.append(f'    <text x="{lbl_x:.1f}" y="{lbl_y + 2.2:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ev_label)}</text>')
+            svg.append(f'    <rect x="{lbl_x - pill_w/2.0:.1f}" y="{lbl_y - 1.5 - pill_h:.1f}" width="{pill_w:.1f}" height="{pill_h:.1f}" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>')
+            svg.append(f'    <text x="{lbl_x:.1f}" y="{lbl_y - 3.3:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ev_label)}</text>')
 
     svg.append('  </g>')
 
