@@ -1,14 +1,15 @@
 """Automated Training Card Generator for 4diac Exercises.
 
 Generates 7cm x 9cm portrait training cards from 4diac .SUB exercise files,
-matching the logiBUS Mini-Trainer hardware overlay layout (layout.png)
-and rendering logic blocks in the IEC 61499 SVG style.
+matching the logiBUS Mini-Trainer hardware overlay layout and rendering logic
+blocks in the IEC 61499 SVG style using the narrow, engineering TGL font.
 """
 
 import os
 import sys
 import re
 import glob
+import base64
 import argparse
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
@@ -20,14 +21,17 @@ if SVG_LIB_PATH not in sys.path and os.path.exists(SVG_LIB_PATH):
 
 from iec61499_network_to_svg import (
     NetworkParser, TypeResolver, NetworkSVGRenderer, NetworkLayoutEngine,
-    load_block_size_settings, FBInstance, Connection, NetworkModel
+    load_block_size_settings, FBInstance, Connection, NetworkModel,
+    _xml_escape
 )
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.units import cm, mm
 from reportlab.pdfgen import canvas
-from svglib.svglib import svg2rlg
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+import svglib.svglib as svglib
 from reportlab.graphics import renderPDF
 
 # Card geometry: 7.0 cm x 9.0 cm (Hochformat / Portrait)
@@ -43,6 +47,78 @@ DEFAULT_EXERCISES_DIR = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacID
 DEFAULT_TYPE_LIBS = [
     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib"
 ]
+
+TGL_17_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-17_std.ttf"
+TGL_16_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-16_std.ttf"
+
+
+def init_tgl_fonts():
+    """Registers TGL fonts in ReportLab and svglib."""
+    if os.path.exists(TGL_17_PATH):
+        try:
+            pdfmetrics.registerFont(TTFont("TGL 0-17_std", TGL_17_PATH))
+            pdfmetrics.registerFont(TTFont("TGL 0-17", TGL_17_PATH))
+            svglib.register_font("TGL 0-17_std", TGL_17_PATH)
+            svglib.register_font("TGL 0-17", TGL_17_PATH)
+        except Exception:
+            pass
+
+    if os.path.exists(TGL_16_PATH):
+        try:
+            pdfmetrics.registerFont(TTFont("TGL 0-16_std", TGL_16_PATH))
+            pdfmetrics.registerFont(TTFont("TGL 0-16", TGL_16_PATH))
+            svglib.register_font("TGL 0-16_std", TGL_16_PATH)
+            svglib.register_font("TGL 0-16", TGL_16_PATH)
+        except Exception:
+            pass
+
+
+init_tgl_fonts()
+
+
+def get_embedded_font_style() -> str:
+    """Generates an SVG <style> tag embedding the TGL font files as base64 Data URIs."""
+    parts = ["  <style>"]
+    if os.path.exists(TGL_17_PATH):
+        try:
+            with open(TGL_17_PATH, "rb") as f:
+                b64_17 = base64.b64encode(f.read()).decode("ascii")
+            parts.append(f'''    @font-face {{
+      font-family: "TGL 0-17_std";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_17}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}
+    @font-face {{
+      font-family: "TGL 0-17";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_17}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}''')
+        except Exception:
+            pass
+
+    if os.path.exists(TGL_16_PATH):
+        try:
+            with open(TGL_16_PATH, "rb") as f:
+                b64_16 = base64.b64encode(f.read()).decode("ascii")
+            parts.append(f'''    @font-face {{
+      font-family: "TGL 0-16_std";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_16}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}
+    @font-face {{
+      font-family: "TGL 0-16";
+      src: url("data:font/truetype;charset=utf-8;base64,{b64_16}") format("truetype");
+      font-style: normal;
+      font-weight: normal;
+    }}''')
+        except Exception:
+            pass
+
+    parts.append("  </style>")
+    return "\n".join(parts)
 
 
 def identify_io_pin(instance: FBInstance) -> Optional[str]:
@@ -98,7 +174,7 @@ class TerminalPin:
     direction: str  # 'input' or 'output'
     x: float
     y: float
-    port_side: str  # 'left', 'right', 'top', 'bottom'
+    port_side: str  # 'left' or 'right'
 
 
 def get_pin_positions() -> Dict[str, TerminalPin]:
@@ -106,37 +182,51 @@ def get_pin_positions() -> Dict[str, TerminalPin]:
     pins = {}
 
     # Digital Inputs I1 to I8 along left margin
-    # Located at 1.0, 2.0, ..., 8.0 cm from top
+    # Located at 1.0, 2.0, ..., 8.0 cm from top (50, 100, ..., 400)
     for i in range(1, 9):
         pin_name = f"I{i}"
         py = i * UNITS_PER_CM
         pins[pin_name] = TerminalPin(
             name=pin_name,
             direction="input",
-            x=40.0,
+            x=0.0,
             y=py,
             port_side="left"
         )
 
     # Digital Outputs Q1 to Q8 along right margin
-    # Located at 1.0, 2.0, ..., 8.0 cm from top
     for i in range(1, 9):
         pin_name = f"Q{i}"
         py = i * UNITS_PER_CM
         pins[pin_name] = TerminalPin(
             name=pin_name,
             direction="output",
-            x=310.0,
+            x=SVG_W,
             y=py,
             port_side="right"
         )
 
-    # Analog inputs
-    pins["AI1"] = TerminalPin("AI1", "input", x=42.0, y=15.0, port_side="top")
-    pins["AI2"] = TerminalPin("AI2", "input", x=175.0, y=15.0, port_side="top")
-    pins["AI3"] = TerminalPin("AI3", "input", x=115.0, y=430.0, port_side="bottom")
-
     return pins
+
+
+def wrap_text(text: str, max_chars: int = 55) -> List[str]:
+    """Simple greedy word wrapper."""
+    words = text.split()
+    lines = []
+    curr = []
+    curr_len = 0
+    for w in words:
+        if curr_len + len(w) + (1 if curr else 0) <= max_chars:
+            curr.append(w)
+            curr_len += len(w) + (1 if len(curr) > 1 else 0)
+        else:
+            if curr:
+                lines.append(" ".join(curr))
+            curr = [w]
+            curr_len = len(w)
+    if curr:
+        lines.append(" ".join(curr))
+    return lines
 
 
 def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -> str:
@@ -174,8 +264,10 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
     pins = get_pin_positions()
 
-    # 4. Map connections
+    # 4. Map connections and find active pins
     card_connections = []
+    active_pins = set()
+
     for conn in model.connections:
         src_parts = conn.source.split(".")
         dst_parts = conn.destination.split(".")
@@ -184,6 +276,11 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
         source_pin = io_map.get(src_inst)
         dest_pin = io_map.get(dst_inst)
+
+        if source_pin:
+            active_pins.add(source_pin)
+        if dest_pin:
+            active_pins.add(dest_pin)
 
         card_connections.append({
             "conn": conn,
@@ -196,6 +293,9 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         })
 
     # 5. Position logic blocks inside the card area
+    # Badges sit at x=0..16 on left, x=334..350 on right.
+    # Safe horizontal range for logic blocks: [35.0, 315.0]
+    # Safe vertical range for logic blocks: [30.0, 395.0]
     if len(logic_instances) == 1:
         # Single block (like AX_AND_2 in Uebung_002a_AX)
         inst = logic_instances[0]
@@ -211,19 +311,15 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         if connected_input_y:
             target_mid_y = sum(connected_input_y) / len(connected_input_y)
         else:
-            # Default 1.5 cm from top (75 units)
             target_mid_y = 1.5 * UNITS_PER_CM
 
         # Center the block's input ports around target_mid_y
         inst.render_y = target_mid_y - inst.block_height / 2.0
         # Ensure block stays within safe margins
-        inst.render_y = max(35.0, min(inst.render_y, SVG_H - inst.block_height - 35.0))
+        inst.render_y = max(30.0, min(inst.render_y, 395.0 - inst.block_height))
 
     elif len(logic_instances) > 1:
         # Multiple blocks: scale their original 4diac coordinates into the card's safe interior area
-        # Left badges end at x=52. Right badges start at x=298.
-        # Safe horizontal range for blocks: [65.0, 285.0]
-        # Safe vertical range for blocks: [45.0, 405.0]
         min_4d_x = min(inst.x for inst in logic_instances)
         max_4d_x = max(inst.x for inst in logic_instances)
         min_4d_y = min(inst.y for inst in logic_instances)
@@ -232,10 +328,10 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         span_4d_x = max(1.0, max_4d_x - min_4d_x)
         span_4d_y = max(1.0, max_4d_y - min_4d_y)
 
-        x_safe_min = 65.0
-        x_safe_max = 285.0
-        y_safe_min = 45.0
-        y_safe_max = 405.0
+        x_safe_min = 40.0
+        x_safe_max = 310.0
+        y_safe_min = 35.0
+        y_safe_max = 395.0
 
         for inst in logic_instances:
             norm_x = (inst.x - min_4d_x) / span_4d_x if span_4d_x > 0 else 0.5
@@ -289,8 +385,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     svg.append(f'     viewBox="0 0 {SVG_W} {SVG_H}"')
     svg.append(f'     width="{CARD_W_MM}mm" height="{CARD_H_MM}mm">')
 
-    # Fonts
-    svg.append(renderer.FONT_FACE_STYLE)
+    # Embedded TGL Font Style
+    svg.append(get_embedded_font_style())
 
     # Drop shadow filter
     svg.append('''  <defs>
@@ -315,12 +411,12 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     # Subtle 1cm grid
     for i in range(1, 7):
         gx = i * UNITS_PER_CM
-        svg.append(f'  <line x1="{gx}" y1="0" x2="{gx}" y2="{SVG_H}" stroke="#F2F4F4" stroke-width="0.8"/>')
+        svg.append(f'  <line x1="{gx}" y1="0" x2="{gx}" y2="{SVG_H}" stroke="#F5F7F8" stroke-width="0.8"/>')
     for j in range(1, 9):
         gy = j * UNITS_PER_CM
-        svg.append(f'  <line x1="0" y1="{gy}" x2="{SVG_W}" y2="{gy}" stroke="#F2F4F4" stroke-width="0.8"/>')
+        svg.append(f'  <line x1="0" y1="{gy}" x2="{SVG_W}" y2="{gy}" stroke="#F5F7F8" stroke-width="0.8"/>')
 
-    # Connections group (behind blocks)
+    # Connections group (rendered behind blocks)
     svg.append('  <g id="connections">')
     for cinfo in card_connections:
         conn = cinfo["conn"]
@@ -329,28 +425,16 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
         if cinfo["source_pin"] and cinfo["source_pin"] in pins:
             pin = pins[cinfo["source_pin"]]
-            if pin.port_side == "left":
-                src_pt = (pin.x + 12.0, pin.y)
-            elif pin.port_side == "top":
-                src_pt = (pin.x, pin.y + 10.0)
-            elif pin.port_side == "bottom":
-                src_pt = (pin.x, pin.y - 10.0)
-            else:
-                src_pt = (pin.x - 12.0, pin.y)
+            # Connect right from the apex of the semicircle badge on the left
+            src_pt = (15.0, pin.y)
         elif cinfo["source_inst"] in instance_map:
             inst = instance_map[cinfo["source_inst"]]
             src_pt = inst.port_positions.get(cinfo["source_port"])
 
         if cinfo["dest_pin"] and cinfo["dest_pin"] in pins:
             pin = pins[cinfo["dest_pin"]]
-            if pin.port_side == "right":
-                dst_pt = (pin.x - 12.0, pin.y)
-            elif pin.port_side == "top":
-                dst_pt = (pin.x, pin.y + 10.0)
-            elif pin.port_side == "bottom":
-                dst_pt = (pin.x, pin.y - 10.0)
-            else:
-                dst_pt = (pin.x + 12.0, pin.y)
+            # Connect directly to the apex of the semicircle badge on the right
+            dst_pt = (SVG_W - 15.0, pin.y)
         elif cinfo["dest_inst"] in instance_map:
             inst = instance_map[cinfo["dest_inst"]]
             dst_pt = inst.port_positions.get(cinfo["dest_port"])
@@ -364,9 +448,9 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             else:
                 mid_x = (sx + dx) / 2.0
                 if cinfo["source_pin"]:
-                    mid_x = sx + 25.0
+                    mid_x = sx + 30.0
                 elif cinfo["dest_pin"]:
-                    mid_x = dx - 25.0
+                    mid_x = dx - 30.0
 
                 waypoints = [
                     (sx, sy),
@@ -387,70 +471,47 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         svg.append(renderer._render_instance(inst))
     svg.append('  </g>')
 
-    # Render hardware overlay pins (matching layout.png)
-    # Left margin pins: I1 to I8
+    # Render only the pins used in the exercise, right at the border (semicircles)
+    # Left margin pins: I1 to I8 (only if used!)
     for i in range(1, 9):
         pin_name = f"I{i}"
+        if pin_name not in active_pins:
+            continue
         py = i * UNITS_PER_CM
-        # Line from left edge to badge
-        svg.append(f'  <line x1="0" y1="{py}" x2="28" y2="{py}" stroke="#7F8C8D" stroke-width="0.8"/>')
-        # Pill badge (24w x 20h, rx=10)
-        svg.append(f'  <rect x="28" y="{py-10}" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
+        # Semicircle / half-pill directly at x = 0 (radius = 13.5, height = 27, depth = 15)
+        svg.append(f'  <path d="M 0,{py-13.5:.1f} L 2,{py-13.5:.1f} A 13.5,13.5 0 0,1 2,{py+13.5:.1f} L 0,{py+13.5:.1f} Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
         # Center marker (+)
-        svg.append(f'  <line x1="38" y1="{py}" x2="42" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
-        svg.append(f'  <line x1="40" y1="{py-2}" x2="40" y2="{py+2}" stroke="#BDC3C7" stroke-width="0.6"/>')
-        # Label
-        svg.append(f'  <text x="40" y="{py+4}" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">I{i}</text>')
+        svg.append(f'  <line x1="12" y1="{py}" x2="15" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
+        # Label in TGL font
+        svg.append(f'  <text x="7" y="{py+3.5:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{pin_name}</text>')
 
-    # Right margin pins: Q1 to Q8
+    # Right margin pins: Q1 to Q8 (only if used!)
     for i in range(1, 9):
         pin_name = f"Q{i}"
+        if pin_name not in active_pins:
+            continue
         py = i * UNITS_PER_CM
-        # Line from badge to right edge
-        svg.append(f'  <line x1="322" y1="{py}" x2="{SVG_W}" y2="{py}" stroke="#7F8C8D" stroke-width="0.8"/>')
-        # Pill badge
-        svg.append(f'  <rect x="298" y="{py-10}" width="24" height="20" rx="10" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
+        # Semicircle / half-pill directly at x = SVG_W (350)
+        svg.append(f'  <path d="M {SVG_W},{py-13.5:.1f} L {SVG_W-2},{py-13.5:.1f} A 13.5,13.5 0 0,0 {SVG_W-2},{py+13.5:.1f} L {SVG_W},{py+13.5:.1f} Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
         # Center marker (+)
-        svg.append(f'  <line x1="308" y1="{py}" x2="312" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
-        svg.append(f'  <line x1="310" y1="{py-2}" x2="310" y2="{py+2}" stroke="#BDC3C7" stroke-width="0.6"/>')
-        # Label
-        svg.append(f'  <text x="310" y="{py+4}" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q{i}</text>')
+        svg.append(f'  <line x1="{SVG_W-15}" y1="{py}" x2="{SVG_W-12}" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
+        # Label in TGL font
+        svg.append(f'  <text x="{SVG_W-7}" y="{py+3.5:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{pin_name}</text>')
 
-    # Top overlay elements: AI1, AI2, ENC, H1, H2
-    # AI1
-    svg.append('  <rect x="26" y="8" width="30" height="15" rx="7.5" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="1"/>')
-    svg.append('  <text x="41" y="19" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#7F8C8D" text-anchor="middle">AI1</text>')
-    # H1 jumper
-    svg.append('  <rect x="68" y="7" width="8" height="22" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="0.8"/>')
-    svg.append('  <text x="79" y="14" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#7F8C8D">H1</text>')
-    # AI2
-    svg.append('  <line x1="175" y1="0" x2="175" y2="8" stroke="#7F8C8D" stroke-width="0.8"/>')
-    svg.append('  <rect x="160" y="8" width="30" height="15" rx="7.5" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="1"/>')
-    svg.append('  <text x="175" y="19" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#7F8C8D" text-anchor="middle">AI2</text>')
-    # H2 jumper
-    svg.append('  <rect x="202" y="7" width="8" height="22" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="0.8"/>')
-    svg.append('  <text x="213" y="14" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#7F8C8D">H2</text>')
-    # ENC
-    svg.append('  <text x="310" y="19" font-family="Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#7F8C8D" text-anchor="middle">ENC</text>')
-
-    # Bottom overlay elements: AI3, H3
-    svg.append(f'  <line x1="115" y1="435" x2="115" y2="{SVG_H}" stroke="#7F8C8D" stroke-width="0.8"/>')
-    svg.append('  <rect x="100" y="420" width="30" height="15" rx="7.5" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="1"/>')
-    svg.append('  <text x="115" y="431" font-family="Helvetica, Arial, sans-serif" font-size="8.5" font-weight="bold" fill="#7F8C8D" text-anchor="middle">AI3</text>')
-    # H3 jumper
-    svg.append('  <rect x="202" y="415" width="8" height="22" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="0.8"/>')
-    svg.append('  <text x="213" y="424" font-family="Helvetica, Arial, sans-serif" font-size="5" fill="#7F8C8D">H3</text>')
-
-    # Identification Title Banner (Exercise name / comment)
+    # Bottom Center: Exercise Name, Line Break, Full-width Description
     ex_name = model.name or os.path.splitext(os.path.basename(subapp_file))[0]
     comment = model.comment or ""
-    display_title = f"{ex_name}"
-    if comment:
-        short_comment = comment if len(comment) <= 35 else comment[:32] + "..."
-        display_title += f": {short_comment}"
 
-    svg.append('  <rect x="135" y="420" width="170" height="18" rx="3" fill="#F8F9F9" stroke="#BDC3C7" stroke-width="0.6"/>')
-    svg.append(f'  <text x="220" y="432" font-family="Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{display_title}</text>')
+    # Exercise Name (bold, centered, font-size 10.5 pt)
+    svg.append(f'  <text x="175" y="415" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ex_name)}</text>')
+
+    # Description (wrapped across the full 7cm width, centered, font-size 7.5 pt)
+    if comment:
+        desc_lines = wrap_text(comment, max_chars=52)
+        desc_y = 428.0
+        for dline in desc_lines[:3]:
+            svg.append(f'  <text x="175" y="{desc_y:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">{_xml_escape(dline)}</text>')
+            desc_y += 10.0
 
     svg.append('</svg>')
     return "\n".join(svg)
@@ -486,7 +547,7 @@ def render_card_on_pdf(c: canvas.Canvas, svg_content: str, x: float, y: float, w
         temp_path = tf.name
 
     try:
-        drawing = svg2rlg(temp_path)
+        drawing = svglib.svg2rlg(temp_path)
         if drawing:
             scale_x = w / drawing.width
             scale_y = h / drawing.height
@@ -525,7 +586,7 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
     # Crop marks
     draw_crop_marks(c, x, y, card_w, card_h)
 
-    # Exercise description at bottom
+    # Exercise description at bottom of page
     parser = NetworkParser()
     model = parser.parse(subapp_file)
     ex_name = model.name or os.path.splitext(os.path.basename(subapp_file))[0]
@@ -610,13 +671,11 @@ def main():
     else:
         target_sub = args.sub
         if not os.path.isabs(target_sub) and not os.path.exists(target_sub):
-            # Try finding in DEFAULT_EXERCISES_DIR
             candidate = os.path.join(args.folder, target_sub)
             if os.path.exists(candidate):
                 target_sub = candidate
 
         print(f"Processing exercise: {target_sub}")
-        # Save standalone SVG
         base_name = os.path.splitext(os.path.basename(target_sub))[0]
         svg_out = f"{base_name}_card.svg"
         svg_content = generate_card_svg(target_sub)
@@ -624,10 +683,8 @@ def main():
             f.write(svg_content)
         print(f"Saved SVG: {svg_out}")
 
-        # Save single PDF
         generate_single_card_pdf(target_sub, args.single_out)
 
-        # Save multi PDF (6 cards on A4 page)
         multi_list = [target_sub] * 6
         generate_multi_cards_pdf(multi_list, args.multi_out)
 
