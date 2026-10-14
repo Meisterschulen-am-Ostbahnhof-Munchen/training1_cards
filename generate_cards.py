@@ -44,9 +44,15 @@ SVG_H = 450.0
 UNITS_PER_CM = 50.0
 
 DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
-DEFAULT_EXERCISES_DIR = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen"
+DEFAULT_EXERCISES_DIRS = [
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+]
+DEFAULT_EXERCISES_DIR = DEFAULT_EXERCISES_DIRS[0]
 DEFAULT_TYPE_LIBS = [
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib"
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib",
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
 ]
 
 TGL_17_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-17_std.ttf"
@@ -1387,6 +1393,49 @@ def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TO
     return len(flagged)
 
 
+def find_sub_files(folders: List[str]) -> List[str]:
+    """Finds all .SUB exercise files from a list of folders, checking both
+    direct files (*.SUB) and exercise subdirectories (Uebungen/*.SUB).
+    Deduplicates and returns sorted paths.
+    """
+    found = []
+    seen = set()
+    for f in folders:
+        candidates = [
+            os.path.join(f, "*.SUB"),
+            os.path.join(f, "Uebungen", "*.SUB"),
+        ]
+        for pattern in candidates:
+            for fpath in glob.glob(pattern):
+                norm = os.path.normpath(os.path.abspath(fpath))
+                if norm not in seen:
+                    seen.add(norm)
+                    found.append(norm)
+    return sorted(found)
+
+
+def resolve_sub_file(sub_arg: str, folders: List[str]) -> str:
+    """Resolves an exercise file path, which can be an absolute path,
+    a relative path, or just a filename (with or without .SUB extension)
+    located in one of the configured folders or their Uebungen subdirectories.
+    """
+    if os.path.isabs(sub_arg) and os.path.exists(sub_arg):
+        return sub_arg
+    if os.path.exists(sub_arg):
+        return os.path.abspath(sub_arg)
+
+    for f in folders:
+        for candidate in [
+            os.path.join(f, sub_arg),
+            os.path.join(f, f"{sub_arg}.SUB"),
+            os.path.join(f, "Uebungen", sub_arg),
+            os.path.join(f, "Uebungen", f"{sub_arg}.SUB"),
+        ]:
+            if os.path.exists(candidate):
+                return os.path.abspath(candidate)
+    return sub_arg
+
+
 def main():
     arg_parser = argparse.ArgumentParser(description="Generate 7x9cm portrait training cards from 4diac exercises.")
     arg_parser.add_argument("--sub", type=str, default=DEFAULT_EXERCISE, help="Path to .SUB exercise file")
@@ -1394,7 +1443,14 @@ def main():
     arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
     arg_parser.add_argument("--check-layout", action="store_true", help="Analyze exercise layouts and generate fix-TODO.md")
     arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
-    arg_parser.add_argument("--folder", type=str, default=DEFAULT_EXERCISES_DIR, help="Folder containing .SUB files")
+    arg_parser.add_argument(
+        "--folder", "--folders",
+        dest="folders",
+        type=str,
+        nargs="+",
+        default=DEFAULT_EXERCISES_DIRS,
+        help="One or more folders containing .SUB files or exercise subdirectories (default: test_AX and test_B)"
+    )
     arg_parser.add_argument("--output-dir", type=str, default="output", help="Root output directory (default: 'output')")
     arg_parser.add_argument("--single-out", type=str, default=None, help="Custom output path for single card PDF")
     arg_parser.add_argument("--multi-out", type=str, default=None, help="Custom output path for multi card PDF")
@@ -1405,10 +1461,11 @@ def main():
     args = arg_parser.parse_args()
 
     if args.check_layout:
-        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        files = find_sub_files(args.folders)
         if args.limit and args.limit > 0:
             files = files[:args.limit]
-        print(f"Analysiere Layout von {len(files)} Übungen in {args.folder}...", flush=True)
+        folders_desc = ", ".join(args.folders)
+        print(f"Analysiere Layout von {len(files)} Übungen in {folders_desc}...", flush=True)
         if not files:
             print("[LAYOUT-CHECK] Keine Übungen gefunden. Report wird nicht geschrieben.", flush=True)
             return
@@ -1430,10 +1487,10 @@ def main():
         os.makedirs(d, exist_ok=True)
 
     if args.batch_all:
-        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        files = find_sub_files(args.folders)
         if args.limit and args.limit > 0:
             files = files[:args.limit]
-        print(f"Batch generating cards for {len(files)} exercises into '{output_root}'...", flush=True)
+        print(f"Batch generating cards for {len(files)} exercises across {len(args.folders)} folders into '{output_root}'...", flush=True)
         for i, fpath in enumerate(files):
             b_name = os.path.splitext(os.path.basename(fpath))[0]
             print(f"[{i+1}/{len(files)}] Processing {b_name}...", flush=True)
@@ -1459,10 +1516,10 @@ def main():
             print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
 
     elif args.all:
-        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        files = find_sub_files(args.folders)
         if args.limit and args.limit > 0:
             files = files[:args.limit]
-        print(f"Found {len(files)} exercises in {args.folder}", flush=True)
+        print(f"Found {len(files)} exercises across {len(args.folders)} folders", flush=True)
         multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
         generate_multi_cards_pdf(files, multi_out)
         if files:
@@ -1491,11 +1548,7 @@ def main():
             print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
 
     else:
-        target_sub = args.sub
-        if not os.path.isabs(target_sub) and not os.path.exists(target_sub):
-            candidate = os.path.join(args.folder, target_sub)
-            if os.path.exists(candidate):
-                target_sub = candidate
+        target_sub = resolve_sub_file(args.sub, args.folders)
 
         print(f"Processing exercise: {target_sub}", flush=True)
         base_name = os.path.splitext(os.path.basename(target_sub))[0]
