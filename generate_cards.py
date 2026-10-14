@@ -326,22 +326,36 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         max_4d_y = max(inst.y for inst in logic_instances)
 
         span_4d_x = max(1.0, max_4d_x - min_4d_x)
-        span_4d_y = max(1.0, max_4d_y - min_4d_y)
+        span_4d_y = max(0.0, max_4d_y - min_4d_y)
 
         x_safe_min = 40.0
         x_safe_max = 310.0
         y_safe_min = 35.0
         y_safe_max = 395.0
 
+        max_block_h = max(inst.block_height for inst in logic_instances)
+        avail_h = max(0.0, (y_safe_max - y_safe_min) - max_block_h)
+
+        # In 4diac: ~1000 units ≈ 1 pin spacing = 50 SVG units (scale ≈ 0.05).
+        # We cap the scale at 0.05 so localized circuits (e.g. only I1..I3) are not
+        # artificially stretched across the entire 9cm card down to the bottom edge.
+        scale_y = min(0.05, avail_h / span_4d_y if span_4d_y > 0 else 0.05)
+        group_h = span_4d_y * scale_y + max_block_h
+
+        connected_ys = [pins[p].y for p in active_pins if p in pins]
+        if connected_ys:
+            target_mid_y = sum(connected_ys) / len(connected_ys)
+        else:
+            target_mid_y = (y_safe_min + y_safe_max) / 2.0
+
+        group_top_y = target_mid_y - group_h / 2.0
+        group_top_y = max(y_safe_min, min(group_top_y, y_safe_max - group_h))
+
         for inst in logic_instances:
             norm_x = (inst.x - min_4d_x) / span_4d_x if span_4d_x > 0 else 0.5
-            norm_y = (inst.y - min_4d_y) / span_4d_y if span_4d_y > 0 else 0.5
-
             inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
-            inst_avail_h = max(0.0, (y_safe_max - y_safe_min) - inst.block_height)
-
             inst.render_x = x_safe_min + norm_x * inst_avail_w
-            inst.render_y = y_safe_min + norm_y * inst_avail_h
+            inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
 
     # Recompute port positions on the placed logic instances
     instance_map = {}
