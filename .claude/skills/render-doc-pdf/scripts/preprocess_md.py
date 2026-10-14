@@ -40,13 +40,22 @@ def preprocess_markdown(src_path: Union[str, Path], out_path: Union[str, Path]) 
     list_item_re = re.compile(r"^(?:-|\d+\.)\s")
     fixed = []
     prev_was_list_item = False
+    in_fence = False
     for line in lines:
-        is_list_item = bool(list_item_re.match(line))
-        if is_list_item and not prev_was_list_item and fixed and fixed[-1].strip() != "":
-            fixed.append("")
-        fixed.append(line)
-        if line.strip() != "":
-            prev_was_list_item = is_list_item
+        if line.strip().startswith("```"):
+            in_fence = not in_fence
+            fixed.append(line)
+            prev_was_list_item = False
+            continue
+        if not in_fence:
+            is_list_item = bool(list_item_re.match(line))
+            if is_list_item and not prev_was_list_item and fixed and fixed[-1].strip() != "":
+                fixed.append("")
+            fixed.append(line)
+            if line.strip() != "":
+                prev_was_list_item = is_list_item
+        else:
+            fixed.append(line)
     lines = fixed
 
     # --- Fix 2: flatten multi-line "- **Label:** ..." bullets into paragraphs ---
@@ -55,24 +64,31 @@ def preprocess_markdown(src_path: Union[str, Path], out_path: Union[str, Path]) 
     out = []
     i = 0
     n = len(lines)
+    in_fence = False
     while i < n:
         line = lines[i]
-        m = label_re.match(line)
-        has_continuation = m is not None and (i + 1) < n and lines[i + 1].startswith("  ")
-        if m and has_continuation:
-            label, rest = m.group(1).rstrip(":"), m.group(2)
-            if out and out[-1].strip() != "":
-                out.append("")
-            out.append(f"**{label}:** {rest}".rstrip())
-            out.append("")
+        if line.strip().startswith("```"):
+            in_fence = not in_fence
+            out.append(line)
             i += 1
-            while i < n and (lines[i].startswith("  ") or lines[i].strip() == ""):
-                if lines[i].strip() == "":
-                    out.append("")
-                else:
-                    out.append(lines[i][2:])
-                i += 1
             continue
+        if not in_fence:
+            m = label_re.match(line)
+            has_continuation = m is not None and (i + 1) < n and lines[i + 1].startswith("  ")
+            if m and has_continuation:
+                label, rest = m.group(1).rstrip(":"), m.group(2)
+                if out and out[-1].strip() != "":
+                    out.append("")
+                out.append(f"**{label}:** {rest}".rstrip())
+                out.append("")
+                i += 1
+                while i < n and (lines[i].startswith("  ") or lines[i].strip() == ""):
+                    if lines[i].strip() == "":
+                        out.append("")
+                    else:
+                        out.append(lines[i][2:])
+                    i += 1
+                continue
         out.append(line)
         i += 1
 

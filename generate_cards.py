@@ -228,6 +228,18 @@ def get_pin_positions() -> Dict[str, TerminalPin]:
             port_side="left"
         )
 
+    # Analog Inputs AI1 to AI8 along left margin (same physical slots)
+    for i in range(1, 9):
+        pin_name = f"AI{i}"
+        py = i * UNITS_PER_CM
+        pins[pin_name] = TerminalPin(
+            name=pin_name,
+            direction="input",
+            x=0.0,
+            y=py,
+            port_side="left"
+        )
+
     # Digital Outputs Q1 to Q8 along right margin
     for i in range(1, 9):
         pin_name = f"Q{i}"
@@ -385,7 +397,7 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         min_4d_y = min(inst.y for inst in logic_instances)
         max_4d_y = max(inst.y for inst in logic_instances)
 
-        span_4d_x = max(1.0, max_4d_x - min_4d_x)
+        raw_span_x = max_4d_x - min_4d_x
         span_4d_y = max(0.0, max_4d_y - min_4d_y)
 
         x_safe_min = 40.0
@@ -396,10 +408,21 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         max_block_h = max(inst.block_height for inst in logic_instances)
         avail_h = max(0.0, (y_safe_max - y_safe_min) - max_block_h)
 
-        # In 4diac: ~1000 units ≈ 1 pin spacing = 50 SVG units (scale ≈ 0.05).
-        # We cap the scale at 0.05 so localized circuits (e.g. only I1..I3) are not
-        # artificially stretched across the entire 9cm card down to the bottom edge.
-        scale_y = min(0.05, avail_h / span_4d_y if span_4d_y > 0 else 0.05)
+        # Calculate minimum vertical scale to prevent any blocks in the same column from overlapping
+        min_scale_needed = 0.05
+        sorted_by_y = sorted(logic_instances, key=lambda inst: inst.y)
+        for i in range(len(sorted_by_y) - 1):
+            inst_a = sorted_by_y[i]
+            inst_b = sorted_by_y[i + 1]
+            dy_4d = inst_b.y - inst_a.y
+            if dy_4d > 10.0:
+                req_scale = (inst_a.block_height + 16.0) / dy_4d
+                if req_scale > min_scale_needed:
+                    min_scale_needed = req_scale
+
+        max_scale_y = avail_h / span_4d_y if span_4d_y > 0 else 0.05
+        # Ensure scale is large enough to prevent collisions while fitting on card
+        scale_y = min(max_scale_y, max(0.05, min_scale_needed))
         group_h = span_4d_y * scale_y + max_block_h
 
         connected_ys = [pins[p].y for p in active_pins if p in pins]
@@ -411,11 +434,17 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         group_top_y = target_mid_y - group_h / 2.0
         group_top_y = max(y_safe_min, min(group_top_y, y_safe_max - group_h))
 
-        for inst in logic_instances:
-            norm_x = (inst.x - min_4d_x) / span_4d_x if span_4d_x > 0 else 0.5
-            inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
-            inst.render_x = x_safe_min + norm_x * inst_avail_w
-            inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
+        # Horizontal placement: center blocks if in a single column
+        if raw_span_x < 50.0:
+            for inst in logic_instances:
+                inst.render_x = (SVG_W - inst.block_width) / 2.0
+                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
+        else:
+            for inst in logic_instances:
+                norm_x = (inst.x - min_4d_x) / raw_span_x
+                inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
+                inst.render_x = x_safe_min + norm_x * inst_avail_w
+                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
 
     # Recompute port positions on the placed logic instances
     instance_map = {}
@@ -517,8 +546,31 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             sx, sy = src_pt
             dx, dy = dst_pt
 
-            if abs(sy - dy) < 2.0:
+            if abs(sy - dy) < 2.0 and sx <= dx:
                 waypoints = [src_pt, dst_pt]
+            elif sx > dx:
+                # Feedback or vertical cascade from right-side output to left-side input
+                # Route out of the right port, down/up through the inter-block gap, and into the left port
+                src_inst_obj = instance_map.get(cinfo.get("source_inst"))
+                dst_inst_obj = instance_map.get(cinfo.get("dest_inst"))
+                if src_inst_obj and dst_inst_obj:
+                    if dy > sy:
+                        gap_y = (src_inst_obj.render_y + src_inst_obj.block_height + dst_inst_obj.render_y) / 2.0
+                    else:
+                        gap_y = (dst_inst_obj.render_y + dst_inst_obj.block_height + src_inst_obj.render_y) / 2.0
+                else:
+                    gap_y = (sy + dy) / 2.0
+
+                out_x = sx + 14.0
+                in_x = dx - 14.0
+                waypoints = [
+                    (sx, sy),
+                    (out_x, sy),
+                    (out_x, gap_y),
+                    (in_x, gap_y),
+                    (in_x, dy),
+                    (dx, dy)
+                ]
             else:
                 if cinfo.get("source_pin") and cinfo.get("dest_pin"):
                     mid_x = (sx + dx) / 2.0
@@ -560,19 +612,19 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         svg.append(renderer._render_instance(inst))
     svg.append('  </g>')
 
-    # Render only the pins used in the exercise, right at the border (semicircles)
-    # Left margin pins: I1 to I8 (only if used!)
+    # Left margin pins: I1 to I8 and AI1 to AI8 (only if used!)
     for i in range(1, 9):
-        pin_name = f"I{i}"
-        if pin_name not in active_pins:
-            continue
-        py = i * UNITS_PER_CM
-        # Semicircle / half-pill directly at x = 0 (radius = 13.5, height = 27, depth = 15)
-        svg.append(f'  <path d="M 0,{py-13.5:.1f} L 2,{py-13.5:.1f} A 13.5,13.5 0 0,1 2,{py+13.5:.1f} L 0,{py+13.5:.1f} Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
-        # Center marker (+)
-        svg.append(f'  <line x1="12" y1="{py}" x2="15" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
-        # Label in TGL font
-        svg.append(f'  <text x="7" y="{py+3.5:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{pin_name}</text>')
+        for pin_name in (f"I{i}", f"AI{i}"):
+            if pin_name not in active_pins:
+                continue
+            py = i * UNITS_PER_CM
+            # Semicircle / half-pill directly at x = 0 (radius = 13.5, height = 27, depth = 15)
+            svg.append(f'  <path d="M 0,{py-13.5:.1f} L 2,{py-13.5:.1f} A 13.5,13.5 0 0,1 2,{py+13.5:.1f} L 0,{py+13.5:.1f} Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
+            # Center marker (+)
+            svg.append(f'  <line x1="12" y1="{py}" x2="15" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
+            # Label in TGL font
+            font_size = "8" if len(pin_name) > 2 else "9.5"
+            svg.append(f'  <text x="7" y="{py+3.5:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="{font_size}" font-weight="bold" fill="#2C3E50" text-anchor="middle">{pin_name}</text>')
 
     # Right margin pins: Q1 to Q8 (only if used!)
     for i in range(1, 9):
@@ -684,7 +736,11 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
     if comment:
         c.setFont("Helvetica", 9)
         c.setFillColor(colors.HexColor('#566573'))
-        c.drawCentredString(page_w / 2.0, 3.0 * cm, comment)
+        comment_lines = wrap_text(comment, max_chars=80)
+        curr_y = 3.0 * cm
+        for cline in comment_lines[:4]:
+            c.drawCentredString(page_w / 2.0, curr_y, cline)
+            curr_y -= 0.4 * cm
 
     c.showPage()
     c.save()
@@ -1007,12 +1063,15 @@ def main():
         for i, fpath in enumerate(files):
             b_name = os.path.splitext(os.path.basename(fpath))[0]
             print(f"[{i+1}/{len(files)}] Processing {b_name}...", flush=True)
-            svg_content = generate_card_svg(fpath)
-            with open(os.path.join(svg_dir, f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
-                f.write(svg_content)
-            generate_single_card_pdf(fpath, os.path.join(single_dir, f"{b_name}_single.pdf"))
-            generate_printshop_pdf(fpath, os.path.join(printshop_dir, f"{b_name}_printshop.pdf"))
-            generate_exact_size_pdf(fpath, os.path.join(exact_dir, f"{b_name}_exact_70x90.pdf"))
+            try:
+                svg_content = generate_card_svg(fpath)
+                with open(os.path.join(svg_dir, f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
+                    f.write(svg_content)
+                generate_single_card_pdf(fpath, os.path.join(single_dir, f"{b_name}_single.pdf"))
+                generate_printshop_pdf(fpath, os.path.join(printshop_dir, f"{b_name}_printshop.pdf"))
+                generate_exact_size_pdf(fpath, os.path.join(exact_dir, f"{b_name}_exact_70x90.pdf"))
+            except Exception as e:
+                print(f"  [WARNUNG] Fehler bei {b_name}: {e}", flush=True)
         # Also generate combined multi-card sheet
         multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
         generate_multi_cards_pdf(files, multi_out)

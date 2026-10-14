@@ -16,7 +16,7 @@ if %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
-python generate_cards.py %*
+python "%~dp0generate_cards.py" %*
 if %ERRORLEVEL% NEQ 0 (
     echo.
     echo [FEHLER] Die Generierung ist mit einem Fehler abgebrochen.
