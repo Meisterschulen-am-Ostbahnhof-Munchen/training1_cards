@@ -11,8 +11,10 @@ import re
 import glob
 import base64
 import argparse
+import itertools
+from collections import defaultdict
 from dataclasses import dataclass
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Tuple, Optional, Set
 
 # Add path to IEC61499_FunctionBlock_SVG renderer
 SVG_LIB_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG"
@@ -43,13 +45,34 @@ SVG_H = 450.0
 UNITS_PER_CM = 50.0
 
 DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
-DEFAULT_EXERCISES_DIR = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen"
+DEFAULT_EXERCISES_DIRS = [
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+]
+DEFAULT_EXERCISES_DIR = DEFAULT_EXERCISES_DIRS[0]
 DEFAULT_TYPE_LIBS = [
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib"
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib",
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
+    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
 ]
 
 TGL_17_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-17_std.ttf"
 TGL_16_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-16_std.ttf"
+
+EVENT_LABELS = {
+    "BUTTON_SINGLE_CLICK": "Klicken",
+    "BUTTON_LONG_PRESS_START": "drücken",
+    "BUTTON_LONG_PRESS_UP": "Loslassen",
+    "BUTTON_LONG_PRESS_HOLD": "Halten",
+    "BUTTON_PRESS_DOWN": "drücken",
+    "BUTTON_PRESS_END": "Loslassen",
+    "BUTTON_DOUBLE_CLICK": "Doppelklick",
+    "BUTTON_MULTIPLE_CLICK": "Mehrfachklick",
+    "SK_PRESSED": "Gedrückt",
+    "SK_RELEASED": "Losgelassen",
+    "BT_PRESSED_LATCHED": "Rastend Ein",
+    "BT_RELEASED_UNLATCHED": "Rastend Aus",
+}
 
 
 def init_tgl_fonts():
@@ -275,6 +298,139 @@ def wrap_text(text: str, max_chars: int = 55) -> List[str]:
     return lines
 
 
+def assign_connection_tracks(conns: List[Dict]) -> List[int]:
+    """Assigns collision-free vertical track indices (0, 1, 2, ...) to a set of connections
+    sharing a routing channel (e.g. left input margin or right output margin).
+    Uses combinatorial optimization to guarantee that lines dropping or rising past other
+    pins take outer tracks, preventing wires from cutting across horizontal take-off segments
+    or overlapping vertical tracks.
+    """
+    n = len(conns)
+    if n <= 1:
+        return [0] * n
+
+    def evaluate_cost(conns_subset, assignment):
+        m = len(conns_subset)
+        cost = sum(assignment)
+        for i in range(m):
+            for j in range(i + 1, m):
+                ci, cj = conns_subset[i], conns_subset[j]
+                ti, tj = assignment[i], assignment[j]
+
+                # 1. Overlapping vertical segments on the exact same track
+                if ci['needs_bend'] and cj['needs_bend'] and ti == tj:
+                    y_min_i, y_max_i = min(ci['sy'], ci['dy']), max(ci['sy'], ci['dy'])
+                    y_min_j, y_max_j = min(cj['sy'], cj['dy']), max(cj['sy'], cj['dy'])
+                    if max(y_min_i, y_min_j) < min(y_max_i, y_max_j) - 1.0:
+                        cost += 10000
+
+                # 2. ci vertical segment cuts cj pin take-off
+                if ci['needs_bend'] and abs(ci['pin_y'] - cj['pin_y']) > 1.0:
+                    y_min_i, y_max_i = min(ci['sy'], ci['dy']), max(ci['sy'], ci['dy'])
+                    if y_min_i - 1.0 <= cj['pin_y'] <= y_max_i + 1.0:
+                        if ti <= tj:
+                            cost += 5000 + (tj - ti + 1) * 1000
+
+                # 2b. cj vertical segment cuts ci pin take-off
+                if cj['needs_bend'] and abs(ci['pin_y'] - cj['pin_y']) > 1.0:
+                    y_min_j, y_max_j = min(cj['sy'], cj['dy']), max(cj['sy'], cj['dy'])
+                    if y_min_j - 1.0 <= ci['pin_y'] <= y_max_j + 1.0:
+                        if tj <= ti:
+                            cost += 5000 + (ti - tj + 1) * 1000
+
+                # 3. Unnecessary arrival segment cuts (when signals do not cross)
+                not_crossing = ((ci['sy'] - cj['sy']) * (ci['dy'] - cj['dy']) > 0)
+                if not_crossing:
+                    if cj['needs_bend']:
+                        y_min_j, y_max_j = min(cj['sy'], cj['dy']), max(cj['sy'], cj['dy'])
+                        if y_min_j - 1.0 <= ci['other_y'] <= y_max_j + 1.0:
+                            if tj >= ti:
+                                cost += 2000
+                    if ci['needs_bend']:
+                        y_min_i, y_max_i = min(ci['sy'], ci['dy']), max(ci['sy'], ci['dy'])
+                        if y_min_i - 1.0 <= cj['other_y'] <= y_max_i + 1.0:
+                            if ti >= tj:
+                                cost += 2000
+
+                # 4. Corner touch on crossing signals
+                crossing = ((ci['sy'] - cj['sy']) * (ci['dy'] - cj['dy']) < 0)
+                if crossing and ci['needs_bend'] and cj['needs_bend']:
+                    if ti == tj:
+                        cost += 3000
+
+                # 5. Near-horizontal parallel line collision between pin take-off and arrival segment
+                if abs(ci['other_y'] - cj['pin_y']) < 8.0:
+                    if ti <= tj:
+                        cost += 5000 + (tj - ti + 1) * 1000
+                if abs(cj['other_y'] - ci['pin_y']) < 8.0:
+                    if tj <= ti:
+                        cost += 5000 + (ti - tj + 1) * 1000
+        return cost
+
+    num_tracks = min(n, 5)
+    domains = []
+    for c in conns:
+        if not c['needs_bend']:
+            domains.append([0])
+        else:
+            domains.append(list(range(num_tracks)))
+
+    total_states = 1
+    for d in domains:
+        total_states *= len(d)
+
+    # Exhaustive search for small problem sizes (<= 4096 combinations)
+    if total_states <= 4096:
+        best_assignment = None
+        best_cost = float('inf')
+        for assignment in itertools.product(*domains):
+            cost = evaluate_cost(conns, assignment)
+            if cost < best_cost:
+                best_cost = cost
+                best_assignment = list(assignment)
+        return best_assignment if best_assignment is not None else [0] * n
+
+    # Greedy constructive pass for larger sets
+    assignment = [0] * n
+    for i in range(n):
+        if not conns[i]['needs_bend']:
+            assignment[i] = 0
+            continue
+        best_t = 0
+        best_c = float('inf')
+        for t in range(num_tracks):
+            assignment[i] = t
+            c = evaluate_cost(conns[:i+1], assignment[:i+1])
+            if c < best_c:
+                best_c = c
+                best_t = t
+        assignment[i] = best_t
+
+    # Hill-climbing refinement passes
+    improved = True
+    passes = 0
+    while improved and passes < 5:
+        improved = False
+        passes += 1
+        for i in range(n):
+            if not conns[i]['needs_bend']:
+                continue
+            cur_best = assignment[i]
+            cur_cost = evaluate_cost(conns, assignment)
+            for t in range(num_tracks):
+                if t == cur_best:
+                    continue
+                assignment[i] = t
+                new_cost = evaluate_cost(conns, assignment)
+                if new_cost < cur_cost:
+                    cur_cost = new_cost
+                    cur_best = t
+                    improved = True
+            assignment[i] = cur_best
+
+    return assignment
+
+
 def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -> str:
     """Parses a .SUB file and generates a complete 70mm x 90mm SVG training card."""
     if type_libs is None:
@@ -340,6 +496,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             "double_line": (conn_type == "adapter")
         })
 
+    inst_by_name = {inst.name: inst for inst in model.instances}
+
     for conn in model.connections:
         src_parts = conn.source.split(".")
         dst_parts = conn.destination.split(".")
@@ -354,6 +512,18 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         if dest_pin:
             active_pins.add(dest_pin)
 
+        event_name = None
+        event_label = None
+        src_fb = inst_by_name.get(src_inst)
+        if src_fb:
+            event_name = src_fb.parameters.get("InputEvent")
+            if event_name:
+                event_name = event_name.split("::")[-1].strip().strip('"\'')
+            if not event_name and "BUTTON_" in src_fb.name:
+                event_name = src_fb.name
+            if event_name:
+                event_label = EVENT_LABELS.get(event_name)
+
         card_connections.append({
             "conn": conn,
             "source_pin": source_pin,
@@ -361,7 +531,9 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             "source_port": src_parts[1] if len(src_parts) > 1 else "",
             "dest_pin": dest_pin,
             "dest_inst": None if dest_pin else dst_inst,
-            "dest_port": dst_parts[1] if len(dst_parts) > 1 else ""
+            "dest_port": dst_parts[1] if len(dst_parts) > 1 else "",
+            "event_name": event_name,
+            "event_label": event_label,
         })
 
     # 5. Position logic blocks inside the card area
@@ -391,7 +563,6 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         inst.render_y = max(30.0, min(inst.render_y, 395.0 - inst.block_height))
 
     elif len(logic_instances) > 1:
-        # Multiple blocks: scale their original 4diac coordinates into the card's safe interior area
         min_4d_x = min(inst.x for inst in logic_instances)
         max_4d_x = max(inst.x for inst in logic_instances)
         min_4d_y = min(inst.y for inst in logic_instances)
@@ -400,25 +571,52 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         raw_span_x = max_4d_x - min_4d_x
         span_4d_y = max(0.0, max_4d_y - min_4d_y)
 
-        x_safe_min = 40.0
-        x_safe_max = 310.0
+        x_safe_min = 48.0
+        x_safe_max = 285.0
         y_safe_min = 35.0
         y_safe_max = 395.0
+
+        # Horizontal placement: compute render_x first to know exact horizontal block extents
+        if raw_span_x < 50.0:
+            for inst in logic_instances:
+                inst.render_x = (SVG_W - inst.block_width) / 2.0
+        else:
+            for inst in logic_instances:
+                norm_x = (inst.x - min_4d_x) / raw_span_x
+                inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
+                inst.render_x = x_safe_min + norm_x * inst_avail_w
+
+        # Snap blocks that are in different columns but placed on roughly the same row in 4diac (dy <= 60.0)
+        # to the exact same row to prevent artificial vertical staggering, but only if they do not overlap horizontally
+        sorted_logic = sorted(logic_instances, key=lambda inst: inst.y)
+        for i in range(len(sorted_logic)):
+            for j in range(i + 1, len(sorted_logic)):
+                inst_a = sorted_logic[i]
+                inst_b = sorted_logic[j]
+                horiz_overlap = (inst_a.render_x < inst_b.render_x + inst_b.block_width and
+                                 inst_b.render_x < inst_a.render_x + inst_a.block_width)
+                if abs(inst_a.y - inst_b.y) <= 60.0 and abs(inst_a.x - inst_b.x) > 300.0 and not horiz_overlap:
+                    inst_b.y = inst_a.y
 
         max_block_h = max(inst.block_height for inst in logic_instances)
         avail_h = max(0.0, (y_safe_max - y_safe_min) - max_block_h)
 
-        # Calculate minimum vertical scale to prevent any blocks in the same column from overlapping
+        # Calculate minimum vertical scale to prevent any blocks in the same column or horizontally overlapping from colliding
         min_scale_needed = 0.05
-        sorted_by_y = sorted(logic_instances, key=lambda inst: inst.y)
-        for i in range(len(sorted_by_y) - 1):
-            inst_a = sorted_by_y[i]
-            inst_b = sorted_by_y[i + 1]
-            dy_4d = inst_b.y - inst_a.y
-            if dy_4d > 10.0:
-                req_scale = (inst_a.block_height + 16.0) / dy_4d
-                if req_scale > min_scale_needed:
-                    min_scale_needed = req_scale
+        for i in range(len(logic_instances)):
+            for j in range(len(logic_instances)):
+                if i == j:
+                    continue
+                inst_a = logic_instances[i]
+                inst_b = logic_instances[j]
+                dy_4d = inst_b.y - inst_a.y
+                horiz_overlap = (inst_a.render_x < inst_b.render_x + inst_b.block_width and
+                                 inst_b.render_x < inst_a.render_x + inst_a.block_width)
+                in_same_column = horiz_overlap or (abs(inst_a.x - inst_b.x) <= 400.0)
+                if dy_4d > 10.0 and in_same_column:
+                    req_scale = (inst_a.block_height + 16.0) / dy_4d
+                    if req_scale > min_scale_needed:
+                        min_scale_needed = req_scale
 
         max_scale_y = avail_h / span_4d_y if span_4d_y > 0 else 0.05
         # Ensure scale is large enough to prevent collisions while fitting on card
@@ -434,17 +632,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         group_top_y = target_mid_y - group_h / 2.0
         group_top_y = max(y_safe_min, min(group_top_y, y_safe_max - group_h))
 
-        # Horizontal placement: center blocks if in a single column
-        if raw_span_x < 50.0:
-            for inst in logic_instances:
-                inst.render_x = (SVG_W - inst.block_width) / 2.0
-                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
-        else:
-            for inst in logic_instances:
-                norm_x = (inst.x - min_4d_x) / raw_span_x
-                inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
-                inst.render_x = x_safe_min + norm_x * inst_avail_w
-                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
+        for inst in logic_instances:
+            inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
 
     # Recompute port positions on the placed logic instances
     instance_map = {}
@@ -519,10 +708,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         gy = j * UNITS_PER_CM
         svg.append(f'  <line x1="0" y1="{gy}" x2="{SVG_W}" y2="{gy}" stroke="#F5F7F8" stroke-width="0.8"/>')
 
-    # Connections group (rendered behind blocks)
-    svg.append('  <g id="connections">')
+    # Pre-calculate points and assign collision-free tracks for input & output pins
     for cinfo in card_connections:
-        conn = cinfo["conn"]
         src_pt = None
         dst_pt = None
 
@@ -541,6 +728,159 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         elif cinfo["dest_inst"] in instance_map:
             inst = instance_map[cinfo["dest_inst"]]
             dst_pt = inst.port_positions.get(cinfo["dest_port"])
+
+        cinfo["src_pt"] = src_pt
+        cinfo["dst_pt"] = dst_pt
+
+    left_conns = []
+    for cinfo in card_connections:
+        if cinfo["source_pin"] and not cinfo.get("dest_pin") and cinfo.get("src_pt") and cinfo.get("dst_pt"):
+            sx, sy = cinfo["src_pt"]
+            dx, dy = cinfo["dst_pt"]
+            if sx <= dx:
+                left_conns.append({
+                    "cinfo": cinfo,
+                    "sy": sy,
+                    "dy": dy,
+                    "pin_y": sy,
+                    "other_y": dy,
+                    "needs_bend": abs(sy - dy) >= 2.0,
+                    "sx": sx,
+                    "dx": dx,
+                })
+
+    right_conns = []
+    for cinfo in card_connections:
+        if cinfo["dest_pin"] and not cinfo.get("source_pin") and cinfo.get("src_pt") and cinfo.get("dst_pt"):
+            sx, sy = cinfo["src_pt"]
+            dx, dy = cinfo["dst_pt"]
+            if sx <= dx:
+                right_conns.append({
+                    "cinfo": cinfo,
+                    "sy": sy,
+                    "dy": dy,
+                    "pin_y": dy,
+                    "other_y": sy,
+                    "needs_bend": abs(sy - dy) >= 2.0,
+                    "sx": sx,
+                    "dx": dx,
+                })
+
+    for item, t in zip(left_conns, assign_connection_tracks(left_conns)):
+        item["cinfo"]["assigned_mid_x"] = min(item["dx"] - 12.0, item["sx"] + 18.0 + t * 6.0)
+
+    for item, t in zip(right_conns, assign_connection_tracks(right_conns)):
+        item["cinfo"]["assigned_mid_x"] = max(item["sx"] + 12.0, item["dx"] - 18.0 - t * 6.0)
+
+    # Internal block-to-block connections (sx <= dx) that share a vertical routing channel
+    internal_conns = []
+    for cinfo in card_connections:
+        if not cinfo.get("source_pin") and not cinfo.get("dest_pin") and cinfo.get("src_pt") and cinfo.get("dst_pt"):
+            sx, sy = cinfo["src_pt"]
+            dx, dy = cinfo["dst_pt"]
+            if sx <= dx and abs(sy - dy) >= 2.0:
+                internal_conns.append({
+                    "cinfo": cinfo,
+                    "sx": sx,
+                    "dx": dx,
+                    "sy": sy,
+                    "dy": dy,
+                    "y_min": min(sy, dy),
+                    "y_max": max(sy, dy),
+                    "dest": (cinfo.get("dest_inst"), cinfo.get("dest_port")),
+                    "src": (cinfo.get("source_inst"), cinfo.get("source_port")),
+                })
+
+    # Group internal_conns into horizontal channels
+    channels = []
+    for iconn in internal_conns:
+        matched = False
+        for chan in channels:
+            chan_sx = max(c["sx"] for c in chan)
+            chan_dx = min(c["dx"] for c in chan)
+            if max(chan_sx, iconn["sx"]) < min(chan_dx, iconn["dx"]) - 10.0:
+                chan.append(iconn)
+                matched = True
+                break
+        if not matched:
+            channels.append([iconn])
+
+    for chan in channels:
+        if len(chan) <= 1:
+            continue
+        needs_tracks = False
+        for i in range(len(chan)):
+            for j in range(i + 1, len(chan)):
+                if max(chan[i]["y_min"], chan[j]["y_min"]) < min(chan[i]["y_max"], chan[j]["y_max"]) - 1.0:
+                    needs_tracks = True
+                    break
+            if needs_tracks:
+                break
+        if not needs_tracks:
+            continue
+
+        chan_sx = max(c["sx"] for c in chan)
+        chan_dx = min(c["dx"] for c in chan)
+        mid_base = (chan_sx + chan_dx) / 2.0
+
+        def eval_chan_cost(c_list, assignment):
+            cost = 0
+            m = len(c_list)
+            for i in range(m):
+                for j in range(i + 1, m):
+                    ci, cj = c_list[i], c_list[j]
+                    ti, tj = assignment[i], assignment[j]
+                    if ti == tj:
+                        if max(ci["y_min"], cj["y_min"]) < min(ci["y_max"], cj["y_max"]) - 1.0:
+                            cost += 10000
+                        elif ci["dest"] == cj["dest"]:
+                            cost -= 500
+                        elif ci["src"] == cj["src"]:
+                            cost -= 500
+                    elif ti < tj:
+                        if ci["y_min"] - 0.5 <= cj["sy"] <= ci["y_max"] + 0.5:
+                            cost += 2000
+                        if cj["y_min"] - 0.5 <= ci["dy"] <= cj["y_max"] + 0.5:
+                            cost += 2000
+                    else:
+                        if cj["y_min"] - 0.5 <= ci["sy"] <= cj["y_max"] + 0.5:
+                            cost += 2000
+                        if ci["y_min"] - 0.5 <= cj["dy"] <= ci["y_max"] + 0.5:
+                            cost += 2000
+            return cost
+
+        best_assignment = None
+        for num_tracks in range(2, min(len(chan) + 1, 5)):
+            domains = [list(range(num_tracks)) for _ in chan]
+            combos = list(itertools.product(*domains))
+            best_cost = float("inf")
+            cur_best = None
+            for a in combos:
+                c = eval_chan_cost(chan, a)
+                if c < best_cost:
+                    best_cost = c
+                    cur_best = a
+            if cur_best and best_cost < 10000:
+                best_assignment = cur_best
+                break
+            best_assignment = cur_best
+
+        if best_assignment:
+            unique_tracks = sorted(list(set(best_assignment)))
+            k = len(unique_tracks)
+            track_rank = {t: idx for idx, t in enumerate(unique_tracks)}
+            step = min(8.0, (chan_dx - chan_sx - 24.0) / max(1, k - 1)) if k > 1 else 0.0
+            for item, t in zip(chan, best_assignment):
+                rank = track_rank[t]
+                track_x = mid_base - (k - 1) * step / 2.0 + rank * step
+                item["cinfo"]["assigned_mid_x"] = max(chan_sx + 10.0, min(chan_dx - 10.0, track_x))
+
+    # Connections group (rendered behind blocks)
+    svg.append('  <g id="connections">')
+    for cinfo in card_connections:
+        conn = cinfo["conn"]
+        src_pt = cinfo.get("src_pt")
+        dst_pt = cinfo.get("dst_pt")
 
         if src_pt and dst_pt:
             sx, sy = src_pt
@@ -574,18 +914,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                     (dx, dy)
                 ]
             else:
-                if cinfo.get("source_pin") and cinfo.get("dest_pin"):
-                    mid_x = (sx + dx) / 2.0
-                elif cinfo.get("source_pin"):
-                    pin_str = cinfo["source_pin"]
-                    m_p = re.search(r'\d+', pin_str)
-                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
-                    mid_x = min(dx - 12.0, sx + 18.0 + (pin_idx % 4) * 6.0)
-                elif cinfo.get("dest_pin"):
-                    pin_str = cinfo["dest_pin"]
-                    m_p = re.search(r'\d+', pin_str)
-                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
-                    mid_x = max(sx + 12.0, dx - 18.0 - (pin_idx % 4) * 6.0)
+                if "assigned_mid_x" in cinfo:
+                    mid_x = cinfo["assigned_mid_x"]
                 else:
                     mid_x = (sx + dx) / 2.0
 
@@ -610,7 +940,68 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 color = cinfo.get("color", renderer.BOOL_PORT_COLOR)
                 is_double = cinfo.get("double_line", False)
 
+            cinfo["waypoints"] = waypoints
+            cinfo["color"] = color
             svg.append(renderer._render_connection(waypoints, color, double_line=is_double))
+
+    # Connection event labels (pills) for multi-event or special event pins
+    pin_events = defaultdict(set)
+    for cinfo in card_connections:
+        spin = cinfo.get("source_pin")
+        ev_name = cinfo.get("event_name")
+        if spin and ev_name:
+            pin_events[spin].add(ev_name)
+
+    labeled_conns = []
+    for cinfo in card_connections:
+        ev_label = cinfo.get("event_label")
+        ev_name = cinfo.get("event_name")
+        spin = cinfo.get("source_pin")
+        if not ev_label or not cinfo.get("waypoints"):
+            continue
+        is_multi_event = spin and len(pin_events.get(spin, set())) > 1
+        is_special_event = ev_name and ev_name != "BUTTON_SINGLE_CLICK"
+        if is_multi_event or is_special_event:
+            labeled_conns.append(cinfo)
+
+    pin_groups = defaultdict(list)
+    for cinfo in labeled_conns:
+        spin = cinfo.get("source_pin")
+        if spin:
+            pin_groups[spin].append(cinfo)
+        else:
+            pin_groups[id(cinfo)].append(cinfo)
+
+    for group_key, grp in pin_groups.items():
+        horiz_conns = []
+        for cinfo in grp:
+            wps = cinfo["waypoints"]
+            if len(wps) >= 2:
+                p_start = wps[-2]
+                p_end = wps[-1]
+                if abs(p_start[1] - p_end[1]) < 1.0 and p_end[0] > p_start[0] + 20.0:
+                    horiz_conns.append((cinfo, p_start, p_end))
+
+        if not horiz_conns:
+            continue
+
+        max_start_x = max(p_s[0] for _, p_s, _ in horiz_conns)
+        min_end_x = min(p_e[0] for _, _, p_e in horiz_conns)
+        max_text_len = max(len(cinfo["event_label"]) for cinfo, _, _ in horiz_conns)
+        grp_pill_w = max(36.0, max_text_len * 4.2 + 8.0)
+
+        can_align = (min_end_x - max_start_x) >= (grp_pill_w + 10.0)
+        shared_x = (max_start_x + min_end_x) / 2.0 if can_align else None
+
+        for cinfo, p_start, p_end in horiz_conns:
+            ev_label = cinfo["event_label"]
+            lbl_x = shared_x if shared_x is not None else (p_start[0] + p_end[0]) / 2.0
+            lbl_y = p_end[1]
+            pill_w = max(36.0, len(ev_label) * 4.2 + 8.0)
+            pill_h = 7.5
+
+            svg.append(f'    <rect x="{lbl_x - pill_w/2.0:.1f}" y="{lbl_y - 1.5 - pill_h:.1f}" width="{pill_w:.1f}" height="{pill_h:.1f}" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>')
+            svg.append(f'    <text x="{lbl_x:.1f}" y="{lbl_y - 3.3:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ev_label)}</text>')
 
     svg.append('  </g>')
 
@@ -1050,6 +1441,42 @@ def analyze_exercise_layout(
     return ex_name, subapp_file, issues
 
 
+def get_exercise_subfolder(subapp_file: str, configured_folders: Optional[List[str]] = None) -> str:
+    """Returns the subfolder name (e.g. 'test_AX' or 'test_B') that this exercise belongs to."""
+    if not subapp_file:
+        return ""
+    norm_file = os.path.normpath(os.path.abspath(subapp_file))
+    if configured_folders:
+        for f in configured_folders:
+            norm_folder = os.path.normpath(os.path.abspath(f))
+            if norm_file.startswith(norm_folder):
+                return os.path.basename(norm_folder)
+    parts = norm_file.split(os.sep)
+    for part in parts:
+        if part in ("test_AX", "test_B"):
+            return part
+    return ""
+
+
+def get_output_paths(subapp_file: str, output_root: str = "output", configured_folders: Optional[List[str]] = None) -> Dict[str, str]:
+    """Computes destination directory paths for each variant based on exercise origin folder."""
+    subfolder = get_exercise_subfolder(subapp_file, configured_folders)
+    base_dir = os.path.join(output_root, subfolder) if subfolder else output_root
+    paths = {
+        "subfolder": subfolder,
+        "base_dir": base_dir,
+        "svg": os.path.join(base_dir, "svg"),
+        "single": os.path.join(base_dir, "single"),
+        "multi": os.path.join(base_dir, "multi"),
+        "printshop": os.path.join(base_dir, "printshop"),
+        "exact_70x90": os.path.join(base_dir, "exact_70x90"),
+    }
+    for k, p in paths.items():
+        if k != "subfolder" and isinstance(p, str) and p:
+            os.makedirs(p, exist_ok=True)
+    return paths
+
+
 def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TODO.md") -> int:
     """Scans subapp files for layout anomalies and writes a formatted fix-TODO.md checklist."""
     type_libs = list(DEFAULT_TYPE_LIBS)
@@ -1061,11 +1488,14 @@ def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TO
     parser = NetworkParser()
     settings = load_block_size_settings()
 
-    flagged = []
+    flagged_by_folder = defaultdict(list)
+    total_flagged = 0
     for f in subapp_files:
         res = analyze_exercise_layout(f, resolver=resolver, parser=parser, settings=settings)
         if res and res[2]:
-            flagged.append(res)
+            sfolder = get_exercise_subfolder(f, DEFAULT_EXERCISES_DIRS) or "Weitere"
+            flagged_by_folder[sfolder].append(res)
+            total_flagged += 1
 
     lines = [
         "# 4diac Übungs-Layout Fix-TODOs (Karten-Optimierung)",
@@ -1079,26 +1509,78 @@ def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TO
         "",
         "## Übersicht",
         f"- **Geprüfte Übungen:** {len(subapp_files)}",
-        f"- **Übungen mit Optimierungsbedarf:** {len(flagged)}",
+        f"- **Übungen mit Optimierungsbedarf:** {total_flagged}",
+    ]
+
+    for sfolder, f_list in sorted(flagged_by_folder.items()):
+        lines.append(f"- **{sfolder}:** {len(f_list)} Übungen")
+
+    lines.extend([
         "",
         "---",
         "",
         "## Offene Layout-TODOs",
         ""
-    ]
+    ])
 
-    for ex_name, fpath, issues in flagged:
-        rel_path = os.path.relpath(fpath, os.getcwd()) if os.path.isabs(fpath) else fpath
-        rel_path = rel_path.replace("\\", "/")
-        lines.append(f"- [ ] **{ex_name}** (`{rel_path}`)")
-        for iss in issues:
-            lines.append(f"  - {iss}")
+    for sfolder, f_list in sorted(flagged_by_folder.items()):
+        lines.append(f"### {sfolder} ({len(f_list)} Übungen)")
         lines.append("")
+        for ex_name, fpath, issues in f_list:
+            rel_path = os.path.relpath(fpath, os.getcwd()) if os.path.isabs(fpath) else fpath
+            rel_path = rel_path.replace("\\", "/")
+            lines.append(f"- [ ] **{ex_name}** (`{rel_path}`)")
+            for iss in issues:
+                lines.append(f"  - {iss}")
+            lines.append("")
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
 
-    return len(flagged)
+    return total_flagged
+
+
+def find_sub_files(folders: List[str]) -> List[str]:
+    """Finds all .SUB exercise files from a list of folders, checking both
+    direct files (*.SUB) and exercise subdirectories (Uebungen/*.SUB).
+    Deduplicates and returns sorted paths.
+    """
+    found = []
+    seen = set()
+    for f in folders:
+        candidates = [
+            os.path.join(f, "*.SUB"),
+            os.path.join(f, "Uebungen", "*.SUB"),
+        ]
+        for pattern in candidates:
+            for fpath in glob.glob(pattern):
+                norm = os.path.normpath(os.path.abspath(fpath))
+                if norm not in seen:
+                    seen.add(norm)
+                    found.append(norm)
+    return sorted(found)
+
+
+def resolve_sub_file(sub_arg: str, folders: List[str]) -> str:
+    """Resolves an exercise file path, which can be an absolute path,
+    a relative path, or just a filename (with or without .SUB extension)
+    located in one of the configured folders or their Uebungen subdirectories.
+    """
+    if os.path.isabs(sub_arg) and os.path.exists(sub_arg):
+        return sub_arg
+    if os.path.exists(sub_arg):
+        return os.path.abspath(sub_arg)
+
+    for f in folders:
+        for candidate in [
+            os.path.join(f, sub_arg),
+            os.path.join(f, f"{sub_arg}.SUB"),
+            os.path.join(f, "Uebungen", sub_arg),
+            os.path.join(f, "Uebungen", f"{sub_arg}.SUB"),
+        ]:
+            if os.path.exists(candidate):
+                return os.path.abspath(candidate)
+    return sub_arg
 
 
 def main():
@@ -1108,7 +1590,14 @@ def main():
     arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
     arg_parser.add_argument("--check-layout", action="store_true", help="Analyze exercise layouts and generate fix-TODO.md")
     arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
-    arg_parser.add_argument("--folder", type=str, default=DEFAULT_EXERCISES_DIR, help="Folder containing .SUB files")
+    arg_parser.add_argument(
+        "--folder", "--folders",
+        dest="folders",
+        type=str,
+        nargs="+",
+        default=DEFAULT_EXERCISES_DIRS,
+        help="One or more folders containing .SUB files or exercise subdirectories (default: test_AX and test_B)"
+    )
     arg_parser.add_argument("--output-dir", type=str, default="output", help="Root output directory (default: 'output')")
     arg_parser.add_argument("--single-out", type=str, default=None, help="Custom output path for single card PDF")
     arg_parser.add_argument("--multi-out", type=str, default=None, help="Custom output path for multi card PDF")
@@ -1119,10 +1608,11 @@ def main():
     args = arg_parser.parse_args()
 
     if args.check_layout:
-        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        files = find_sub_files(args.folders)
         if args.limit and args.limit > 0:
             files = files[:args.limit]
-        print(f"Analysiere Layout von {len(files)} Übungen in {args.folder}...", flush=True)
+        folders_desc = ", ".join(args.folders)
+        print(f"Analysiere Layout von {len(files)} Übungen in {folders_desc}...", flush=True)
         if not files:
             print("[LAYOUT-CHECK] Keine Übungen gefunden. Report wird nicht geschrieben.", flush=True)
             return
@@ -1134,35 +1624,40 @@ def main():
         return
 
     output_root = args.output_dir
-    single_dir = os.path.join(output_root, "single")
-    multi_dir = os.path.join(output_root, "multi")
-    printshop_dir = os.path.join(output_root, "printshop")
-    exact_dir = os.path.join(output_root, "exact_70x90")
-    svg_dir = os.path.join(output_root, "svg")
-
-    for d in (single_dir, multi_dir, printshop_dir, exact_dir, svg_dir):
-        os.makedirs(d, exist_ok=True)
 
     if args.batch_all:
-        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        files = find_sub_files(args.folders)
         if args.limit and args.limit > 0:
             files = files[:args.limit]
-        print(f"Batch generating cards for {len(files)} exercises into '{output_root}'...", flush=True)
+        print(f"Batch generating cards for {len(files)} exercises across {len(args.folders)} folders into '{output_root}'...", flush=True)
+
+        files_by_folder = defaultdict(list)
         for i, fpath in enumerate(files):
             b_name = os.path.splitext(os.path.basename(fpath))[0]
-            print(f"[{i+1}/{len(files)}] Processing {b_name}...", flush=True)
+            out_paths = get_output_paths(fpath, output_root, args.folders)
+            subfolder = out_paths["subfolder"]
+            files_by_folder[subfolder].append(fpath)
+
+            print(f"[{i+1}/{len(files)}] [{subfolder or 'default'}] Processing {b_name}...", flush=True)
             try:
                 svg_content = generate_card_svg(fpath)
-                with open(os.path.join(svg_dir, f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
+                with open(os.path.join(out_paths["svg"], f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
                     f.write(svg_content)
-                generate_single_card_pdf(fpath, os.path.join(single_dir, f"{b_name}_single.pdf"))
-                generate_printshop_pdf(fpath, os.path.join(printshop_dir, f"{b_name}_printshop.pdf"))
-                generate_exact_size_pdf(fpath, os.path.join(exact_dir, f"{b_name}_exact_70x90.pdf"))
+                generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"))
+                generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"))
+                generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"))
             except Exception as e:
                 print(f"  [WARNUNG] Fehler bei {b_name}: {e}", flush=True)
-        # Also generate combined multi-card sheet
-        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
-        generate_multi_cards_pdf(files, multi_out)
+
+        # Generate multi-card PDFs per folder
+        for sfolder, folder_files in files_by_folder.items():
+            folder_base = os.path.join(output_root, sfolder) if sfolder else output_root
+            folder_multi_dir = os.path.join(folder_base, "multi")
+            os.makedirs(folder_multi_dir, exist_ok=True)
+            multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
+            multi_out = args.multi_out or os.path.join(folder_multi_dir, multi_name)
+            print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
+            generate_multi_cards_pdf(folder_files, multi_out)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -1173,28 +1668,44 @@ def main():
             print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
 
     elif args.all:
-        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        files = find_sub_files(args.folders)
         if args.limit and args.limit > 0:
             files = files[:args.limit]
-        print(f"Found {len(files)} exercises in {args.folder}", flush=True)
-        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
-        generate_multi_cards_pdf(files, multi_out)
-        if files:
-            first_base = os.path.splitext(os.path.basename(files[0]))[0]
-            svg_out = args.svg_out or os.path.join(svg_dir, f"{first_base}_card.svg")
-            svg_content = generate_card_svg(files[0])
-            with open(svg_out, "w", encoding="utf-8") as f:
-                f.write(svg_content)
-            print(f"Saved SVG: {svg_out}", flush=True)
+        print(f"Found {len(files)} exercises across {len(args.folders)} folders", flush=True)
 
-            single_out = args.single_out or os.path.join(single_dir, f"{first_base}_single.pdf")
-            generate_single_card_pdf(files[0], single_out)
+        files_by_folder = defaultdict(list)
+        for fpath in files:
+            subfolder = get_exercise_subfolder(fpath, args.folders)
+            files_by_folder[subfolder].append(fpath)
 
-            printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{first_base}_printshop.pdf")
-            generate_printshop_pdf(files[0], printshop_out)
+        for sfolder, folder_files in files_by_folder.items():
+            folder_base = os.path.join(output_root, sfolder) if sfolder else output_root
+            folder_multi_dir = os.path.join(folder_base, "multi")
+            os.makedirs(folder_multi_dir, exist_ok=True)
+            multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
+            multi_out = os.path.join(folder_multi_dir, multi_name)
+            print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
+            generate_multi_cards_pdf(folder_files, multi_out)
 
-            exact_out = args.exact_out or os.path.join(exact_dir, f"{first_base}_exact_70x90.pdf")
-            generate_exact_size_pdf(files[0], exact_out)
+            if folder_files:
+                first_file = folder_files[0]
+                first_base = os.path.splitext(os.path.basename(first_file))[0]
+                out_paths = get_output_paths(first_file, output_root, args.folders)
+
+                svg_out = os.path.join(out_paths["svg"], f"{first_base}_card.svg")
+                svg_content = generate_card_svg(first_file)
+                with open(svg_out, "w", encoding="utf-8") as f:
+                    f.write(svg_content)
+                print(f"Saved SVG: {svg_out}", flush=True)
+
+                single_out = os.path.join(out_paths["single"], f"{first_base}_single.pdf")
+                generate_single_card_pdf(first_file, single_out)
+
+                printshop_out = os.path.join(out_paths["printshop"], f"{first_base}_printshop.pdf")
+                generate_printshop_pdf(first_file, printshop_out)
+
+                exact_out = os.path.join(out_paths["exact_70x90"], f"{first_base}_exact_70x90.pdf")
+                generate_exact_size_pdf(first_file, exact_out)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -1205,11 +1716,7 @@ def main():
             print(f"[LAYOUT-CHECK] Hinweis: Testlauf mit --limit={args.limit}. '{args.todo_out}' wird nicht überschrieben.", flush=True)
 
     else:
-        target_sub = args.sub
-        if not os.path.isabs(target_sub) and not os.path.exists(target_sub):
-            candidate = os.path.join(args.folder, target_sub)
-            if os.path.exists(candidate):
-                target_sub = candidate
+        target_sub = resolve_sub_file(args.sub, args.folders)
 
         print(f"Processing exercise: {target_sub}", flush=True)
         base_name = os.path.splitext(os.path.basename(target_sub))[0]
@@ -1222,28 +1729,30 @@ def main():
                 print(f"  * {iss}", flush=True)
             print(f"  (Detaillierte Liste aller Übungen siehe auch '{args.todo_out}')\n", flush=True)
 
+        out_paths = get_output_paths(target_sub, output_root, args.folders)
+
         # Standalone SVG
-        svg_out = args.svg_out or os.path.join(svg_dir, f"{base_name}_card.svg")
+        svg_out = args.svg_out or os.path.join(out_paths["svg"], f"{base_name}_card.svg")
         svg_content = generate_card_svg(target_sub)
         with open(svg_out, "w", encoding="utf-8") as f:
             f.write(svg_content)
         print(f"Saved SVG: {svg_out}", flush=True)
 
         # Variant 1: Single card on DIN A4
-        single_out = args.single_out or os.path.join(single_dir, f"{base_name}_single.pdf")
+        single_out = args.single_out or os.path.join(out_paths["single"], f"{base_name}_single.pdf")
         generate_single_card_pdf(target_sub, single_out)
 
         # Variant 2: Multi card sheet (6 cards on A4)
-        multi_out = args.multi_out or os.path.join(multi_dir, f"{base_name}_multi.pdf")
+        multi_out = args.multi_out or os.path.join(out_paths["multi"], f"{base_name}_multi.pdf")
         multi_list = [target_sub] * 6
         generate_multi_cards_pdf(multi_list, multi_out)
 
         # Variant 3: Print shop offset PDF (TrimBox=70x90mm, crop marks outside)
-        printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{base_name}_printshop.pdf")
+        printshop_out = args.printshop_out or os.path.join(out_paths["printshop"], f"{base_name}_printshop.pdf")
         generate_printshop_pdf(target_sub, printshop_out)
 
         # Variant 3b: Print shop exact 70x90mm PDF (MediaBox=70x90mm)
-        exact_out = args.exact_out or os.path.join(exact_dir, f"{base_name}_exact_70x90.pdf")
+        exact_out = args.exact_out or os.path.join(out_paths["exact_70x90"], f"{base_name}_exact_70x90.pdf")
         generate_exact_size_pdf(target_sub, exact_out)
 
     print("Generation complete!", flush=True)
