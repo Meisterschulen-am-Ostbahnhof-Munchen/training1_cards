@@ -11,8 +11,9 @@ import re
 import glob
 import base64
 import argparse
+import itertools
 from dataclasses import dataclass
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Tuple, Optional, Set
 
 # Add path to IEC61499_FunctionBlock_SVG renderer
 SVG_LIB_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG"
@@ -275,6 +276,131 @@ def wrap_text(text: str, max_chars: int = 55) -> List[str]:
     return lines
 
 
+def assign_connection_tracks(conns: List[Dict]) -> List[int]:
+    """Assigns collision-free vertical track indices (0, 1, 2, ...) to a set of connections
+    sharing a routing channel (e.g. left input margin or right output margin).
+    Uses combinatorial optimization to guarantee that lines dropping or rising past other
+    pins take outer tracks, preventing wires from cutting across horizontal take-off segments
+    or overlapping vertical tracks.
+    """
+    n = len(conns)
+    if n <= 1:
+        return [0] * n
+
+    def evaluate_cost(conns_subset, assignment):
+        m = len(conns_subset)
+        cost = sum(assignment)
+        for i in range(m):
+            for j in range(i + 1, m):
+                ci, cj = conns_subset[i], conns_subset[j]
+                ti, tj = assignment[i], assignment[j]
+
+                # 1. Overlapping vertical segments on the exact same track
+                if ci['needs_bend'] and cj['needs_bend'] and ti == tj:
+                    y_min_i, y_max_i = min(ci['sy'], ci['dy']), max(ci['sy'], ci['dy'])
+                    y_min_j, y_max_j = min(cj['sy'], cj['dy']), max(cj['sy'], cj['dy'])
+                    if max(y_min_i, y_min_j) < min(y_max_i, y_max_j) - 1.0:
+                        cost += 10000
+
+                # 2. ci vertical segment cuts cj pin take-off
+                if ci['needs_bend'] and abs(ci['pin_y'] - cj['pin_y']) > 1.0:
+                    y_min_i, y_max_i = min(ci['sy'], ci['dy']), max(ci['sy'], ci['dy'])
+                    if y_min_i - 1.0 <= cj['pin_y'] <= y_max_i + 1.0:
+                        if ti <= tj:
+                            cost += 5000 + (tj - ti + 1) * 1000
+
+                # 2b. cj vertical segment cuts ci pin take-off
+                if cj['needs_bend'] and abs(ci['pin_y'] - cj['pin_y']) > 1.0:
+                    y_min_j, y_max_j = min(cj['sy'], cj['dy']), max(cj['sy'], cj['dy'])
+                    if y_min_j - 1.0 <= ci['pin_y'] <= y_max_j + 1.0:
+                        if tj <= ti:
+                            cost += 5000 + (ti - tj + 1) * 1000
+
+                # 3. Unnecessary arrival segment cuts (when signals do not cross)
+                not_crossing = ((ci['sy'] - cj['sy']) * (ci['dy'] - cj['dy']) > 0)
+                if not_crossing:
+                    if cj['needs_bend']:
+                        y_min_j, y_max_j = min(cj['sy'], cj['dy']), max(cj['sy'], cj['dy'])
+                        if y_min_j - 1.0 <= ci['other_y'] <= y_max_j + 1.0:
+                            if tj >= ti:
+                                cost += 2000
+                    if ci['needs_bend']:
+                        y_min_i, y_max_i = min(ci['sy'], ci['dy']), max(ci['sy'], ci['dy'])
+                        if y_min_i - 1.0 <= cj['other_y'] <= y_max_i + 1.0:
+                            if ti >= tj:
+                                cost += 2000
+
+                # 4. Corner touch on crossing signals
+                crossing = ((ci['sy'] - cj['sy']) * (ci['dy'] - cj['dy']) < 0)
+                if crossing and ci['needs_bend'] and cj['needs_bend']:
+                    if ti == tj:
+                        cost += 3000
+        return cost
+
+    num_tracks = min(n, 5)
+    domains = []
+    for c in conns:
+        if not c['needs_bend']:
+            domains.append([0])
+        else:
+            domains.append(list(range(num_tracks)))
+
+    total_states = 1
+    for d in domains:
+        total_states *= len(d)
+
+    # Exhaustive search for small problem sizes (<= 4096 combinations)
+    if total_states <= 4096:
+        best_assignment = None
+        best_cost = float('inf')
+        for assignment in itertools.product(*domains):
+            cost = evaluate_cost(conns, assignment)
+            if cost < best_cost:
+                best_cost = cost
+                best_assignment = list(assignment)
+        return best_assignment if best_assignment is not None else [0] * n
+
+    # Greedy constructive pass for larger sets
+    assignment = [0] * n
+    for i in range(n):
+        if not conns[i]['needs_bend']:
+            assignment[i] = 0
+            continue
+        best_t = 0
+        best_c = float('inf')
+        for t in range(num_tracks):
+            assignment[i] = t
+            c = evaluate_cost(conns[:i+1], assignment[:i+1])
+            if c < best_c:
+                best_c = c
+                best_t = t
+        assignment[i] = best_t
+
+    # Hill-climbing refinement passes
+    improved = True
+    passes = 0
+    while improved and passes < 5:
+        improved = False
+        passes += 1
+        for i in range(n):
+            if not conns[i]['needs_bend']:
+                continue
+            cur_best = assignment[i]
+            cur_cost = evaluate_cost(conns, assignment)
+            for t in range(num_tracks):
+                if t == cur_best:
+                    continue
+                assignment[i] = t
+                new_cost = evaluate_cost(conns, assignment)
+                if new_cost < cur_cost:
+                    cur_cost = new_cost
+                    cur_best = t
+                    improved = True
+            assignment[i] = cur_best
+
+    return assignment
+
+
 def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -> str:
     """Parses a .SUB file and generates a complete 70mm x 90mm SVG training card."""
     if type_libs is None:
@@ -519,10 +645,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         gy = j * UNITS_PER_CM
         svg.append(f'  <line x1="0" y1="{gy}" x2="{SVG_W}" y2="{gy}" stroke="#F5F7F8" stroke-width="0.8"/>')
 
-    # Connections group (rendered behind blocks)
-    svg.append('  <g id="connections">')
+    # Pre-calculate points and assign collision-free tracks for input & output pins
     for cinfo in card_connections:
-        conn = cinfo["conn"]
         src_pt = None
         dst_pt = None
 
@@ -541,6 +665,56 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         elif cinfo["dest_inst"] in instance_map:
             inst = instance_map[cinfo["dest_inst"]]
             dst_pt = inst.port_positions.get(cinfo["dest_port"])
+
+        cinfo["src_pt"] = src_pt
+        cinfo["dst_pt"] = dst_pt
+
+    left_conns = []
+    for cinfo in card_connections:
+        if cinfo["source_pin"] and not cinfo.get("dest_pin") and cinfo.get("src_pt") and cinfo.get("dst_pt"):
+            sx, sy = cinfo["src_pt"]
+            dx, dy = cinfo["dst_pt"]
+            if sx <= dx:
+                left_conns.append({
+                    "cinfo": cinfo,
+                    "sy": sy,
+                    "dy": dy,
+                    "pin_y": sy,
+                    "other_y": dy,
+                    "needs_bend": abs(sy - dy) >= 2.0,
+                    "sx": sx,
+                    "dx": dx,
+                })
+
+    right_conns = []
+    for cinfo in card_connections:
+        if cinfo["dest_pin"] and not cinfo.get("source_pin") and cinfo.get("src_pt") and cinfo.get("dst_pt"):
+            sx, sy = cinfo["src_pt"]
+            dx, dy = cinfo["dst_pt"]
+            if sx <= dx:
+                right_conns.append({
+                    "cinfo": cinfo,
+                    "sy": sy,
+                    "dy": dy,
+                    "pin_y": dy,
+                    "other_y": sy,
+                    "needs_bend": abs(sy - dy) >= 2.0,
+                    "sx": sx,
+                    "dx": dx,
+                })
+
+    for item, t in zip(left_conns, assign_connection_tracks(left_conns)):
+        item["cinfo"]["assigned_mid_x"] = min(item["dx"] - 12.0, item["sx"] + 18.0 + t * 6.0)
+
+    for item, t in zip(right_conns, assign_connection_tracks(right_conns)):
+        item["cinfo"]["assigned_mid_x"] = max(item["sx"] + 12.0, item["dx"] - 18.0 - t * 6.0)
+
+    # Connections group (rendered behind blocks)
+    svg.append('  <g id="connections">')
+    for cinfo in card_connections:
+        conn = cinfo["conn"]
+        src_pt = cinfo.get("src_pt")
+        dst_pt = cinfo.get("dst_pt")
 
         if src_pt and dst_pt:
             sx, sy = src_pt
@@ -574,18 +748,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                     (dx, dy)
                 ]
             else:
-                if cinfo.get("source_pin") and cinfo.get("dest_pin"):
-                    mid_x = (sx + dx) / 2.0
-                elif cinfo.get("source_pin"):
-                    pin_str = cinfo["source_pin"]
-                    m_p = re.search(r'\d+', pin_str)
-                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
-                    mid_x = min(dx - 12.0, sx + 18.0 + (pin_idx % 4) * 6.0)
-                elif cinfo.get("dest_pin"):
-                    pin_str = cinfo["dest_pin"]
-                    m_p = re.search(r'\d+', pin_str)
-                    pin_idx = (int(m_p.group(0)) - 1) if m_p else 0
-                    mid_x = max(sx + 12.0, dx - 18.0 - (pin_idx % 4) * 6.0)
+                if "assigned_mid_x" in cinfo:
+                    mid_x = cinfo["assigned_mid_x"]
                 else:
                     mid_x = (sx + dx) / 2.0
 
