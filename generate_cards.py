@@ -531,16 +531,6 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         inst.render_y = max(30.0, min(inst.render_y, 395.0 - inst.block_height))
 
     elif len(logic_instances) > 1:
-        # Snap blocks that are in different columns but placed on roughly the same row in 4diac (dy <= 60.0)
-        # to the exact same row to prevent artificial vertical staggering
-        sorted_logic = sorted(logic_instances, key=lambda inst: inst.y)
-        for i in range(len(sorted_logic)):
-            for j in range(i + 1, len(sorted_logic)):
-                inst_a = sorted_logic[i]
-                inst_b = sorted_logic[j]
-                if abs(inst_a.y - inst_b.y) <= 60.0 and abs(inst_a.x - inst_b.x) > 300.0:
-                    inst_b.y = inst_a.y
-
         min_4d_x = min(inst.x for inst in logic_instances)
         max_4d_x = max(inst.x for inst in logic_instances)
         min_4d_y = min(inst.y for inst in logic_instances)
@@ -554,10 +544,32 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         y_safe_min = 35.0
         y_safe_max = 395.0
 
+        # Horizontal placement: compute render_x first to know exact horizontal block extents
+        if raw_span_x < 50.0:
+            for inst in logic_instances:
+                inst.render_x = (SVG_W - inst.block_width) / 2.0
+        else:
+            for inst in logic_instances:
+                norm_x = (inst.x - min_4d_x) / raw_span_x
+                inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
+                inst.render_x = x_safe_min + norm_x * inst_avail_w
+
+        # Snap blocks that are in different columns but placed on roughly the same row in 4diac (dy <= 60.0)
+        # to the exact same row to prevent artificial vertical staggering, but only if they do not overlap horizontally
+        sorted_logic = sorted(logic_instances, key=lambda inst: inst.y)
+        for i in range(len(sorted_logic)):
+            for j in range(i + 1, len(sorted_logic)):
+                inst_a = sorted_logic[i]
+                inst_b = sorted_logic[j]
+                horiz_overlap = (inst_a.render_x < inst_b.render_x + inst_b.block_width and
+                                 inst_b.render_x < inst_a.render_x + inst_a.block_width)
+                if abs(inst_a.y - inst_b.y) <= 60.0 and abs(inst_a.x - inst_b.x) > 300.0 and not horiz_overlap:
+                    inst_b.y = inst_a.y
+
         max_block_h = max(inst.block_height for inst in logic_instances)
         avail_h = max(0.0, (y_safe_max - y_safe_min) - max_block_h)
 
-        # Calculate minimum vertical scale to prevent any blocks in the same column from overlapping
+        # Calculate minimum vertical scale to prevent any blocks in the same column or horizontally overlapping from colliding
         min_scale_needed = 0.05
         for i in range(len(logic_instances)):
             for j in range(len(logic_instances)):
@@ -566,7 +578,10 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 inst_a = logic_instances[i]
                 inst_b = logic_instances[j]
                 dy_4d = inst_b.y - inst_a.y
-                if dy_4d > 10.0 and abs(inst_a.x - inst_b.x) <= 400.0:
+                horiz_overlap = (inst_a.render_x < inst_b.render_x + inst_b.block_width and
+                                 inst_b.render_x < inst_a.render_x + inst_a.block_width)
+                in_same_column = horiz_overlap or (abs(inst_a.x - inst_b.x) <= 400.0)
+                if dy_4d > 10.0 and in_same_column:
                     req_scale = (inst_a.block_height + 16.0) / dy_4d
                     if req_scale > min_scale_needed:
                         min_scale_needed = req_scale
@@ -585,17 +600,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         group_top_y = target_mid_y - group_h / 2.0
         group_top_y = max(y_safe_min, min(group_top_y, y_safe_max - group_h))
 
-        # Horizontal placement: center blocks if in a single column
-        if raw_span_x < 50.0:
-            for inst in logic_instances:
-                inst.render_x = (SVG_W - inst.block_width) / 2.0
-                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
-        else:
-            for inst in logic_instances:
-                norm_x = (inst.x - min_4d_x) / raw_span_x
-                inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
-                inst.render_x = x_safe_min + norm_x * inst_avail_w
-                inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
+        for inst in logic_instances:
+            inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
 
     # Recompute port positions on the placed logic instances
     instance_map = {}
