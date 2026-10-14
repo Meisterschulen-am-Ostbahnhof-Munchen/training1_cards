@@ -56,8 +56,8 @@ def render_markdown_to_html(src_path: Union[str, Path], out_html_path: Union[str
         code_placeholders.append(match.group(0))
         return f"__CODE_PLACEHOLDER_{idx}__"
 
-    # Match fenced code blocks (```...```) and inline code spans (`...`)
-    md_text = re.sub(r"(```[\s\S]*?```|`[^`\n]+`)", store_code, md_text)
+    # Match fenced code blocks (```...``` or ~~~...~~~) and inline code spans (`...`)
+    md_text = re.sub(r"(```[\s\S]*?```|~~~[\s\S]*?~~~|`[^`\n]+`)", store_code, md_text)
 
     md_text = re.sub(r"\$\$(.+?)\$\$", lambda m: latex_to_plain(m.group(1)), md_text, flags=re.S)
     md_text = re.sub(r"\$(.+?)\$", lambda m: latex_to_plain(m.group(1)), md_text)

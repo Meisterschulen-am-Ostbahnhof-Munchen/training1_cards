@@ -28,7 +28,37 @@ import re
 import sys
 
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional, Tuple
+
+
+def _check_fence(line: str, current_fence: Optional[Tuple[str, int]]) -> Optional[Tuple[str, int]]:
+    """Tracks opening and closing of fenced code blocks (backticks or tildes).
+
+    - Opening fence: 0-3 leading spaces, 3+ backticks or tildes. If backticks, no backticks in info.
+    - Closing fence: 0-3 leading spaces, same character, at least opening length, trailing whitespace only.
+    """
+    indent = len(line) - len(line.lstrip(" "))
+    if indent > 3:
+        return current_fence
+
+    stripped = line.strip()
+    if current_fence is None:
+        m = re.match(r"^(`{3,}|~{3,})", stripped)
+        if m:
+            marker = m.group(1)
+            char = marker[0]
+            length = len(marker)
+            info = stripped[length:]
+            if char == "`" and "`" in info:
+                return None
+            return (char, length)
+        return None
+    else:
+        char, length = current_fence
+        pattern = rf"^{re.escape(char * length)}{re.escape(char)}*\s*$"
+        if re.match(pattern, stripped):
+            return None
+        return current_fence
 
 
 def preprocess_markdown(src_path: Union[str, Path], out_path: Union[str, Path]) -> None:
@@ -40,22 +70,20 @@ def preprocess_markdown(src_path: Union[str, Path], out_path: Union[str, Path]) 
     list_item_re = re.compile(r"^(?:-|\d+\.)\s")
     fixed = []
     prev_was_list_item = False
-    in_fence = False
+    fence = None
     for line in lines:
-        if line.strip().startswith("```"):
-            in_fence = not in_fence
+        prev_fence = fence
+        fence = _check_fence(line, fence)
+        if prev_fence is not None or fence is not None:
             fixed.append(line)
             prev_was_list_item = False
             continue
-        if not in_fence:
-            is_list_item = bool(list_item_re.match(line))
-            if is_list_item and not prev_was_list_item and fixed and fixed[-1].strip() != "":
-                fixed.append("")
-            fixed.append(line)
-            if line.strip() != "":
-                prev_was_list_item = is_list_item
-        else:
-            fixed.append(line)
+        is_list_item = bool(list_item_re.match(line))
+        if is_list_item and not prev_was_list_item and fixed and fixed[-1].strip() != "":
+            fixed.append("")
+        fixed.append(line)
+        if line.strip() != "":
+            prev_was_list_item = is_list_item
     lines = fixed
 
     # --- Fix 2: flatten multi-line "- **Label:** ..." bullets into paragraphs ---
@@ -64,31 +92,31 @@ def preprocess_markdown(src_path: Union[str, Path], out_path: Union[str, Path]) 
     out = []
     i = 0
     n = len(lines)
-    in_fence = False
+    fence = None
     while i < n:
         line = lines[i]
-        if line.strip().startswith("```"):
-            in_fence = not in_fence
+        prev_fence = fence
+        fence = _check_fence(line, fence)
+        if prev_fence is not None or fence is not None:
             out.append(line)
             i += 1
             continue
-        if not in_fence:
-            m = label_re.match(line)
-            has_continuation = m is not None and (i + 1) < n and lines[i + 1].startswith("  ")
-            if m and has_continuation:
-                label, rest = m.group(1).rstrip(":"), m.group(2)
-                if out and out[-1].strip() != "":
-                    out.append("")
-                out.append(f"**{label}:** {rest}".rstrip())
+        m = label_re.match(line)
+        has_continuation = m is not None and (i + 1) < n and lines[i + 1].startswith("  ")
+        if m and has_continuation:
+            label, rest = m.group(1).rstrip(":"), m.group(2)
+            if out and out[-1].strip() != "":
                 out.append("")
+            out.append(f"**{label}:** {rest}".rstrip())
+            out.append("")
+            i += 1
+            while i < n and (lines[i].startswith("  ") or lines[i].strip() == ""):
+                if lines[i].strip() == "":
+                    out.append("")
+                else:
+                    out.append(lines[i][2:])
                 i += 1
-                while i < n and (lines[i].startswith("  ") or lines[i].strip() == ""):
-                    if lines[i].strip() == "":
-                        out.append("")
-                    else:
-                        out.append(lines[i][2:])
-                    i += 1
-                continue
+            continue
         out.append(line)
         i += 1
 
@@ -97,24 +125,25 @@ def preprocess_markdown(src_path: Union[str, Path], out_path: Union[str, Path]) 
     # --- Fix 3: normalize any fenced code block still left indented ---
     lines2 = text.split("\n")
     out2 = []
-    in_code = False
+    fence = None
     fence_indent = 0
     for idx, line in enumerate(lines2):
-        stripped = line.strip()
-        is_fence = stripped.startswith("```")
-        if is_fence and not in_code:
+        prev_fence = fence
+        fence = _check_fence(line, fence)
+        if prev_fence is None and fence is not None:
+            # Opening fence
             fence_indent = len(line) - len(line.lstrip(" "))
             if out2 and out2[-1].strip() != "":
                 out2.append("")
             out2.append(line[fence_indent:])
-            in_code = True
-        elif is_fence and in_code:
+        elif prev_fence is not None and fence is None:
+            # Closing fence
             out2.append(line[fence_indent:] if line.startswith(" " * fence_indent) else line.lstrip())
-            in_code = False
             nxt = lines2[idx + 1] if idx + 1 < len(lines2) else ""
             if nxt.strip() != "":
                 out2.append("")
-        elif in_code:
+        elif fence is not None:
+            # Inside fence
             out2.append(line[fence_indent:] if line.startswith(" " * fence_indent) else line)
         else:
             out2.append(line)
