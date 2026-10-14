@@ -562,6 +562,9 @@ def render_card_on_pdf(c: canvas.Canvas, svg_content: str, x: float, y: float, w
 
 def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf"):
     """Generates a single-card PDF page centered on A4 with crop marks."""
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     svg_content = generate_card_svg(subapp_file)
     c = canvas.Canvas(output_pdf, pagesize=A4)
     page_w, page_h = A4
@@ -608,6 +611,9 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
 
 def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf"):
     """Generates a multi-card PDF with a 2x3 grid (6 cards per A4 page) for easy printing and cutting."""
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     c = canvas.Canvas(output_pdf, pagesize=A4)
     page_w, page_h = A4
 
@@ -683,6 +689,9 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
     - MediaBox: 82.0 mm x 102.0 mm (with 6mm slug margin).
     - Crop marks (Schnittmarken): positioned outside the paper trim area pointing to the 70x90mm boundary.
     """
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     card_w = 7.0 * cm
     card_h = 9.0 * cm
     bleed = bleed_mm * mm
@@ -711,6 +720,9 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
 
 def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf"):
     """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm."""
+    out_dir = os.path.dirname(output_pdf)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
     card_w = 7.0 * cm
     card_h = 9.0 * cm
     c = canvas.Canvas(output_pdf, pagesize=(card_w, card_h))
@@ -726,21 +738,62 @@ def main():
     arg_parser = argparse.ArgumentParser(description="Generate 7x9cm portrait training cards from 4diac exercises.")
     arg_parser.add_argument("--sub", type=str, default=DEFAULT_EXERCISE, help="Path to .SUB exercise file")
     arg_parser.add_argument("--all", action="store_true", help="Generate multi-card PDF for all exercises in folder")
+    arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
     arg_parser.add_argument("--folder", type=str, default=DEFAULT_EXERCISES_DIR, help="Folder containing .SUB files")
-    arg_parser.add_argument("--single-out", type=str, default="logiBUS_single_card.pdf", help="Output path for single card PDF")
-    arg_parser.add_argument("--multi-out", type=str, default="logiBUS_multi_cards.pdf", help="Output path for multi card PDF")
-    arg_parser.add_argument("--printshop-out", type=str, default="logiBUS_printshop.pdf", help="Output path for print shop offset PDF")
-    arg_parser.add_argument("--exact-out", type=str, default="logiBUS_exact_70x90.pdf", help="Output path for exact 70x90mm PDF")
+    arg_parser.add_argument("--output-dir", type=str, default="output", help="Root output directory (default: 'output')")
+    arg_parser.add_argument("--single-out", type=str, default=None, help="Custom output path for single card PDF")
+    arg_parser.add_argument("--multi-out", type=str, default=None, help="Custom output path for multi card PDF")
+    arg_parser.add_argument("--printshop-out", type=str, default=None, help="Custom output path for print shop offset PDF")
+    arg_parser.add_argument("--exact-out", type=str, default=None, help="Custom output path for exact 70x90mm PDF")
+    arg_parser.add_argument("--svg-out", type=str, default=None, help="Custom output path for standalone SVG")
     args = arg_parser.parse_args()
 
-    if args.all:
+    output_root = args.output_dir
+    single_dir = os.path.join(output_root, "single")
+    multi_dir = os.path.join(output_root, "multi")
+    printshop_dir = os.path.join(output_root, "printshop")
+    exact_dir = os.path.join(output_root, "exact_70x90")
+    svg_dir = os.path.join(output_root, "svg")
+
+    for d in (single_dir, multi_dir, printshop_dir, exact_dir, svg_dir):
+        os.makedirs(d, exist_ok=True)
+
+    if args.batch_all:
+        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        print(f"Batch generating cards for {len(files)} exercises into '{output_root}'...")
+        for i, fpath in enumerate(files):
+            b_name = os.path.splitext(os.path.basename(fpath))[0]
+            print(f"[{i+1}/{len(files)}] Processing {b_name}...")
+            svg_content = generate_card_svg(fpath)
+            with open(os.path.join(svg_dir, f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
+                f.write(svg_content)
+            generate_single_card_pdf(fpath, os.path.join(single_dir, f"{b_name}_single.pdf"))
+            generate_printshop_pdf(fpath, os.path.join(printshop_dir, f"{b_name}_printshop.pdf"))
+            generate_exact_size_pdf(fpath, os.path.join(exact_dir, f"{b_name}_exact_70x90.pdf"))
+        # Also generate combined multi-card sheet
+        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
+        generate_multi_cards_pdf(files, multi_out)
+    elif args.all:
         files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
         print(f"Found {len(files)} exercises in {args.folder}")
-        generate_multi_cards_pdf(files, args.multi_out)
+        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
+        generate_multi_cards_pdf(files, multi_out)
         if files:
-            generate_single_card_pdf(files[0], args.single_out)
-            generate_printshop_pdf(files[0], args.printshop_out)
-            generate_exact_size_pdf(files[0], args.exact_out)
+            first_base = os.path.splitext(os.path.basename(files[0]))[0]
+            svg_out = args.svg_out or os.path.join(svg_dir, f"{first_base}_card.svg")
+            svg_content = generate_card_svg(files[0])
+            with open(svg_out, "w", encoding="utf-8") as f:
+                f.write(svg_content)
+            print(f"Saved SVG: {svg_out}")
+
+            single_out = args.single_out or os.path.join(single_dir, f"{first_base}_single.pdf")
+            generate_single_card_pdf(files[0], single_out)
+
+            printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{first_base}_printshop.pdf")
+            generate_printshop_pdf(files[0], printshop_out)
+
+            exact_out = args.exact_out or os.path.join(exact_dir, f"{first_base}_exact_70x90.pdf")
+            generate_exact_size_pdf(files[0], exact_out)
     else:
         target_sub = args.sub
         if not os.path.isabs(target_sub) and not os.path.exists(target_sub):
@@ -750,24 +803,30 @@ def main():
 
         print(f"Processing exercise: {target_sub}")
         base_name = os.path.splitext(os.path.basename(target_sub))[0]
-        svg_out = f"{base_name}_card.svg"
+
+        # Standalone SVG
+        svg_out = args.svg_out or os.path.join(svg_dir, f"{base_name}_card.svg")
         svg_content = generate_card_svg(target_sub)
         with open(svg_out, "w", encoding="utf-8") as f:
             f.write(svg_content)
         print(f"Saved SVG: {svg_out}")
 
         # Variant 1: Single card on DIN A4
-        generate_single_card_pdf(target_sub, args.single_out)
+        single_out = args.single_out or os.path.join(single_dir, f"{base_name}_single.pdf")
+        generate_single_card_pdf(target_sub, single_out)
 
         # Variant 2: Multi card sheet (6 cards on A4)
+        multi_out = args.multi_out or os.path.join(multi_dir, f"{base_name}_multi.pdf")
         multi_list = [target_sub] * 6
-        generate_multi_cards_pdf(multi_list, args.multi_out)
+        generate_multi_cards_pdf(multi_list, multi_out)
 
         # Variant 3: Print shop offset PDF (TrimBox=70x90mm, crop marks outside)
-        generate_printshop_pdf(target_sub, args.printshop_out)
+        printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{base_name}_printshop.pdf")
+        generate_printshop_pdf(target_sub, printshop_out)
 
         # Variant 3b: Print shop exact 70x90mm PDF (MediaBox=70x90mm)
-        generate_exact_size_pdf(target_sub, args.exact_out)
+        exact_out = args.exact_out or os.path.join(exact_dir, f"{base_name}_exact_70x90.pdf")
+        generate_exact_size_pdf(target_sub, exact_out)
 
     print("Generation complete!")
 

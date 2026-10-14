@@ -21,17 +21,32 @@ Für Übungen in der Automatisierungstechnik (IEC 61499) werden Karten auf den T
 
 ---
 
-## 2. Erzeugte Ausgabe-Varianten
+## 2. Erzeugte Ordnerstruktur & Ausgabe-Varianten
 
-Das Skript [`generate_cards.py`](generate_cards.py) erzeugt parallel vier verschiedene PDF-Varianten und eine SVG-Vektorgrafik:
+Alle Dateien werden standardmäßig im Ordner `output/` mit sprechenden Unterordnern je Typ abgelegt:
 
-| Variante | Zieldatei | Format / Maße | Einsatzzweck |
+```text
+output/
+├── single/          # Einzelkarten zentriert auf DIN-A4 mit Schnittmarken
+│   └── <Uebung>_single.pdf
+├── multi/           # Sammelbögen (2×3-Raster, 6 Karten/Seite auf DIN-A4)
+│   ├── <Uebung>_multi.pdf
+│   └── all_exercises_multi.pdf  (bei Aufruf mit --all)
+├── printshop/       # Professionelle Druckerei-PDFs (Offset mit TrimBox/BleedBox)
+│   └── <Uebung>_printshop.pdf
+├── exact_70x90/     # Exaktes 70×90-mm-Format ohne Ränder für Online-Druckportale
+│   └── <Uebung>_exact_70x90.pdf
+└── svg/             # Standalone-Vektorgrafiken mit Base64-TGL-Schrift
+    └── <Uebung>_card.svg
+```
+
+| Unterordner | Dateinamensmuster | Format / Maße | Einsatzzweck |
 |---|---|---|---|
-| **1. Einzelkarte** | `logiBUS_single_card.pdf` | DIN-A4 | Schneller Kontrollausdruck (1 Karte mittig mit Schnittmarken und Beschreibung) |
-| **2. Sammelbogen** | `logiBUS_multi_cards.pdf` | DIN-A4 | Papiersparender Selbstdruck (6 Karten pro A4-Seite im 2×3-Raster) |
-| **3. Offset-Druckerei** | `logiBUS_printshop.pdf` | 82 × 102 mm (Trim: 70×90 mm) | **Auftrags-Druckerei** mit Schnittmarken außerhalb des Papiers und `/TrimBox` |
-| **3b. Exaktes Endmaß** | `logiBUS_exact_70x90.pdf` | 70 × 90 mm | Für Online-Druckereien, die Dateien 1:1 auf Endmaß ohne Schnittmarken fordern |
-| **Vektorgrafik** | `<Uebung>_card.svg` | 70 × 90 mm | SVG-Grafik mit Base64-eingebetteter TGL-Normschrift |
+| `single/` | `<Uebung>_single.pdf` | DIN-A4 | Schneller Kontrollausdruck (1 Karte mittig mit Schnittmarken und Beschreibung) |
+| `multi/` | `<Uebung>_multi.pdf` | DIN-A4 | Papiersparender Selbstdruck (6 Karten pro A4-Seite im 2×3-Raster zum Ausschneiden) |
+| `printshop/` | `<Uebung>_printshop.pdf` | 82 × 102 mm (Trim: 70×90 mm) | **Auftrags-Druckerei** mit Schnittmarken außerhalb des Papiers, Bleed- und TrimBox |
+| `exact_70x90/` | `<Uebung>_exact_70x90.pdf` | 70 × 90 mm | Für Online-Druckereien, die Dateien 1:1 auf Endmaß ohne Schnittmarken fordern |
+| `svg/` | `<Uebung>_card.svg` | 70 × 90 mm | SVG-Grafik mit Base64-eingebetteter TGL-Normschrift |
 
 ---
 
@@ -53,7 +68,7 @@ Die Schriftarten (`TGL 0-17_std.ttf`, `TGL 0-16_std.ttf`) und der IEC 61499 Rend
 
 Am einfachsten ist der Aufruf über die mitgelieferte Batch-Datei [`generate_cards.bat`](generate_cards.bat):
 
-1. **Per Doppelklick:** Startet die Standard-Generierung (`Uebung_002a_AX.SUB`) und hält das Konsolenfenster am Ende offen.
+1. **Per Doppelklick:** Startet die Standard-Generierung (`Uebung_002a_AX.SUB`) und legt alle Varianten in `output/` ab.
 2. **Über die Konsole mit Parametern:**
    ```cmd
    generate_cards.bat --sub "C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a3_AX.SUB"
@@ -62,17 +77,20 @@ Am einfachsten ist der Aufruf über die mitgelieferte Batch-Datei [`generate_car
 ### Aufruf über Python
 
 ```bash
-# 1. Standard-Aufruf (erzeugt alle Varianten fuer Uebung_002a_AX)
+# 1. Standard-Aufruf (erzeugt alle Varianten fuer Uebung_002a_AX in output/)
 python generate_cards.py
 
 # 2. Spezifische Uebungs-Datei uebergeben
 python generate_cards.py --sub "C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a5b_AX.SUB"
 
-# 3. Alle Uebungen aus einem Ordner in ein mehrseitiges Druck-PDF generieren
+# 3. Alle Uebungen in ein mehrseitiges Druck-PDF (all_exercises_multi.pdf) generieren
 python generate_cards.py --all
 
-# 4. Eigene Ausgabepfade angeben
-python generate_cards.py --sub Uebung_002a_AX.SUB --single-out my_single.pdf --printshop-out my_printshop.pdf
+# 4. Alle Uebungen vollstaendig einzeln in alle Unterordner generieren
+python generate_cards.py --batch-all
+
+# 5. Eigene Ausgabepfade oder anderes Basisverzeichnis angeben
+python generate_cards.py --output-dir my_cards --sub Uebung_002a_AX.SUB
 ```
 
 ---
@@ -82,12 +100,15 @@ python generate_cards.py --sub Uebung_002a_AX.SUB --single-out my_single.pdf --p
 | Parameter | Typ | Standardwert | Beschreibung |
 |---|---|---|---|
 | `--sub` | Pfad | `Uebung_002a_AX.SUB` | Pfad zur 4diac-SubApp-Datei (`.SUB`) |
-| `--all` | Flag | `False` | Alle `.SUB`-Dateien im Ordner verarbeiten |
+| `--output-dir` | Pfad | `output` | Basis-Ausgabeordner mit Unterordnern je Typ |
+| `--all` | Flag | `False` | Mehrseitigen Sammelbogen für alle `.SUB`-Dateien erzeugen |
+| `--batch-all` | Flag | `False` | Alle Karten-Varianten für jede Übung im Ordner erzeugen |
 | `--folder` | Pfad | `.../test_AX/Uebungen` | Quellverzeichnis für den `--all`-Modus |
-| `--single-out` | Pfad | `logiBUS_single_card.pdf` | Dateiname für Einzelkarte auf DIN-A4 |
-| `--multi-out` | Pfad | `logiBUS_multi_cards.pdf` | Dateiname für Sammelbogen auf DIN-A4 |
-| `--printshop-out` | Pfad | `logiBUS_printshop.pdf` | Dateiname für Druckerei-PDF (Offset mit TrimBox) |
-| `--exact-out` | Pfad | `logiBUS_exact_70x90.pdf` | Dateiname für exaktes 70×90-mm-PDF |
+| `--single-out` | Pfad | `output/single/...` | Individueller Ausgabepfad für Einzelkarte (DIN-A4) |
+| `--multi-out` | Pfad | `output/multi/...` | Individueller Ausgabepfad für Sammelbogen (DIN-A4) |
+| `--printshop-out` | Pfad | `output/printshop/...` | Individueller Ausgabepfad für Druckerei-PDF (Offset mit TrimBox) |
+| `--exact-out` | Pfad | `output/exact_70x90/...` | Individueller Ausgabepfad für exaktes 70×90-mm-PDF |
+| `--svg-out` | Pfad | `output/svg/...` | Individueller Ausgabepfad für Standalone-SVG |
 
 ---
 
