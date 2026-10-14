@@ -94,6 +94,8 @@ python generate_cards.py --all --limit 6
 
 # 6. Eigene Ausgabepfade oder anderes Basisverzeichnis angeben
 python generate_cards.py --output-dir my_cards --sub Uebung_002a_AX.SUB
+# 7. Layout-Analyse & fix-TODO.md
+python generate_cards.py --check-layout
 ```
 
 ---
@@ -104,8 +106,10 @@ python generate_cards.py --output-dir my_cards --sub Uebung_002a_AX.SUB
 |---|---|---|---|
 | `--sub` | Pfad | `Uebung_002a_AX.SUB` | Pfad zur 4diac-SubApp-Datei (`.SUB`) |
 | `--output-dir` | Pfad | `output` | Basis-Ausgabeordner mit Unterordnern je Typ |
-| `--all` | Flag | `False` | Mehrseitigen Sammelbogen für alle `.SUB`-Dateien erzeugen |
-| `--batch-all` | Flag | `False` | Alle Karten-Varianten für jede Übung im Ordner erzeugen |
+| `--all` | Flag | `False` | Mehrseitigen Sammelbogen für alle `.SUB`-Dateien erzeugen + `fix-TODO.md` |
+| `--batch-all` | Flag | `False` | Alle Karten-Varianten für jede Übung im Ordner erzeugen + `fix-TODO.md` |
+| `--check-layout`| Flag | `False` | Führt nur die Layout-Analyse durch und aktualisiert `fix-TODO.md` |
+| `--todo-out` | Pfad | `fix-TODO.md` | Ausgabepfad für die Layout-TODO-Checkliste |
 | `--limit` | Zahl | `None` | Maximale Anzahl an Übungen (z. B. `6` für Testläufe) |
 | `--folder` | Pfad | `.../test_AX/Uebungen` | Quellverzeichnis für den `--all`-Modus |
 | `--single-out` | Pfad | `output/single/...` | Individueller Ausgabepfad für Einzelkarte (DIN-A4) |
@@ -116,7 +120,19 @@ python generate_cards.py --output-dir my_cards --sub Uebung_002a_AX.SUB
 
 ---
 
-## 6. Lizenz & Urheberrecht
+## 6. Automatische Layout-Prüfung & `fix-TODO.md`
+
+Auf der physischen Trainingskarte liegen die digitalen Eingänge $I_1$ bis $I_8$ fest von oben (1,0 cm) nach unten (8,0 cm), und die Ausgänge $Q_1$ bis $Q_8$ rechts von 1,0 cm bis 8,0 cm.
+Wenn in 4diac ein Eingang mit höherer Nummer (z. B. $I_3$) weiter oben gezeichnet ist als ein kleinerer (z. B. $I_1$), müssen die Leitungen unschön über Kreuz führen.
+
+Der Generator analysiert daher automatisch die Koordinaten aller Bausteine und Anschlüsse:
+- **Pin-Inversionen:** Erkennt, wenn $I_3$ im 4diac-Netzwerk über $I_1$ gezeichnet wurde.
+- **Ungünstig platzierte Logikbausteine:** Erkennt, wenn Bausteine zu tieferen Pins oberhalb von Bausteinen zu höheren Pins liegen (z. B. `AX_SPLIT_2` an $I_3$ liegt über Bausteinen zu $I_1$).
+- **TODO-Checkliste:** Speichert alle betroffenen Übungen mit präzisen Handlungsempfehlungen in [`fix-TODO.md`](fix-TODO.md). Nach dem Verschieben der Bausteine in 4diacIDE wird das Kartenlayout beim nächsten Durchlauf automatisch sauber und kreuzungsfrei gerendert.
+
+---
+
+## 7. Lizenz & Urheberrecht
 
 Copyright © 2026 Meisterschulen am Ostbahnhof München.  
 Lizenziert unter der Eclipse Public License 2.0 (EPL-2.0).

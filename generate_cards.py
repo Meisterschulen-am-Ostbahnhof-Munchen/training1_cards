@@ -121,11 +121,45 @@ def get_embedded_font_style() -> str:
     return "\n".join(parts)
 
 
+def identify_passthrough(instance: FBInstance) -> Optional[Tuple[str, str, str]]:
+    """Identifies pass-through instances (e.g. logiBUS_IXA_TO_logiBUS_QXA, logiBUS_IX_TO_logiBUS_QX).
+
+    Returns (input_pin, output_pin, conn_type) or None.
+    """
+    params = instance.parameters
+    in_val = params.get("Input", "")
+    out_val = params.get("Output", "")
+
+    m_in = re.search(r"Input_I(\d+)", in_val, re.IGNORECASE) or re.search(r"^I(\d+)$", in_val)
+    m_out = re.search(r"Output_Q(\d+)", out_val, re.IGNORECASE) or re.search(r"^Q(\d+)$", out_val)
+
+    if m_in and m_out:
+        in_pin = f"I{m_in.group(1)}"
+        out_pin = f"Q{m_out.group(1)}"
+        conn_type = "adapter" if ("IXA" in instance.type_name or "QXA" in instance.type_name or "AX" in instance.type_name) else "data"
+        return in_pin, out_pin, conn_type
+
+    if "TO_logiBUS" in instance.type_name or "TO_" in instance.type_name:
+        m_in = re.search(r"I(\d+)", in_val) or re.search(r"I(\d+)", instance.name)
+        m_out = re.search(r"Q(\d+)", out_val) or re.search(r"Q(\d+)", instance.name)
+        if m_in and m_out:
+            in_pin = f"I{m_in.group(1)}"
+            out_pin = f"Q{m_out.group(1)}"
+            conn_type = "adapter" if ("IXA" in instance.type_name or "AX" in instance.type_name) else "data"
+            return in_pin, out_pin, conn_type
+
+    return None
+
+
 def identify_io_pin(instance: FBInstance) -> Optional[str]:
     """Determines whether an instance represents a hardware IO terminal (I1..I8, Q1..Q8, AI1..AI3).
 
     Returns the pin name (e.g. 'I1', 'Q2', 'AI1') or None if it is a logic block.
     """
+    # If instance is a pass-through block connecting both input and output, it's not a single terminal
+    if identify_passthrough(instance):
+        return None
+
     name = instance.name
     type_name = instance.type_name
     params = instance.parameters
@@ -251,11 +285,16 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     layout_engine.layout(model)
     renderer = NetworkSVGRenderer(show_shadow=True, show_grid=False, settings=settings)
 
-    # 3. Classify instances into IO pins and Logic blocks
+    # 3. Classify instances into IO pins, pass-throughs, and Logic blocks
     io_map = {}  # instance_name -> pin_name (e.g. 'DigitalInput_I1' -> 'I1')
     logic_instances = []
+    passthroughs = []
 
     for inst in model.instances:
+        pt = identify_passthrough(inst)
+        if pt:
+            passthroughs.append((inst, pt[0], pt[1], pt[2]))
+            continue
         pin = identify_io_pin(inst)
         if pin:
             io_map[inst.name] = pin
@@ -267,6 +306,27 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     # 4. Map connections and find active pins
     card_connections = []
     active_pins = set()
+
+    # Add synthesized connections for pass-through instances (e.g. logiBUS_IXA_TO_logiBUS_QXA)
+    for inst, in_pin, out_pin, conn_type in passthroughs:
+        active_pins.add(in_pin)
+        active_pins.add(out_pin)
+        synth_conn = Connection(
+            source=f"{in_pin}.OUT",
+            destination=f"{out_pin}.IN",
+            conn_type=conn_type
+        )
+        card_connections.append({
+            "conn": synth_conn,
+            "source_pin": in_pin,
+            "source_inst": None,
+            "source_port": "",
+            "dest_pin": out_pin,
+            "dest_inst": None,
+            "dest_port": "",
+            "color": renderer.ADAPTER_PORT_COLOR if conn_type == "adapter" else renderer.BOOL_PORT_COLOR,
+            "double_line": (conn_type == "adapter")
+        })
 
     for conn in model.connections:
         src_parts = conn.source.split(".")
@@ -460,11 +520,14 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             if abs(sy - dy) < 2.0:
                 waypoints = [src_pt, dst_pt]
             else:
-                mid_x = (sx + dx) / 2.0
-                if cinfo["source_pin"]:
+                if cinfo.get("source_pin") and cinfo.get("dest_pin"):
+                    mid_x = (sx + dx) / 2.0
+                elif cinfo.get("source_pin"):
                     mid_x = sx + 30.0
-                elif cinfo["dest_pin"]:
+                elif cinfo.get("dest_pin"):
                     mid_x = dx - 30.0
+                else:
+                    mid_x = (sx + dx) / 2.0
 
                 waypoints = [
                     (sx, sy),
@@ -473,8 +536,20 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                     (dx, dy)
                 ]
 
-            color = renderer._get_connection_color(conn, model, instance_map)
-            is_double = renderer._is_double_line_connection(conn, model, instance_map)
+            if conn and conn.conn_type == "adapter":
+                color = renderer.ADAPTER_PORT_COLOR
+                is_double = True
+            elif conn and hasattr(renderer, "_get_connection_color"):
+                try:
+                    color = renderer._get_connection_color(conn, model, instance_map)
+                    is_double = renderer._is_double_line_connection(conn, model, instance_map)
+                except Exception:
+                    color = cinfo.get("color", renderer.BOOL_PORT_COLOR)
+                    is_double = cinfo.get("double_line", False)
+            else:
+                color = cinfo.get("color", renderer.BOOL_PORT_COLOR)
+                is_double = cinfo.get("double_line", False)
+
             svg.append(renderer._render_connection(waypoints, color, double_line=is_double))
 
     svg.append('  </g>')
@@ -750,11 +825,150 @@ def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_7
     print(f"Generated exact 70x90mm PDF: {output_pdf}", flush=True)
 
 
+def analyze_exercise_layout(subapp_file: str) -> Tuple[str, str, List[str]]:
+    """Analyzes a .SUB file for layout issues relative to the logiBUS card pin layout.
+
+    Returns (exercise_name, subapp_file, list_of_issue_descriptions).
+    """
+    import xml.etree.ElementTree as ET
+    ex_name = os.path.splitext(os.path.basename(subapp_file))[0]
+    try:
+        tree = ET.parse(subapp_file)
+        root = tree.getroot()
+    except Exception as e:
+        return ex_name, subapp_file, [f"XML-Parse-Fehler: {e}"]
+
+    io_pins = {}     # name -> (pin_type 'I'/'Q', pin_num, y, x)
+    blocks = {}      # name -> (type_name, y, x)
+    connections = [] # (src_inst, dst_inst)
+
+    for elem in root.iter():
+        if elem.tag not in ('FB', 'SubApp'):
+            continue
+        name = elem.get('Name', '')
+        type_name = elem.get('Type', '')
+        try:
+            y_val = float(elem.get('y', '0') or '0')
+            x_val = float(elem.get('x', '0') or '0')
+        except ValueError:
+            y_val = 0.0
+            x_val = 0.0
+
+        in_p = ''
+        out_p = ''
+        for p in elem.findall('Parameter'):
+            pname = p.get('Name', '')
+            pval = p.get('Value', '')
+            if pname == 'Input':
+                in_p = pval
+            if pname == 'Output':
+                out_p = pval
+
+        m_in = re.search(r'Input_I(\d+)', in_p) or re.search(r'DigitalInput_.*I(\d+)', name) or re.search(r'^I(\d+)$', name)
+        m_out = re.search(r'Output_Q(\d+)', out_p) or re.search(r'DigitalOutput_.*Q(\d+)', name) or re.search(r'^Q(\d+)$', name)
+
+        if m_in and not m_out:
+            io_pins[name] = ('I', int(m_in.group(1)), y_val, x_val)
+        elif m_out and not m_in:
+            io_pins[name] = ('Q', int(m_out.group(1)), y_val, x_val)
+        elif not m_in and not m_out:
+            blocks[name] = (type_name, y_val, x_val)
+
+    for conn in root.iter('Connection'):
+        src = conn.get('Source', '')
+        dst = conn.get('Destination', '')
+        if src and dst:
+            connections.append((src.split('.')[0], dst.split('.')[0]))
+
+    issues = []
+    # 1. IO Pin Ordering
+    inputs = sorted([(name, info) for name, info in io_pins.items() if info[0] == 'I'], key=lambda x: x[1][1])
+    for i in range(len(inputs) - 1):
+        for j in range(i + 1, len(inputs)):
+            n1, (t1, num1, y1, x1) = inputs[i]
+            n2, (t2, num2, y2, x2) = inputs[j]
+            if num1 < num2 and y2 < y1 - 100:
+                issues.append(f"Pin-Reihenfolge invertiert: Eingang I{num2} (`{n2}`, y={y2:g}) liegt oberhalb von I{num1} (`{n1}`, y={y1:g})")
+
+    outputs = sorted([(name, info) for name, info in io_pins.items() if info[0] == 'Q'], key=lambda x: x[1][1])
+    for i in range(len(outputs) - 1):
+        for j in range(i + 1, len(outputs)):
+            n1, (t1, num1, y1, x1) = outputs[i]
+            n2, (t2, num2, y2, x2) = outputs[j]
+            if num1 < num2 and y2 < y1 - 100:
+                issues.append(f"Pin-Reihenfolge invertiert: Ausgang Q{num2} (`{n2}`, y={y2:g}) liegt oberhalb von Q{num1} (`{n1}`, y={y1:g})")
+
+    # 2. Block placement relative to connected pins
+    for blk_name, (blk_type, blk_y, blk_x) in blocks.items():
+        conn_in_pins = []
+        for src, dst in connections:
+            if src in io_pins and io_pins[src][0] == 'I' and dst == blk_name:
+                conn_in_pins.append((src, io_pins[src]))
+        for pin_name, (pt, pnum, py, px) in conn_in_pins:
+            for other_blk, (o_type, o_y, o_x) in blocks.items():
+                if other_blk == blk_name:
+                    continue
+                other_conn_pins = [io_pins[src] for src, dst in connections if src in io_pins and io_pins[src][0] == 'I' and dst == other_blk]
+                for (opt, onum, opy, opx) in other_conn_pins:
+                    if pnum > onum and blk_y < o_y - 200:
+                        issues.append(
+                            f"Baustein unglücklich platziert: `{blk_name}` ({blk_type.split('::')[-1]}, verbunden mit I{pnum}) "
+                            f"liegt bei y={blk_y:g} oberhalb von `{other_blk}` ({o_type.split('::')[-1]}, verbunden mit I{onum}, y={o_y:g}). "
+                            f"Empfehlung: `{blk_name}` in 4diac nach unten verschieben (unterhalb von `{other_blk}`, z.B. y > {o_y:g})."
+                        )
+
+    issues = list(dict.fromkeys(issues))
+    return ex_name, subapp_file, issues
+
+
+def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TODO.md") -> int:
+    """Scans subapp files for layout anomalies and writes a formatted fix-TODO.md checklist."""
+    flagged = []
+    for f in subapp_files:
+        res = analyze_exercise_layout(f)
+        if res and res[2]:
+            flagged.append(res)
+
+    lines = [
+        "# 4diac Übungs-Layout Fix-TODOs (Karten-Optimierung)",
+        "",
+        "Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine oder IO-Pins im 4diac-Netzwerk nicht der physischen Pin-Reihenfolge des logiBUS® Mini-Trainers entspricht.",
+        "",
+        "> [!NOTE]",
+        "> Auf der physischen Trainingskarte (70 mm × 90 mm) sind die digitalen Eingänge **I1 bis I8 links** fest von oben (1,0 cm) nach unten (8,0 cm) angeordnet, und die Ausgänge **Q1 bis Q8 rechts** von 1,0 cm bis 8,0 cm.",
+        "> Wenn in 4diac ein Eingang mit höherer Nummer (z. B. I3) weiter oben gezeichnet ist als ein kleinerer (z. B. I1), oder ein daran angeschlossener Baustein ganz oben platziert ist, müssen Verbindungslinien unschön über andere Leitungen kreuzen.",
+        "> Sobald die betroffenen FBs in der 4diacIDE nach unten verschoben und gespeichert werden, erzeugt der Generator beim nächsten Durchlauf automatisch ein sauberes, kreuzungsfreies Kartenlayout!",
+        "",
+        "## Übersicht",
+        f"- **Geprüfte Übungen:** {len(subapp_files)}",
+        f"- **Übungen mit Optimierungsbedarf:** {len(flagged)}",
+        "",
+        "---",
+        "",
+        "## Offene Layout-TODOs",
+        ""
+    ]
+
+    for ex_name, fpath, issues in flagged:
+        rel_path = os.path.relpath(fpath, os.getcwd()) if os.path.isabs(fpath) else fpath
+        rel_path = rel_path.replace("\\", "/")
+        lines.append(f"- [ ] **{ex_name}** (`{rel_path}`)")
+        for iss in issues:
+            lines.append(f"  - {iss}")
+        lines.append("")
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+    return len(flagged)
+
+
 def main():
     arg_parser = argparse.ArgumentParser(description="Generate 7x9cm portrait training cards from 4diac exercises.")
     arg_parser.add_argument("--sub", type=str, default=DEFAULT_EXERCISE, help="Path to .SUB exercise file")
     arg_parser.add_argument("--all", action="store_true", help="Generate multi-card PDF for all exercises in folder")
     arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
+    arg_parser.add_argument("--check-layout", action="store_true", help="Analyze exercise layouts and generate fix-TODO.md")
     arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
     arg_parser.add_argument("--folder", type=str, default=DEFAULT_EXERCISES_DIR, help="Folder containing .SUB files")
     arg_parser.add_argument("--output-dir", type=str, default="output", help="Root output directory (default: 'output')")
@@ -763,7 +977,17 @@ def main():
     arg_parser.add_argument("--printshop-out", type=str, default=None, help="Custom output path for print shop offset PDF")
     arg_parser.add_argument("--exact-out", type=str, default=None, help="Custom output path for exact 70x90mm PDF")
     arg_parser.add_argument("--svg-out", type=str, default=None, help="Custom output path for standalone SVG")
+    arg_parser.add_argument("--todo-out", type=str, default="fix-TODO.md", help="Path to output fix-TODO.md file")
     args = arg_parser.parse_args()
+
+    if args.check_layout:
+        files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
+        if args.limit and args.limit > 0:
+            files = files[:args.limit]
+        print(f"Analysiere Layout von {len(files)} Übungen in {args.folder}...", flush=True)
+        count = generate_fix_todo_report(files, args.todo_out)
+        print(f"[LAYOUT-CHECK] Fertig: {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+        return
 
     output_root = args.output_dir
     single_dir = os.path.join(output_root, "single")
@@ -792,6 +1016,12 @@ def main():
         # Also generate combined multi-card sheet
         multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
         generate_multi_cards_pdf(files, multi_out)
+
+        # Generate fix-TODO.md
+        print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
+        count = generate_fix_todo_report(files, args.todo_out)
+        print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+
     elif args.all:
         files = sorted(glob.glob(os.path.join(args.folder, "*.SUB")))
         if args.limit and args.limit > 0:
@@ -815,6 +1045,12 @@ def main():
 
             exact_out = args.exact_out or os.path.join(exact_dir, f"{first_base}_exact_70x90.pdf")
             generate_exact_size_pdf(files[0], exact_out)
+
+        # Generate fix-TODO.md
+        print("Erstelle Layout-Analyse (fix-TODO.md)...", flush=True)
+        count = generate_fix_todo_report(files, args.todo_out)
+        print(f"[LAYOUT-CHECK] {count} Übungen mit Optimierungsbedarf in '{args.todo_out}' dokumentiert.", flush=True)
+
     else:
         target_sub = args.sub
         if not os.path.isabs(target_sub) and not os.path.exists(target_sub):
@@ -824,6 +1060,14 @@ def main():
 
         print(f"Processing exercise: {target_sub}", flush=True)
         base_name = os.path.splitext(os.path.basename(target_sub))[0]
+
+        # Check layout and notify
+        res = analyze_exercise_layout(target_sub)
+        if res and res[2]:
+            print(f"\n[LAYOUT-HINWEIS] {len(res[2])} Optimierungshinweise für {base_name}:", flush=True)
+            for iss in res[2]:
+                print(f"  * {iss}", flush=True)
+            print(f"  (Detaillierte Liste aller Übungen siehe auch '{args.todo_out}')\n", flush=True)
 
         # Standalone SVG
         svg_out = args.svg_out or os.path.join(svg_dir, f"{base_name}_card.svg")
