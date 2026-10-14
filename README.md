@@ -23,30 +23,38 @@ Für Übungen in der Automatisierungstechnik (IEC 61499) werden Karten auf den T
 
 ## 2. Erzeugte Ordnerstruktur & Ausgabe-Varianten
 
-Alle Dateien werden standardmäßig im Ordner `output/` mit sprechenden Unterordnern je Typ abgelegt:
+Alle Dateien werden standardmäßig im Ordner `output/` getrennt nach Quellordner (`test_AX` und `test_B`, analog zum Workspace in Training1) mit Unterordnern je Typ abgelegt:
 
 ```text
 output/
-├── single/          # Einzelkarten zentriert auf DIN-A4 mit Schnittmarken
-│   └── <Uebung>_single.pdf
-├── multi/           # Sammelbögen (2×3-Raster, 6 Karten/Seite auf DIN-A4)
-│   ├── <Uebung>_multi.pdf
-│   └── all_exercises_multi.pdf  (bei Aufruf mit --all)
-├── printshop/       # Professionelle Druckerei-PDFs (Offset mit TrimBox/BleedBox)
-│   └── <Uebung>_printshop.pdf
-├── exact_70x90/     # Exaktes 70×90-mm-Format ohne Ränder für Online-Druckportale
-│   └── <Uebung>_exact_70x90.pdf
-└── svg/             # Standalone-Vektorgrafiken mit Base64-TGL-Schrift
-    └── <Uebung>_card.svg
+├── test_AX/                 # 497 Übungen aus test_AX
+│   ├── exact_70x90/         # Exaktes 70×90-mm-Format ohne Ränder für Online-Druckportale
+│   │   └── <Uebung>_exact_70x90.pdf
+│   ├── multi/               # Sammelbögen (2×3-Raster, 6 Karten/Seite auf DIN-A4)
+│   │   ├── <Uebung>_multi.pdf
+│   │   └── test_AX_all_exercises_multi.pdf  (bei Aufruf mit --all / --batch-all)
+│   ├── printshop/           # Professionelle Druckerei-PDFs (Offset mit TrimBox/BleedBox)
+│   │   └── <Uebung>_printshop.pdf
+│   ├── single/              # Einzelkarten zentriert auf DIN-A4 mit Schnittmarken
+│   │   └── <Uebung>_single.pdf
+│   └── svg/                 # Standalone-Vektorgrafiken mit Base64-TGL-Schrift
+│       └── <Uebung>_card.svg
+└── test_B/                  # 374 Übungen aus test_B
+    ├── exact_70x90/
+    ├── multi/
+    │   └── test_B_all_exercises_multi.pdf
+    ├── printshop/
+    ├── single/
+    └── svg/
 ```
 
 | Unterordner | Dateinamensmuster | Format / Maße | Einsatzzweck |
 |---|---|---|---|
-| `single/` | `<Uebung>_single.pdf` | DIN-A4 | Schneller Kontrollausdruck (1 Karte mittig mit Schnittmarken und Beschreibung) |
-| `multi/` | `<Uebung>_multi.pdf` | DIN-A4 | Papiersparender Selbstdruck (6 Karten pro A4-Seite im 2×3-Raster zum Ausschneiden) |
-| `printshop/` | `<Uebung>_printshop.pdf` | 82 × 102 mm (Trim: 70×90 mm) | **Auftrags-Druckerei** mit Schnittmarken außerhalb des Papiers, Bleed- und TrimBox |
-| `exact_70x90/` | `<Uebung>_exact_70x90.pdf` | 70 × 90 mm | Für Online-Druckereien, die Dateien 1:1 auf Endmaß ohne Schnittmarken fordern |
-| `svg/` | `<Uebung>_card.svg` | 70 × 90 mm | SVG-Grafik mit Base64-eingebetteter TGL-Normschrift |
+| `<Ordner>/single/` | `<Uebung>_single.pdf` | DIN-A4 | Schneller Kontrollausdruck (1 Karte mittig mit Schnittmarken und Beschreibung) |
+| `<Ordner>/multi/` | `<Uebung>_multi.pdf` | DIN-A4 | Papiersparender Selbstdruck (6 Karten pro A4-Seite im 2×3-Raster zum Ausschneiden) |
+| `<Ordner>/printshop/` | `<Uebung>_printshop.pdf` | 82 × 102 mm (Trim: 70×90 mm) | **Auftrags-Druckerei** mit Schnittmarken außerhalb des Papiers, Bleed- und TrimBox |
+| `<Ordner>/exact_70x90/` | `<Uebung>_exact_70x90.pdf` | 70 × 90 mm | Für Online-Druckereien, die Dateien 1:1 auf Endmaß ohne Schnittmarken fordern |
+| `<Ordner>/svg/` | `<Uebung>_card.svg` | 70 × 90 mm | SVG-Grafik mit Base64-eingebetteter TGL-Normschrift |
 
 ---
 

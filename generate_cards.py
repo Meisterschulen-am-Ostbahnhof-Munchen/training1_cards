@@ -1442,6 +1442,42 @@ def analyze_exercise_layout(
     return ex_name, subapp_file, issues
 
 
+def get_exercise_subfolder(subapp_file: str, configured_folders: Optional[List[str]] = None) -> str:
+    """Returns the subfolder name (e.g. 'test_AX' or 'test_B') that this exercise belongs to."""
+    if not subapp_file:
+        return ""
+    norm_file = os.path.normpath(os.path.abspath(subapp_file))
+    if configured_folders:
+        for f in configured_folders:
+            norm_folder = os.path.normpath(os.path.abspath(f))
+            if norm_file.startswith(norm_folder):
+                return os.path.basename(norm_folder)
+    parts = norm_file.split(os.sep)
+    for part in parts:
+        if part in ("test_AX", "test_B"):
+            return part
+    return ""
+
+
+def get_output_paths(subapp_file: str, output_root: str = "output", configured_folders: Optional[List[str]] = None) -> Dict[str, str]:
+    """Computes destination directory paths for each variant based on exercise origin folder."""
+    subfolder = get_exercise_subfolder(subapp_file, configured_folders)
+    base_dir = os.path.join(output_root, subfolder) if subfolder else output_root
+    paths = {
+        "subfolder": subfolder,
+        "base_dir": base_dir,
+        "svg": os.path.join(base_dir, "svg"),
+        "single": os.path.join(base_dir, "single"),
+        "multi": os.path.join(base_dir, "multi"),
+        "printshop": os.path.join(base_dir, "printshop"),
+        "exact_70x90": os.path.join(base_dir, "exact_70x90"),
+    }
+    for k, p in paths.items():
+        if k != "subfolder" and isinstance(p, str) and p:
+            os.makedirs(p, exist_ok=True)
+    return paths
+
+
 def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TODO.md") -> int:
     """Scans subapp files for layout anomalies and writes a formatted fix-TODO.md checklist."""
     type_libs = list(DEFAULT_TYPE_LIBS)
@@ -1453,11 +1489,14 @@ def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TO
     parser = NetworkParser()
     settings = load_block_size_settings()
 
-    flagged = []
+    flagged_by_folder = defaultdict(list)
+    total_flagged = 0
     for f in subapp_files:
         res = analyze_exercise_layout(f, resolver=resolver, parser=parser, settings=settings)
         if res and res[2]:
-            flagged.append(res)
+            sfolder = get_exercise_subfolder(f, DEFAULT_EXERCISES_DIRS) or "Weitere"
+            flagged_by_folder[sfolder].append(res)
+            total_flagged += 1
 
     lines = [
         "# 4diac Übungs-Layout Fix-TODOs (Karten-Optimierung)",
@@ -1471,26 +1510,35 @@ def generate_fix_todo_report(subapp_files: List[str], output_path: str = "fix-TO
         "",
         "## Übersicht",
         f"- **Geprüfte Übungen:** {len(subapp_files)}",
-        f"- **Übungen mit Optimierungsbedarf:** {len(flagged)}",
+        f"- **Übungen mit Optimierungsbedarf:** {total_flagged}",
+    ]
+
+    for sfolder, f_list in sorted(flagged_by_folder.items()):
+        lines.append(f"- **{sfolder}:** {len(f_list)} Übungen")
+
+    lines.extend([
         "",
         "---",
         "",
         "## Offene Layout-TODOs",
         ""
-    ]
+    ])
 
-    for ex_name, fpath, issues in flagged:
-        rel_path = os.path.relpath(fpath, os.getcwd()) if os.path.isabs(fpath) else fpath
-        rel_path = rel_path.replace("\\", "/")
-        lines.append(f"- [ ] **{ex_name}** (`{rel_path}`)")
-        for iss in issues:
-            lines.append(f"  - {iss}")
+    for sfolder, f_list in sorted(flagged_by_folder.items()):
+        lines.append(f"### {sfolder} ({len(f_list)} Übungen)")
         lines.append("")
+        for ex_name, fpath, issues in f_list:
+            rel_path = os.path.relpath(fpath, os.getcwd()) if os.path.isabs(fpath) else fpath
+            rel_path = rel_path.replace("\\", "/")
+            lines.append(f"- [ ] **{ex_name}** (`{rel_path}`)")
+            for iss in issues:
+                lines.append(f"  - {iss}")
+            lines.append("")
 
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
 
-    return len(flagged)
+    return total_flagged
 
 
 def find_sub_files(folders: List[str]) -> List[str]:
@@ -1577,35 +1625,40 @@ def main():
         return
 
     output_root = args.output_dir
-    single_dir = os.path.join(output_root, "single")
-    multi_dir = os.path.join(output_root, "multi")
-    printshop_dir = os.path.join(output_root, "printshop")
-    exact_dir = os.path.join(output_root, "exact_70x90")
-    svg_dir = os.path.join(output_root, "svg")
-
-    for d in (single_dir, multi_dir, printshop_dir, exact_dir, svg_dir):
-        os.makedirs(d, exist_ok=True)
 
     if args.batch_all:
         files = find_sub_files(args.folders)
         if args.limit and args.limit > 0:
             files = files[:args.limit]
         print(f"Batch generating cards for {len(files)} exercises across {len(args.folders)} folders into '{output_root}'...", flush=True)
+
+        files_by_folder = defaultdict(list)
         for i, fpath in enumerate(files):
             b_name = os.path.splitext(os.path.basename(fpath))[0]
-            print(f"[{i+1}/{len(files)}] Processing {b_name}...", flush=True)
+            out_paths = get_output_paths(fpath, output_root, args.folders)
+            subfolder = out_paths["subfolder"]
+            files_by_folder[subfolder].append(fpath)
+
+            print(f"[{i+1}/{len(files)}] [{subfolder or 'default'}] Processing {b_name}...", flush=True)
             try:
                 svg_content = generate_card_svg(fpath)
-                with open(os.path.join(svg_dir, f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
+                with open(os.path.join(out_paths["svg"], f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
                     f.write(svg_content)
-                generate_single_card_pdf(fpath, os.path.join(single_dir, f"{b_name}_single.pdf"))
-                generate_printshop_pdf(fpath, os.path.join(printshop_dir, f"{b_name}_printshop.pdf"))
-                generate_exact_size_pdf(fpath, os.path.join(exact_dir, f"{b_name}_exact_70x90.pdf"))
+                generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"))
+                generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"))
+                generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"))
             except Exception as e:
                 print(f"  [WARNUNG] Fehler bei {b_name}: {e}", flush=True)
-        # Also generate combined multi-card sheet
-        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
-        generate_multi_cards_pdf(files, multi_out)
+
+        # Generate multi-card PDFs per folder
+        for sfolder, folder_files in files_by_folder.items():
+            folder_base = os.path.join(output_root, sfolder) if sfolder else output_root
+            folder_multi_dir = os.path.join(folder_base, "multi")
+            os.makedirs(folder_multi_dir, exist_ok=True)
+            multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
+            multi_out = args.multi_out or os.path.join(folder_multi_dir, multi_name)
+            print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
+            generate_multi_cards_pdf(folder_files, multi_out)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -1620,24 +1673,40 @@ def main():
         if args.limit and args.limit > 0:
             files = files[:args.limit]
         print(f"Found {len(files)} exercises across {len(args.folders)} folders", flush=True)
-        multi_out = args.multi_out or os.path.join(multi_dir, "all_exercises_multi.pdf")
-        generate_multi_cards_pdf(files, multi_out)
-        if files:
-            first_base = os.path.splitext(os.path.basename(files[0]))[0]
-            svg_out = args.svg_out or os.path.join(svg_dir, f"{first_base}_card.svg")
-            svg_content = generate_card_svg(files[0])
-            with open(svg_out, "w", encoding="utf-8") as f:
-                f.write(svg_content)
-            print(f"Saved SVG: {svg_out}", flush=True)
 
-            single_out = args.single_out or os.path.join(single_dir, f"{first_base}_single.pdf")
-            generate_single_card_pdf(files[0], single_out)
+        files_by_folder = defaultdict(list)
+        for fpath in files:
+            subfolder = get_exercise_subfolder(fpath, args.folders)
+            files_by_folder[subfolder].append(fpath)
 
-            printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{first_base}_printshop.pdf")
-            generate_printshop_pdf(files[0], printshop_out)
+        for sfolder, folder_files in files_by_folder.items():
+            folder_base = os.path.join(output_root, sfolder) if sfolder else output_root
+            folder_multi_dir = os.path.join(folder_base, "multi")
+            os.makedirs(folder_multi_dir, exist_ok=True)
+            multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
+            multi_out = os.path.join(folder_multi_dir, multi_name)
+            print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
+            generate_multi_cards_pdf(folder_files, multi_out)
 
-            exact_out = args.exact_out or os.path.join(exact_dir, f"{first_base}_exact_70x90.pdf")
-            generate_exact_size_pdf(files[0], exact_out)
+            if folder_files:
+                first_file = folder_files[0]
+                first_base = os.path.splitext(os.path.basename(first_file))[0]
+                out_paths = get_output_paths(first_file, output_root, args.folders)
+
+                svg_out = os.path.join(out_paths["svg"], f"{first_base}_card.svg")
+                svg_content = generate_card_svg(first_file)
+                with open(svg_out, "w", encoding="utf-8") as f:
+                    f.write(svg_content)
+                print(f"Saved SVG: {svg_out}", flush=True)
+
+                single_out = os.path.join(out_paths["single"], f"{first_base}_single.pdf")
+                generate_single_card_pdf(first_file, single_out)
+
+                printshop_out = os.path.join(out_paths["printshop"], f"{first_base}_printshop.pdf")
+                generate_printshop_pdf(first_file, printshop_out)
+
+                exact_out = os.path.join(out_paths["exact_70x90"], f"{first_base}_exact_70x90.pdf")
+                generate_exact_size_pdf(first_file, exact_out)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -1661,28 +1730,30 @@ def main():
                 print(f"  * {iss}", flush=True)
             print(f"  (Detaillierte Liste aller Übungen siehe auch '{args.todo_out}')\n", flush=True)
 
+        out_paths = get_output_paths(target_sub, output_root, args.folders)
+
         # Standalone SVG
-        svg_out = args.svg_out or os.path.join(svg_dir, f"{base_name}_card.svg")
+        svg_out = args.svg_out or os.path.join(out_paths["svg"], f"{base_name}_card.svg")
         svg_content = generate_card_svg(target_sub)
         with open(svg_out, "w", encoding="utf-8") as f:
             f.write(svg_content)
         print(f"Saved SVG: {svg_out}", flush=True)
 
         # Variant 1: Single card on DIN A4
-        single_out = args.single_out or os.path.join(single_dir, f"{base_name}_single.pdf")
+        single_out = args.single_out or os.path.join(out_paths["single"], f"{base_name}_single.pdf")
         generate_single_card_pdf(target_sub, single_out)
 
         # Variant 2: Multi card sheet (6 cards on A4)
-        multi_out = args.multi_out or os.path.join(multi_dir, f"{base_name}_multi.pdf")
+        multi_out = args.multi_out or os.path.join(out_paths["multi"], f"{base_name}_multi.pdf")
         multi_list = [target_sub] * 6
         generate_multi_cards_pdf(multi_list, multi_out)
 
         # Variant 3: Print shop offset PDF (TrimBox=70x90mm, crop marks outside)
-        printshop_out = args.printshop_out or os.path.join(printshop_dir, f"{base_name}_printshop.pdf")
+        printshop_out = args.printshop_out or os.path.join(out_paths["printshop"], f"{base_name}_printshop.pdf")
         generate_printshop_pdf(target_sub, printshop_out)
 
         # Variant 3b: Print shop exact 70x90mm PDF (MediaBox=70x90mm)
-        exact_out = args.exact_out or os.path.join(exact_dir, f"{base_name}_exact_70x90.pdf")
+        exact_out = args.exact_out or os.path.join(out_paths["exact_70x90"], f"{base_name}_exact_70x90.pdf")
         generate_exact_size_pdf(target_sub, exact_out)
 
     print("Generation complete!", flush=True)
