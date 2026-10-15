@@ -60,8 +60,8 @@
     <polyline points="218.1,343.0 231.1,343.0 236.1,348.0 236.1,386.3 231.1,391.3 87.5,391.3 84.5,394.3 84.5,395.8 87.5,398.8 94.5,398.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="224.2,398.8 237.2,398.8 242.2,403.8 242.2,442.1 237.2,447.1 120.4,447.1 115.4,452.1 115.4,467.0 119.4,471.0 125.4,471.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="227.8,471.0 240.8,471.0 245.8,476.0 245.8,873.2 240.8,878.2 160.2,878.2 157.2,881.3 157.2,882.8 160.2,885.8 167.2,885.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,112.2 41.0,117.2 104.4,117.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="180.3,117.2 193.3,117.2 198.3,122.2 198.3,516.8 193.3,521.8 162.2,521.8 157.2,526.8 157.2,881.8 161.2,885.8 167.2,885.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,112.2 41.0,117.2 76.2,117.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="152.1,117.2 158.1,117.2 162.1,121.2 162.1,883.8 164.1,885.8 167.2,885.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="247.0,885.8 260.0,885.8 265.0,890.8 265.0,1092.2 260.0,1097.2 126.3,1097.2 123.2,1100.3 123.2,1101.8 126.3,1104.8 133.2,1104.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="271.9,1104.8 284.9,1104.8 289.9,1109.8 289.9,1148.0 284.9,1153.0 137.7,1153.0 134.7,1156.1 134.7,1157.6 137.7,1160.6 144.7,1160.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="285.0,1160.6 309.0,1160.6 314.0,1155.6 314.0,55.0 319.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
@@ -73,7 +73,7 @@
     <polyline points="218.1,376.6 227.8,376.6 232.1,380.9 232.1,383.0 227.8,387.3 85.5,387.3 80.5,392.3 80.5,427.4 85.5,432.4 94.5,432.4" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="224.2,432.4 234.0,432.4 238.2,436.7 238.2,438.8 234.0,443.1 116.4,443.1 111.4,448.1 111.4,515.9 116.4,520.9 125.4,520.9" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="227.8,520.9 236.8,520.9 241.8,525.9 241.8,869.2 236.8,874.2 158.2,874.2 153.2,879.2 153.2,930.7 158.2,935.7 167.2,935.7" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="180.3,150.8 189.3,150.8 194.3,155.8 194.3,512.8 189.3,517.8 158.2,517.8 153.2,522.8 153.2,1012.3 158.2,1017.3 167.2,1017.3" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="152.1,150.8 158.1,150.8 162.1,154.8 162.1,1015.3 164.1,1017.3 167.2,1017.3" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="247.0,935.7 256.0,935.7 261.0,940.7 261.0,1088.2 256.0,1093.2 124.2,1093.2 119.2,1098.2 119.2,1133.4 124.2,1138.4 133.2,1138.4" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="271.9,1138.4 281.6,1138.4 285.9,1142.6 285.9,1144.8 281.6,1149.0 135.7,1149.0 130.7,1154.0 130.7,1189.2 135.7,1194.2 144.7,1194.2" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="285.0,1194.2 306.0,1194.2 311.0,1189.2 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
@@ -599,8 +599,8 @@
             fill="#000000" text-anchor="middle">CTRL_PI</text>
     </g>
   </g>
-  <g transform="translate(104.39,107.12) scale(0.96) translate(-104.39,-107.12)">
-    <g id="fb_E_T_FF" transform="translate(104.4, 107.1)">
+  <g transform="translate(76.19,107.12) scale(0.96) translate(-76.19,-107.12)">
+    <g id="fb_E_T_FF" transform="translate(76.2, 107.1)">
       <path d="M 3 0
             L 76.0625 0
             A 3 3 0 0 1 79.0625 3

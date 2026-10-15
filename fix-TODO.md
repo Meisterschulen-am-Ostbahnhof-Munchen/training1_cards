@@ -9,15 +9,15 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 
 ## Übersicht
 - **Geprüfte Übungen:** 871
-- **Übungen mit Optimierungsbedarf:** 41
-- **test_AX:** 23 Übungen
+- **Übungen mit Optimierungsbedarf:** 40
+- **test_AX:** 22 Übungen
 - **test_B:** 18 Übungen
 
 ---
 
 ## Offene Layout-TODOs
 
-### test_AX (23 Übungen)
+### test_AX (22 Übungen)
 
 - [ ] **Uebung_006a2_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_006a2_AX.SUB`)
   - Baustein unglücklich platziert: `AX_T_FF_SR_Q1` (AX_T_FF_SR, verbunden mit I2) liegt bei y=-900 oberhalb von `AX_T_FF_SR_Q2` (AX_T_FF_SR, verbunden mit I1, y=100). Empfehlung: `AX_T_FF_SR_Q1` in 4diac nach unten verschieben (unterhalb von `AX_T_FF_SR_Q2`, z.B. y > 100).
@@ -38,33 +38,53 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 - [ ] **Uebung_019c_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_019c_AX.SUB`)
   - Baustein unglücklich platziert: `AX_E_PERMIT_INVERT_1` (AX_E_PERMIT_INVERT_3, verbunden mit I4) liegt bei y=-200 oberhalb von `AX_SPLIT_4` (AX_SPLIT_2, verbunden mit I3, y=3100). Empfehlung: `AX_E_PERMIT_INVERT_1` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_4`, z.B. y > 3100).
 
+- [ ] **Uebung_028a2_AR** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028a2_AR.SUB`)
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+
 - [ ] **Uebung_028a_AR** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028a_AR.SUB`)
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I2, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I3, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
 
 - [ ] **Uebung_028a_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028a_AX.SUB`)
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I2, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I3, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
 
 - [ ] **Uebung_028b2_AR** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028b2_AR.SUB`)
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I2, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I3, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
 
 - [ ] **Uebung_028b_AR** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028b_AR.SUB`)
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I2, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I3, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
 
 - [ ] **Uebung_028c2_AR** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028c2_AR.SUB`)
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I2, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I4) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I3, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
 
 - [ ] **Uebung_028c3_AR** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028c3_AR.SUB`)
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I7) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I2, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I7) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I3, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
 
 - [ ] **Uebung_028c_AR** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_028c_AR.SUB`)
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I7) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I2, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
-  - Baustein unglücklich platziert: `AD_TO_AUDI` (AD_TO_AUDI, verbunden mit I7) liegt bei y=900 oberhalb von `CALIBRATE` (AR_CALIBRATE, verbunden mit I3, y=1500). Empfehlung: `AD_TO_AUDI` in 4diac nach unten verschieben (unterhalb von `CALIBRATE`, z.B. y > 1500).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I3) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AX_SPLIT_2` (AX_SPLIT_2, verbunden mit I2, y=3300). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AX_SPLIT_2`, z.B. y > 3300).
+  - Baustein unglücklich platziert: `CALIBRATE` (AR_CALIBRATE, verbunden mit I4) liegt bei y=1500 oberhalb von `AD_TO_AR_NUM` (AD_TO_AR_NUM, verbunden mit I1, y=2100). Empfehlung: `CALIBRATE` in 4diac nach unten verschieben (unterhalb von `AD_TO_AR_NUM`, z.B. y > 2100).
 
 - [ ] **Uebung_031_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_031_AX.SUB`)
   - Baustein unglücklich platziert: `strip_set_pixel` (strip_set_pixel, verbunden mit I2) liegt bei y=500 oberhalb von `hsv2rgb` (hsv2rgb, verbunden mit I1, y=800). Empfehlung: `strip_set_pixel` in 4diac nach unten verschieben (unterhalb von `hsv2rgb`, z.B. y > 800).
@@ -101,14 +121,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Baustein unglücklich platziert: `AX_X_TO_BOOL_2` (AX_X_TO_BOOL, verbunden mit I2) liegt bei y=2300 oberhalb von `E_DEMUX_4` (E_DEMUX_4, verbunden mit I1, y=2900). Empfehlung: `AX_X_TO_BOOL_2` in 4diac nach unten verschieben (unterhalb von `E_DEMUX_4`, z.B. y > 2900).
   - Baustein unglücklich platziert: `AX_X_TO_BOOL_2` (AX_X_TO_BOOL, verbunden mit I2) liegt bei y=2300 oberhalb von `AX_X_TO_BOOL_4` (AX_X_TO_BOOL, verbunden mit I1, y=4700). Empfehlung: `AX_X_TO_BOOL_2` in 4diac nach unten verschieben (unterhalb von `AX_X_TO_BOOL_4`, z.B. y > 4700).
   - Baustein unglücklich platziert: `AX_X_TO_BOOL_3` (AX_X_TO_BOOL, verbunden mit I3) liegt bei y=3500 oberhalb von `AX_X_TO_BOOL_4` (AX_X_TO_BOOL, verbunden mit I1, y=4700). Empfehlung: `AX_X_TO_BOOL_3` in 4diac nach unten verschieben (unterhalb von `AX_X_TO_BOOL_4`, z.B. y > 4700).
-
-- [ ] **Uebung_152_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_152_AX.SUB`)
-  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `AX_T_FF` (AX_T_FF, verbunden mit I1, y=2500). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `AX_T_FF`, z.B. y > 2500).
-  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I3) liegt bei y=500 oberhalb von `AX_T_FF` (AX_T_FF, verbunden mit I1, y=2500). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `AX_T_FF`, z.B. y > 2500).
-
-- [ ] **Uebung_153_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_153_AX.SUB`)
-  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `AX_T_FF` (AX_T_FF, verbunden mit I1, y=2300). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `AX_T_FF`, z.B. y > 2300).
-  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I3) liegt bei y=500 oberhalb von `AX_T_FF` (AX_T_FF, verbunden mit I1, y=2300). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `AX_T_FF`, z.B. y > 2300).
 
 - [ ] **Uebung_206b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_206b_AX.SUB`)
   - Baustein unglücklich platziert: `ILOCK_T_FF_SR_1` (ILOCK_T_FF_SR_AX, verbunden mit I3) liegt bei y=-1000 oberhalb von `ILOCK_T_FF_SR_2` (ILOCK_T_FF_SR_AX, verbunden mit I2, y=500). Empfehlung: `ILOCK_T_FF_SR_1` in 4diac nach unten verschieben (unterhalb von `ILOCK_T_FF_SR_2`, z.B. y > 500).
@@ -202,8 +214,8 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Baustein unglücklich platziert: `F_BOOL_TO_UINT_I3` (F_BOOL_TO_UINT, verbunden mit I3) liegt bei y=3900 oberhalb von `F_BOOL_TO_UINT_I4` (F_BOOL_TO_UINT, verbunden mit I1, y=5100). Empfehlung: `F_BOOL_TO_UINT_I3` in 4diac nach unten verschieben (unterhalb von `F_BOOL_TO_UINT_I4`, z.B. y > 5100).
 
 - [ ] **Uebung_152** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_152.SUB`)
-  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=1900). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 1900).
-  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I3) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=1900). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 1900).
+  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=3200). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 3200).
+  - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I3) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=3200). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 3200).
 
 - [ ] **Uebung_153** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_153.SUB`)
   - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=1900). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 1900).
