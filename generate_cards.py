@@ -45,6 +45,8 @@ SVG_H = 450.0
 UNITS_PER_CM = 50.0
 # Blocks are drawn 4 % smaller so that the port rows fit the 1 cm pin grid (52 -> 50 units between REQ and CD)
 BLOCK_SCALE = 0.96
+# Vertical clearance between stacked blocks: room for the instance name drawn above the lower block
+BLOCK_LABEL_GAP = 26.0
 
 DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
 DEFAULT_EXERCISES_DIRS = [
@@ -673,7 +675,7 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                                  inst_b.render_x < inst_a.render_x + inst_a.block_width)
                 in_same_column = horiz_overlap or (abs(inst_a.x - inst_b.x) <= 400.0)
                 if dy_4d > 10.0 and in_same_column:
-                    req_scale = (inst_a.block_height + 16.0) / dy_4d
+                    req_scale = (inst_a.block_height + BLOCK_LABEL_GAP) / dy_4d
                     if req_scale > min_scale_needed:
                         min_scale_needed = req_scale
 
@@ -745,7 +747,7 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                     b.render_y += extra * sum(1 for s in stacked if s <= bi)
 
     # Snap blocks fed by input pins to the 1 cm pin grid: shift each block so that the port of its topmost
-    # nearly aligned pin->port connection (max. 12 units off) sits exactly at the pin height; the other
+    # nearly aligned pin->port connection (max. 20 units off) sits exactly at the pin height; the other
     # ports keep their fixed spacing and are bent normally by the router
     def in_port_dy(inst, port_name):
         row = port_row
@@ -765,7 +767,7 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 dy_port = in_port_dy(inst, c.get("dest_port"))
                 if dy_port is not None:
                     d = pins[c["source_pin"]].y - (inst.render_y + dy_port)
-                    if abs(d) <= 12.0:
+                    if abs(d) <= 20.0:
                         diffs.append((pins[c["source_pin"]].y, d))
         if not diffs:
             continue
