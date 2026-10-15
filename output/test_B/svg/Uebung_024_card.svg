@@ -56,33 +56,32 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="168.1,79.5 174.1,79.5 178.1,75.5 178.1,55.2 181.6,51.7 186.8,51.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,126.1 174.1,126.1 178.1,122.1 178.1,72.2 181.6,68.7 186.8,68.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="255.2,51.7 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="267.8,103.4 309.6,103.4 311.0,102.1 311.0,101.4 312.4,100.0 335.0,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,126.1 174.1,126.1 178.1,122.1 178.1,108.4 183.1,103.4 199.5,103.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,167.5 174.1,167.5 178.1,163.5 178.1,125.4 183.1,120.4 199.5,120.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="272.4,183.8 312.0,183.8 317.0,178.8 317.0,155.0 322.0,150.0 335.0,150.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="180.0,258.1 187.2,258.1 192.0,253.3 192.0,240.5 197.0,235.5 216.6,235.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,235.5 312.0,235.5 317.0,230.5 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="180.0,299.5 187.2,299.5 192.0,294.7 192.0,257.5 197.0,252.5 216.6,252.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="180.0,258.1 187.2,258.1 192.0,253.3 192.0,205.5 196.8,200.8 204.0,200.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="158.6,174.9 174.6,174.9 178.1,178.4 178.1,180.2 181.7,183.8 204.0,183.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,167.5 177.1,167.5 182.1,172.5 182.1,208.7 177.1,213.7 61.2,213.7 56.2,208.7 56.2,179.9 61.2,174.9 70.2,174.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="255.2,103.7 294.0,103.7 299.0,98.7 299.0,55.0 304.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="267.8,155.4 300.0,155.4 305.0,150.4 305.0,105.0 310.0,100.0 335.0,100.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,287.5 306.0,287.5 311.0,282.5 311.0,205.0 316.0,200.0 335.0,200.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="272.4,235.8 294.0,235.8 299.0,230.8 299.0,155.0 304.0,150.0 335.0,150.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <rect x="168.0" y="94.4" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="188.8" y="100.1" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
-    <rect x="168.0" y="111.4" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="188.8" y="117.1" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
-    <rect x="183.5" y="226.5" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="204.3" y="232.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
-    <rect x="183.5" y="243.5" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="204.3" y="249.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
+    <polyline points="163.3,77.7 180.7,77.7 185.7,72.7 185.7,46.4 187.1,45.1 189.1,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,215.1 180.7,215.1 185.7,210.1 185.7,62.8 187.1,61.4 189.1,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="254.7,45.1 306.0,45.1 308.0,47.0 308.0,48.0 310.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="267.6,117.2 303.0,117.2 308.0,112.2 308.0,105.0 313.0,100.0 335.0,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,215.1 180.7,215.1 185.7,210.1 185.7,122.2 190.7,117.2 201.9,117.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,352.5 180.7,352.5 185.7,347.5 185.7,138.5 190.7,133.5 201.9,133.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="272.2,261.4 303.0,261.4 308.0,256.4 308.0,155.0 313.0,150.0 335.0,150.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="175.7,489.9 181.7,489.9 185.7,485.9 185.7,194.3 190.7,189.3 219.4,189.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,189.3 303.7,189.3 308.0,193.6 308.0,195.7 312.3,200.0 335.0,200.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="175.7,627.3 181.7,627.3 185.7,623.3 185.7,210.6 190.7,205.6 219.4,205.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="175.7,489.9 181.7,489.9 185.7,485.9 185.7,282.8 190.7,277.8 206.5,277.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="155.6,732.1 180.7,732.1 185.7,727.1 185.7,266.4 190.7,261.4 206.5,261.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,352.5 176.3,352.5 181.3,357.5 181.3,582.1 176.3,587.1 65.8,587.1 60.8,592.1 60.8,728.1 64.8,732.1 70.8,732.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="254.7,95.0 306.0,95.0 311.0,90.0 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="267.6,167.1 294.0,167.1 299.0,162.1 299.0,105.0 304.0,100.0 335.0,100.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,239.2 312.0,239.2 317.0,234.2 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="272.2,311.4 306.0,311.4 311.0,306.4 311.0,155.0 316.0,150.0 335.0,150.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="181.7" y="180.3" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="202.5" y="186.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
+    <rect x="181.7" y="196.6" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="202.5" y="202.3" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
+    <rect x="175.3" y="268.8" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="196.1" y="274.5" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 117.125 0
@@ -176,7 +175,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_UP_F1</text>
     </g>
-    <g id="fb_E_SR_Ausfahren_Cyl_1" transform="translate(186.8, 41.2)">
+  </g>
+  <g transform="translate(189.09,35.00) scale(0.96) translate(-189.09,-35.00)">
+    <g id="fb_E_SR_Ausfahren_Cyl_1" transform="translate(189.1, 35.0)">
       <path d="M 3 0
             L 65.375 0
             A 3 3 0 0 1 68.375 3
@@ -246,7 +247,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SR_Ausfahren_Cyl_1</text>
     </g>
-    <g id="fb_SoftKey_F2_DOWN" transform="translate(48.0, 81.6)">
+  </g>
+  <g transform="translate(48.00,172.40) scale(0.96) translate(-48.00,-172.40)">
+    <g id="fb_SoftKey_F2_DOWN" transform="translate(48.0, 172.4)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -339,7 +342,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_F2_DOWN</text>
     </g>
-    <g id="fb_E_SR_Ausfahren_Cyl_2" transform="translate(199.5, 92.9)">
+  </g>
+  <g transform="translate(201.92,107.12) scale(0.96) translate(-201.92,-107.12)">
+    <g id="fb_E_SR_Ausfahren_Cyl_2" transform="translate(201.9, 107.1)">
       <path d="M 3 0
             L 65.375 0
             A 3 3 0 0 1 68.375 3
@@ -409,7 +414,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SR_Ausfahren_Cyl_2</text>
     </g>
-    <g id="fb_SoftKey_F3_DOWN" transform="translate(48.0, 123.0)">
+  </g>
+  <g transform="translate(48.00,309.80) scale(0.96) translate(-48.00,-309.80)">
+    <g id="fb_SoftKey_F3_DOWN" transform="translate(48.0, 309.8)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -502,7 +509,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_F3_DOWN</text>
     </g>
-    <g id="fb_SoftKey_F9_DOWN" transform="translate(59.9, 255.0)">
+  </g>
+  <g transform="translate(60.39,584.60) scale(0.96) translate(-60.39,-584.60)">
+    <g id="fb_SoftKey_F9_DOWN" transform="translate(60.4, 584.6)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -595,7 +604,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_F9_DOWN</text>
     </g>
-    <g id="fb_E_SR_Einfahren_Cyl_2" transform="translate(204.0, 173.3)">
+  </g>
+  <g transform="translate(206.53,251.36) scale(0.96) translate(-206.53,-251.36)">
+    <g id="fb_E_SR_Einfahren_Cyl_2" transform="translate(206.5, 251.4)">
       <path d="M 3 0
             L 65.375 0
             A 3 3 0 0 1 68.375 3
@@ -665,7 +676,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SR_Einfahren_Cyl_2</text>
     </g>
-    <g id="fb_E_SR_Einfahren_Cyl_1" transform="translate(216.6, 225.0)">
+  </g>
+  <g transform="translate(219.36,179.24) scale(0.96) translate(-219.36,-179.24)">
+    <g id="fb_E_SR_Einfahren_Cyl_1" transform="translate(219.4, 179.2)">
       <path d="M 3 0
             L 65.375 0
             A 3 3 0 0 1 68.375 3
@@ -735,7 +748,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SR_Einfahren_Cyl_1</text>
     </g>
-    <g id="fb_SoftKey_F8_DOWN" transform="translate(59.9, 213.6)">
+  </g>
+  <g transform="translate(60.39,447.20) scale(0.96) translate(-60.39,-447.20)">
+    <g id="fb_SoftKey_F8_DOWN" transform="translate(60.4, 447.2)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -828,7 +843,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_F8_DOWN</text>
     </g>
-    <g id="fb_E_DELAY" transform="translate(70.2, 164.4)">
+  </g>
+  <g transform="translate(70.78,722.00) scale(0.96) translate(-70.78,-722.00)">
+    <g id="fb_E_DELAY" transform="translate(70.8, 722.0)">
       <path d="M 3 0
             L 85.375 0
             A 3 3 0 0 1 88.375 3
@@ -898,6 +915,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_DELAY</text>
     </g>
+  </g>
   </g>
   <path d="M 350.0,36.5 L 348.0,36.5 A 13.5,13.5 0 0,0 348.0,63.5 L 350.0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="335.0" y1="50.0" x2="338.0" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

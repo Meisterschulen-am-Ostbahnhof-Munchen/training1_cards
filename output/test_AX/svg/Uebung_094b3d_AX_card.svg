@@ -56,21 +56,22 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="187.4,151.6 196.4,151.6 201.4,146.6 201.4,129.7 196.4,124.7 71.9,124.7 67.9,128.7 67.9,130.7 71.9,134.7 81.9,134.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="187.4,151.6 196.4,151.6 201.4,146.6 201.4,129.7 196.4,124.7 71.9,124.7 67.9,128.7 67.9,130.7 71.9,134.7 81.9,134.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="220.6,151.7 234.6,151.7 234.6,151.8 129.9,151.8 124.9,156.8 124.9,165.8 129.9,170.8 138.9,170.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="220.6,151.7 234.6,151.7 234.6,151.8 129.9,151.8 124.9,156.8 124.9,165.8 129.9,170.8 138.9,170.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="240.7,187.8 249.7,187.8 254.7,182.8 254.7,130.7 249.7,125.7 140.1,125.7 136.4,122.1 136.4,120.3 140.1,116.6 150.4,116.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="240.7,187.8 249.7,187.8 254.7,182.8 254.7,130.7 249.7,125.7 140.1,125.7 136.4,122.1 136.4,120.3 140.1,116.6 150.4,116.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="240.7,170.8 249.7,170.8 254.7,175.8 254.7,183.4 249.7,188.4 141.4,188.4 136.4,193.4 136.4,220.0 141.4,225.0 150.4,225.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="240.7,170.8 249.7,170.8 254.7,175.8 254.7,183.4 249.7,188.4 141.4,188.4 136.4,193.4 136.4,220.0 141.4,225.0 150.4,225.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="220.6,168.7 229.6,168.7 234.6,173.7 234.6,237.1 229.6,242.1 127.3,242.1 122.3,247.1 122.3,346.5 127.3,351.5 136.3,351.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="220.6,168.7 229.6,168.7 234.6,173.7 234.6,237.1 229.6,242.1 127.3,242.1 122.3,247.1 122.3,346.5 127.3,351.5 136.3,351.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="220.6,134.7 229.6,134.7 234.6,129.7 234.6,94.6 229.6,89.6 148.2,89.6 144.5,86.0 144.5,84.1 148.2,80.5 158.5,80.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="220.6,134.7 229.6,134.7 234.6,129.7 234.6,94.6 229.6,89.6 148.2,89.6 144.5,86.0 144.5,84.1 148.2,80.5 158.5,80.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="181.8,112.3 191.9,112.3 195.8,116.1 195.8,118.1 191.9,121.9 73.1,121.9 68.1,126.9 68.1,162.1 73.1,167.1 82.1,167.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="181.8,112.3 191.9,112.3 195.8,116.1 195.8,118.1 191.9,121.9 73.1,121.9 68.1,126.9 68.1,162.1 73.1,167.1 82.1,167.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="215.2,183.4 224.2,183.4 229.2,188.4 229.2,233.3 224.2,238.3 137.2,238.3 132.2,243.3 132.2,306.4 137.2,311.4 146.2,311.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="215.2,183.4 224.2,183.4 229.2,188.4 229.2,233.3 224.2,238.3 137.2,238.3 132.2,243.3 132.2,306.4 137.2,311.4 146.2,311.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="243.9,327.7 252.9,327.7 257.9,332.7 257.9,389.1 252.9,394.1 146.8,394.1 141.8,399.1 141.8,490.1 146.8,495.1 155.8,495.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="243.9,327.7 252.9,327.7 257.9,332.7 257.9,389.1 252.9,394.1 146.8,394.1 141.8,399.1 141.8,490.1 146.8,495.1 155.8,495.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="215.2,199.8 224.2,199.8 229.2,204.8 229.2,269.3 224.2,274.3 127.4,274.3 122.4,279.3 122.4,378.5 127.4,383.5 136.4,383.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="215.2,199.8 224.2,199.8 229.2,204.8 229.2,269.3 224.2,274.3 127.4,274.3 122.4,279.3 122.4,378.5 127.4,383.5 136.4,383.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="215.2,167.1 224.2,167.1 229.2,172.1 229.2,205.4 224.2,210.4 147.8,210.4 142.8,215.4 142.8,250.6 147.8,255.6 156.8,255.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="215.2,167.1 224.2,167.1 229.2,172.1 229.2,205.4 224.2,210.4 147.8,210.4 142.8,215.4 142.8,250.6 147.8,255.6 156.8,255.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="243.9,311.4 252.9,311.4 257.9,316.4 257.9,361.2 252.9,366.2 146.8,366.2 141.8,371.2 141.8,434.3 146.8,439.3 155.8,439.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="243.9,311.4 252.9,311.4 257.9,316.4 257.9,361.2 252.9,366.2 146.8,366.2 141.8,371.2 141.8,434.3 146.8,439.3 155.8,439.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AOption_AUI_DEMUX_3" transform="translate(81.9, 89.2)">
+  <g transform="translate(82.05,123.44) scale(0.96) translate(-82.05,-123.44)">
+    <g id="fb_AOption_AUI_DEMUX_3" transform="translate(82.1, 123.4)">
       <path d="M 3 0
             L 135.6875 0
             A 3 3 0 0 1 138.6875 3
@@ -189,7 +190,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AOption_AUI_DEMUX_3</text>
     </g>
-    <g id="fb_AOption_T_2" transform="translate(138.9, 125.3)">
+  </g>
+  <g transform="translate(146.21,267.68) scale(0.96) translate(-146.21,-267.68)">
+    <g id="fb_AOption_T_2" transform="translate(146.2, 267.7)">
       <path d="M 3 0
             L 98.75 0
             A 3 3 0 0 1 101.75 3
@@ -293,7 +296,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AOption_T_2</text>
     </g>
-    <g id="fb_NumericValue_TO_AUI2_1" transform="translate(48.0, 71.1)">
+  </g>
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_NumericValue_TO_AUI2_1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 136.375 0
             A 3 3 0 0 1 139.375 3
@@ -383,7 +388,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NumericValue_TO_AUI2_1</text>
     </g>
-    <g id="fb_OptionalGroup_001" transform="translate(150.4, 71.1)">
+  </g>
+  <g transform="translate(155.82,395.60) scale(0.96) translate(-155.82,-395.60)">
+    <g id="fb_OptionalGroup_001" transform="translate(155.8, 395.6)">
       <path d="M 3 0
             L 131.5625 0
             A 3 3 0 0 1 134.5625 3
@@ -454,13 +461,15 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
+            fill="#000000">AOption_IN</text>
       <!-- Instance Name -->
       <text x="67.28125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OptionalGroup_001</text>
     </g>
-    <g id="fb_OptionalGroup_001b" transform="translate(150.4, 179.5)">
+  </g>
+  <g transform="translate(155.82,451.40) scale(0.96) translate(-155.82,-451.40)">
+    <g id="fb_OptionalGroup_001b" transform="translate(155.8, 451.4)">
       <path d="M 3 0
             L 131.5625 0
             A 3 3 0 0 1 134.5625 3
@@ -531,13 +540,15 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
+            fill="#000000">AOption_IN</text>
       <!-- Instance Name -->
       <text x="67.28125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OptionalGroup_001b</text>
     </g>
-    <g id="fb_OptionalGroup_002" transform="translate(136.3, 306.0)">
+  </g>
+  <g transform="translate(136.38,339.80) scale(0.96) translate(-136.38,-339.80)">
+    <g id="fb_OptionalGroup_002" transform="translate(136.4, 339.8)">
       <path d="M 3 0
             L 131.5625 0
             A 3 3 0 0 1 134.5625 3
@@ -608,13 +619,15 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
+            fill="#000000">AOption_IN</text>
       <!-- Instance Name -->
       <text x="67.28125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OptionalGroup_002</text>
     </g>
-    <g id="fb_DummyGroup" transform="translate(158.5, 35.0)">
+  </g>
+  <g transform="translate(156.81,211.88) scale(0.96) translate(-156.81,-211.88)">
+    <g id="fb_DummyGroup" transform="translate(156.8, 211.9)">
       <path d="M 3 0
             L 108.3125 0
             A 3 3 0 0 1 111.3125 3
@@ -685,12 +698,13 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
+            fill="#000000">AOption_IN</text>
       <!-- Instance Name -->
       <text x="55.65625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">DummyGroup</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_094b3d_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Wie Uebung_094b3c_AX (K=2 aktiviert zwei</text>

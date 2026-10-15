@@ -56,14 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="167.4,45.5 176.4,45.5 181.4,50.5 181.4,66.0 176.4,71.0 156.6,71.0 151.6,66.0 151.6,50.5 156.6,45.5 165.6,45.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="167.4,80.5 177.6,80.5 181.4,76.7 181.4,74.8 177.6,71.0 155.4,71.0 151.6,74.8 151.6,76.7 155.4,80.5 165.6,80.5" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,93.5 38.0,98.5 48.0,98.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,93.5 38.0,98.5 48.0,98.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="285.0,98.5 312.0,98.5 317.0,93.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="285.0,98.5 312.0,98.5 317.0,93.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="162.7,45.1 170.3,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="162.7,78.7 170.3,78.7" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,91.0 38.0,96.0 48.0,96.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,91.0 38.0,96.0 48.0,96.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="285.0,96.0 312.0,96.0 317.0,91.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="285.0,96.0 312.0,96.0 317.0,91.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_AX_X_TO_BOOL" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 116.4375 0
@@ -142,7 +143,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_X_TO_BOOL</text>
     </g>
-    <g id="fb_AX_BOOL_TO_X" transform="translate(165.6, 35.0)">
+  </g>
+  <g transform="translate(170.34,35.00) scale(0.96) translate(-170.34,-35.00)">
+    <g id="fb_AX_BOOL_TO_X" transform="translate(170.3, 35.0)">
       <path d="M 3 0
             L 116.4375 0
             A 3 3 0 0 1 119.4375 3
@@ -220,6 +223,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_BOOL_TO_X</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

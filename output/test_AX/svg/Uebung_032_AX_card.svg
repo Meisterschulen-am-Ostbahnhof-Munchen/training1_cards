@@ -56,17 +56,18 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 46.0,50.0 51.0,55.0 51.0,178.5 56.0,183.5 106.6,183.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 46.0,50.0 51.0,55.0 51.0,178.5 56.0,183.5 106.6,183.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 40.0,100.0 45.0,105.0 45.0,246.2 50.0,251.2 106.6,251.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 40.0,100.0 45.0,105.0 45.0,246.2 50.0,251.2 106.6,251.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 34.0,150.0 39.0,155.0 39.0,313.8 44.0,318.8 106.6,318.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 34.0,150.0 39.0,155.0 39.0,313.8 44.0,318.8 106.6,318.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,200.0 28.0,200.0 33.0,205.0 33.0,381.5 38.0,386.5 106.6,386.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,200.0 28.0,200.0 33.0,205.0 33.0,381.5 38.0,386.5 106.6,386.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 46.0,50.0 51.0,55.0 51.0,172.6 56.0,177.6 109.3,177.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 46.0,50.0 51.0,55.0 51.0,172.6 56.0,177.6 109.3,177.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 40.0,100.0 45.0,105.0 45.0,326.3 50.0,331.3 109.3,331.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 40.0,100.0 45.0,105.0 45.0,326.3 50.0,331.3 109.3,331.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 34.0,150.0 39.0,155.0 39.0,480.0 44.0,485.0 109.3,485.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 34.0,150.0 39.0,155.0 39.0,480.0 44.0,485.0 109.3,485.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,200.0 28.0,200.0 33.0,205.0 33.0,633.7 38.0,638.7 109.3,638.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,200.0 28.0,200.0 33.0,205.0 33.0,633.7 38.0,638.7 109.3,638.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_LED_GREEN_5HZ" transform="translate(106.6, 35.0)">
+  <g transform="translate(109.30,35.00) scale(0.96) translate(-109.30,-35.00)">
+    <g id="fb_LED_GREEN_5HZ" transform="translate(109.3, 35.0)">
       <path d="M 3 0
             L 133.875 0
             A 3 3 0 0 1 136.875 3
@@ -171,7 +172,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LED_GREEN_5HZ</text>
     </g>
-    <g id="fb_LED_YELLOW_5HZ" transform="translate(106.6, 102.7)">
+  </g>
+  <g transform="translate(109.30,188.72) scale(0.96) translate(-109.30,-188.72)">
+    <g id="fb_LED_YELLOW_5HZ" transform="translate(109.3, 188.7)">
       <path d="M 3 0
             L 133.875 0
             A 3 3 0 0 1 136.875 3
@@ -276,7 +279,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LED_YELLOW_5HZ</text>
     </g>
-    <g id="fb_LED_RED_5HZ" transform="translate(106.6, 170.3)">
+  </g>
+  <g transform="translate(109.30,342.44) scale(0.96) translate(-109.30,-342.44)">
+    <g id="fb_LED_RED_5HZ" transform="translate(109.3, 342.4)">
       <path d="M 3 0
             L 133.875 0
             A 3 3 0 0 1 136.875 3
@@ -381,7 +386,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LED_RED_5HZ</text>
     </g>
-    <g id="fb_LED_BLUE_5HZ" transform="translate(106.6, 238.0)">
+  </g>
+  <g transform="translate(109.30,496.16) scale(0.96) translate(-109.30,-496.16)">
+    <g id="fb_LED_BLUE_5HZ" transform="translate(109.3, 496.2)">
       <path d="M 3 0
             L 133.875 0
             A 3 3 0 0 1 136.875 3
@@ -486,6 +493,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LED_BLUE_5HZ</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

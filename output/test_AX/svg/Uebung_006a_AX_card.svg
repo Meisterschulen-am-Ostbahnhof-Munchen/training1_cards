@@ -56,14 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,61.0 38.0,66.0 122.4,66.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 28.0,100.0 33.0,95.0 33.0,88.0 38.0,83.0 122.4,83.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 34.0,150.0 39.0,145.0 39.0,105.0 44.0,100.0 122.4,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="227.6,135.0 312.0,135.0 317.0,130.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="227.6,135.0 312.0,135.0 317.0,130.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 124.5,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 31.0,100.0 36.0,95.0 36.0,71.3 41.0,66.3 124.5,66.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 37.0,150.0 42.0,145.0 42.0,87.6 47.0,82.6 124.5,82.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="225.5,116.2 312.0,116.2 317.0,111.2 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="225.5,116.2 312.0,116.2 317.0,111.2 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AX_T_FF_SR" transform="translate(122.4, 55.5)">
+  <g transform="translate(124.51,39.92) scale(0.96) translate(-124.51,-39.92)">
+    <g id="fb_AX_T_FF_SR" transform="translate(124.5, 39.9)">
       <path d="M 3 0
             L 102.1875 0
             A 3 3 0 0 1 105.1875 3
@@ -145,6 +146,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF_SR</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

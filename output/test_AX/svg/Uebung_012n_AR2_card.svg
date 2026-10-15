@@ -56,11 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="187.4,329.0 196.4,329.0 201.4,324.0 201.4,211.5 196.4,206.5 119.5,206.5 114.5,201.5 114.5,195.0 119.5,190.0 128.5,190.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="187.4,329.0 196.4,329.0 201.4,324.0 201.4,211.5 196.4,206.5 119.5,206.5 114.5,201.5 114.5,195.0 119.5,190.0 128.5,190.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="181.8,329.8 190.8,329.8 195.8,324.8 195.8,211.8 190.8,206.8 125.8,206.8 120.8,201.8 120.8,190.7 125.8,185.7 134.8,185.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="181.8,329.8 190.8,329.8 195.8,324.8 195.8,211.8 190.8,206.8 125.8,206.8 120.8,201.8 120.8,190.7 125.8,185.7 134.8,185.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_NVS_AR2" transform="translate(128.5, 75.5)">
+  <g transform="translate(134.76,75.76) scale(0.96) translate(-134.76,-75.76)">
+    <g id="fb_NVS_AR2" transform="translate(134.8, 75.8)">
       <path d="M 3 0
             L 153.5 0
             A 3 3 0 0 1 156.5 3
@@ -159,7 +160,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NVS_AR2</text>
     </g>
-    <g id="fb_InputNumber_I3_N" transform="translate(48.0, 214.5)">
+  </g>
+  <g transform="translate(48.00,219.84) scale(0.96) translate(-48.00,-219.84)">
+    <g id="fb_InputNumber_I3_N" transform="translate(48.0, 219.8)">
       <path d="M 3 0
             L 136.375 0
             A 3 3 0 0 1 139.375 3
@@ -272,6 +275,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I3_N</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_012n_AR2</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">VT-Feld UND OPC-UA (letzter Schreiber gewinnt) und</text>

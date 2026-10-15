@@ -56,12 +56,13 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="185.4,77.5 194.4,77.5 199.4,82.5 199.4,210.0 194.4,215.0 128.7,215.0 123.7,220.0 123.7,228.5 128.7,233.5 137.7,233.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="185.4,94.5 194.4,94.5 199.4,99.5 199.4,210.0 194.4,215.0 128.7,215.0 123.7,220.0 123.7,228.5 128.7,233.5 137.7,233.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="185.4,163.5 194.4,163.5 199.4,168.5 199.4,210.0 194.4,215.0 128.7,215.0 123.7,220.0 123.7,263.5 128.7,268.5 137.7,268.5" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="179.9,77.7 192.9,77.7 197.9,82.7 197.9,214.0 192.9,219.0 138.6,219.0 133.6,224.0 133.6,234.1 137.6,238.1 143.6,238.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="179.9,94.0 192.9,94.0 197.9,99.0 197.9,214.0 192.9,219.0 138.6,219.0 133.6,224.0 133.6,234.1 137.6,238.1 143.6,238.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="179.9,160.2 188.9,160.2 193.9,165.2 193.9,210.0 188.9,215.0 134.6,215.0 129.6,220.0 129.6,266.7 134.6,271.7 143.6,271.7" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_DataPanel_MI_IW_0_10V" transform="translate(48.0, 50.0)">
+  <g transform="translate(48.00,51.28) scale(0.96) translate(-48.00,-51.28)">
+    <g id="fb_DataPanel_MI_IW_0_10V" transform="translate(48.0, 51.3)">
       <path d="M 3 0
             L 134.375 0
             A 3 3 0 0 1 137.375 3
@@ -161,7 +162,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">DataPanel_MI_IW_0_10V</text>
     </g>
-    <g id="fb_F_DWORD_TO_UDINT_I8" transform="translate(137.7, 223.0)">
+  </g>
+  <g transform="translate(143.58,228.00) scale(0.96) translate(-143.58,-228.00)">
+    <g id="fb_F_DWORD_TO_UDINT_I8" transform="translate(143.6, 228.0)">
       <path d="M 3 0
             L 144.3125 0
             A 3 3 0 0 1 147.3125 3
@@ -231,6 +234,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_DWORD_TO_UDINT_I8</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_230</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Analog-Eingang</text>

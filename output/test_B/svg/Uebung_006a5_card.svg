@@ -56,20 +56,21 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 29.2,50.0 33.0,46.2 33.0,44.3 36.8,40.5 126.1,40.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 36.0,50.0 39.0,53.0 39.0,54.5 42.0,57.5 126.1,57.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,69.5 38.0,74.5 126.1,74.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="223.9,40.5 313.2,40.5 317.0,44.3 317.0,46.2 320.8,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="223.9,109.5 312.0,109.5 317.0,104.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <rect x="63.8" y="31.5" width="37.4" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="82.5" y="37.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">drücken</text>
-    <rect x="59.6" y="48.5" width="45.8" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="82.5" y="54.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Loslassen</text>
-    <rect x="63.8" y="65.5" width="37.4" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="82.5" y="71.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Klicken</text>
+    <polyline points="15.0,50.0 32.0,50.0 36.0,46.0 36.0,44.0 40.0,40.1 128.0,40.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 39.4,50.0 42.0,52.6 42.0,53.8 44.6,56.4 128.0,56.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,67.7 41.0,72.7 128.0,72.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="222.0,40.1 310.0,40.1 314.0,44.0 314.0,46.0 318.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="222.0,106.3 312.0,106.3 317.0,101.3 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="66.3" y="31.1" width="37.4" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="85.0" y="36.8" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">drücken</text>
+    <rect x="62.1" y="47.4" width="45.8" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="85.0" y="53.1" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Loslassen</text>
+    <rect x="66.3" y="63.7" width="37.4" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="85.0" y="69.4" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Klicken</text>
   </g>
   <g id="instances">
-    <g id="fb_E_T_FF_SR" transform="translate(126.1, 30.0)">
+  <g transform="translate(128.02,30.00) scale(0.96) translate(-128.02,-30.00)">
+    <g id="fb_E_T_FF_SR" transform="translate(128.0, 30.0)">
       <path d="M 3 0
             L 94.875 0
             A 3 3 0 0 1 97.875 3
@@ -142,6 +143,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_T_FF_SR</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

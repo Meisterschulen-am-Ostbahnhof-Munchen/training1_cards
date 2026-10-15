@@ -56,12 +56,13 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="188.8,149.5 197.8,149.5 202.8,154.5 202.8,201.5 197.8,206.5 101.7,206.5 96.7,211.5 96.7,313.5 101.7,318.5 110.7,318.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="188.8,149.5 197.8,149.5 202.8,154.5 202.8,201.5 197.8,206.5 101.7,206.5 96.7,211.5 96.7,313.5 101.7,318.5 110.7,318.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="212.4,318.5 221.4,318.5 226.4,313.5 226.4,256.7 221.4,251.7 138.9,251.7 133.9,246.7 133.9,227.8 138.9,222.8 147.9,222.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="212.4,318.5 221.4,318.5 226.4,313.5 226.4,256.7 221.4,251.7 138.9,251.7 133.9,246.7 133.9,227.8 138.9,222.8 147.9,222.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="183.1,144.9 192.1,144.9 197.1,149.9 197.1,157.7 192.1,162.7 103.6,162.7 98.6,167.7 98.6,228.2 103.6,233.2 112.6,233.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="183.1,144.9 192.1,144.9 197.1,149.9 197.1,157.7 192.1,162.7 103.6,162.7 98.6,167.7 98.6,228.2 103.6,233.2 112.6,233.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="210.2,233.2 219.2,233.2 224.2,238.2 224.2,246.0 219.2,251.0 144.4,251.0 139.4,256.0 139.4,365.5 144.4,370.5 153.4,370.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="210.2,233.2 219.2,233.2 224.2,238.2 224.2,246.0 219.2,251.0 144.4,251.0 139.4,256.0 139.4,365.5 144.4,370.5 153.4,370.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_NumericValue_PHYS" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 137.75 0
@@ -159,7 +160,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NumericValue_PHYS</text>
     </g>
-    <g id="fb_ROUND_AR" transform="translate(110.7, 255.0)">
+  </g>
+  <g transform="translate(112.62,172.28) scale(0.96) translate(-112.62,-172.28)">
+    <g id="fb_ROUND_AR" transform="translate(112.6, 172.3)">
       <path d="M 3 0
             L 98.625 0
             A 3 3 0 0 1 101.625 3
@@ -252,7 +255,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">ROUND_AR</text>
     </g>
-    <g id="fb_Q_NumericValue_PHYS" transform="translate(147.9, 108.3)">
+  </g>
+  <g transform="translate(153.36,260.60) scale(0.96) translate(-153.36,-260.60)">
+    <g id="fb_Q_NumericValue_PHYS" transform="translate(153.4, 260.6)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -378,6 +383,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_PHYS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_011f_ROUND_AR_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Wie Uebung_011f_AX, aber mit OSCAT ROUND_AR</text>

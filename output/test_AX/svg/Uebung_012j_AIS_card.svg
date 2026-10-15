@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="171.6,181.5 180.6,181.5 185.6,176.5 185.6,133.5 180.6,128.5 79.2,128.5 74.2,133.5 74.2,193.5 79.2,198.5 88.2,198.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="171.6,181.5 180.6,181.5 185.6,176.5 185.6,133.5 180.6,128.5 79.2,128.5 74.2,133.5 74.2,193.5 79.2,198.5 88.2,198.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="248.8,198.5 257.8,198.5 262.8,203.5 262.8,210.0 257.8,215.0 142.8,215.0 137.8,220.0 137.8,332.5 142.8,337.5 151.8,337.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="248.8,198.5 257.8,198.5 262.8,203.5 262.8,210.0 257.8,215.0 142.8,215.0 137.8,220.0 137.8,332.5 142.8,337.5 151.8,337.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="166.6,144.9 176.8,144.9 180.6,148.8 180.6,150.7 176.8,154.6 82.6,154.6 77.6,159.6 77.6,277.3 82.6,282.3 91.6,282.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="166.6,144.9 176.8,144.9 180.6,148.8 180.6,150.7 176.8,154.6 82.6,154.6 77.6,159.6 77.6,277.3 82.6,282.3 91.6,282.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="245.8,282.3 255.9,282.3 259.8,286.2 259.8,288.1 255.9,292.0 148.1,292.0 143.1,297.0 143.1,398.4 148.1,403.4 157.1,403.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="245.8,282.3 255.9,282.3 259.8,286.2 259.8,288.1 255.9,292.0 148.1,292.0 143.1,297.0 143.1,398.4 148.1,403.4 157.1,403.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_InputString_I1" transform="translate(48.0, 67.0)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_InputString_I1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 120.5625 0
             A 3 3 0 0 1 123.5625 3
@@ -159,7 +160,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputString_I1</text>
     </g>
-    <g id="fb_INI_AIS" transform="translate(88.2, 67.0)">
+  </g>
+  <g transform="translate(91.58,156.08) scale(0.96) translate(-91.58,-156.08)">
+    <g id="fb_INI_AIS" transform="translate(91.6, 156.1)">
       <path d="M 3 0
             L 157.625 0
             A 3 3 0 0 1 160.625 3
@@ -276,7 +279,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">INI_AIS</text>
     </g>
-    <g id="fb_Q_StringValue_AIS" transform="translate(151.8, 223.0)">
+  </g>
+  <g transform="translate(157.08,293.48) scale(0.96) translate(-157.08,-293.48)">
+    <g id="fb_Q_StringValue_AIS" transform="translate(157.1, 293.5)">
       <path d="M 3 0
             L 130.25 0
             A 3 3 0 0 1 133.25 3
@@ -372,6 +377,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_StringValue_AIS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_012j_AIS</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">String Input und Speichern</text>

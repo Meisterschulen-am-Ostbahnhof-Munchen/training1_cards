@@ -56,18 +56,19 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,200.0 31.0,200.0 36.0,195.0 36.0,70.8 40.8,66.0 48.0,66.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,66.0 312.0,66.0 317.0,61.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,61.0 38.0,66.0 196.9,66.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 28.0,100.0 33.0,95.0 33.0,71.0 38.0,66.0 196.9,66.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,101.0 306.0,101.0 311.0,96.0 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 40.0,50.0 45.0,55.0 45.0,113.0 50.0,118.0 196.9,118.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,130.0 38.0,135.0 196.9,135.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,200.0 31.0,200.0 36.0,195.0 36.0,72.2 40.8,67.4 48.0,67.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 200.5,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 31.0,100.0 36.0,95.0 36.0,55.0 41.0,50.0 200.5,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,83.6 312.0,83.6 317.0,78.6 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,94.9 44.0,99.9 200.5,99.9" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,111.2 38.0,116.2 200.5,116.2" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,200.0 31.0,200.0 36.0,195.0 36.0,105.8 40.8,101.0 48.0,101.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="175.9,101.0 196.9,101.0" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.8,101.0 180.6,101.0 185.6,96.0 185.6,88.6 190.6,83.6 200.5,83.6" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_F_MUX_2" transform="translate(196.9, 55.5)">
+  <g transform="translate(200.46,39.92) scale(0.96) translate(-200.46,-39.92)">
+    <g id="fb_F_MUX_2" transform="translate(200.5, 39.9)">
       <path d="M 3 0
             L 85.0625 0
             A 3 3 0 0 1 88.0625 3
@@ -143,7 +144,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_MUX_2</text>
     </g>
-    <g id="fb_F_BOOL_TO_UINT_I4" transform="translate(48.0, 55.5)">
+  </g>
+  <g transform="translate(48.00,57.28) scale(0.96) translate(-48.00,-57.28)">
+    <g id="fb_F_BOOL_TO_UINT_I4" transform="translate(48.0, 57.3)">
       <path d="M 3 0
             L 124.875 0
             A 3 3 0 0 1 127.875 3
@@ -213,6 +216,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_BOOL_TO_UINT_I4</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

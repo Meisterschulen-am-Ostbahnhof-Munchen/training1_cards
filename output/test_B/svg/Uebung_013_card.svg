@@ -56,16 +56,17 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="168.1,79.5 191.3,79.5 192.4,78.4 192.4,77.8 193.5,76.7 216.6,76.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,235.5 187.4,235.5 192.4,230.5 192.4,98.7 197.4,93.7 216.6,93.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,76.7 312.0,76.7 317.0,71.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,128.7 306.0,128.7 311.0,123.7 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <rect x="177.4" y="67.7" width="54.2" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="204.5" y="73.4" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Losgelassen</text>
-    <rect x="177.4" y="84.7" width="54.2" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="204.5" y="90.4" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Losgelassen</text>
+    <polyline points="163.3,77.7 219.4,77.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,238.1 186.3,238.1 191.3,233.1 191.3,98.5 196.3,93.5 219.4,93.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,77.2 309.0,77.2 314.0,72.2 314.0,55.0 319.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,127.1 306.0,127.1 311.0,122.1 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="164.2" y="68.2" width="54.2" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="191.3" y="73.9" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Losgelassen</text>
+    <rect x="178.3" y="84.5" width="54.2" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="205.4" y="90.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Losgelassen</text>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 117.125 0
@@ -159,7 +160,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_UP_F1</text>
     </g>
-    <g id="fb_SoftKey_UP_F2" transform="translate(48.0, 191.0)">
+  </g>
+  <g transform="translate(48.00,195.40) scale(0.96) translate(-48.00,-195.40)">
+    <g id="fb_SoftKey_UP_F2" transform="translate(48.0, 195.4)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -252,7 +255,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_UP_F2</text>
     </g>
-    <g id="fb_E_SR" transform="translate(216.6, 66.2)">
+  </g>
+  <g transform="translate(219.36,67.08) scale(0.96) translate(-219.36,-67.08)">
+    <g id="fb_E_SR" transform="translate(219.4, 67.1)">
       <path d="M 3 0
             L 65.375 0
             A 3 3 0 0 1 68.375 3
@@ -322,6 +327,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SR</text>
     </g>
+  </g>
   </g>
   <path d="M 350.0,36.5 L 348.0,36.5 A 13.5,13.5 0 0,0 348.0,63.5 L 350.0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="335.0" y1="50.0" x2="338.0" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

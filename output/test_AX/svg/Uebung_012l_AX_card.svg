@@ -56,12 +56,13 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="171.6,149.5 180.6,149.5 185.6,144.5 185.6,141.0 180.6,136.0 81.3,136.0 76.3,141.0 76.3,223.5 81.3,228.5 90.3,228.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="171.6,149.5 180.6,149.5 185.6,144.5 185.6,141.0 180.6,136.0 81.3,136.0 76.3,141.0 76.3,223.5 81.3,228.5 90.3,228.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="250.9,228.5 259.9,228.5 264.9,233.5 264.9,249.5 259.9,254.5 142.8,254.5 137.8,259.5 137.8,381.5 142.8,386.5 151.8,386.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="250.9,228.5 259.9,228.5 264.9,233.5 264.9,249.5 259.9,254.5 142.8,254.5 137.8,259.5 137.8,381.5 142.8,386.5 151.8,386.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="166.6,144.9 176.8,144.9 180.6,148.8 180.6,150.7 176.8,154.6 84.9,154.6 79.9,159.6 79.9,261.0 84.9,266.0 93.9,266.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="166.6,144.9 176.8,144.9 180.6,148.8 180.6,150.7 176.8,154.6 84.9,154.6 79.9,159.6 79.9,261.0 84.9,266.0 93.9,266.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="248.1,266.0 258.2,266.0 262.1,269.9 262.1,271.8 258.2,275.7 148.1,275.7 143.1,280.7 143.1,382.1 148.1,387.1 157.1,387.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="248.1,266.0 258.2,266.0 262.1,269.9 262.1,271.8 258.2,275.7 148.1,275.7 143.1,280.7 143.1,382.1 148.1,387.1 157.1,387.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_StringValue_AIS" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 120.5625 0
@@ -159,7 +160,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">StringValue_AIS</text>
     </g>
-    <g id="fb_NVS_AIS" transform="translate(90.3, 114.0)">
+  </g>
+  <g transform="translate(93.86,156.08) scale(0.96) translate(-93.86,-156.08)">
+    <g id="fb_NVS_AIS" transform="translate(93.9, 156.1)">
       <path d="M 3 0
             L 157.625 0
             A 3 3 0 0 1 160.625 3
@@ -272,7 +275,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NVS_AIS</text>
     </g>
-    <g id="fb_Q_StringValue_AIS" transform="translate(151.8, 272.0)">
+  </g>
+  <g transform="translate(157.08,277.16) scale(0.96) translate(-157.08,-277.16)">
+    <g id="fb_Q_StringValue_AIS" transform="translate(157.1, 277.2)">
       <path d="M 3 0
             L 130.25 0
             A 3 3 0 0 1 133.25 3
@@ -368,6 +373,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_StringValue_AIS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_012l_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">String Input und Speichern NVS</text>

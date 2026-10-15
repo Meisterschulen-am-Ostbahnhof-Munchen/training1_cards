@@ -56,15 +56,16 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="168.1,79.5 177.1,79.5 182.1,84.5 182.1,173.3 177.1,178.3 106.0,178.3 101.0,183.3 101.0,187.2 106.0,192.2 115.0,192.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,184.3 177.1,184.3 182.1,189.3 182.1,225.7 177.1,230.7 106.0,230.7 101.0,225.7 101.0,214.2 106.0,209.2 115.0,209.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,299.5 177.1,299.5 182.1,294.5 182.1,267.8 177.1,262.8 106.0,262.8 101.0,257.8 101.0,231.2 106.0,226.2 115.0,226.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="212.9,192.2 312.0,192.2 317.0,187.2 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="212.9,192.2 221.9,192.2 226.9,197.2 226.9,231.6 221.9,236.6 131.7,236.6 129.1,234.0 129.1,232.7 131.7,230.1 143.1,230.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="212.9,261.2 306.0,261.2 311.0,256.2 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="212.9,261.2 221.9,261.2 226.9,256.2 226.9,241.6 221.9,236.6 134.1,236.6 129.1,241.6 129.1,277.1 134.1,282.1 143.1,282.1" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,77.7 176.3,77.7 181.3,82.7 181.3,307.3 176.3,312.3 111.9,312.3 106.9,317.3 106.9,453.3 110.9,457.3 116.9,457.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,215.1 176.3,215.1 181.3,220.1 181.3,376.0 176.3,381.0 111.9,381.0 106.9,386.0 106.9,469.6 110.9,473.6 116.9,473.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,352.5 176.3,352.5 181.3,357.5 181.3,444.7 176.3,449.7 111.9,449.7 106.9,454.7 106.9,485.9 110.9,489.9 116.9,489.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="210.8,457.3 309.0,457.3 314.0,452.3 314.0,55.0 319.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="210.8,457.3 223.8,457.3 228.8,462.3 228.8,533.1 223.8,538.1 143.8,538.1 138.8,543.1 138.8,558.0 142.8,562.0 148.8,562.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="210.8,523.5 306.0,523.5 311.0,518.5 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="210.8,523.5 220.6,523.5 224.8,527.8 224.8,529.9 220.6,534.1 139.8,534.1 134.8,539.1 134.8,607.0 139.8,612.0 148.8,612.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_SoftKey_SET" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 117.125 0
@@ -158,7 +159,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_SET</text>
     </g>
-    <g id="fb_SoftKey_RESET" transform="translate(48.0, 139.8)">
+  </g>
+  <g transform="translate(48.00,172.40) scale(0.96) translate(-48.00,-172.40)">
+    <g id="fb_SoftKey_RESET" transform="translate(48.0, 172.4)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -251,7 +254,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_RESET</text>
     </g>
-    <g id="fb_SoftKey_TOGGLE" transform="translate(48.0, 255.0)">
+  </g>
+  <g transform="translate(48.00,309.80) scale(0.96) translate(-48.00,-309.80)">
+    <g id="fb_SoftKey_TOGGLE" transform="translate(48.0, 309.8)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -344,7 +349,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_TOGGLE</text>
     </g>
-    <g id="fb_AX_T_FF_SR" transform="translate(115.0, 181.7)">
+  </g>
+  <g transform="translate(116.87,447.20) scale(0.96) translate(-116.87,-447.20)">
+    <g id="fb_AX_T_FF_SR" transform="translate(116.9, 447.2)">
       <path d="M 3 0
             L 94.875 0
             A 3 3 0 0 1 97.875 3
@@ -417,7 +424,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF_SR</text>
     </g>
-    <g id="fb_GreenWhiteBackground_AX" transform="translate(143.1, 202.6)">
+  </g>
+  <g transform="translate(148.80,535.64) scale(0.96) translate(-148.80,-535.64)">
+    <g id="fb_GreenWhiteBackground_AX" transform="translate(148.8, 535.6)">
       <path d="M 3 0
             L 138.875 0
             A 3 3 0 0 1 141.875 3
@@ -511,6 +520,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">GreenWhiteBackground_AX</text>
     </g>
+  </g>
   </g>
   <path d="M 350.0,36.5 L 348.0,36.5 A 13.5,13.5 0 0,0 348.0,63.5 L 350.0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="335.0" y1="50.0" x2="338.0" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

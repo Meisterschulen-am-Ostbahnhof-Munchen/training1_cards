@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,100.0 28.0,100.0 33.0,95.0 33.0,63.0 38.0,58.0 134.9,58.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="215.1,58.0 313.8,58.0 317.0,54.8 317.0,53.2 320.2,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,88.0 44.0,93.0 134.9,93.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="215.1,93.0 306.0,93.0 311.0,88.0 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 31.0,100.0 36.0,95.0 36.0,63.7 41.0,58.7 136.5,58.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="213.5,58.7 310.5,58.7 314.0,55.2 314.0,53.5 317.5,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,87.3 44.0,92.3 136.5,92.3" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="213.5,92.3 306.0,92.3 311.0,87.3 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_E_D_FF" transform="translate(134.9, 47.5)">
+  <g transform="translate(136.51,48.60) scale(0.96) translate(-136.51,-48.60)">
+    <g id="fb_E_D_FF" transform="translate(136.5, 48.6)">
       <path d="M 3 0
             L 77.1875 0
             A 3 3 0 0 1 80.1875 3
@@ -132,6 +133,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_D_FF</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

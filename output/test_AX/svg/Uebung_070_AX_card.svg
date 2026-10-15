@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="148.2,234.0 157.2,234.0 162.2,239.0 162.2,269.2 157.2,274.2 100.7,274.2 95.7,279.2 95.7,312.5 100.7,317.5 109.7,317.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="148.2,234.0 157.2,234.0 162.2,239.0 162.2,269.2 157.2,274.2 100.7,274.2 95.7,279.2 95.7,312.5 100.7,317.5 109.7,317.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="223.3,317.5 232.3,317.5 237.3,312.5 237.3,220.0 232.3,215.0 110.1,215.0 105.1,210.0 105.1,154.5 110.1,149.5 119.1,149.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="223.3,317.5 232.3,317.5 237.3,312.5 237.3,220.0 232.3,215.0 110.1,215.0 105.1,210.0 105.1,154.5 110.1,149.5 119.1,149.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="144.2,233.2 153.2,233.2 158.2,238.2 158.2,270.5 153.2,275.5 103.0,275.5 98.0,280.5 98.0,315.6 103.0,320.6 112.0,320.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="144.2,233.2 153.2,233.2 158.2,238.2 158.2,270.5 153.2,275.5 103.0,275.5 98.0,280.5 98.0,315.6 103.0,320.6 112.0,320.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="221.0,320.6 230.0,320.6 235.0,315.6 235.0,220.0 230.0,215.0 116.8,215.0 111.8,210.0 111.8,149.9 116.8,144.9 125.8,144.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="221.0,320.6 230.0,320.6 235.0,315.6 235.0,220.0 230.0,215.0 116.8,215.0 111.8,210.0 111.8,149.9 116.8,144.9 125.8,144.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_I_WBSD" transform="translate(48.0, 153.5)">
+  <g transform="translate(48.00,155.96) scale(0.96) translate(-48.00,-155.96)">
+    <g id="fb_I_WBSD" transform="translate(48.0, 156.0)">
       <path d="M 3 0
             L 97.1875 0
             A 3 3 0 0 1 100.1875 3
@@ -179,7 +180,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">I_WBSD</text>
     </g>
-    <g id="fb_Q_NumericValue" transform="translate(119.1, 35.0)">
+  </g>
+  <g transform="translate(125.76,35.00) scale(0.96) translate(-125.76,-35.00)">
+    <g id="fb_Q_NumericValue" transform="translate(125.8, 35.0)">
       <path d="M 3 0
             L 162.875 0
             A 3 3 0 0 1 165.875 3
@@ -290,7 +293,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue</text>
     </g>
-    <g id="fb_F_UINT_TO_UDINT" transform="translate(109.7, 272.0)">
+  </g>
+  <g transform="translate(111.96,276.92) scale(0.96) translate(-111.96,-276.92)">
+    <g id="fb_F_UINT_TO_UDINT" transform="translate(112.0, 276.9)">
       <path d="M 3 0
             L 110.625 0
             A 3 3 0 0 1 113.625 3
@@ -379,6 +384,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_UINT_TO_UDINT</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_070_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">WBSD auf UT ausgeben</text>

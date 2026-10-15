@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="206.5,268.5 215.5,268.5 220.5,263.5 220.5,220.0 215.5,215.0 138.9,215.0 133.9,210.0 133.9,186.5 138.9,181.5 147.9,181.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="206.5,268.5 215.5,268.5 220.5,263.5 220.5,220.0 215.5,215.0 138.9,215.0 133.9,210.0 133.9,186.5 138.9,181.5 147.9,181.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="184.1,181.5 193.1,181.5 198.1,186.5 198.1,201.5 193.1,206.5 95.9,206.5 90.9,211.5 90.9,263.5 95.9,268.5 104.9,268.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="184.1,181.5 193.1,181.5 198.1,186.5 198.1,201.5 193.1,206.5 95.9,206.5 90.9,211.5 90.9,263.5 95.9,268.5 104.9,268.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="204.1,219.8 213.1,219.8 218.1,224.8 218.1,235.4 213.1,240.4 144.4,240.4 139.4,245.4 139.4,356.8 144.4,361.8 153.4,361.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="204.1,219.8 213.1,219.8 218.1,224.8 218.1,235.4 213.1,240.4 144.4,240.4 139.4,245.4 139.4,356.8 144.4,361.8 153.4,361.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="178.7,144.9 187.7,144.9 192.7,149.9 192.7,159.6 187.7,164.6 97.6,164.6 92.6,169.6 92.6,214.8 97.6,219.8 106.6,219.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="178.7,144.9 187.7,144.9 192.7,149.9 192.7,159.6 187.7,164.6 97.6,164.6 92.6,169.6 92.6,214.8 97.6,219.8 106.6,219.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_InputNumber_I1" transform="translate(48.0, 67.0)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_InputNumber_I1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 133.125 0
             A 3 3 0 0 1 136.125 3
@@ -159,7 +160,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I1</text>
     </g>
-    <g id="fb_AD_TO_AR" transform="translate(104.9, 223.0)">
+  </g>
+  <g transform="translate(106.56,176.08) scale(0.96) translate(-106.56,-176.08)">
+    <g id="fb_AD_TO_AR" transform="translate(106.6, 176.1)">
       <path d="M 3 0
             L 98.625 0
             A 3 3 0 0 1 101.625 3
@@ -248,7 +251,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_TO_AR</text>
     </g>
-    <g id="fb_Q_NumericValue_PHYS" transform="translate(147.9, 67.0)">
+  </g>
+  <g transform="translate(153.36,251.88) scale(0.96) translate(-153.36,-251.88)">
+    <g id="fb_Q_NumericValue_PHYS" transform="translate(153.4, 251.9)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -374,6 +379,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_PHYS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_011e_MIXA</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Numeric Value Input I1 Durchschleifen auf N3</text>

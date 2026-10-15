@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="175.5,79.5 312.0,79.5 317.0,74.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="175.5,79.5 184.5,79.5 189.5,84.5 189.5,161.0 184.5,166.0 128.7,166.0 123.7,171.0 123.7,179.5 128.7,184.5 137.7,184.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="175.5,148.5 184.5,148.5 189.5,153.5 189.5,161.0 184.5,166.0 128.7,166.0 123.7,171.0 123.7,214.5 128.7,219.5 137.7,219.5" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="175.5,148.5 306.0,148.5 311.0,143.5 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,77.7 309.0,77.7 314.0,72.7 314.0,55.0 319.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,77.7 183.4,77.7 188.4,82.7 188.4,165.1 183.4,170.1 138.6,170.1 133.6,175.1 133.6,185.2 137.6,189.2 143.6,189.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,144.0 179.4,144.0 184.4,149.0 184.4,161.1 179.4,166.1 134.6,166.1 129.6,171.1 129.6,217.8 134.6,222.8 143.6,222.8" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,144.0 306.0,144.0 311.0,139.0 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_F_DWORD_TO_UDINT" transform="translate(137.7, 174.0)">
+  <g transform="translate(143.58,179.08) scale(0.96) translate(-143.58,-179.08)">
+    <g id="fb_F_DWORD_TO_UDINT" transform="translate(143.6, 179.1)">
       <path d="M 3 0
             L 144.3125 0
             A 3 3 0 0 1 147.3125 3
@@ -132,6 +133,8 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_DWORD_TO_UDINT</text>
     </g>
+  </g>
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_PWM_Value" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 124.5 0
@@ -224,6 +227,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">PWM_Value</text>
     </g>
+  </g>
   </g>
   <path d="M 350.0,36.5 L 348.0,36.5 A 13.5,13.5 0 0,0 348.0,63.5 L 350.0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="335.0" y1="50.0" x2="338.0" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

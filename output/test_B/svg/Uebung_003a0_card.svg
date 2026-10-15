@@ -58,7 +58,8 @@
   <g id="connections">
   </g>
   <g id="instances">
-    <g id="fb_SubApp" transform="translate(154.0, 223.0)">
+  <g transform="translate(154.84,228.00) scale(0.96) translate(-154.84,-228.00)">
+    <g id="fb_SubApp" transform="translate(154.8, 228.0)">
       <path d="M 3 0
             L 39.0 0
             A 3 3 0 0 1 42.0 3
@@ -121,7 +122,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SubApp</text>
     </g>
-    <g id="fb_SubApp_1" transform="translate(154.0, 169.0)">
+  </g>
+  <g transform="translate(154.84,165.52) scale(0.96) translate(-154.84,-165.52)">
+    <g id="fb_SubApp_1" transform="translate(154.8, 165.5)">
       <path d="M 3 0
             L 39.0 0
             A 3 3 0 0 1 42.0 3
@@ -184,6 +187,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SubApp_1</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_003a0</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">DigitalInput_I1/_I2 auf DigitalOutput_Q1/_I2 - mit</text>

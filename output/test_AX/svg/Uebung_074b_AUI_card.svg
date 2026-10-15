@@ -56,14 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="157.4,94.5 166.4,94.5 171.4,99.5 171.4,140.5 166.4,145.5 110.1,145.5 105.1,140.5 105.1,99.5 110.1,94.5 119.1,94.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="241.1,268.5 250.1,268.5 255.1,263.5 255.1,220.0 250.1,215.0 110.1,215.0 105.1,210.0 105.1,203.5 110.1,198.5 119.1,198.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="241.1,268.5 250.1,268.5 255.1,263.5 255.1,220.0 250.1,215.0 110.1,215.0 105.1,210.0 105.1,203.5 110.1,198.5 119.1,198.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="157.4,164.5 166.4,164.5 171.4,169.5 171.4,210.0 166.4,215.0 118.5,215.0 113.5,220.0 113.5,263.5 118.5,268.5 127.5,268.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="157.4,164.5 166.4,164.5 171.4,169.5 171.4,210.0 166.4,215.0 118.5,215.0 113.5,220.0 113.5,263.5 118.5,268.5 127.5,268.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="153.1,45.1 166.1,45.1 171.1,50.1 171.1,201.5 166.1,206.5 120.8,206.5 115.8,211.5 115.8,258.0 119.8,262.0 125.8,262.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="239.5,219.8 248.5,219.8 253.5,224.8 253.5,235.4 248.5,240.4 116.8,240.4 111.8,245.4 111.8,356.8 116.8,361.8 125.8,361.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="239.5,219.8 248.5,219.8 253.5,224.8 253.5,235.4 248.5,240.4 116.8,240.4 111.8,245.4 111.8,356.8 116.8,361.8 125.8,361.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="153.1,112.3 162.1,112.3 167.1,117.3 167.1,159.6 162.1,164.6 121.4,164.6 116.4,169.6 116.4,214.8 121.4,219.8 130.4,219.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="153.1,112.3 162.1,112.3 167.1,117.3 167.1,159.6 162.1,164.6 121.4,164.6 116.4,169.6 116.4,214.8 121.4,219.8 130.4,219.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_IA_RPTO" transform="translate(48.0, 84.0)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_IA_RPTO" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 106.4375 0
             A 3 3 0 0 1 109.4375 3
@@ -180,7 +181,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">IA_RPTO</text>
     </g>
-    <g id="fb_Q_NumericValue_PTO" transform="translate(119.1, 84.0)">
+  </g>
+  <g transform="translate(125.76,251.88) scale(0.96) translate(-125.76,-251.88)">
+    <g id="fb_Q_NumericValue_PTO" transform="translate(125.8, 251.9)">
       <path d="M 3 0
             L 162.875 0
             A 3 3 0 0 1 165.875 3
@@ -291,7 +294,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_PTO</text>
     </g>
-    <g id="fb_CONV_AUI_AUDI" transform="translate(127.5, 223.0)">
+  </g>
+  <g transform="translate(130.44,176.08) scale(0.96) translate(-130.44,-176.08)">
+    <g id="fb_CONV_AUI_AUDI" transform="translate(130.4, 176.1)">
       <path d="M 3 0
             L 110.625 0
             A 3 3 0 0 1 113.625 3
@@ -380,6 +385,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">CONV_AUI_AUDI</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_074b_AUI</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">RPTO auf UT ausgeben (Adapter Version) ohne</text>

@@ -58,7 +58,8 @@
   <g id="connections">
   </g>
   <g id="instances">
-    <g id="fb_ARTimeOut_1" transform="translate(123.7, 47.5)">
+  <g transform="translate(125.74,48.60) scale(0.96) translate(-125.74,-48.60)">
+    <g id="fb_ARTimeOut_1" transform="translate(125.7, 48.6)">
       <path d="M 3 0
             L 99.625 0
             A 3 3 0 0 1 102.625 3
@@ -132,6 +133,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">ARTimeOut_1</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_170</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Exercise for ARTimeOut</text>
