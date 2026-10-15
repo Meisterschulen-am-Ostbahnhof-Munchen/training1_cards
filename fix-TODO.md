@@ -9,15 +9,15 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 
 ## Übersicht
 - **Geprüfte Übungen:** 871
-- **Übungen mit Optimierungsbedarf:** 144
-- **test_AX:** 36 Übungen
-- **test_B:** 108 Übungen
+- **Übungen mit Optimierungsbedarf:** 134
+- **test_AX:** 29 Übungen
+- **test_B:** 105 Übungen
 
 ---
 
 ## Offene Layout-TODOs
 
-### test_AX (36 Übungen)
+### test_AX (29 Übungen)
 
 - [ ] **Uebung_006a2_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_006a2_AX.SUB`)
   - Baustein unglücklich platziert: `AX_T_FF_SR_Q1` (AX_T_FF_SR, verbunden mit I2) liegt bei y=-900 oberhalb von `AX_T_FF_SR_Q2` (AX_T_FF_SR, verbunden mit I1, y=100). Empfehlung: `AX_T_FF_SR_Q1` in 4diac nach unten verschieben (unterhalb von `AX_T_FF_SR_Q2`, z.B. y > 100).
@@ -122,44 +122,17 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `AX_T_FF` (AX_T_FF, verbunden mit I1, y=2300). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `AX_T_FF`, z.B. y > 2300).
   - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I3) liegt bei y=500 oberhalb von `AX_T_FF` (AX_T_FF, verbunden mit I1, y=2300). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `AX_T_FF`, z.B. y > 2300).
 
-- [ ] **Uebung_160_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_160_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`DigitalOutput_Q56`, y=300) liegt oberhalb von Q6 (`DigitalOutput_Q6`, y=1400)
-
-- [ ] **Uebung_160b2_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_160b2_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`DigitalOutput_Q56`, y=300) liegt oberhalb von Q6 (`DigitalOutput_Q6`, y=1400)
-
-- [ ] **Uebung_160b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_160b_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`DigitalOutput_Q56`, y=300) liegt oberhalb von Q6 (`DigitalOutput_Q6`, y=1400)
-
-- [ ] **Uebung_201b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_201b_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=300) liegt oberhalb von Q6 (`Linkslauf`, y=1200)
-  - Signalleitungen kreuzen sich an `AX_2_TO_3` (AX_2_TO_3): Ausgang Q6 ist mit unterem Port `DOWN_OUT` (Position 3) verbunden, während Q56 mit oberem Port `OR_OUT` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DOWN_OUT` unterhalb von `OR_OUT`, auf der Karte jedoch Q6 oberhalb von Q56. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q6 für `OR_OUT` und Q56 für `DOWN_OUT` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
-
-- [ ] **Uebung_202b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_202b_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=-300) liegt oberhalb von Q6 (`Linkslauf`, y=600)
-  - Signalleitungen kreuzen sich an `AX_2_TO_3` (AX_2_TO_3): Ausgang Q6 ist mit unterem Port `DOWN_OUT` (Position 3) verbunden, während Q56 mit oberem Port `OR_OUT` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DOWN_OUT` unterhalb von `OR_OUT`, auf der Karte jedoch Q6 oberhalb von Q56. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q6 für `OR_OUT` und Q56 für `DOWN_OUT` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
-
-- [ ] **Uebung_203b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_203b_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=500) liegt oberhalb von Q6 (`Linkslauf`, y=1400)
-  - Signalleitungen kreuzen sich an `AX_2_TO_3` (AX_2_TO_3): Ausgang Q6 ist mit unterem Port `DOWN_OUT` (Position 3) verbunden, während Q56 mit oberem Port `OR_OUT` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DOWN_OUT` unterhalb von `OR_OUT`, auf der Karte jedoch Q6 oberhalb von Q56. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q6 für `OR_OUT` und Q56 für `DOWN_OUT` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
-
 - [ ] **Uebung_204_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_204_AX.SUB`)
   - Signalleitungen kreuzen sich an `ILOCK_AX` (ILOCK_CONFLICT_TRIP_AX): Eingang I1 ist mit unterem Port `UP_IN` (Position 2) verbunden, während I3 mit oberem Port `EI_RESET` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `UP_IN` unterhalb von `EI_RESET`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_RESET` und I3 für `UP_IN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK_AX` (ILOCK_CONFLICT_TRIP_AX): Eingang I2 ist mit unterem Port `DOWN_IN` (Position 3) verbunden, während I3 mit oberem Port `EI_RESET` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `DOWN_IN` unterhalb von `EI_RESET`, auf der Karte jedoch I2 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I2 für `EI_RESET` und I3 für `DOWN_IN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_204b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_204b_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=1000) liegt oberhalb von Q6 (`Linkslauf`, y=1900)
   - Signalleitungen kreuzen sich an `ILOCK_AX` (ILOCK_CONFLICT_TRIP_AX): Eingang I1 ist mit unterem Port `UP_IN` (Position 2) verbunden, während I3 mit oberem Port `EI_RESET` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `UP_IN` unterhalb von `EI_RESET`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_RESET` und I3 für `UP_IN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK_AX` (ILOCK_CONFLICT_TRIP_AX): Eingang I2 ist mit unterem Port `DOWN_IN` (Position 3) verbunden, während I3 mit oberem Port `EI_RESET` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `DOWN_IN` unterhalb von `EI_RESET`, auf der Karte jedoch I2 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I2 für `EI_RESET` und I3 für `DOWN_IN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
-  - Signalleitungen kreuzen sich an `AX_2_TO_3` (AX_2_TO_3): Ausgang Q6 ist mit unterem Port `DOWN_OUT` (Position 3) verbunden, während Q56 mit oberem Port `OR_OUT` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DOWN_OUT` unterhalb von `OR_OUT`, auf der Karte jedoch Q6 oberhalb von Q56. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q6 für `OR_OUT` und Q56 für `DOWN_OUT` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_204c_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_204c_AX.SUB`)
   - Signalleitungen kreuzen sich an `ILOCK_AX` (ILOCK_CONFLICT_TRIP_PROTECT_AX): Eingang I1 ist mit unterem Port `UP_IN` (Position 4) verbunden, während I3 mit oberem Port `EI_RESET` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `UP_IN` unterhalb von `EI_RESET`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_RESET` und I3 für `UP_IN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK_AX` (ILOCK_CONFLICT_TRIP_PROTECT_AX): Eingang I2 ist mit unterem Port `DOWN_IN` (Position 5) verbunden, während I3 mit oberem Port `EI_RESET` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `DOWN_IN` unterhalb von `EI_RESET`, auf der Karte jedoch I2 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I2 für `EI_RESET` und I3 für `DOWN_IN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
-
-- [ ] **Uebung_205b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_205b_AX.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=-300) liegt oberhalb von Q6 (`Linkslauf`, y=600)
-  - Signalleitungen kreuzen sich an `AX_2_TO_3` (AX_2_TO_3): Ausgang Q6 ist mit unterem Port `DOWN_OUT` (Position 3) verbunden, während Q56 mit oberem Port `OR_OUT` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DOWN_OUT` unterhalb von `OR_OUT`, auf der Karte jedoch Q6 oberhalb von Q56. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q6 für `OR_OUT` und Q56 für `DOWN_OUT` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_206b_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_206b_AX.SUB`)
   - Baustein unglücklich platziert: `ILOCK_T_FF_SR_1` (ILOCK_T_FF_SR_AX, verbunden mit I3) liegt bei y=-1000 oberhalb von `ILOCK_T_FF_SR_2` (ILOCK_T_FF_SR_AX, verbunden mit I2, y=500). Empfehlung: `ILOCK_T_FF_SR_1` in 4diac nach unten verschieben (unterhalb von `ILOCK_T_FF_SR_2`, z.B. y > 500).
@@ -173,7 +146,7 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 - [ ] **Uebung_248_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_248_AX.SUB`)
   - Baustein unglücklich platziert: `AR_AX_SEL_AR_Hoch` (AR_AX_SEL_AR, verbunden mit I2) liegt bei y=0 oberhalb von `AR_AX_SEL_AR_Runter` (AR_AX_SEL_AR, verbunden mit I1, y=1000). Empfehlung: `AR_AX_SEL_AR_Hoch` in 4diac nach unten verschieben (unterhalb von `AR_AX_SEL_AR_Runter`, z.B. y > 1000).
 
-### test_B (108 Übungen)
+### test_B (105 Übungen)
 
 - [ ] **Uebung_001d2** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_001d2.SUB`)
   - Signalleitungen kreuzen sich an `ILOCK_SWITCH` (ILOCK_SWITCH): Eingang I1 ist mit unterem Port `DI_UP` (Position 3) verbunden, während I2 mit oberem Port `EI_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DI_UP` unterhalb von `EI_DOWN`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_DOWN` und I2 für `DI_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
@@ -213,15 +186,11 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `T_FF` (FB_T_FF): Eingang I1 ist mit unterem Port `RST` (Position 3) verbunden, während I2 mit oberem Port `CLK` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `RST` unterhalb von `CLK`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `CLK` und I2 für `RST` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_006a2** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_006a2.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_CLK_I3`, y=-2380) liegt oberhalb von I1 (`DigitalInput_CLK_I1`, y=-900)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_CLK_I3`, y=-2380) liegt oberhalb von I2 (`DigitalInput_CLK_I2`, y=100)
   - Baustein unglücklich platziert: `E_T_FF_SR_Q1` (E_T_FF_SR, verbunden mit I3) liegt bei y=-900 oberhalb von `E_T_FF_SR_Q2` (E_T_FF_SR, verbunden mit I2, y=100). Empfehlung: `E_T_FF_SR_Q1` in 4diac nach unten verschieben (unterhalb von `E_T_FF_SR_Q2`, z.B. y > 100).
   - Signalleitungen kreuzen sich an `E_T_FF_SR_Q1` (E_T_FF_SR): Eingang I1 ist mit unterem Port `CLK` (Position 3) verbunden, während I3 mit oberem Port `R` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `CLK` unterhalb von `R`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `R` und I3 für `CLK` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `E_T_FF_SR_Q2` (E_T_FF_SR): Eingang I2 ist mit unterem Port `CLK` (Position 3) verbunden, während I3 mit oberem Port `R` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `CLK` unterhalb von `R`, auf der Karte jedoch I2 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I2 für `R` und I3 für `CLK` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_006a2b** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_006a2b.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_CLK_I3`, y=-2000) liegt oberhalb von I1 (`DigitalInput_CLK_I1`, y=-900)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_CLK_I3`, y=-2000) liegt oberhalb von I2 (`DigitalInput_CLK_I2`, y=200)
   - Baustein unglücklich platziert: `E_T_FF_SR_Q1` (FB_RS_T_FF, verbunden mit I3) liegt bei y=-1100 oberhalb von `E_T_FF_SR_Q2` (FB_RS_T_FF, verbunden mit I2, y=-100). Empfehlung: `E_T_FF_SR_Q1` in 4diac nach unten verschieben (unterhalb von `E_T_FF_SR_Q2`, z.B. y > -100).
   - Signalleitungen kreuzen sich an `E_T_FF_SR_Q1` (FB_RS_T_FF): Eingang I1 ist mit unterem Port `CLK` (Position 4) verbunden, während I3 mit oberem Port `REQ` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `CLK` unterhalb von `REQ`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `REQ` und I3 für `CLK` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `E_T_FF_SR_Q1` (FB_RS_T_FF): Eingang I1 ist mit unterem Port `CLK` (Position 4) verbunden, während I3 mit oberem Port `R1` (Position 3) verbunden ist. Hinweis: Am Baustein liegt `CLK` unterhalb von `R1`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `R1` und I3 für `CLK` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
@@ -230,9 +199,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 
 - [ ] **Uebung_006a4** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_006a4.SUB`)
   - Signalleitungen kreuzen sich an `LinksRechts` (LinksRechts): Ausgang Q1 ist mit unterem Port `Rechts` (Position 2) verbunden, während Q2 mit oberem Port `EO` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `Rechts` unterhalb von `EO`, auf der Karte jedoch Q1 oberhalb von Q2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q1 für `EO` und Q2 für `Rechts` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
-
-- [ ] **Uebung_006c** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_006c.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q6 (`DigitalOutput_Q6`, y=5020) liegt oberhalb von Q5 (`DigitalOutput_Q5`, y=6266.67)
 
 - [ ] **Uebung_006e1** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_006e1.SUB`)
   - Signalleitungen kreuzen sich an `FB_SR` (FB_SR): Eingang I1 ist mit unterem Port `S1` (Position 2) verbunden, während I2 mit oberem Port `REQ` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `S1` unterhalb von `REQ`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `REQ` und I2 für `S1` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
@@ -262,15 +228,10 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `E_SR` (E_SR): Eingang I2 ist mit unterem Port `R` (Position 2) verbunden, während I3 mit oberem Port `S` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `R` unterhalb von `S`, auf der Karte jedoch I2 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I2 für `S` und I3 für `R` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_019c** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_019c.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I4 (`ACK`, y=1600) liegt oberhalb von I3 (`Alarmeingang`, y=2700)
   - Baustein unglücklich platziert: `E_PERMIT_INVERT_3` (E_PERMIT_INVERT_3, verbunden mit I4) liegt bei y=-300 oberhalb von `E_R_TRIG_Alarm` (E_PERMIT, verbunden mit I3, y=3200). Empfehlung: `E_PERMIT_INVERT_3` in 4diac nach unten verschieben (unterhalb von `E_R_TRIG_Alarm`, z.B. y > 3200).
   - Signalleitungen kreuzen sich an `E_PERMIT_INVERT_3` (E_PERMIT_INVERT_3): Eingang I3 ist mit unterem Port `PERMIT` (Position 4) verbunden, während I4 mit oberem Port `EI3` (Position 3) verbunden ist. Hinweis: Am Baustein liegt `PERMIT` unterhalb von `EI3`, auf der Karte jedoch I3 oberhalb von I4. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I3 für `EI3` und I4 für `PERMIT` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
-- [ ] **Uebung_028a** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_028a.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_I2`, y=-400) liegt oberhalb von I1 (`DigitalInput_I1`, y=-200)
-
 - [ ] **Uebung_031** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_031.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_CLK_I2`, y=-500) liegt oberhalb von I1 (`DigitalInput_CLK_I1`, y=600)
   - Baustein unglücklich platziert: `strip_set_pixel` (strip_set_pixel, verbunden mit I2) liegt bei y=500 oberhalb von `hsv2rgb` (hsv2rgb, verbunden mit I1, y=800). Empfehlung: `strip_set_pixel` in 4diac nach unten verschieben (unterhalb von `hsv2rgb`, z.B. y > 800).
 
 - [ ] **Uebung_035** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_035.SUB`)
@@ -632,8 +593,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `sequence_block` (sequence_E_05_loop): Ausgang Q4 ist mit unterem Port `DO_S4` (Position 11) verbunden, während Q5 mit oberem Port `EO_S5` (Position 6) verbunden ist. Hinweis: Am Baustein liegt `DO_S4` unterhalb von `EO_S5`, auf der Karte jedoch Q4 oberhalb von Q5. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q4 für `EO_S5` und Q5 für `DO_S4` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_059** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_059.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_CLK_I2`, y=-2373.33) liegt oberhalb von I1 (`DigitalInput_CLK_I1`, y=-300)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_CLK_I3`, y=-1300) liegt oberhalb von I1 (`DigitalInput_CLK_I1`, y=-300)
   - Baustein unglücklich platziert: `E_CTU_0` (E_CTU, verbunden mit I2) liegt bei y=-3466.67 oberhalb von `sequence_block` (sequence_E_08, verbunden mit I1, y=1700). Empfehlung: `E_CTU_0` in 4diac nach unten verschieben (unterhalb von `sequence_block`, z.B. y > 1700).
   - Baustein unglücklich platziert: `E_CTU_0` (E_CTU, verbunden mit I4) liegt bei y=-3466.67 oberhalb von `E_CTU_1` (E_CTU, verbunden mit I3, y=-1333.33). Empfehlung: `E_CTU_0` in 4diac nach unten verschieben (unterhalb von `E_CTU_1`, z.B. y > -1333.33).
   - Baustein unglücklich platziert: `E_CTU_0` (E_CTU, verbunden mit I4) liegt bei y=-3466.67 oberhalb von `sequence_block` (sequence_E_08, verbunden mit I1, y=1700). Empfehlung: `E_CTU_0` in 4diac nach unten verschieben (unterhalb von `sequence_block`, z.B. y > 1700).
@@ -735,12 +694,9 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `E_CTUD_UDINT` (E_CTUD_UDINT): Ausgang Q1 ist mit unterem Port `QU` (Position 4) verbunden, während Q2 mit oberem Port `RO` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `QU` unterhalb von `RO`, auf der Karte jedoch Q1 oberhalb von Q2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q1 für `RO` und Q2 für `QU` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_085** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_085.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_CLK_I2`, y=-800) liegt oberhalb von I1 (`DigitalInput_I1`, y=200)
   - Signalleitungen kreuzen sich an `E_D_FF` (E_D_FF): Eingang I1 ist mit unterem Port `D` (Position 2) verbunden, während I2 mit oberem Port `CLK` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `D` unterhalb von `CLK`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `CLK` und I2 für `D` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_087a1** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_087a1.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_I2`, y=2300) liegt oberhalb von I1 (`DigitalInput_I4`, y=4700)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_I3`, y=3500) liegt oberhalb von I1 (`DigitalInput_I4`, y=4700)
   - Baustein unglücklich platziert: `F_BOOL_TO_UINT_I2` (F_BOOL_TO_UINT, verbunden mit I2) liegt bei y=2700 oberhalb von `F_BOOL_TO_UINT_I4` (F_BOOL_TO_UINT, verbunden mit I1, y=5100). Empfehlung: `F_BOOL_TO_UINT_I2` in 4diac nach unten verschieben (unterhalb von `F_BOOL_TO_UINT_I4`, z.B. y > 5100).
   - Baustein unglücklich platziert: `F_BOOL_TO_UINT_I3` (F_BOOL_TO_UINT, verbunden mit I3) liegt bei y=3900 oberhalb von `F_BOOL_TO_UINT_I4` (F_BOOL_TO_UINT, verbunden mit I1, y=5100). Empfehlung: `F_BOOL_TO_UINT_I3` in 4diac nach unten verschieben (unterhalb von `F_BOOL_TO_UINT_I4`, z.B. y > 5100).
 
@@ -751,46 +707,30 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `OR_2` (OR_2): Eingang I1 ist mit unterem Port `IN1` (Position 2) verbunden, während I2 mit oberem Port `REQ` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `IN1` unterhalb von `REQ`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `REQ` und I2 für `IN1` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_090a1** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_090a1.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I4 (`DigitalInput_I4`, y=3500) liegt oberhalb von I1 (`DigitalInput_I1`, y=4400)
-  - Pin-Reihenfolge invertiert: Eingang I4 (`DigitalInput_I4`, y=3500) liegt oberhalb von I2 (`DigitalInput_I2`, y=5300)
   - Signalleitungen kreuzen sich an `F_MUX_2` (F_MUX_2): Eingang I1 ist mit unterem Port `IN1` (Position 3) verbunden, während I2 mit oberem Port `REQ` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `IN1` unterhalb von `REQ`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `REQ` und I2 für `IN1` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_090a2** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_090a2.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I4 (`DigitalInput_I4`, y=3300) liegt oberhalb von I1 (`DigitalInput_I1`, y=4400)
-  - Pin-Reihenfolge invertiert: Eingang I4 (`DigitalInput_I4`, y=3300) liegt oberhalb von I2 (`DigitalInput_I2`, y=5300)
   - Signalleitungen kreuzen sich an `F_MUX_3` (F_MUX_3): Eingang I1 ist mit unterem Port `IN1` (Position 3) verbunden, während I2 mit oberem Port `REQ` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `IN1` unterhalb von `REQ`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `REQ` und I2 für `IN1` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_094** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_094.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_CLK_I2`, y=-800) liegt oberhalb von I1 (`DigitalInput_I1`, y=200)
   - Signalleitungen kreuzen sich an `E_PERMIT` (E_PERMIT): Eingang I1 ist mit unterem Port `PERMIT` (Position 2) verbunden, während I2 mit oberem Port `EI` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `PERMIT` unterhalb von `EI`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI` und I2 für `PERMIT` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_095** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_095.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_CLK_I2`, y=-800) liegt oberhalb von I1 (`DigitalInput_I1`, y=1200)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_CLK_I3`, y=200) liegt oberhalb von I1 (`DigitalInput_I1`, y=1200)
   - Signalleitungen kreuzen sich an `E_SELECT` (E_SELECT): Eingang I1 ist mit unterem Port `G` (Position 3) verbunden, während I2 mit oberem Port `EI0` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `G` unterhalb von `EI0`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI0` und I2 für `G` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `E_SELECT` (E_SELECT): Eingang I1 ist mit unterem Port `G` (Position 3) verbunden, während I3 mit oberem Port `EI1` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `G` unterhalb von `EI1`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI1` und I3 für `G` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_152** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_152.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_I2`, y=0) liegt oberhalb von I1 (`DigitalInput_I1`, y=1800)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_I3`, y=1000) liegt oberhalb von I1 (`DigitalInput_I1`, y=1800)
   - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=1900). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 1900).
   - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I3) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=1900). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 1900).
 
 - [ ] **Uebung_153** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_153.SUB`)
-  - Pin-Reihenfolge invertiert: Eingang I2 (`DigitalInput_I2`, y=0) liegt oberhalb von I1 (`DigitalInput_I1`, y=1800)
-  - Pin-Reihenfolge invertiert: Eingang I3 (`DigitalInput_I3`, y=1000) liegt oberhalb von I1 (`DigitalInput_I1`, y=1800)
   - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I2) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=1900). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 1900).
   - Baustein unglücklich platziert: `E_CYCLE` (E_CYCLE, verbunden mit I3) liegt bei y=500 oberhalb von `E_T_FF` (E_T_FF, verbunden mit I1, y=1900). Empfehlung: `E_CYCLE` in 4diac nach unten verschieben (unterhalb von `E_T_FF`, z.B. y > 1900).
 
 - [ ] **Uebung_160** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_160.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=400) liegt oberhalb von Q6 (`Linkslauf`, y=1500)
   - Signalleitungen kreuzen sich an `OR_BOOL_2` (OR_BOOL_2): Eingang I1 ist mit unterem Port `IN1` (Position 2) verbunden, während I2 mit oberem Port `REQ` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `IN1` unterhalb von `REQ`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `REQ` und I2 für `IN1` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
-- [ ] **Uebung_160b** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_160b.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=400) liegt oberhalb von Q6 (`Linkslauf`, y=1500)
-
 - [ ] **Uebung_160b2** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_160b2.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`DigitalOutput_Q56`, y=400) liegt oberhalb von Q6 (`DigitalOutput_Q6`, y=1500)
   - Signalleitungen kreuzen sich an `FB_RS_A` (FB_RS): Eingang I1 ist mit unterem Port `S` (Position 2) verbunden, während I2 mit oberem Port `REQ` (Position 1) verbunden ist. Hinweis: Am Baustein liegt `S` unterhalb von `REQ`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `REQ` und I2 für `S` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_201** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_201.SUB`)
@@ -798,7 +738,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_BLOCK): Ausgang Q1 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q2 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q1 oberhalb von Q2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q1 für `EO_DOWN` und Q2 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_201b** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_201b.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=-200) liegt oberhalb von Q6 (`Linkslauf`, y=900)
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_BLOCK): Eingang I1 ist mit unterem Port `DI_UP` (Position 3) verbunden, während I2 mit oberem Port `EI_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DI_UP` unterhalb von `EI_DOWN`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_DOWN` und I2 für `DI_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_BLOCK): Ausgang Q5 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q6 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q5 oberhalb von Q6. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q5 für `EO_DOWN` und Q6 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
@@ -807,7 +746,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_BLOCK_PROTECT): Ausgang Q1 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q2 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q1 oberhalb von Q2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q1 für `EO_DOWN` und Q2 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_202b** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_202b.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=-100) liegt oberhalb von Q6 (`Linkslauf`, y=800)
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_BLOCK_PROTECT): Eingang I1 ist mit unterem Port `DI_UP` (Position 3) verbunden, während I2 mit oberem Port `EI_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DI_UP` unterhalb von `EI_DOWN`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_DOWN` und I2 für `DI_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_BLOCK_PROTECT): Ausgang Q5 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q6 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q5 oberhalb von Q6. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q5 für `EO_DOWN` und Q6 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
@@ -816,7 +754,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_SWITCH): Ausgang Q1 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q2 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q1 oberhalb von Q2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q1 für `EO_DOWN` und Q2 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_203b** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_203b.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=100) liegt oberhalb von Q6 (`Linkslauf`, y=1200)
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_SWITCH): Eingang I1 ist mit unterem Port `DI_UP` (Position 3) verbunden, während I2 mit oberem Port `EI_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DI_UP` unterhalb von `EI_DOWN`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_DOWN` und I2 für `DI_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_SWITCH): Ausgang Q5 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q6 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q5 oberhalb von Q6. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q5 für `EO_DOWN` und Q6 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
@@ -829,9 +766,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_CONFLICT_TRIP): Ausgang Q2 ist mit unterem Port `DO_DOWN` (Position 5) verbunden, während Q4 mit oberem Port `EO_TRIP` (Position 3) verbunden ist. Hinweis: Am Baustein liegt `DO_DOWN` unterhalb von `EO_TRIP`, auf der Karte jedoch Q2 oberhalb von Q4. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q2 für `EO_TRIP` und Q4 für `DO_DOWN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_204b** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_204b.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q5 (`Rechtslauf`, y=-800) liegt oberhalb von Q4 (`Trip_Anzeige`, y=1200)
-  - Pin-Reihenfolge invertiert: Ausgang Q6 (`Linkslauf`, y=200) liegt oberhalb von Q4 (`Trip_Anzeige`, y=1200)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=200) liegt oberhalb von Q4 (`Trip_Anzeige`, y=1200)
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_CONFLICT_TRIP): Eingang I1 ist mit unterem Port `DI_UP` (Position 4) verbunden, während I2 mit oberem Port `EI_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DI_UP` unterhalb von `EI_DOWN`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_DOWN` und I2 für `DI_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_CONFLICT_TRIP): Eingang I1 ist mit unterem Port `DI_UP` (Position 4) verbunden, während I3 mit oberem Port `EI_RESET` (Position 3) verbunden ist. Hinweis: Am Baustein liegt `DI_UP` unterhalb von `EI_RESET`, auf der Karte jedoch I1 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_RESET` und I3 für `DI_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_CONFLICT_TRIP): Eingang I2 ist mit unterem Port `DI_DOWN` (Position 5) verbunden, während I3 mit oberem Port `EI_RESET` (Position 3) verbunden ist. Hinweis: Am Baustein liegt `DI_DOWN` unterhalb von `EI_RESET`, auf der Karte jedoch I2 oberhalb von I3. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I2 für `EI_RESET` und I3 für `DI_DOWN` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
@@ -848,7 +782,6 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_SWITCH_PROTECT): Ausgang Q1 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q2 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q1 oberhalb von Q2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q1 für `EO_DOWN` und Q2 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
 - [ ] **Uebung_205b** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B/Uebungen/Uebung_205b.SUB`)
-  - Pin-Reihenfolge invertiert: Ausgang Q56 (`LowSide_Treiber`, y=-100) liegt oberhalb von Q6 (`Linkslauf`, y=900)
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_SWITCH_PROTECT): Eingang I1 ist mit unterem Port `DI_UP` (Position 3) verbunden, während I2 mit oberem Port `EI_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DI_UP` unterhalb von `EI_DOWN`, auf der Karte jedoch I1 oberhalb von I2. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I1 für `EI_DOWN` und I2 für `DI_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
   - Signalleitungen kreuzen sich an `ILOCK` (ILOCK_SWITCH_PROTECT): Ausgang Q5 ist mit unterem Port `DO_UP` (Position 3) verbunden, während Q6 mit oberem Port `EO_DOWN` (Position 2) verbunden ist. Hinweis: Am Baustein liegt `DO_UP` unterhalb von `EO_DOWN`, auf der Karte jedoch Q5 oberhalb von Q6. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich Q5 für `EO_DOWN` und Q6 für `DO_UP` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
 
