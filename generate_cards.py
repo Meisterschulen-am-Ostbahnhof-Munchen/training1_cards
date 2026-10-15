@@ -225,6 +225,25 @@ def identify_io_pin(instance: FBInstance) -> Optional[str]:
     return None
 
 
+class PinNo(float):
+    """Pin number used for ordering; Q56 is the extra output between Q5 and Q6 (sorts as 5.5, prints as 56)."""
+
+    def __new__(cls, num: int):
+        obj = super().__new__(cls, 5.5 if num == 56 else num)
+        obj.label = num
+        return obj
+
+    def __str__(self):
+        return str(self.label)
+
+    __repr__ = __str__
+
+
+def pin_slot(pin_name: str) -> float:
+    """Returns the card slot (1..8, Q56 = 5.5) of a pin name such as 'I3', 'Q56'."""
+    return float(PinNo(int(re.sub(r"\D", "", pin_name))))
+
+
 @dataclass
 class TerminalPin:
     name: str
@@ -274,6 +293,15 @@ def get_pin_positions() -> Dict[str, TerminalPin]:
             y=py,
             port_side="right"
         )
+
+    # Q56: extra output between Q5 and Q6 (drawn only if an exercise uses it)
+    pins["Q56"] = TerminalPin(
+        name="Q56",
+        direction="output",
+        x=SVG_W,
+        y=pin_slot("Q56") * UNITS_PER_CM,
+        port_side="right"
+    )
 
     return pins
 
@@ -1038,6 +1066,13 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         # Label in TGL font
         svg.append(f'  <text x="{SVG_W-7}" y="{py+3.5:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">{pin_name}</text>')
 
+    # Q56: extra output between Q5 and Q6 (only if used!); slimmer badge as it sits 0.5 cm from its neighbours
+    if "Q56" in active_pins:
+        py = pins["Q56"].y
+        svg.append(f'  <path d="M {SVG_W},{py-10.5:.1f} L {SVG_W-2},{py-10.5:.1f} A 10.5,10.5 0 0,0 {SVG_W-2},{py+10.5:.1f} L {SVG_W},{py+10.5:.1f} Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>')
+        svg.append(f'  <line x1="{SVG_W-15}" y1="{py}" x2="{SVG_W-12}" y2="{py}" stroke="#BDC3C7" stroke-width="0.6"/>')
+        svg.append(f'  <text x="{SVG_W-7}" y="{py+3:.1f}" font-family="\'TGL 0-17_std\', \'TGL 0-17\', Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q56</text>')
+
     # Bottom Center: Exercise Name, Line Break, Full-width Description
     ex_name = model.name or os.path.splitext(os.path.basename(subapp_file))[0]
     comment = model.comment or ""
@@ -1329,7 +1364,7 @@ def analyze_exercise_layout(
             elif pin.startswith('AI') and pin[2:].isdigit():
                 io_pins[inst.name] = ('I', int(pin[2:]), inst.y, inst.x)
             elif pin.startswith('Q') and pin[1:].isdigit():
-                io_pins[inst.name] = ('Q', int(pin[1:]), inst.y, inst.x)
+                io_pins[inst.name] = ('Q', PinNo(int(pin[1:])), inst.y, inst.x)
         else:
             blocks[inst.name] = (inst.type_name, inst.y, inst.x, inst)
 
