@@ -59,15 +59,17 @@
     <polyline points="15.0,50.0 34.2,50.0 36.0,48.2 36.0,47.3 37.8,45.5 48.0,45.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,100.0 28.0,100.0 33.0,95.0 33.0,67.5 38.0,62.5 48.0,62.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="195.8,45.5 312.0,45.5 317.0,50.5 317.0,245.0 322.0,250.0 335.0,250.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="195.8,62.5 300.0,62.5 305.0,67.5 305.0,295.0 310.0,300.0 335.0,300.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="195.8,62.5 288.0,62.5 293.0,67.5 293.0,295.0 298.0,300.0 335.0,300.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="195.8,45.5 204.8,45.5 209.8,50.5 209.8,98.1 204.8,103.1 176.6,103.1 171.6,98.1 171.6,63.7 176.6,58.7 185.6,58.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="195.8,62.5 204.8,62.5 209.8,67.5 209.8,72.6 204.8,77.6 176.6,77.6 171.6,72.6 171.6,63.7 176.6,58.7 185.6,58.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,58.7 306.0,58.7 311.0,63.7 311.0,270.0 316.0,275.0 335.0,275.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,92.7 40.8,97.5 48.0,97.5" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,109.5 38.0,114.5 48.0,114.5" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="195.8,97.5 306.0,97.5 311.0,102.5 311.0,245.0 316.0,250.0 335.0,250.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="195.8,97.5 312.0,97.5 317.0,102.5 317.0,245.0 322.0,250.0 335.0,250.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="195.8,114.5 294.0,114.5 299.0,119.5 299.0,295.0 304.0,300.0 335.0,300.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="195.8,97.5 204.8,97.5 209.8,92.5 209.8,82.6 204.8,77.6 176.6,77.6 171.6,82.6 171.6,88.7 176.6,93.7 185.6,93.7" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="195.8,114.5 204.8,114.5 209.8,109.5 209.8,82.6 204.8,77.6 176.6,77.6 171.6,82.6 171.6,105.7 176.6,110.7 185.6,110.7" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,93.7 300.0,93.7 305.0,98.7 305.0,270.0 310.0,275.0 335.0,275.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="195.8,149.5 204.8,149.5 209.8,154.5 209.8,210.0 204.8,215.0 143.4,215.0 138.4,220.0 138.4,312.5 143.4,317.5 152.4,317.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
     <polyline points="195.8,149.5 204.8,149.5 209.8,154.5 209.8,210.0 204.8,215.0 143.4,215.0 138.4,220.0 138.4,312.5 143.4,317.5 152.4,317.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
@@ -331,6 +333,9 @@
   <path d="M 350.0,286.5 L 348.0,286.5 A 13.5,13.5 0 0,0 348.0,313.5 L 350.0,313.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="335.0" y1="300.0" x2="338.0" y2="300.0" stroke="#BDC3C7" stroke-width="0.6"/>
   <text x="343.0" y="303.5" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q6</text>
+  <path d="M 350.0,264.5 L 348.0,264.5 A 10.5,10.5 0 0,0 348.0,285.5 L 350.0,285.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="335.0" y1="275.0" x2="338.0" y2="275.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="343.0" y="278.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q56</text>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_202b</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Interlock: ILOCK_BLOCK_PROTECT (Motor Reversierung</text>
   <text x="175" y="438.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">mit Schutzzeit)</text>
