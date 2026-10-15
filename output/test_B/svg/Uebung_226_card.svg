@@ -56,11 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="188.8,250.5 197.8,250.5 202.8,245.5 202.8,220.0 197.8,215.0 143.6,215.0 138.6,210.0 138.6,82.5 143.6,77.5 152.6,77.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="188.8,319.5 197.8,319.5 202.8,314.5 202.8,220.0 197.8,215.0 143.6,215.0 138.6,210.0 138.6,134.5 143.6,129.5 152.6,129.5" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="183.1,254.4 189.1,254.4 193.1,250.4 193.1,224.0 188.1,219.0 144.9,219.0 139.9,214.0 139.9,82.7 144.9,77.7 157.9,77.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="183.1,320.6 192.1,320.6 197.1,315.6 197.1,220.0 192.1,215.0 148.9,215.0 143.9,210.0 143.9,132.6 148.9,127.6 157.9,127.6" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_Sollwert_N" transform="translate(48.0, 223.0)">
+  <g transform="translate(48.00,228.00) scale(0.96) translate(-48.00,-228.00)">
+    <g id="fb_Sollwert_N" transform="translate(48.0, 228.0)">
       <path d="M 3 0
             L 137.75 0
             A 3 3 0 0 1 140.75 3
@@ -149,7 +150,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Sollwert_N</text>
     </g>
-    <g id="fb_SplitBar" transform="translate(152.6, 50.0)">
+  </g>
+  <g transform="translate(157.92,51.28) scale(0.96) translate(-157.92,-51.28)">
+    <g id="fb_SplitBar" transform="translate(157.9, 51.3)">
       <path d="M 3 0
             L 129.375 0
             A 3 3 0 0 1 132.375 3
@@ -243,6 +246,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SplitBar</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_226</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Split-Bargraph: Sollwert-Eingabe treibt zwei</text>

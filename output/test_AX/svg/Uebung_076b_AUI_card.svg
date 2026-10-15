@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="148.2,303.5 157.2,303.5 162.2,298.5 162.2,211.5 157.2,206.5 72.2,206.5 67.2,201.5 67.2,169.5 72.2,164.5 81.2,164.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="148.2,303.5 157.2,303.5 162.2,298.5 162.2,211.5 157.2,206.5 72.2,206.5 67.2,201.5 67.2,169.5 72.2,164.5 81.2,164.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="221.4,164.5 230.4,164.5 235.4,159.5 235.4,133.5 230.4,128.5 138.9,128.5 133.9,133.5 133.9,176.5 138.9,181.5 147.9,181.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="221.4,164.5 230.4,164.5 235.4,159.5 235.4,133.5 230.4,128.5 138.9,128.5 133.9,133.5 133.9,176.5 138.9,181.5 147.9,181.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="144.2,112.3 153.2,112.3 158.2,117.3 158.2,153.1 153.2,158.1 74.2,158.1 69.2,163.1 69.2,251.7 74.2,256.7 83.2,256.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="144.2,112.3 153.2,112.3 158.2,117.3 158.2,153.1 153.2,158.1 74.2,158.1 69.2,163.1 69.2,251.7 74.2,256.7 83.2,256.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="217.7,256.7 226.7,256.7 231.7,261.7 231.7,281.2 226.7,286.2 144.4,286.2 139.4,291.2 139.4,396.1 144.4,401.1 153.4,401.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="217.7,256.7 226.7,256.7 231.7,261.7 231.7,281.2 226.7,286.2 144.4,286.2 139.4,291.2 139.4,396.1 144.4,401.1 153.4,401.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_IA_MSS" transform="translate(48.0, 223.0)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_IA_MSS" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 97.1875 0
             A 3 3 0 0 1 100.1875 3
@@ -179,7 +180,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">IA_MSS</text>
     </g>
-    <g id="fb_COMPOUND_SCALE" transform="translate(81.2, 67.0)">
+  </g>
+  <g transform="translate(83.16,163.08) scale(0.96) translate(-83.16,-163.08)">
+    <g id="fb_COMPOUND_SCALE" transform="translate(83.2, 163.1)">
       <path d="M 3 0
             L 137.1875 0
             A 3 3 0 0 1 140.1875 3
@@ -298,7 +301,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">COMPOUND_SCALE</text>
     </g>
-    <g id="fb_Q_NumericValue" transform="translate(147.9, 67.0)">
+  </g>
+  <g transform="translate(153.36,291.16) scale(0.96) translate(-153.36,-291.16)">
+    <g id="fb_Q_NumericValue" transform="translate(153.4, 291.2)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -424,6 +429,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_076b_AUI</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">MSS mit Compound Scaling auf UT ausgeben (Adapter</text>

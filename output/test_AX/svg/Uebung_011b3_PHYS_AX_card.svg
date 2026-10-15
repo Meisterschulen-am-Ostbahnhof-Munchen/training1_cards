@@ -56,14 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="188.8,149.5 201.9,149.5 202.8,150.3 202.8,150.7 201.9,151.5 140.4,151.5 135.4,156.5 135.4,185.5 140.4,190.5 149.4,190.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="188.8,149.5 201.9,149.5 202.8,150.3 202.8,150.7 201.9,151.5 140.4,151.5 135.4,156.5 135.4,185.5 140.4,190.5 149.4,190.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="188.8,369.5 197.8,369.5 202.8,364.5 202.8,241.0 197.8,236.0 140.4,236.0 135.4,231.0 135.4,212.5 140.4,207.5 149.4,207.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="188.8,369.5 197.8,369.5 202.8,364.5 202.8,241.0 197.8,236.0 140.4,236.0 135.4,231.0 135.4,212.5 140.4,207.5 149.4,207.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="242.2,190.5 251.2,190.5 256.2,185.5 256.2,164.0 251.2,159.0 138.9,159.0 133.9,164.0 133.9,210.5 138.9,215.5 147.9,215.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="242.2,190.5 251.2,190.5 256.2,185.5 256.2,164.0 251.2,159.0 138.9,159.0 133.9,164.0 133.9,210.5 138.9,215.5 147.9,215.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="183.1,144.9 192.1,144.9 197.1,149.9 197.1,210.1 192.1,215.1 143.0,215.1 138.0,220.1 138.0,315.8 143.0,320.8 152.0,320.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="183.1,144.9 192.1,144.9 197.1,149.9 197.1,210.1 192.1,215.1 143.0,215.1 138.0,220.1 138.0,315.8 143.0,320.8 152.0,320.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="183.1,266.0 193.3,266.0 197.1,269.9 197.1,271.8 193.3,275.7 143.0,275.7 138.0,280.7 138.0,332.2 143.0,337.2 152.0,337.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="183.1,266.0 193.3,266.0 197.1,269.9 197.1,271.8 193.3,275.7 143.0,275.7 138.0,280.7 138.0,332.2 143.0,337.2 152.0,337.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="241.1,320.8 250.1,320.8 255.1,325.8 255.1,342.8 250.1,347.8 144.4,347.8 139.4,352.8 139.4,454.2 144.4,459.2 153.4,459.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="241.1,320.8 250.1,320.8 255.1,325.8 255.1,342.8 250.1,347.8 144.4,347.8 139.4,352.8 139.4,454.2 144.4,459.2 153.4,459.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_InputNumber_I3_N" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 137.75 0
@@ -160,7 +161,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I3_N</text>
     </g>
-    <g id="fb_InputNumber_I4_N" transform="translate(48.0, 255.0)">
+  </g>
+  <g transform="translate(48.00,156.08) scale(0.96) translate(-48.00,-156.08)">
+    <g id="fb_InputNumber_I4_N" transform="translate(48.0, 156.1)">
       <path d="M 3 0
             L 137.75 0
             A 3 3 0 0 1 140.75 3
@@ -256,7 +259,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I4_N</text>
     </g>
-    <g id="fb_AR_SUB_2" transform="translate(149.4, 145.0)">
+  </g>
+  <g transform="translate(152.03,277.16) scale(0.96) translate(-152.03,-277.16)">
+    <g id="fb_AR_SUB_2" transform="translate(152.0, 277.2)">
       <path d="M 3 0
             L 89.75 0
             A 3 3 0 0 1 92.75 3
@@ -360,7 +365,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AR_SUB_2</text>
     </g>
-    <g id="fb_Q_NumericValue_PHYS" transform="translate(147.9, 101.0)">
+  </g>
+  <g transform="translate(153.36,349.28) scale(0.96) translate(-153.36,-349.28)">
+    <g id="fb_Q_NumericValue_PHYS" transform="translate(153.4, 349.3)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -486,6 +493,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_PHYS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_011b3_PHYS_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Numeric Value Input SUB (PHYS)</text>

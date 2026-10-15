@@ -56,17 +56,18 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="151.1,133.5 175.2,133.5 180.2,138.5 180.2,145.5 185.2,150.5 209.3,150.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="151.1,150.5 160.1,150.5 165.1,145.5 165.1,120.0 160.1,115.0 130.5,115.0 125.5,110.0 125.5,50.5 130.5,45.5 139.5,45.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="227.8,45.5 236.8,45.5 241.8,50.5 241.8,110.0 236.8,115.0 200.3,115.0 195.3,120.0 195.3,128.5 200.3,133.5 209.3,133.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="151.1,133.5 160.1,133.5 165.1,128.5 165.1,120.0 160.1,115.0 130.5,115.0 125.5,110.0 125.5,67.5 130.5,62.5 139.5,62.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,180.5 38.0,185.5 48.0,185.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,180.5 38.0,185.5 48.0,185.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="285.0,185.5 312.0,185.5 317.0,180.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="285.0,185.5 312.0,185.5 317.0,180.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="197.0,140.2 201.6,140.2 204.7,143.3 204.7,153.5 207.7,156.5 212.3,156.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="197.0,156.5 203.0,156.5 207.0,152.5 207.0,126.1 202.0,121.1 128.6,121.1 123.6,116.1 123.6,50.1 128.6,45.1 141.6,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="226.5,45.1 239.5,45.1 244.5,50.1 244.5,116.1 239.5,121.1 207.3,121.1 202.3,126.1 202.3,136.2 206.3,140.2 212.3,140.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="197.0,140.2 203.0,140.2 207.0,136.2 207.0,126.1 202.0,121.1 128.6,121.1 123.6,116.1 123.6,66.4 128.6,61.4 141.6,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,185.1 38.0,190.1 98.0,190.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,185.1 38.0,190.1 98.0,190.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="285.0,190.1 312.0,190.1 317.0,185.1 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="285.0,190.1 312.0,190.1 317.0,185.1 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AX_RF_TRIG" transform="translate(48.0, 123.0)">
+  <g transform="translate(98.00,130.12) scale(0.96) translate(-98.00,-130.12)">
+    <g id="fb_AX_RF_TRIG" transform="translate(98.0, 130.1)">
       <path d="M 3 0
             L 100.125 0
             A 3 3 0 0 1 103.125 3
@@ -145,7 +146,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_RF_TRIG</text>
     </g>
-    <g id="fb_AX_RS" transform="translate(209.3, 123.0)">
+  </g>
+  <g transform="translate(212.34,130.12) scale(0.96) translate(-212.34,-130.12)">
+    <g id="fb_AX_RS" transform="translate(212.3, 130.1)">
       <path d="M 3 0
             L 72.6875 0
             A 3 3 0 0 1 75.6875 3
@@ -224,7 +227,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_RS</text>
     </g>
-    <g id="fb_E_DELAY" transform="translate(139.5, 35.0)">
+  </g>
+  <g transform="translate(141.64,35.00) scale(0.96) translate(-141.64,-35.00)">
+    <g id="fb_E_DELAY" transform="translate(141.6, 35.0)">
       <path d="M 3 0
             L 85.375 0
             A 3 3 0 0 1 88.375 3
@@ -294,6 +299,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_DELAY</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

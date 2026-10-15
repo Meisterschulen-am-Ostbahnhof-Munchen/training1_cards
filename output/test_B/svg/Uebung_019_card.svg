@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,179.7 40.8,184.5 48.0,184.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,196.5 38.0,201.5 48.0,201.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="145.2,184.5 154.2,184.5 159.2,179.5 159.2,171.0 154.2,166.0 110.2,166.0 105.2,161.0 105.2,67.5 110.2,62.5 119.2,62.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="145.2,236.5 154.2,236.5 159.2,231.5 159.2,171.0 154.2,166.0 110.2,166.0 105.2,161.0 105.2,119.5 110.2,114.5 119.2,114.5" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 37.0,50.0 42.0,55.0 42.0,184.2 47.0,189.2 98.0,189.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 31.0,100.0 36.0,105.0 36.0,200.5 41.0,205.5 98.0,205.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="191.4,189.2 197.4,189.2 201.4,185.2 201.4,175.1 196.4,170.1 112.9,170.1 107.9,165.1 107.9,66.4 112.9,61.4 125.9,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="191.4,239.1 200.4,239.1 205.4,234.1 205.4,171.1 200.4,166.1 116.9,166.1 111.9,161.1 111.9,116.3 116.9,111.3 125.9,111.3" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_Q_ActiveMask" transform="translate(119.2, 35.0)">
+  <g transform="translate(125.88,35.00) scale(0.96) translate(-125.88,-35.00)">
+    <g id="fb_Q_ActiveMask" transform="translate(125.9, 35.0)">
       <path d="M 3 0
             L 162.75 0
             A 3 3 0 0 1 165.75 3
@@ -150,7 +151,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_ActiveMask</text>
     </g>
-    <g id="fb_F_SEL_E_2" transform="translate(48.0, 174.0)">
+  </g>
+  <g transform="translate(98.00,179.08) scale(0.96) translate(-98.00,-179.08)">
+    <g id="fb_F_SEL_E_2" transform="translate(98.0, 179.1)">
       <path d="M 3 0
             L 94.25 0
             A 3 3 0 0 1 97.25 3
@@ -227,6 +230,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_SEL_E_2</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

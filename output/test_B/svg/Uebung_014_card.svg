@@ -56,12 +56,13 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="168.1,79.5 177.1,79.5 182.1,84.5 182.1,122.0 177.1,127.0 120.9,127.0 115.9,122.0 115.9,94.5 120.9,89.5 129.9,89.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="168.1,299.5 177.1,299.5 182.1,294.5 182.1,208.0 177.1,203.0 120.9,203.0 115.9,198.0 115.9,111.5 120.9,106.5 129.9,106.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="198.3,89.5 207.3,89.5 212.3,94.5 212.3,124.5 207.3,129.5 153.0,129.5 148.0,124.5 148.0,89.5 153.0,84.5 162.0,84.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="198.3,141.5 207.3,141.5 212.3,136.5 212.3,109.0 207.3,104.0 153.0,104.0 148.0,109.0 148.0,148.5 153.0,153.5 162.0,153.5" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,77.7 176.3,77.7 181.3,82.7 181.3,245.6 176.3,250.6 126.2,250.6 121.2,255.6 121.2,329.9 125.2,333.9 131.2,333.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,222.1 176.3,222.1 181.3,227.1 181.3,317.8 176.3,322.8 126.2,322.8 121.2,327.8 121.2,346.2 125.2,350.2 131.2,350.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="196.9,333.9 209.9,333.9 214.9,338.9 214.9,396.9 209.9,401.9 161.9,401.9 156.9,406.9 156.9,425.3 160.9,429.3 166.9,429.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="196.9,383.8 205.9,383.8 210.9,388.8 210.9,392.9 205.9,397.9 157.9,397.9 152.9,402.9 152.9,490.6 157.9,495.6 166.9,495.6" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 117.125 0
@@ -155,7 +156,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_UP_F1</text>
     </g>
-    <g id="fb_SoftKey_UP_F2" transform="translate(48.0, 255.0)">
+  </g>
+  <g transform="translate(48.00,179.40) scale(0.96) translate(-48.00,-179.40)">
+    <g id="fb_SoftKey_UP_F2" transform="translate(48.0, 179.4)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -248,7 +251,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_UP_F2</text>
     </g>
-    <g id="fb_E_SR" transform="translate(129.9, 79.0)">
+  </g>
+  <g transform="translate(131.23,323.80) scale(0.96) translate(-131.23,-323.80)">
+    <g id="fb_E_SR" transform="translate(131.2, 323.8)">
       <path d="M 3 0
             L 65.375 0
             A 3 3 0 0 1 68.375 3
@@ -318,7 +323,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SR</text>
     </g>
-    <g id="fb_Q_ObjHideShow" transform="translate(162.0, 57.0)">
+  </g>
+  <g transform="translate(166.92,402.92) scale(0.96) translate(-166.92,-402.92)">
+    <g id="fb_Q_ObjHideShow" transform="translate(166.9, 402.9)">
       <path d="M 3 0
             L 120.0 0
             A 3 3 0 0 1 123.0 3
@@ -409,6 +416,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_ObjHideShow</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_014</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Container (visible/invisible)</text>

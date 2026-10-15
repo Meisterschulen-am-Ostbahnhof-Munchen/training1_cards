@@ -56,18 +56,19 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,90.7 40.8,95.5 48.0,95.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,107.5 38.0,112.5 48.0,112.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 28.0,150.0 33.0,145.0 33.0,134.5 38.0,129.5 48.0,129.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,98.5 306.0,98.5 311.0,93.5 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="285.0,98.5 306.0,98.5 311.0,93.5 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="285.0,115.5 312.0,115.5 317.0,110.5 317.0,105.0 322.0,100.0 335.0,100.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="285.0,115.5 312.0,115.5 317.0,110.5 317.0,105.0 322.0,100.0 335.0,100.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="153.2,164.5 155.5,164.5 157.0,163.0 157.0,100.0 158.5,98.5 160.8,98.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="153.2,164.5 155.5,164.5 157.0,163.0 157.0,100.0 158.5,98.5 160.8,98.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,78.9 40.8,83.7 48.0,83.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 48.0,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 31.0,150.0 36.0,145.0 36.0,121.1 40.8,116.3 48.0,116.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="292.3,96.0 306.0,96.0 311.0,91.0 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="292.3,96.0 306.0,96.0 311.0,91.0 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="292.3,112.3 312.1,112.3 317.0,107.4 317.0,104.9 321.9,100.0 335.0,100.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="292.3,112.3 312.1,112.3 317.0,107.4 317.0,104.9 321.9,100.0 335.0,100.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="149.0,149.9 156.2,149.9 161.0,145.1 161.0,100.8 165.8,96.0 173.0,96.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="149.0,149.9 156.2,149.9 161.0,145.1 161.0,100.8 165.8,96.0 173.0,96.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AX_T_FF_SR" transform="translate(48.0, 85.0)">
+  <g transform="translate(48.00,73.60) scale(0.96) translate(-48.00,-73.60)">
+    <g id="fb_AX_T_FF_SR" transform="translate(48.0, 73.6)">
       <path d="M 3 0
             L 102.1875 0
             A 3 3 0 0 1 105.1875 3
@@ -149,7 +150,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF_SR</text>
     </g>
-    <g id="fb_LinksRechts" transform="translate(160.8, 35.0)">
+  </g>
+  <g transform="translate(172.98,35.00) scale(0.96) translate(-172.98,-35.00)">
+    <g id="fb_LinksRechts" transform="translate(173.0, 35.0)">
       <path d="M 3 0
             L 121.25 0
             A 3 3 0 0 1 124.25 3
@@ -287,6 +290,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LinksRechts</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

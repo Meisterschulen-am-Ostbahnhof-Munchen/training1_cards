@@ -56,23 +56,24 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="136.4,82.5 181.6,82.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,77.5 38.0,82.5 48.0,82.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 48.0,99.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 28.0,150.0 33.0,145.0 33.0,121.5 38.0,116.5 48.0,116.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,200.0 31.0,200.0 36.0,195.0 36.0,138.3 40.8,133.5 48.0,133.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,133.5 306.0,133.5 311.0,138.5 311.0,195.0 316.0,200.0 335.0,200.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,116.5 312.0,116.5 317.0,121.5 317.0,145.0 322.0,150.0 335.0,150.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,99.5 335.0,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="285.0,82.5 312.0,82.5 317.0,77.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="136.4,168.5 181.6,168.5" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="182.9,83.7 185.8,84.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,78.7 41.0,83.7 98.0,83.7" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 98.0,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 31.0,150.0 36.0,145.0 36.0,121.3 41.0,116.3 98.0,116.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,200.0 37.0,200.0 42.0,195.0 42.0,137.6 47.0,132.6 98.0,132.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,133.2 303.0,133.2 308.0,138.2 308.0,195.0 313.0,200.0 335.0,200.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,116.8 309.0,116.8 314.0,121.8 314.0,145.0 319.0,150.0 335.0,150.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,100.5 335.0,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,84.2 309.0,84.2 314.0,79.2 314.0,55.0 319.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="182.9,166.2 185.8,166.8" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 335.0,50.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,100.0 335.0,100.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,150.0 335.0,150.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,200.0 335.0,200.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_E_DEMUX_4" transform="translate(181.6, 72.0)">
+  <g transform="translate(185.76,74.12) scale(0.96) translate(-185.76,-74.12)">
+    <g id="fb_E_DEMUX_4" transform="translate(185.8, 74.1)">
       <path d="M 3 0
             L 100.375 0
             A 3 3 0 0 1 103.375 3
@@ -148,7 +149,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_DEMUX_4</text>
     </g>
-    <g id="fb_E_MUX_4" transform="translate(48.0, 72.0)">
+  </g>
+  <g transform="translate(98.00,73.60) scale(0.96) translate(-98.00,-73.60)">
+    <g id="fb_E_MUX_4" transform="translate(98.0, 73.6)">
       <path d="M 3 0
             L 85.4375 0
             A 3 3 0 0 1 88.4375 3
@@ -224,6 +227,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_MUX_4</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

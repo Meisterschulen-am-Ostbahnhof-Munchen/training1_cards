@@ -56,19 +56,20 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="285.0,125.5 312.0,125.5 317.0,120.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="285.0,125.5 312.0,125.5 317.0,120.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 30.0,150.0 33.0,147.0 33.0,145.5 36.0,142.5 199.4,142.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 30.0,150.0 33.0,147.0 33.0,145.5 36.0,142.5 199.4,142.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="140.9,80.5 165.2,80.5 170.2,85.5 170.2,120.5 175.2,125.5 199.4,125.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="140.9,80.5 165.2,80.5 170.2,85.5 170.2,120.5 175.2,125.5 199.4,125.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 32.0,100.0 33.0,99.0 33.0,98.5 34.0,97.5 48.0,97.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 32.0,100.0 33.0,99.0 33.0,98.5 34.0,97.5 48.0,97.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,75.5 38.0,80.5 48.0,80.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,75.5 38.0,80.5 48.0,80.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="293.3,123.7 312.0,123.7 317.0,118.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="293.3,123.7 312.0,123.7 317.0,118.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 29.0,150.0 33.0,146.0 33.0,144.0 37.0,140.0 211.2,140.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 29.0,150.0 33.0,146.0 33.0,144.0 37.0,140.0 211.2,140.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="187.2,78.7 194.4,78.7 199.2,83.5 199.2,118.9 204.0,123.7 211.2,123.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="187.2,78.7 194.4,78.7 199.2,83.5 199.2,118.9 204.0,123.7 211.2,123.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 31.0,100.0 33.0,98.0 33.0,97.0 35.0,95.0 98.0,95.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 31.0,100.0 33.0,98.0 33.0,97.0 35.0,95.0 98.0,95.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,73.7 38.0,78.7 98.0,78.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,73.7 38.0,78.7 98.0,78.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AND_BOOL_2" transform="translate(48.0, 35.0)">
+  <g transform="translate(98.00,35.00) scale(0.96) translate(-98.00,-35.00)">
+    <g id="fb_AND_BOOL_2" transform="translate(98.0, 35.0)">
       <path d="M 3 0
             L 89.875 0
             A 3 3 0 0 1 92.875 3
@@ -172,7 +173,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AND_BOOL_2</text>
     </g>
-    <g id="fb_OR_BOOL_2" transform="translate(199.4, 80.0)">
+  </g>
+  <g transform="translate(211.16,80.00) scale(0.96) translate(-211.16,-80.00)">
+    <g id="fb_OR_BOOL_2" transform="translate(211.2, 80.0)">
       <path d="M 3 0
             L 82.5625 0
             A 3 3 0 0 1 85.5625 3
@@ -276,6 +279,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OR_BOOL_2</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

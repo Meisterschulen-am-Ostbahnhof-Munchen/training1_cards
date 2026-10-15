@@ -56,11 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="168.1,79.5 177.1,79.5 182.1,84.5 182.1,146.5 177.1,151.5 54.0,151.5 52.4,153.1 52.4,153.9 54.0,155.5 66.4,155.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="243.3,231.5 252.3,231.5 257.3,236.5 257.3,256.5 252.3,261.5 97.4,261.5 92.4,256.5 92.4,160.5 97.4,155.5 106.4,155.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="245.1,155.5 254.1,155.5 259.1,160.5 259.1,256.5 254.1,261.5 145.9,261.5 140.9,256.5 140.9,236.5 145.9,231.5 154.9,231.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,77.7 176.3,77.7 181.3,82.7 181.3,169.9 176.3,174.9 63.7,174.9 58.7,179.9 58.7,194.8 62.7,198.8 68.7,198.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="242.3,352.5 255.3,352.5 260.3,357.5 260.3,412.1 255.3,417.1 108.5,417.1 103.5,422.1 103.5,437.0 107.5,441.0 113.5,441.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="240.2,198.8 253.2,198.8 258.2,203.8 258.2,339.9 253.2,344.9 150.5,344.9 147.4,348.0 147.4,349.5 150.5,352.5 157.4,352.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 117.125 0
@@ -154,7 +155,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_UP_F1</text>
     </g>
-    <g id="fb_Q_CtrlAudioSignal_0" transform="translate(66.4, 128.0)">
+  </g>
+  <g transform="translate(68.69,172.40) scale(0.96) translate(-68.69,-172.40)">
+    <g id="fb_Q_CtrlAudioSignal_0" transform="translate(68.7, 172.4)">
       <path d="M 3 0
             L 175.625 0
             A 3 3 0 0 1 178.625 3
@@ -263,7 +266,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_CtrlAudioSignal_0</text>
     </g>
-    <g id="fb_Q_CtrlAudioSignal_1" transform="translate(106.4, 128.0)">
+  </g>
+  <g transform="translate(113.52,414.56) scale(0.96) translate(-113.52,-414.56)">
+    <g id="fb_Q_CtrlAudioSignal_1" transform="translate(113.5, 414.6)">
       <path d="M 3 0
             L 175.625 0
             A 3 3 0 0 1 178.625 3
@@ -372,7 +377,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_CtrlAudioSignal_1</text>
     </g>
-    <g id="fb_E_DELAY" transform="translate(154.9, 221.0)">
+  </g>
+  <g transform="translate(157.45,342.44) scale(0.96) translate(-157.45,-342.44)">
+    <g id="fb_E_DELAY" transform="translate(157.4, 342.4)">
       <path d="M 3 0
             L 85.375 0
             A 3 3 0 0 1 88.375 3
@@ -442,6 +449,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_DELAY</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_018</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Control Audio Signal und Delay</text>

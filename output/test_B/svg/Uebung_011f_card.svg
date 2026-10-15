@@ -56,11 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="188.8,103.0 197.8,103.0 202.8,108.0 202.8,184.5 197.8,189.5 138.9,189.5 133.9,194.5 133.9,220.0 138.9,225.0 147.9,225.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="188.8,172.0 197.8,172.0 202.8,177.0 202.8,184.5 197.8,189.5 138.9,189.5 133.9,194.5 133.9,289.0 138.9,294.0 147.9,294.0" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="183.1,102.2 196.1,102.2 201.1,107.2 201.1,189.5 196.1,194.5 148.4,194.5 143.4,199.5 143.4,225.9 147.4,229.9 153.4,229.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="183.1,168.4 192.1,168.4 197.1,173.4 197.1,185.5 192.1,190.5 144.4,190.5 139.4,195.5 139.4,291.2 144.4,296.2 153.4,296.2" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_NumericValue_PHYS" transform="translate(48.0, 75.5)">
+  <g transform="translate(48.00,75.76) scale(0.96) translate(-48.00,-75.76)">
+    <g id="fb_NumericValue_PHYS" transform="translate(48.0, 75.8)">
       <path d="M 3 0
             L 137.75 0
             A 3 3 0 0 1 140.75 3
@@ -149,7 +150,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NumericValue_PHYS</text>
     </g>
-    <g id="fb_Q_NumericValue_PHYS" transform="translate(147.9, 197.5)">
+  </g>
+  <g transform="translate(153.36,203.52) scale(0.96) translate(-153.36,-203.52)">
+    <g id="fb_Q_NumericValue_PHYS" transform="translate(153.4, 203.5)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -246,6 +249,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_PHYS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_011f</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Numeric Value Input I3 Durchschleifen auf N3 (Input</text>

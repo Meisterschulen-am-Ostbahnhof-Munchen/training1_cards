@@ -56,17 +56,18 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,75.5 38.0,80.5 177.1,80.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,75.5 38.0,80.5 177.1,80.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="285.0,80.5 312.0,80.5 317.0,75.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="285.0,80.5 312.0,80.5 317.0,75.5 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="184.1,352.6 193.1,352.6 198.1,347.6 198.1,296.1 193.1,291.1 107.7,291.1 102.7,296.1 102.7,330.5 107.7,335.5 116.7,335.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="184.1,352.6 193.1,352.6 198.1,347.6 198.1,296.1 193.1,291.1 107.7,291.1 102.7,296.1 102.7,330.5 107.7,335.5 116.7,335.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="225.4,335.5 234.4,335.5 239.4,330.5 239.4,194.5 234.4,189.5 168.1,189.5 163.1,184.5 163.1,102.5 168.1,97.5 177.1,97.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="225.4,335.5 234.4,335.5 239.4,330.5 239.4,194.5 234.4,189.5 168.1,189.5 163.1,184.5 163.1,102.5 168.1,97.5 177.1,97.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,306.9 38.0,311.9 181.4,311.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,306.9 38.0,311.9 181.4,311.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="285.0,311.9 312.0,311.9 317.0,306.9 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="285.0,311.9 312.0,311.9 317.0,306.9 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="178.6,144.9 187.6,144.9 192.6,149.9 192.6,159.6 187.6,164.6 110.1,164.6 105.1,169.6 105.1,232.0 110.1,237.0 119.1,237.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="178.6,144.9 187.6,144.9 192.6,149.9 192.6,159.6 187.6,164.6 110.1,164.6 105.1,169.6 105.1,232.0 110.1,237.0 119.1,237.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="223.4,237.0 232.4,237.0 237.4,242.0 237.4,251.7 232.4,256.7 172.4,256.7 167.4,261.7 167.4,323.2 172.4,328.2 181.4,328.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="223.4,237.0 232.4,237.0 237.4,242.0 237.4,251.7 232.4,256.7 172.4,256.7 167.4,261.7 167.4,323.2 172.4,328.2 181.4,328.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_ATM_AX_TON" transform="translate(177.1, 35.0)">
+  <g transform="translate(181.44,268.20) scale(0.96) translate(-181.44,-268.20)">
+    <g id="fb_ATM_AX_TON" transform="translate(181.4, 268.2)">
       <path d="M 3 0
             L 104.875 0
             A 3 3 0 0 1 107.875 3
@@ -170,7 +171,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">ATM_AX_TON</text>
     </g>
-    <g id="fb_AR_MULTIME" transform="translate(116.7, 272.0)">
+  </g>
+  <g transform="translate(119.07,176.08) scale(0.96) translate(-119.07,-176.08)">
+    <g id="fb_AR_MULTIME" transform="translate(119.1, 176.1)">
       <path d="M 3 0
             L 105.6875 0
             A 3 3 0 0 1 108.6875 3
@@ -263,7 +266,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AR_MULTIME</text>
     </g>
-    <g id="fb_Uebung_012e_sub_AR" transform="translate(48.0, 238.1)">
+  </g>
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_Uebung_012e_sub_AR" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 133.0625 0
             A 3 3 0 0 1 136.0625 3
@@ -361,6 +366,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Uebung_012e_sub_AR</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

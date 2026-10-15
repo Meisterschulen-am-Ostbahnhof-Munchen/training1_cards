@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="193.3,62.5 202.3,62.5 207.3,67.5 207.3,123.5 202.3,128.5 111.4,128.5 110.6,127.7 110.6,127.3 111.4,126.5 124.6,126.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="193.3,114.5 202.3,114.5 207.3,119.5 207.3,123.5 202.3,128.5 115.6,128.5 110.6,133.5 110.6,224.5 115.6,229.5 124.6,229.5" fill="none" stroke="#3366FF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="193.3,114.5 202.3,114.5 207.3,119.5 207.3,123.5 202.3,128.5 115.6,128.5 110.6,133.5 110.6,224.5 115.6,229.5 124.6,229.5" fill="none" stroke="#CCD8FF" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="233.1,232.5 242.1,232.5 247.1,227.5 247.1,175.5 242.1,170.5 115.6,170.5 110.6,175.5 110.6,293.5 115.6,298.5 124.6,298.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="233.1,232.5 242.1,232.5 247.1,227.5 247.1,175.5 242.1,170.5 115.6,170.5 110.6,175.5 110.6,293.5 115.6,298.5 124.6,298.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="187.5,61.4 200.5,61.4 205.5,66.4 205.5,181.5 200.5,186.5 126.0,186.5 121.0,191.5 121.0,234.3 125.0,238.3 131.0,238.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="187.5,111.3 196.5,111.3 201.5,116.3 201.5,177.5 196.5,182.5 122.0,182.5 117.0,187.5 117.0,332.2 122.0,337.2 131.0,337.2" fill="none" stroke="#3366FF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="187.5,111.3 196.5,111.3 201.5,116.3 201.5,177.5 196.5,182.5 122.0,182.5 117.0,187.5 117.0,332.2 122.0,337.2 131.0,337.2" fill="none" stroke="#CCD8FF" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="230.2,199.8 240.0,199.8 244.2,204.0 244.2,206.1 240.0,210.4 122.0,210.4 117.0,215.4 117.0,398.4 122.0,403.4 131.0,403.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="230.2,199.8 240.0,199.8 244.2,204.0 244.2,206.1 240.0,210.4 122.0,210.4 117.0,215.4 117.0,398.4 122.0,403.4 131.0,403.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_NmGetCfInfo_1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 142.3125 0
@@ -160,7 +161,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NmGetCfInfo_1</text>
     </g>
-    <g id="fb_AlPgnTxNew8Bcycl_REQ" transform="translate(124.6, 99.0)">
+  </g>
+  <g transform="translate(130.98,211.88) scale(0.96) translate(-130.98,-211.88)">
+    <g id="fb_AlPgnTxNew8Bcycl_REQ" transform="translate(131.0, 211.9)">
       <path d="M 3 0
             L 157.4375 0
             A 3 3 0 0 1 160.4375 3
@@ -280,7 +283,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AlPgnTxNew8Bcycl_REQ</text>
     </g>
-    <g id="fb_DataSupply" transform="translate(94.7, 187.0)">
+  </g>
+  <g transform="translate(97.31,156.08) scale(0.96) translate(-97.31,-156.08)">
+    <g id="fb_DataSupply" transform="translate(97.3, 156.1)">
       <path d="M 3 0
             L 135.4375 0
             A 3 3 0 0 1 138.4375 3
@@ -357,6 +362,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">DataSupply</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_126b</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Übung zu ISOBUS Send Message Cyclic (mit CB)</text>

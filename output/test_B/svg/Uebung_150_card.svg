@@ -58,7 +58,8 @@
   <g id="connections">
   </g>
   <g id="instances">
-    <g id="fb_logiBUS_PI_ID" transform="translate(102.9, 30.0)">
+  <g transform="translate(105.76,30.00) scale(0.96) translate(-105.76,-30.00)">
+    <g id="fb_logiBUS_PI_ID" transform="translate(105.8, 30.0)">
       <path d="M 3 0
             L 141.25 0
             A 3 3 0 0 1 144.25 3
@@ -162,6 +163,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">logiBUS_PI_ID</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_150</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Impulszähler</text>

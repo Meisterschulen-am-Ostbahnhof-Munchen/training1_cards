@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="157.5,147.5 166.5,147.5 171.5,152.5 171.5,210.0 166.5,215.0 106.3,215.0 101.3,220.0 101.3,263.5 106.3,268.5 115.3,268.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="157.5,147.5 166.5,147.5 171.5,152.5 171.5,210.0 166.5,215.0 106.3,215.0 101.3,220.0 101.3,263.5 106.3,268.5 115.3,268.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="228.9,268.5 237.9,268.5 242.9,263.5 242.9,211.5 237.9,206.5 110.1,206.5 105.1,201.5 105.1,186.5 110.1,181.5 119.1,181.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="228.9,268.5 237.9,268.5 242.9,263.5 242.9,211.5 237.9,206.5 110.1,206.5 105.1,201.5 105.1,186.5 110.1,181.5 119.1,181.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="153.1,112.3 162.1,112.3 167.1,117.3 167.1,175.9 162.1,180.9 108.8,180.9 103.8,185.9 103.8,231.1 108.8,236.1 117.8,236.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="153.1,112.3 162.1,112.3 167.1,117.3 167.1,175.9 162.1,180.9 108.8,180.9 103.8,185.9 103.8,231.1 108.8,236.1 117.8,236.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="226.9,236.1 235.9,236.1 240.9,241.1 240.9,251.7 235.9,256.7 116.8,256.7 111.8,261.7 111.8,373.1 116.8,378.1 125.8,378.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="226.9,236.1 235.9,236.1 240.9,241.1 240.9,251.7 235.9,256.7 116.8,256.7 111.8,261.7 111.8,373.1 116.8,378.1 125.8,378.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_IA_VDS" transform="translate(48.0, 67.0)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_IA_VDS" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 106.5 0
             A 3 3 0 0 1 109.5 3
@@ -194,7 +195,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">IA_VDS</text>
     </g>
-    <g id="fb_Q_NumericValue_VDS" transform="translate(119.1, 67.0)">
+  </g>
+  <g transform="translate(125.76,268.20) scale(0.96) translate(-125.76,-268.20)">
+    <g id="fb_Q_NumericValue_VDS" transform="translate(125.8, 268.2)">
       <path d="M 3 0
             L 162.875 0
             A 3 3 0 0 1 165.875 3
@@ -305,7 +308,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_VDS</text>
     </g>
-    <g id="fb_CONV_VDS" transform="translate(115.3, 223.0)">
+  </g>
+  <g transform="translate(117.77,192.40) scale(0.96) translate(-117.77,-192.40)">
+    <g id="fb_CONV_VDS" transform="translate(117.8, 192.4)">
       <path d="M 3 0
             L 110.625 0
             A 3 3 0 0 1 113.625 3
@@ -394,6 +399,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">CONV_VDS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_073_AUI</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">VDS auf UT ausgeben (Adapter Version)</text>

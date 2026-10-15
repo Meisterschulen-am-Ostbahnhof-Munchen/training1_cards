@@ -56,45 +56,46 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,100.0 31.0,100.0 36.0,95.0 36.0,52.3 40.8,47.5 48.0,47.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 31.0,150.0 36.0,145.0 36.0,69.3 40.8,64.5 48.0,64.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="135.8,47.5 144.8,47.5 149.8,52.5 149.8,85.4 144.8,90.4 51.2,90.4 47.6,94.0 47.6,95.8 51.2,99.3 61.6,99.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,79.4 38.0,84.4 117.4,84.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="205.9,237.3 214.9,237.3 219.9,232.3 219.9,93.1 214.9,88.1 70.0,88.1 67.3,90.8 67.3,92.1 70.0,94.8 81.3,94.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="205.9,237.3 214.9,237.3 219.9,232.3 219.9,93.1 214.9,88.1 70.0,88.1 67.3,90.8 67.3,92.1 70.0,94.8 81.3,94.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="201.1,94.8 210.1,94.8 215.1,89.8 215.1,74.7 210.1,69.7 82.4,69.7 77.4,74.7 77.4,144.5 82.4,149.5 91.4,149.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="201.1,94.8 210.1,94.8 215.1,89.8 215.1,74.7 210.1,69.7 82.4,69.7 77.4,74.7 77.4,144.5 82.4,149.5 91.4,149.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="184.9,121.0 193.9,121.0 198.9,116.0 198.9,87.2 193.9,82.2 82.4,82.2 77.4,87.2 77.4,161.5 82.4,166.5 91.4,166.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="184.9,121.0 193.9,121.0 198.9,116.0 198.9,87.2 193.9,82.2 82.4,82.2 77.4,87.2 77.4,161.5 82.4,166.5 91.4,166.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="230.1,149.5 242.8,149.5 244.1,150.7 244.1,151.4 242.8,152.6 136.3,152.6 131.3,147.6 131.3,95.7 136.3,90.7 145.3,90.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="230.1,149.5 242.8,149.5 244.1,150.7 244.1,151.4 242.8,152.6 136.3,152.6 131.3,147.6 131.3,95.7 136.3,90.7 145.3,90.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="203.8,119.4 212.8,119.4 217.8,114.4 217.8,92.0 212.8,87.0 136.3,87.0 131.3,92.0 131.3,170.7 136.3,175.7 145.3,175.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="203.8,119.4 212.8,119.4 217.8,114.4 217.8,92.0 212.8,87.0 136.3,87.0 131.3,92.0 131.3,170.7 136.3,175.7 145.3,175.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="262.7,90.7 271.7,90.7 276.7,95.7 276.7,153.8 271.7,158.8 156.2,158.8 151.2,153.8 151.2,97.8 156.2,92.8 165.2,92.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="262.7,90.7 271.7,90.7 276.7,95.7 276.7,153.8 271.7,158.8 156.2,158.8 151.2,153.8 151.2,97.8 156.2,92.8 165.2,92.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="285.0,92.8 312.0,92.8 317.0,87.8 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="285.0,92.8 312.0,92.8 317.0,87.8 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="208.1,125.1 217.1,125.1 222.1,130.1 222.1,160.9 217.1,165.9 136.3,165.9 131.3,160.9 131.3,112.7 136.3,107.7 145.3,107.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="208.1,125.1 217.1,125.1 222.1,130.1 222.1,160.9 217.1,165.9 136.3,165.9 131.3,160.9 131.3,112.7 136.3,107.7 145.3,107.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="231.8,147.6 240.8,147.6 245.8,152.6 245.8,172.2 240.8,177.2 136.3,177.2 131.3,172.2 131.3,129.7 136.3,124.7 145.3,124.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="231.8,147.6 240.8,147.6 245.8,152.6 245.8,172.2 240.8,177.2 136.3,177.2 131.3,172.2 131.3,129.7 136.3,124.7 145.3,124.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="233.2,159.9 242.2,159.9 247.2,164.9 247.2,178.3 242.2,183.3 136.3,183.3 131.3,178.3 131.3,146.7 136.3,141.7 145.3,141.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="233.2,159.9 242.2,159.9 247.2,164.9 247.2,178.3 242.2,183.3 136.3,183.3 131.3,178.3 131.3,146.7 136.3,141.7 145.3,141.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="234.6,172.1 243.6,172.1 248.6,177.1 248.6,184.4 243.6,189.4 136.3,189.4 131.3,184.4 131.3,163.7 136.3,158.7 145.3,158.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="234.6,172.1 243.6,172.1 248.6,177.1 248.6,184.4 243.6,189.4 136.3,189.4 131.3,184.4 131.3,163.7 136.3,158.7 145.3,158.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="236.0,184.4 245.0,184.4 250.0,179.4 250.0,124.1 245.0,119.1 136.3,119.1 131.3,124.1 131.3,187.7 136.3,192.7 145.3,192.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="236.0,184.4 245.0,184.4 250.0,179.4 250.0,124.1 245.0,119.1 136.3,119.1 131.3,124.1 131.3,187.7 136.3,192.7 145.3,192.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="237.4,196.7 246.4,196.7 251.4,191.7 251.4,130.2 246.4,125.2 136.3,125.2 131.3,130.2 131.3,204.7 136.3,209.7 145.3,209.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="237.4,196.7 246.4,196.7 251.4,191.7 251.4,130.2 246.4,125.2 136.3,125.2 131.3,130.2 131.3,204.7 136.3,209.7 145.3,209.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="238.8,209.0 247.8,209.0 252.8,204.0 252.8,136.3 247.8,131.3 136.3,131.3 131.3,136.3 131.3,221.7 136.3,226.7 145.3,226.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="238.8,209.0 247.8,209.0 252.8,204.0 252.8,136.3 247.8,131.3 136.3,131.3 131.3,136.3 131.3,221.7 136.3,226.7 145.3,226.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="240.2,221.2 249.2,221.2 254.2,216.2 254.2,142.5 249.2,137.5 136.3,137.5 131.3,142.5 131.3,238.7 136.3,243.7 145.3,243.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="240.2,221.2 249.2,221.2 254.2,216.2 254.2,142.5 249.2,137.5 136.3,137.5 131.3,142.5 131.3,238.7 136.3,243.7 145.3,243.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="241.6,233.5 250.6,233.5 255.6,228.5 255.6,148.6 250.6,143.6 136.3,143.6 131.3,148.6 131.3,255.7 136.3,260.7 145.3,260.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="241.6,233.5 250.6,233.5 255.6,228.5 255.6,148.6 250.6,143.6 136.3,143.6 131.3,148.6 131.3,255.7 136.3,260.7 145.3,260.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 31.0,100.0 36.0,95.0 36.0,49.9 40.8,45.1 48.0,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 31.0,150.0 36.0,145.0 36.0,66.2 40.8,61.4 48.0,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="132.2,45.1 145.2,45.1 150.2,50.1 150.2,493.1 145.2,498.1 57.5,498.1 52.5,503.1 52.5,906.5 56.5,910.5 62.5,910.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 31.0,50.0 36.0,55.0 36.0,256.4 41.0,261.4 119.0,261.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="201.0,1043.0 211.1,1043.0 215.0,1046.9 215.0,1048.8 211.1,1052.7 73.7,1052.7 68.7,1057.7 68.7,1092.8 73.7,1097.8 82.7,1097.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="201.0,1043.0 211.1,1043.0 215.0,1046.9 215.0,1048.8 211.1,1052.7 73.7,1052.7 68.7,1057.7 68.7,1092.8 73.7,1097.8 82.7,1097.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="197.7,1097.8 207.4,1097.8 211.7,1102.1 211.7,1104.2 207.4,1108.5 84.8,1108.5 79.8,1113.5 79.8,1214.9 84.8,1219.9 93.8,1219.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="197.7,1097.8 207.4,1097.8 211.7,1102.1 211.7,1104.2 207.4,1108.5 84.8,1108.5 79.8,1113.5 79.8,1214.9 84.8,1219.9 93.8,1219.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="182.2,168.1 191.2,168.1 196.2,173.1 196.2,638.1 191.2,643.1 84.8,643.1 79.8,648.1 79.8,1231.2 84.8,1236.2 93.8,1236.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="182.2,168.1 191.2,168.1 196.2,173.1 196.2,638.1 191.2,643.1 84.8,643.1 79.8,648.1 79.8,1231.2 84.8,1236.2 93.8,1236.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="227.0,1219.9 236.0,1219.9 241.0,1224.9 241.0,1273.5 236.0,1278.5 140.1,1278.5 135.1,1283.5 135.1,1318.7 140.1,1323.7 149.1,1323.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="227.0,1219.9 236.0,1219.9 241.0,1224.9 241.0,1273.5 236.0,1278.5 140.1,1278.5 135.1,1283.5 135.1,1318.7 140.1,1323.7 149.1,1323.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="201.9,295.0 210.9,295.0 215.9,300.0 215.9,787.1 210.9,792.1 140.1,792.1 135.1,797.1 135.1,1400.3 140.1,1405.3 149.1,1405.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="201.9,295.0 210.9,295.0 215.9,300.0 215.9,787.1 210.9,792.1 140.1,792.1 135.1,797.1 135.1,1400.3 140.1,1405.3 149.1,1405.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="261.9,1323.7 270.9,1323.7 275.9,1328.7 275.9,1492.5 270.9,1497.5 161.0,1497.5 156.0,1502.5 156.0,1537.7 161.0,1542.7 170.0,1542.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="261.9,1323.7 270.9,1323.7 275.9,1328.7 275.9,1492.5 270.9,1497.5 161.0,1497.5 156.0,1502.5 156.0,1537.7 161.0,1542.7 170.0,1542.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="285.0,1542.7 312.0,1542.7 317.0,1537.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="285.0,1542.7 312.0,1542.7 317.0,1537.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="206.0,240.2 215.0,240.2 220.0,245.2 220.0,759.2 215.0,764.2 140.1,764.2 135.1,769.2 135.1,1335.0 140.1,1340.0 149.1,1340.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="206.0,240.2 215.0,240.2 220.0,245.2 220.0,759.2 215.0,764.2 140.1,764.2 135.1,769.2 135.1,1335.0 140.1,1340.0 149.1,1340.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="230.4,368.1 239.4,368.1 244.4,373.1 244.4,823.1 239.4,828.1 140.1,828.1 135.1,833.1 135.1,1351.3 140.1,1356.3 149.1,1356.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="230.4,368.1 239.4,368.1 244.4,373.1 244.4,823.1 239.4,828.1 140.1,828.1 135.1,833.1 135.1,1351.3 140.1,1356.3 149.1,1356.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="231.9,440.2 240.9,440.2 245.9,445.2 245.9,859.2 240.9,864.2 140.1,864.2 135.1,869.2 135.1,1367.6 140.1,1372.6 149.1,1372.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="231.9,440.2 240.9,440.2 245.9,445.2 245.9,859.2 240.9,864.2 140.1,864.2 135.1,869.2 135.1,1367.6 140.1,1372.6 149.1,1372.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="233.3,512.4 242.3,512.4 247.3,517.4 247.3,895.3 242.3,900.3 140.1,900.3 135.1,905.3 135.1,1384.0 140.1,1389.0 149.1,1389.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="233.3,512.4 242.3,512.4 247.3,517.4 247.3,895.3 242.3,900.3 140.1,900.3 135.1,905.3 135.1,1384.0 140.1,1389.0 149.1,1389.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="234.7,584.5 243.7,584.5 248.7,589.5 248.7,931.3 243.7,936.3 140.1,936.3 135.1,941.3 135.1,1416.6 140.1,1421.6 149.1,1421.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="234.7,584.5 243.7,584.5 248.7,589.5 248.7,931.3 243.7,936.3 140.1,936.3 135.1,941.3 135.1,1416.6 140.1,1421.6 149.1,1421.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="236.2,656.6 245.2,656.6 250.2,661.6 250.2,967.4 245.2,972.4 140.1,972.4 135.1,977.4 135.1,1432.9 140.1,1437.9 149.1,1437.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="236.2,656.6 245.2,656.6 250.2,661.6 250.2,967.4 245.2,972.4 140.1,972.4 135.1,977.4 135.1,1432.9 140.1,1437.9 149.1,1437.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="237.6,728.7 246.6,728.7 251.6,733.7 251.6,1003.4 246.6,1008.4 140.1,1008.4 135.1,1013.4 135.1,1449.2 140.1,1454.2 149.1,1454.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="237.6,728.7 246.6,728.7 251.6,733.7 251.6,1003.4 246.6,1008.4 140.1,1008.4 135.1,1013.4 135.1,1449.2 140.1,1454.2 149.1,1454.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="239.1,800.8 248.1,800.8 253.1,805.8 253.1,1039.5 248.1,1044.5 140.1,1044.5 135.1,1049.5 135.1,1465.6 140.1,1470.6 149.1,1470.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="239.1,800.8 248.1,800.8 253.1,805.8 253.1,1039.5 248.1,1044.5 140.1,1044.5 135.1,1049.5 135.1,1465.6 140.1,1470.6 149.1,1470.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="240.5,873.0 249.5,873.0 254.5,878.0 254.5,1075.6 249.5,1080.6 140.1,1080.6 135.1,1085.6 135.1,1481.9 140.1,1486.9 149.1,1486.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="240.5,873.0 249.5,873.0 254.5,878.0 254.5,1075.6 249.5,1080.6 140.1,1080.6 135.1,1085.6 135.1,1481.9 140.1,1486.9 149.1,1486.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_E_CYCLE" transform="translate(48.0, 37.0)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_E_CYCLE" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 84.75 0
             A 3 3 0 0 1 87.75 3
@@ -164,7 +165,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_CYCLE</text>
     </g>
-    <g id="fb_logiBUS_PI_IDA" transform="translate(61.6, 71.8)">
+  </g>
+  <g transform="translate(62.49,884.12) scale(0.96) translate(-62.49,-884.12)">
+    <g id="fb_logiBUS_PI_IDA" transform="translate(62.5, 884.1)">
       <path d="M 3 0
             L 141.25 0
             A 3 3 0 0 1 144.25 3
@@ -273,7 +276,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">logiBUS_PI_IDA</text>
     </g>
-    <g id="fb_AD_TO_AR_NUM" transform="translate(81.3, 49.3)">
+  </g>
+  <g transform="translate(82.70,1054.16) scale(0.96) translate(-82.70,-1054.16)">
+    <g id="fb_AD_TO_AR_NUM" transform="translate(82.7, 1054.2)">
       <path d="M 3 0
             L 116.75 0
             A 3 3 0 0 1 119.75 3
@@ -362,7 +367,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_TO_AR_NUM</text>
     </g>
-    <g id="fb_FT_DERIV" transform="translate(91.4, 35.0)">
+  </g>
+  <g transform="translate(93.82,1109.96) scale(0.96) translate(-93.82,-1109.96)">
+    <g id="fb_FT_DERIV" transform="translate(93.8, 1110.0)">
       <path d="M 3 0
             L 135.6875 0
             A 3 3 0 0 1 138.6875 3
@@ -528,7 +535,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">FT_DERIV</text>
     </g>
-    <g id="fb_LIT_K" transform="translate(89.7, 57.5)">
+  </g>
+  <g transform="translate(90.83,107.12) scale(0.96) translate(-90.83,-107.12)">
+    <g id="fb_LIT_K" transform="translate(90.8, 107.1)">
       <path d="M 3 0
             L 92.1875 0
             A 3 3 0 0 1 95.1875 3
@@ -609,7 +618,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_K</text>
     </g>
-    <g id="fb_AX_T_FF" transform="translate(117.4, 73.9)">
+  </g>
+  <g transform="translate(119.00,251.36) scale(0.96) translate(-119.00,-251.36)">
+    <g id="fb_AX_T_FF" transform="translate(119.0, 251.4)">
       <path d="M 3 0
             L 83.375 0
             A 3 3 0 0 1 86.375 3
@@ -685,7 +696,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF</text>
     </g>
-    <g id="fb_CTRL_PID" transform="translate(145.3, 45.2)">
+  </g>
+  <g transform="translate(149.11,1280.00) scale(0.96) translate(-149.11,-1280.00)">
+    <g id="fb_CTRL_PID" transform="translate(149.1, 1280.0)">
       <path d="M 3 0
             L 114.4375 0
             A 3 3 0 0 1 117.4375 3
@@ -956,7 +969,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">CTRL_PID</text>
     </g>
-    <g id="fb_LIT_SUP" transform="translate(137.5, 84.1)">
+  </g>
+  <g transform="translate(139.90,307.16) scale(0.96) translate(-139.90,-307.16)">
+    <g id="fb_LIT_SUP" transform="translate(139.9, 307.2)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1037,7 +1052,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_SUP</text>
     </g>
-    <g id="fb_LIT_OFS" transform="translate(138.9, 96.4)">
+  </g>
+  <g transform="translate(141.33,379.28) scale(0.96) translate(-141.33,-379.28)">
+    <g id="fb_LIT_OFS" transform="translate(141.3, 379.3)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1118,7 +1135,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_OFS</text>
     </g>
-    <g id="fb_LIT_M_I" transform="translate(140.3, 108.6)">
+  </g>
+  <g transform="translate(142.77,451.40) scale(0.96) translate(-142.77,-451.40)">
+    <g id="fb_LIT_M_I" transform="translate(142.8, 451.4)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1199,7 +1218,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_M_I</text>
     </g>
-    <g id="fb_LIT_KP" transform="translate(141.7, 120.9)">
+  </g>
+  <g transform="translate(144.20,523.52) scale(0.96) translate(-144.20,-523.52)">
+    <g id="fb_LIT_KP" transform="translate(144.2, 523.5)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1280,7 +1301,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_KP</text>
     </g>
-    <g id="fb_LIT_TN" transform="translate(143.1, 133.2)">
+  </g>
+  <g transform="translate(145.64,595.64) scale(0.96) translate(-145.64,-595.64)">
+    <g id="fb_LIT_TN" transform="translate(145.6, 595.6)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1361,7 +1384,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_TN</text>
     </g>
-    <g id="fb_LIT_TV" transform="translate(144.5, 145.5)">
+  </g>
+  <g transform="translate(147.08,667.76) scale(0.96) translate(-147.08,-667.76)">
+    <g id="fb_LIT_TV" transform="translate(147.1, 667.8)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1442,7 +1467,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_TV</text>
     </g>
-    <g id="fb_LIT_LL" transform="translate(145.9, 157.7)">
+  </g>
+  <g transform="translate(148.51,739.88) scale(0.96) translate(-148.51,-739.88)">
+    <g id="fb_LIT_LL" transform="translate(148.5, 739.9)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1523,7 +1550,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_LL</text>
     </g>
-    <g id="fb_LIT_LH" transform="translate(147.3, 170.0)">
+  </g>
+  <g transform="translate(149.95,812.00) scale(0.96) translate(-149.95,-812.00)">
+    <g id="fb_LIT_LH" transform="translate(149.9, 812.0)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1604,7 +1633,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LIT_LH</text>
     </g>
-    <g id="fb_AR_TO_AD_NUM" transform="translate(165.2, 47.3)">
+  </g>
+  <g transform="translate(170.04,1499.00) scale(0.96) translate(-170.04,-1499.00)">
+    <g id="fb_AR_TO_AD_NUM" transform="translate(170.0, 1499.0)">
       <path d="M 3 0
             L 116.75 0
             A 3 3 0 0 1 119.75 3
@@ -1693,7 +1724,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AR_TO_AD_NUM</text>
     </g>
-    <g id="fb_initval_AR" transform="translate(113.7, 61.6)">
+  </g>
+  <g transform="translate(115.49,179.24) scale(0.96) translate(-115.49,-179.24)">
+    <g id="fb_initval_AR" transform="translate(115.5, 179.2)">
       <path d="M 3 0
             L 91.3125 0
             A 3 3 0 0 1 94.3125 3
@@ -1774,6 +1807,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">initval_AR</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>

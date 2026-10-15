@@ -56,17 +56,18 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="148.2,131.2 157.2,131.2 162.2,126.2 162.2,108.7 157.2,103.7 69.7,103.7 64.7,108.7 64.7,126.2 69.7,131.2 78.7,131.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="148.2,131.2 157.2,131.2 162.2,126.2 162.2,108.7 157.2,103.7 69.7,103.7 64.7,108.7 64.7,126.2 69.7,131.2 78.7,131.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="218.9,131.2 227.9,131.2 232.9,126.2 232.9,100.9 227.9,95.9 138.9,95.9 133.9,100.9 133.9,144.5 138.9,149.5 147.9,149.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="218.9,131.2 227.9,131.2 232.9,126.2 232.9,100.9 227.9,95.9 138.9,95.9 133.9,100.9 133.9,144.5 138.9,149.5 147.9,149.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="157.5,335.5 166.5,335.5 171.5,330.5 171.5,313.0 166.5,308.0 69.7,308.0 64.7,313.0 64.7,330.5 69.7,335.5 78.7,335.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="157.5,335.5 166.5,335.5 171.5,330.5 171.5,313.0 166.5,308.0 69.7,308.0 64.7,313.0 64.7,330.5 69.7,335.5 78.7,335.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="218.9,335.5 227.9,335.5 232.9,330.5 232.9,305.1 227.9,300.1 138.9,300.1 133.9,305.1 133.9,348.8 138.9,353.8 147.9,353.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="218.9,335.5 227.9,335.5 232.9,330.5 232.9,305.1 227.9,300.1 138.9,300.1 133.9,305.1 133.9,348.8 138.9,353.8 147.9,353.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="144.2,112.3 153.2,112.3 158.2,117.3 158.2,218.3 153.2,223.3 71.5,223.3 66.5,228.3 66.5,365.8 71.5,370.8 80.5,370.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="144.2,112.3 153.2,112.3 158.2,117.3 158.2,218.3 153.2,223.3 71.5,223.3 66.5,228.3 66.5,365.8 71.5,370.8 80.5,370.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="215.1,370.8 224.1,370.8 229.1,375.8 229.1,444.1 224.1,449.1 144.4,449.1 139.4,454.1 139.4,607.9 144.4,612.9 153.4,612.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="215.1,370.8 224.1,370.8 229.1,375.8 229.1,444.1 224.1,449.1 144.4,449.1 139.4,454.1 139.4,607.9 144.4,612.9 153.4,612.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="153.1,233.4 162.1,233.4 167.1,238.4 167.1,339.4 162.1,344.4 71.5,344.4 66.5,349.4 66.5,470.5 71.5,475.5 80.5,475.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="153.1,233.4 162.1,233.4 167.1,238.4 167.1,339.4 162.1,344.4 71.5,344.4 66.5,349.4 66.5,470.5 71.5,475.5 80.5,475.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="215.1,475.5 224.1,475.5 229.1,480.5 229.1,565.2 224.1,570.2 144.4,570.2 139.4,575.2 139.4,745.3 144.4,750.3 153.4,750.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="215.1,475.5 224.1,475.5 229.1,480.5 229.1,565.2 224.1,570.2 144.4,570.2 139.4,575.2 139.4,745.3 144.4,750.3 153.4,750.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_IA_GBSD" transform="translate(48.0, 50.7)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_IA_GBSD" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 97.1875 0
             A 3 3 0 0 1 100.1875 3
@@ -183,7 +184,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">IA_GBSD</text>
     </g>
-    <g id="fb_IA_VDS" transform="translate(48.0, 255.0)">
+  </g>
+  <g transform="translate(48.00,156.08) scale(0.96) translate(-48.00,-156.08)">
+    <g id="fb_IA_VDS" transform="translate(48.0, 156.1)">
       <path d="M 3 0
             L 106.5 0
             A 3 3 0 0 1 109.5 3
@@ -315,7 +318,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">IA_VDS</text>
     </g>
-    <g id="fb_FIELDBUS_UINT_TO_SIGNAL_SCALED_GBSD" transform="translate(78.7, 50.7)">
+  </g>
+  <g transform="translate(80.51,293.48) scale(0.96) translate(-80.51,-293.48)">
+    <g id="fb_FIELDBUS_UINT_TO_SIGNAL_SCALED_GBSD" transform="translate(80.5, 293.5)">
       <path d="M 3 0
             L 137.1875 0
             A 3 3 0 0 1 140.1875 3
@@ -430,7 +435,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">FIELDBUS_UINT_TO_SIGNAL_SCALED_GBSD</text>
     </g>
-    <g id="fb_FIELDBUS_UINT_TO_SIGNAL_SCALED_VDS" transform="translate(78.7, 255.0)">
+  </g>
+  <g transform="translate(80.51,398.24) scale(0.96) translate(-80.51,-398.24)">
+    <g id="fb_FIELDBUS_UINT_TO_SIGNAL_SCALED_VDS" transform="translate(80.5, 398.2)">
       <path d="M 3 0
             L 137.1875 0
             A 3 3 0 0 1 140.1875 3
@@ -545,7 +552,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">FIELDBUS_UINT_TO_SIGNAL_SCALED_VDS</text>
     </g>
-    <g id="fb_Q_NumericValue_GBSD" transform="translate(147.9, 35.0)">
+  </g>
+  <g transform="translate(153.36,503.00) scale(0.96) translate(-153.36,-503.00)">
+    <g id="fb_Q_NumericValue_GBSD" transform="translate(153.4, 503.0)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -671,7 +680,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_GBSD</text>
     </g>
-    <g id="fb_Q_NumericValue_VDS" transform="translate(147.9, 239.3)">
+  </g>
+  <g transform="translate(153.36,640.40) scale(0.96) translate(-153.36,-640.40)">
+    <g id="fb_Q_NumericValue_VDS" transform="translate(153.4, 640.4)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -797,6 +808,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_VDS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_073c_AUI</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">VDS und GBSD auf UT ausgeben mit PHYS (Adapter</text>

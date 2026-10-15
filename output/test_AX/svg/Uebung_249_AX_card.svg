@@ -56,14 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,57.5 38.0,62.5 48.0,62.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="177.5,322.3 186.5,322.3 191.5,317.3 191.5,255.4 186.5,250.4 106.0,250.4 101.0,255.4 101.0,295.5 106.0,300.5 115.0,300.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="177.5,322.3 186.5,322.3 191.5,317.3 191.5,255.4 186.5,250.4 106.0,250.4 101.0,255.4 101.0,295.5 106.0,300.5 115.0,300.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="234.8,300.5 243.8,300.5 248.8,295.5 248.8,269.2 243.8,264.2 138.9,264.2 133.9,269.2 133.9,327.8 138.9,332.8 147.9,332.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="234.8,300.5 243.8,300.5 248.8,295.5 248.8,269.2 243.8,264.2 138.9,264.2 133.9,269.2 133.9,327.8 138.9,332.8 147.9,332.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 31.4,50.0 36.0,54.6 36.0,56.8 40.6,61.4 98.0,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="173.7,249.7 183.8,249.7 187.7,253.5 187.7,255.5 183.8,259.3 108.7,259.3 103.7,264.3 103.7,299.5 108.7,304.5 117.7,304.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="173.7,249.7 183.8,249.7 187.7,253.5 187.7,255.5 183.8,259.3 108.7,259.3 103.7,264.3 103.7,299.5 108.7,304.5 117.7,304.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="232.7,304.5 242.4,304.5 246.7,308.8 246.7,310.9 242.4,315.1 144.4,315.1 139.4,320.1 139.4,421.6 144.4,426.6 153.4,426.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="232.7,304.5 242.4,304.5 246.7,308.8 246.7,310.9 242.4,315.1 144.4,315.1 139.4,320.1 139.4,421.6 144.4,426.6 153.4,426.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_GetAttribute_I1" transform="translate(48.0, 35.0)">
+  <g transform="translate(98.00,35.00) scale(0.96) translate(-98.00,-35.00)">
+    <g id="fb_GetAttribute_I1" transform="translate(98.0, 35.0)">
       <path d="M 3 0
             L 107.1875 0
             A 3 3 0 0 1 110.1875 3
@@ -146,7 +147,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">GetAttribute_I1</text>
     </g>
-    <g id="fb_Attribute_IDA_I1" transform="translate(65.9, 190.8)">
+  </g>
+  <g transform="translate(66.56,123.44) scale(0.96) translate(-66.56,-123.44)">
+    <g id="fb_Attribute_IDA_I1" transform="translate(66.6, 123.4)">
       <path d="M 3 0
             L 108.5625 0
             A 3 3 0 0 1 111.5625 3
@@ -247,7 +250,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Attribute_IDA_I1</text>
     </g>
-    <g id="fb_AD_TO_AR_NUM" transform="translate(115.0, 255.0)">
+  </g>
+  <g transform="translate(117.74,260.84) scale(0.96) translate(-117.74,-260.84)">
+    <g id="fb_AD_TO_AR_NUM" transform="translate(117.7, 260.8)">
       <path d="M 3 0
             L 116.75 0
             A 3 3 0 0 1 119.75 3
@@ -336,7 +341,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_TO_AR_NUM</text>
     </g>
-    <g id="fb_OutputNumber_N1" transform="translate(147.9, 218.3)">
+  </g>
+  <g transform="translate(153.36,316.64) scale(0.96) translate(-153.36,-316.64)">
+    <g id="fb_OutputNumber_N1" transform="translate(153.4, 316.6)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -462,6 +469,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OutputNumber_N1</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>
