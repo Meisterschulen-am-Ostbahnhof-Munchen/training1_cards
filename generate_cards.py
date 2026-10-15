@@ -43,6 +43,8 @@ CARD_H_MM = 90.0
 SVG_W = 350.0
 SVG_H = 450.0
 UNITS_PER_CM = 50.0
+# Blocks are drawn 4 % smaller so that the port rows fit the 1 cm pin grid (52 -> 50 units between REQ and CD)
+BLOCK_SCALE = 0.96
 
 DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
 DEFAULT_EXERCISES_DIRS = [
@@ -499,6 +501,18 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
     pins = get_pin_positions()
 
+    # Scale block geometry (placement uses the scaled sizes, rendering draws the original and scales the group)
+    block_orig = {}
+    for inst in logic_instances:
+        block_orig[inst.name] = (inst.block_width, inst.block_height, inst.name_section_bottom,
+                                 getattr(inst, "adapter_section_top", None))
+        inst.block_width *= BLOCK_SCALE
+        inst.block_height *= BLOCK_SCALE
+        inst.name_section_bottom *= BLOCK_SCALE
+        if getattr(inst, "adapter_section_top", None) is not None:
+            inst.adapter_section_top *= BLOCK_SCALE
+    port_row = renderer.PORT_ROW_HEIGHT * BLOCK_SCALE
+
     # 4. Map connections and find active pins
     card_connections = []
     active_pins = set()
@@ -730,41 +744,77 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 for bi, b in enumerate(order):
                     b.render_y += extra * sum(1 for s in stacked if s <= bi)
 
+    # Snap blocks fed by input pins to the 1 cm pin grid: shift each block so that the port of its topmost
+    # nearly aligned pin->port connection (max. 12 units off) sits exactly at the pin height; the other
+    # ports keep their fixed spacing and are bent normally by the router
+    def in_port_dy(inst, port_name):
+        row = port_row
+        for k, port in enumerate(inst.event_inputs):
+            if port.name == port_name:
+                return 2 * BLOCK_SCALE + row / 2 + k * row
+        for k, port in enumerate(inst.data_inputs):
+            if port.name == port_name:
+                return inst.name_section_bottom + 2 * BLOCK_SCALE + row / 2 + k * row
+        return None
+
+    inst_by_name_snap = {i.name: i for i in logic_instances}
+    for inst in logic_instances:
+        diffs = []
+        for c in card_connections:
+            if c.get("source_pin") in pins and c.get("dest_inst") == inst.name:
+                dy_port = in_port_dy(inst, c.get("dest_port"))
+                if dy_port is not None:
+                    d = pins[c["source_pin"]].y - (inst.render_y + dy_port)
+                    if abs(d) <= 12.0:
+                        diffs.append((pins[c["source_pin"]].y, d))
+        if not diffs:
+            continue
+        shift = min(diffs)[1]
+        new_y = inst.render_y + shift
+        if new_y < 30.0 or new_y + inst.block_height > 395.0:
+            continue
+        old_y = inst.render_y
+        inst.render_y = new_y
+        if any(o is not inst and o.render_x < inst.render_x + inst.block_width and inst.render_x < o.render_x + o.block_width
+               and o.render_y < inst.render_y + inst.block_height + 4.0 and inst.render_y < o.render_y + o.block_height + 4.0
+               for o in logic_instances):
+            inst.render_y = old_y
+
     # Recompute port positions on the placed logic instances
     instance_map = {}
     for inst in logic_instances:
         instance_map[inst.name] = inst
         inst.port_positions = {}
         # Event inputs
-        y = inst.render_y + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.event_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Event outputs
-        y = inst.render_y + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.event_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Data inputs
-        y = inst.render_y + inst.name_section_bottom + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.data_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Data outputs
-        y = inst.render_y + inst.name_section_bottom + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.data_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Sockets (adapter inputs)
-        y = inst.render_y + inst.adapter_section_top + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.sockets:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Plugs (adapter outputs)
-        y = inst.render_y + inst.adapter_section_top + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.plugs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
 
     # 6. Build SVG content
     svg = []
@@ -1157,7 +1207,18 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     # Render logic FB instances
     svg.append('  <g id="instances">')
     for inst in logic_instances:
+        bw, bh, nsb, ast = block_orig[inst.name]
+        scaled = (inst.block_width, inst.block_height, inst.name_section_bottom, getattr(inst, "adapter_section_top", None))
+        inst.block_width, inst.block_height, inst.name_section_bottom = bw, bh, nsb
+        if ast is not None:
+            inst.adapter_section_top = ast
+        svg.append(f'  <g transform="translate({inst.render_x:.2f},{inst.render_y:.2f}) scale({BLOCK_SCALE}) '
+                   f'translate({-inst.render_x:.2f},{-inst.render_y:.2f})">')
         svg.append(renderer._render_instance(inst))
+        svg.append('  </g>')
+        inst.block_width, inst.block_height, inst.name_section_bottom = scaled[:3]
+        if ast is not None:
+            inst.adapter_section_top = scaled[3]
     svg.append('  </g>')
 
     # Left margin pins: I1 to I8 and AI1 to AI8 (only if used!)
