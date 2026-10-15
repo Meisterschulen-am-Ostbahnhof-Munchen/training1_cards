@@ -64,12 +64,14 @@
     <polyline points="202.8,132.5 211.8,132.5 216.8,137.5 216.8,210.0 211.8,215.0 174.7,215.0 169.7,220.0 169.7,329.5 174.7,334.5 183.7,334.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
     <polyline points="202.8,115.5 216.8,115.5 216.8,116.2 104.8,116.2 99.8,121.2 99.8,148.9 104.8,153.9 113.8,153.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
     <polyline points="202.8,115.5 216.8,115.5 216.8,116.2 104.8,116.2 99.8,121.2 99.8,148.9 104.8,153.9 113.8,153.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="250.3,170.9 306.0,170.9 311.0,175.9 311.0,295.0 316.0,300.0 335.0,300.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="250.3,170.9 306.0,170.9 311.0,175.9 311.0,295.0 316.0,300.0 335.0,300.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="250.3,170.9 300.0,170.9 305.0,175.9 305.0,295.0 310.0,300.0 335.0,300.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="250.3,170.9 300.0,170.9 305.0,175.9 305.0,295.0 310.0,300.0 335.0,300.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
     <polyline points="202.8,98.5 211.8,98.5 216.8,103.5 216.8,111.2 211.8,116.2 104.8,116.2 99.8,121.2 99.8,131.9 104.8,136.9 113.8,136.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
     <polyline points="202.8,98.5 211.8,98.5 216.8,103.5 216.8,111.2 211.8,116.2 104.8,116.2 99.8,121.2 99.8,131.9 104.8,136.9 113.8,136.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
     <polyline points="250.3,136.9 312.0,136.9 317.0,141.9 317.0,245.0 322.0,250.0 335.0,250.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
     <polyline points="250.3,136.9 312.0,136.9 317.0,141.9 317.0,245.0 322.0,250.0 335.0,250.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="250.3,153.9 306.0,153.9 311.0,158.9 311.0,270.0 316.0,275.0 335.0,275.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="250.3,153.9 306.0,153.9 311.0,158.9 311.0,270.0 316.0,275.0 335.0,275.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
     <g id="fb_ILOCK_AX" transform="translate(48.0, 35.0)">
@@ -434,6 +436,9 @@
   <path d="M 350.0,286.5 L 348.0,286.5 A 13.5,13.5 0 0,0 348.0,313.5 L 350.0,313.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="335.0" y1="300.0" x2="338.0" y2="300.0" stroke="#BDC3C7" stroke-width="0.6"/>
   <text x="343.0" y="303.5" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q6</text>
+  <path d="M 350.0,264.5 L 348.0,264.5 A 10.5,10.5 0 0,0 348.0,285.5 L 350.0,285.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="335.0" y1="275.0" x2="338.0" y2="275.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="343.0" y="278.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q56</text>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_205b_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Interlock: ILOCK_SWITCH_PROTECT_AX (Motor</text>
   <text x="175" y="438.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Reversierung mit Schutzzeit via Adapter)</text>

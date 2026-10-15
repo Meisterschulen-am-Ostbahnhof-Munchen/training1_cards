@@ -58,6 +58,7 @@
   <g id="connections">
     <polyline points="188.4,333.5 312.0,333.5 317.0,328.5 317.0,305.0 322.0,300.0 335.0,300.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="188.4,45.5 312.0,45.5 317.0,50.5 317.0,245.0 322.0,250.0 335.0,250.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,241.9 300.0,241.9 305.0,246.9 305.0,270.0 310.0,275.0 335.0,275.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="188.4,333.5 197.4,333.5 202.4,328.5 202.4,318.2 197.4,313.2 176.6,313.2 171.6,308.2 171.6,246.9 176.6,241.9 185.6,241.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="188.4,45.5 197.4,45.5 202.4,50.5 202.4,164.2 197.4,169.2 176.6,169.2 171.6,174.2 171.6,236.9 176.6,241.9 185.6,241.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,100.0 31.0,100.0 36.0,105.0 36.0,250.2 40.8,255.0 48.0,255.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
@@ -67,6 +68,7 @@
     <polyline points="15.0,100.0 34.0,100.0 39.0,95.0 39.0,50.5 44.0,45.5 112.4,45.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="188.4,368.5 306.0,368.5 311.0,363.5 311.0,305.0 316.0,300.0 335.0,300.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="188.4,80.5 306.0,80.5 311.0,85.5 311.0,245.0 316.0,250.0 335.0,250.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="285.0,276.9 335.0,275.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="188.4,80.5 197.4,80.5 202.4,85.5 202.4,164.2 197.4,169.2 176.6,169.2 171.6,174.2 171.6,271.9 176.6,276.9 185.6,276.9" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="188.4,368.5 197.4,368.5 202.4,363.5 202.4,318.2 197.4,313.2 176.6,313.2 171.6,308.2 171.6,298.9 176.6,293.9 185.6,293.9" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="122.6,290.0 131.6,290.0 136.6,295.0 136.6,314.7 131.6,319.7 103.4,319.7 98.4,324.7 98.4,363.5 103.4,368.5 112.4,368.5" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
@@ -384,6 +386,9 @@
   <path d="M 350.0,286.5 L 348.0,286.5 A 13.5,13.5 0 0,0 348.0,313.5 L 350.0,313.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="335.0" y1="300.0" x2="338.0" y2="300.0" stroke="#BDC3C7" stroke-width="0.6"/>
   <text x="343.0" y="303.5" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q6</text>
+  <path d="M 350.0,264.5 L 348.0,264.5 A 10.5,10.5 0 0,0 348.0,285.5 L 350.0,285.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
+  <line x1="335.0" y1="275.0" x2="338.0" y2="275.0" stroke="#BDC3C7" stroke-width="0.6"/>
+  <text x="343.0" y="278.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Q56</text>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_160b2</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Motor Links/Rechtslauf Automatisierung IX</text>
 </svg>
