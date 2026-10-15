@@ -780,6 +780,35 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                for o in logic_instances):
             inst.render_y = old_y
 
+    # Block-to-block connections whose ports are (almost) vertically above each other would be routed as a
+    # straight vertical line; give them room for a Z (destination block right, then source block left)
+    Z_MIN_GAP = 24.0
+    X_MAX_RIGHT = 300.0
+    X_MIN_LEFT = 60.0
+    inst_names_z = {i.name: i for i in logic_instances}
+
+    def x_clash(inst):
+        return any(o is not inst and o.render_x < inst.render_x + inst.block_width and inst.render_x < o.render_x + o.block_width
+                   and o.render_y < inst.render_y + inst.block_height + 4.0 and inst.render_y < o.render_y + o.block_height + 4.0
+                   for o in logic_instances)
+
+    for c in card_connections:
+        a = inst_names_z.get(c.get("source_inst"))
+        b = inst_names_z.get(c.get("dest_inst"))
+        if a is None or b is None or a is b:
+            continue
+        gap = b.render_x - (a.render_x + a.block_width)
+        if not (0.0 <= gap < Z_MIN_GAP) or abs(a.render_y - b.render_y) < 2.0:
+            continue
+        need = Z_MIN_GAP - gap
+        old_bx, old_ax = b.render_x, a.render_x
+        b.render_x += max(0.0, min(need, X_MAX_RIGHT - (b.render_x + b.block_width)))
+        need -= b.render_x - old_bx
+        if need > 0.0:
+            a.render_x -= max(0.0, min(need, a.render_x - X_MIN_LEFT))
+        if x_clash(a) or x_clash(b):
+            a.render_x, b.render_x = old_ax, old_bx
+
     # Recompute port positions on the placed logic instances
     instance_map = {}
     for inst in logic_instances:
