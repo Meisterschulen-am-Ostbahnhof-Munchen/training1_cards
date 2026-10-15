@@ -56,11 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="119.2,141.0 128.2,141.0 133.2,146.0 133.2,192.5 128.2,197.5 39.0,197.5 34.0,192.5 34.0,163.0 39.0,158.0 48.0,158.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="119.2,158.0 152.9,158.0 157.9,153.0 157.9,141.0 162.9,136.0 196.6,136.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="116.4,144.1 129.4,144.1 134.4,149.1 134.4,197.8 129.4,202.8 43.0,202.8 38.0,197.8 38.0,164.4 42.0,160.4 48.0,160.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="116.4,160.4 153.3,160.4 158.3,155.4 158.3,144.1 163.3,139.1 200.2,139.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_E_MUX_8_1" transform="translate(196.6, 125.5)">
+  <g transform="translate(200.16,128.98) scale(0.96) translate(-200.16,-128.98)">
+    <g id="fb_E_MUX_8_1" transform="translate(200.2, 129.0)">
       <path d="M 3 0
             L 85.375 0
             A 3 3 0 0 1 88.375 3
@@ -148,7 +149,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_MUX_8_1</text>
     </g>
-    <g id="fb_INIT" transform="translate(48.0, 130.5)">
+  </g>
+  <g transform="translate(48.00,133.98) scale(0.96) translate(-48.00,-133.98)">
+    <g id="fb_INIT" transform="translate(48.0, 134.0)">
       <path d="M 3 0
             L 68.25 0
             A 3 3 0 0 1 71.25 3
@@ -219,6 +222,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">INIT</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_173</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Exercise for E_MUX_8</text>

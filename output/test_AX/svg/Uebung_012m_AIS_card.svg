@@ -58,7 +58,8 @@
   <g id="connections">
   </g>
   <g id="instances">
-    <g id="fb_Uebung_012m_sub_AIS" transform="translate(102.6, 30.0)">
+  <g transform="translate(105.52,30.00) scale(0.96) translate(-105.52,-30.00)">
+    <g id="fb_Uebung_012m_sub_AIS" transform="translate(105.5, 30.0)">
       <path d="M 3 0
             L 141.75 0
             A 3 3 0 0 1 144.75 3
@@ -152,6 +153,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Uebung_012m_sub_AIS</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_012m_AIS</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">String Input und Speichern NVS mit Subapp (AIS</text>

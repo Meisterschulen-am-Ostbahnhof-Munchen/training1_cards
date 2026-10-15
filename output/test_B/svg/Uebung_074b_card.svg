@@ -56,11 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="179.2,79.0 188.2,79.0 193.2,84.0 193.2,108.0 188.2,113.0 120.1,113.0 115.1,108.0 115.1,84.0 120.1,79.0 129.1,79.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="179.2,216.0 188.2,216.0 193.2,211.0 193.2,118.0 188.2,113.0 120.1,113.0 115.1,118.0 115.1,143.0 120.1,148.0 129.1,148.0" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="173.9,61.4 186.9,61.4 191.9,66.4 191.9,349.4 186.9,354.4 130.4,354.4 125.4,359.4 125.4,374.3 129.4,378.3 135.4,378.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="173.9,192.9 182.9,192.9 187.9,197.9 187.9,345.4 182.9,350.4 126.4,350.4 121.4,355.4 121.4,439.6 126.4,444.6 135.4,444.6" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_I_RPTO" transform="translate(48.0, 51.5)">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_I_RPTO" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 128.1875 0
             A 3 3 0 0 1 131.1875 3
@@ -178,7 +179,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">I_RPTO</text>
     </g>
-    <g id="fb_Q_NumericValue_GBSD" transform="translate(129.1, 51.5)">
+  </g>
+  <g transform="translate(135.36,351.92) scale(0.96) translate(-135.36,-351.92)">
+    <g id="fb_Q_NumericValue_GBSD" transform="translate(135.4, 351.9)">
       <path d="M 3 0
             L 152.875 0
             A 3 3 0 0 1 155.875 3
@@ -269,6 +272,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_GBSD</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_074b</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">RPTO auf UT ausgeben ohne Fendt-Schaltung</text>

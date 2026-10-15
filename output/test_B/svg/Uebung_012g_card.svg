@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="254.0,96.5 263.0,96.5 268.0,101.5 268.0,210.0 263.0,215.0 138.9,215.0 133.9,220.0 133.9,226.5 138.9,231.5 147.9,231.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="254.0,45.5 263.0,45.5 268.0,50.5 268.0,233.0 263.0,238.0 88.5,238.0 83.5,233.0 83.5,84.5 88.5,79.5 97.5,79.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="188.8,62.5 197.8,62.5 202.8,67.5 202.8,125.5 197.8,130.5 88.5,130.5 83.5,125.5 83.5,67.5 88.5,62.5 97.5,62.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="254.0,182.5 263.0,182.5 268.0,187.5 268.0,210.0 263.0,215.0 138.9,215.0 133.9,220.0 133.9,295.5 138.9,300.5 147.9,300.5" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="188.8,131.5 197.8,131.5 202.8,126.5 202.8,93.0 197.8,88.0 88.5,88.0 83.5,93.0 83.5,194.5 88.5,199.5 97.5,199.5" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="251.6,198.8 264.6,198.8 269.6,203.8 269.6,323.6 264.6,328.6 148.4,328.6 143.4,333.6 143.4,348.5 147.4,352.5 153.4,352.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="251.6,149.8 264.6,149.8 269.6,154.8 269.6,334.1 264.6,339.1 96.4,339.1 91.4,334.1 91.4,186.5 95.4,182.5 101.4,182.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="183.1,61.4 196.1,61.4 201.1,66.4 201.1,137.3 196.1,142.3 96.4,142.3 91.4,147.3 91.4,162.2 95.4,166.2 101.4,166.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="251.6,281.4 260.6,281.4 265.6,286.4 265.6,319.6 260.6,324.6 144.4,324.6 139.4,329.6 139.4,413.8 144.4,418.8 153.4,418.8" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="183.1,127.6 192.9,127.6 197.1,131.9 197.1,134.0 192.9,138.3 92.4,138.3 87.4,143.3 87.4,292.7 92.4,297.7 101.4,297.7" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_InputNumber_I3_N" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 137.75 0
@@ -152,7 +153,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I3_N</text>
     </g>
-    <g id="fb_NVS" transform="translate(97.5, 35.0)">
+  </g>
+  <g transform="translate(101.39,139.76) scale(0.96) translate(-101.39,-139.76)">
+    <g id="fb_NVS" transform="translate(101.4, 139.8)">
       <path d="M 3 0
             L 153.5 0
             A 3 3 0 0 1 156.5 3
@@ -260,7 +263,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NVS</text>
     </g>
-    <g id="fb_Q_NumericValue" transform="translate(147.9, 204.0)">
+  </g>
+  <g transform="translate(153.36,326.12) scale(0.96) translate(-153.36,-326.12)">
+    <g id="fb_Q_NumericValue" transform="translate(153.4, 326.1)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3
@@ -357,6 +362,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_012g</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Numeric Value Input PHYS und Speichern INI</text>

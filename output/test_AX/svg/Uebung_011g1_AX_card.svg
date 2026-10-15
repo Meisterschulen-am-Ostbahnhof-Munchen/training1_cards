@@ -56,14 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="184.1,149.5 193.1,149.5 198.1,144.5 198.1,67.5 193.1,62.5 164.8,62.5 159.8,67.5 159.8,75.5 164.8,80.5 173.8,80.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="184.1,149.5 193.1,149.5 198.1,144.5 198.1,67.5 193.1,62.5 164.8,62.5 159.8,67.5 159.8,75.5 164.8,80.5 173.8,80.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="184.1,268.0 193.1,268.0 198.1,263.0 198.1,186.0 193.1,181.0 164.8,181.0 159.8,186.0 159.8,194.0 164.8,199.0 173.8,199.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="184.1,268.0 193.1,268.0 198.1,263.0 198.1,186.0 193.1,181.0 164.8,181.0 159.8,186.0 159.8,194.0 164.8,199.0 173.8,199.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="184.1,386.5 193.1,386.5 198.1,381.5 198.1,304.5 193.1,299.5 164.8,299.5 159.8,304.5 159.8,312.5 164.8,317.5 173.8,317.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="184.1,386.5 193.1,386.5 198.1,381.5 198.1,304.5 193.1,299.5 164.8,299.5 159.8,304.5 159.8,312.5 164.8,317.5 173.8,317.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="178.7,144.9 187.7,144.9 192.7,149.9 192.7,270.7 187.7,275.7 169.2,275.7 164.2,280.7 164.2,436.9 169.2,441.9 178.2,441.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="178.7,144.9 187.7,144.9 192.7,149.9 192.7,270.7 187.7,275.7 169.2,275.7 164.2,280.7 164.2,436.9 169.2,441.9 178.2,441.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="178.7,266.0 187.7,266.0 192.7,271.0 192.7,359.1 187.7,364.1 169.2,364.1 164.2,369.1 164.2,492.7 169.2,497.7 178.2,497.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="178.7,266.0 187.7,266.0 192.7,271.0 192.7,359.1 187.7,364.1 169.2,364.1 164.2,369.1 164.2,492.7 169.2,497.7 178.2,497.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="178.7,387.1 187.7,387.1 192.7,392.1 192.7,447.5 187.7,452.5 169.2,452.5 164.2,457.5 164.2,548.5 169.2,553.5 178.2,553.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="178.7,387.1 187.7,387.1 192.7,392.1 192.7,447.5 187.7,452.5 169.2,452.5 164.2,457.5 164.2,548.5 169.2,553.5 178.2,553.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_InputNumber_I1_1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 133.125 0
@@ -161,7 +162,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I1_1</text>
     </g>
-    <g id="fb_InputNumber_I1_2" transform="translate(48.0, 153.5)">
+  </g>
+  <g transform="translate(48.00,156.08) scale(0.96) translate(-48.00,-156.08)">
+    <g id="fb_InputNumber_I1_2" transform="translate(48.0, 156.1)">
       <path d="M 3 0
             L 133.125 0
             A 3 3 0 0 1 136.125 3
@@ -258,7 +261,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I1_2</text>
     </g>
-    <g id="fb_InputNumber_I1_3" transform="translate(48.0, 272.0)">
+  </g>
+  <g transform="translate(48.00,277.16) scale(0.96) translate(-48.00,-277.16)">
+    <g id="fb_InputNumber_I1_3" transform="translate(48.0, 277.2)">
       <path d="M 3 0
             L 133.125 0
             A 3 3 0 0 1 136.125 3
@@ -355,7 +360,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I1_3</text>
     </g>
-    <g id="fb_AD_TO_AUDI_1" transform="translate(173.8, 35.0)">
+  </g>
+  <g transform="translate(178.20,398.24) scale(0.96) translate(-178.20,-398.24)">
+    <g id="fb_AD_TO_AUDI_1" transform="translate(178.2, 398.2)">
       <path d="M 3 0
             L 108.25 0
             A 3 3 0 0 1 111.25 3
@@ -444,7 +451,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_TO_AUDI_1</text>
     </g>
-    <g id="fb_AD_TO_AUDI_2" transform="translate(173.8, 153.5)">
+  </g>
+  <g transform="translate(178.20,454.04) scale(0.96) translate(-178.20,-454.04)">
+    <g id="fb_AD_TO_AUDI_2" transform="translate(178.2, 454.0)">
       <path d="M 3 0
             L 108.25 0
             A 3 3 0 0 1 111.25 3
@@ -533,7 +542,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_TO_AUDI_2</text>
     </g>
-    <g id="fb_AD_TO_AUDI_3" transform="translate(173.8, 272.0)">
+  </g>
+  <g transform="translate(178.20,509.84) scale(0.96) translate(-178.20,-509.84)">
+    <g id="fb_AD_TO_AUDI_3" transform="translate(178.2, 509.8)">
       <path d="M 3 0
             L 108.25 0
             A 3 3 0 0 1 111.25 3
@@ -622,6 +633,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_TO_AUDI_3</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_011g1_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Numeric Value Input -- multiple IOObservers</text>

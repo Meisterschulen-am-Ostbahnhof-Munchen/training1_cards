@@ -56,19 +56,20 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="187.4,175.7 196.4,175.7 201.4,170.7 201.4,159.8 196.4,154.8 68.3,154.8 63.3,159.8 63.3,165.8 68.3,170.8 77.3,170.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="187.4,175.7 196.4,175.7 201.4,170.7 201.4,159.8 196.4,154.8 68.3,154.8 63.3,159.8 63.3,165.8 68.3,170.8 77.3,170.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="216.0,187.8 225.2,187.8 230.0,192.7 230.0,195.1 225.2,199.9 115.4,199.9 110.4,204.9 110.4,226.1 115.4,231.1 124.4,231.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="216.0,187.8 225.2,187.8 230.0,192.7 230.0,195.1 225.2,199.9 115.4,199.9 110.4,204.9 110.4,226.1 115.4,231.1 124.4,231.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="216.0,204.8 225.0,204.8 230.0,209.8 230.0,255.2 225.0,260.2 115.4,260.2 110.4,265.2 110.4,346.5 115.4,351.5 124.4,351.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="216.0,204.8 225.0,204.8 230.0,209.8 230.0,255.2 225.0,260.2 115.4,260.2 110.4,265.2 110.4,346.5 115.4,351.5 124.4,351.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="216.0,170.8 225.0,170.8 230.0,165.8 230.0,112.7 225.0,107.7 134.7,107.7 129.7,102.7 129.7,85.5 134.7,80.5 143.7,80.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="216.0,170.8 225.0,170.8 230.0,165.8 230.0,112.7 225.0,107.7 134.7,107.7 129.7,102.7 129.7,85.5 134.7,80.5 143.7,80.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="259.0,231.1 268.0,231.1 273.0,226.1 273.0,218.1 268.0,213.1 141.4,213.1 136.4,218.1 136.4,226.1 141.4,231.1 150.4,231.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="259.0,231.1 268.0,231.1 273.0,226.1 273.0,218.1 268.0,213.1 141.4,213.1 136.4,218.1 136.4,226.1 141.4,231.1 150.4,231.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="181.8,112.3 191.9,112.3 195.8,116.1 195.8,118.1 191.9,121.9 70.0,121.9 65.0,126.9 65.0,162.1 70.0,167.1 79.0,167.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="181.8,112.3 191.9,112.3 195.8,116.1 195.8,118.1 191.9,121.9 70.0,121.9 65.0,126.9 65.0,162.1 70.0,167.1 79.0,167.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="212.1,183.4 221.1,183.4 226.1,188.4 226.1,233.3 221.1,238.3 107.9,238.3 102.9,243.3 102.9,306.4 107.9,311.4 116.9,311.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="212.1,183.4 221.1,183.4 226.1,188.4 226.1,233.3 221.1,238.3 107.9,238.3 102.9,243.3 102.9,306.4 107.9,311.4 116.9,311.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="212.1,199.8 221.1,199.8 226.1,204.8 226.1,261.2 221.1,266.2 119.5,266.2 114.5,271.2 114.5,362.2 119.5,367.2 128.5,367.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="212.1,199.8 221.1,199.8 226.1,204.8 226.1,261.2 221.1,266.2 119.5,266.2 114.5,271.2 114.5,362.2 119.5,367.2 128.5,367.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="212.1,167.1 221.1,167.1 226.1,172.1 226.1,205.4 221.1,210.4 138.1,210.4 133.1,215.4 133.1,250.6 138.1,255.6 147.1,255.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="212.1,167.1 221.1,167.1 226.1,172.1 226.1,205.4 221.1,210.4 138.1,210.4 133.1,215.4 133.1,250.6 138.1,255.6 147.1,255.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="261.6,311.4 270.6,311.4 275.6,316.4 275.6,344.9 270.6,349.9 146.8,349.9 141.8,354.9 141.8,418.0 146.8,423.0 155.8,423.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="261.6,311.4 270.6,311.4 275.6,316.4 275.6,344.9 270.6,349.9 146.8,349.9 141.8,354.9 141.8,418.0 146.8,423.0 155.8,423.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AOption_AUI_DEMUX_3" transform="translate(77.3, 125.3)">
+  <g transform="translate(79.00,123.44) scale(0.96) translate(-79.00,-123.44)">
+    <g id="fb_AOption_AUI_DEMUX_3" transform="translate(79.0, 123.4)">
       <path d="M 3 0
             L 135.6875 0
             A 3 3 0 0 1 138.6875 3
@@ -187,7 +188,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AOption_AUI_DEMUX_3</text>
     </g>
-    <g id="fb_NumericValue_TO_AUI2_1" transform="translate(48.0, 95.2)">
+  </g>
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
+    <g id="fb_NumericValue_TO_AUI2_1" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 136.375 0
             A 3 3 0 0 1 139.375 3
@@ -277,18 +280,20 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">NumericValue_TO_AUI2_1</text>
     </g>
-    <g id="fb_OptionalGroup_001a" transform="translate(124.4, 185.6)">
+  </g>
+  <g transform="translate(116.87,267.68) scale(0.96) translate(-116.87,-267.68)">
+    <g id="fb_OptionalGroup_001a" transform="translate(116.9, 267.7)">
       <path d="M 3 0
-            L 131.5625 0
-            A 3 3 0 0 1 134.5625 3
-            L 134.5625 18
-            A 3 3 0 0 1 131.5625 21
-            L 125.5625 21
-            L 125.5625 35
-            L 131.5625 35
-            A 3 3 0 0 1 134.5625 38
-            L 134.5625 52
-            A 3 3 0 0 1 131.5625 55
+            L 147.75 0
+            A 3 3 0 0 1 150.75 3
+            L 150.75 18
+            A 3 3 0 0 1 147.75 21
+            L 141.75 21
+            L 141.75 35
+            L 147.75 35
+            A 3 3 0 0 1 150.75 38
+            L 150.75 52
+            A 3 3 0 0 1 147.75 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -303,32 +308,32 @@
             fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1.5"
             stroke-linejoin="round" filter="url(#dropShadow)"/>
       <!-- Name Section -->
-      <path d="M 13.0 20.0
-            L 27.0 20.0
-            A 1 1 0 0 1 28.0 21.0
-            L 28.0 24.0
-            L 26.5 24.0
-            L 26.5 26.666666666666668
-            L 28.0 26.666666666666668
-            L 28.0 35.0
-            A 1 1 0 0 1 27.0 36.0
-            L 13.0 36.0
-            A 1 1 0 0 1 12.0 35.0
-            L 12.0 26.666666666666668
-            L 13.5 26.666666666666668
-            L 13.5 24.0
-            L 12.0 24.0
-            L 12.0 21.0
-            A 1 1 0 0 1 13.0 20.0
+      <path d="M 21.09375 20.0
+            L 35.09375 20.0
+            A 1 1 0 0 1 36.09375 21.0
+            L 36.09375 24.0
+            L 34.59375 24.0
+            L 34.59375 26.666666666666668
+            L 36.09375 26.666666666666668
+            L 36.09375 35.0
+            A 1 1 0 0 1 35.09375 36.0
+            L 21.09375 36.0
+            A 1 1 0 0 1 20.09375 35.0
+            L 20.09375 26.666666666666668
+            L 21.59375 26.666666666666668
+            L 21.59375 24.0
+            L 20.09375 24.0
+            L 20.09375 21.0
+            A 1 1 0 0 1 21.09375 20.0
             Z"
             fill="#87CEEB" stroke="#1565C0" stroke-width="1"/>
-      <path d="M 13.5 27.5 L 18.0 27.5 A 0.5 0.5 0 0 1 18.5 28.0 L 18.5 29.25 L 17.675 29.25 L 17.675 30.416666666666668 L 18.5 30.416666666666668 L 18.5 34.0 A 0.5 0.5 0 0 1 18.0 34.5 L 13.5 34.5 A 0.5 0.5 0 0 1 13.0 34.0 L 13.0 30.416666666666668 L 13.825 30.416666666666668 L 13.825 29.25 L 13.0 29.25 L 13.0 28.0 A 0.5 0.5 0 0 1 13.5 27.5 Z" fill="#1565C0" stroke="none"/>
-      <path d="M 22.0 27.5 L 26.5 27.5 A 0.5 0.5 0 0 1 27.0 28.0 L 27.0 29.25 L 26.175 29.25 L 26.175 30.416666666666668 L 27.0 30.416666666666668 L 27.0 34.0 A 0.5 0.5 0 0 1 26.5 34.5 L 22.0 34.5 A 0.5 0.5 0 0 1 21.5 34.0 L 21.5 30.416666666666668 L 22.325 30.416666666666668 L 22.325 29.25 L 21.5 29.25 L 21.5 28.0 A 0.5 0.5 0 0 1 22.0 27.5 Z" fill="#1565C0" stroke="none"/>
-      <line x1="18.5" y1="28.34" x2="21.5" y2="28.34"
+      <path d="M 21.59375 27.5 L 26.09375 27.5 A 0.5 0.5 0 0 1 26.59375 28.0 L 26.59375 29.25 L 25.76875 29.25 L 25.76875 30.416666666666668 L 26.59375 30.416666666666668 L 26.59375 34.0 A 0.5 0.5 0 0 1 26.09375 34.5 L 21.59375 34.5 A 0.5 0.5 0 0 1 21.09375 34.0 L 21.09375 30.416666666666668 L 21.91875 30.416666666666668 L 21.91875 29.25 L 21.09375 29.25 L 21.09375 28.0 A 0.5 0.5 0 0 1 21.59375 27.5 Z" fill="#1565C0" stroke="none"/>
+      <path d="M 30.09375 27.5 L 34.59375 27.5 A 0.5 0.5 0 0 1 35.09375 28.0 L 35.09375 29.25 L 34.26875 29.25 L 34.26875 30.416666666666668 L 35.09375 30.416666666666668 L 35.09375 34.0 A 0.5 0.5 0 0 1 34.59375 34.5 L 30.09375 34.5 A 0.5 0.5 0 0 1 29.59375 34.0 L 29.59375 30.416666666666668 L 30.41875 30.416666666666668 L 30.41875 29.25 L 29.59375 29.25 L 29.59375 28.0 A 0.5 0.5 0 0 1 30.09375 27.5 Z" fill="#1565C0" stroke="none"/>
+      <line x1="26.59375" y1="28.34" x2="29.59375" y2="28.34"
             stroke="#3DA015" stroke-width="1.2"/>
-      <line x1="18.5" y1="32.4" x2="21.5" y2="32.4"
+      <line x1="26.59375" y1="32.4" x2="29.59375" y2="32.4"
             stroke="#FF0000" stroke-width="1.2"/>
-      <text x="30.0" y="32.0"
+      <text x="38.09375" y="32.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">OptionalGroup_0…</text>
 
@@ -348,28 +353,30 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
-      <path d="M 124.5625 38.5
-            L 127.0625 38.5
-            L 127.0625 40.166666666666664
-            L 129.5625 40.166666666666664
-            L 129.5625 38.5
-            L 134.5625 38.5
-            L 134.5625 48.5
-            L 129.5625 48.5
-            L 129.5625 46.833333333333336
-            L 127.0625 46.833333333333336
-            L 127.0625 48.5
-            L 124.5625 48.5
+            fill="#000000">AOption_IN</text>
+      <path d="M 140.75 38.5
+            L 143.25 38.5
+            L 143.25 40.166666666666664
+            L 145.75 40.166666666666664
+            L 145.75 38.5
+            L 150.75 38.5
+            L 150.75 48.5
+            L 145.75 48.5
+            L 145.75 46.833333333333336
+            L 143.25 46.833333333333336
+            L 143.25 48.5
+            L 140.75 48.5
             Z" fill="#845DAF"/>
-      <text x="121.5625" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000" text-anchor="end">PLUG1</text>
+      <text x="137.75" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+            fill="#000000" text-anchor="end">AOption_OUT</text>
       <!-- Instance Name -->
-      <text x="67.28125" y="-5"
+      <text x="75.375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OptionalGroup_001a</text>
     </g>
-    <g id="fb_OptionalGroup_002" transform="translate(124.4, 306.0)">
+  </g>
+  <g transform="translate(128.46,323.48) scale(0.96) translate(-128.46,-323.48)">
+    <g id="fb_OptionalGroup_002" transform="translate(128.5, 323.5)">
       <path d="M 3 0
             L 131.5625 0
             A 3 3 0 0 1 134.5625 3
@@ -440,13 +447,15 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
+            fill="#000000">AOption_IN</text>
       <!-- Instance Name -->
       <text x="67.28125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OptionalGroup_002</text>
     </g>
-    <g id="fb_DummyGroup" transform="translate(143.7, 35.0)">
+  </g>
+  <g transform="translate(147.06,211.88) scale(0.96) translate(-147.06,-211.88)">
+    <g id="fb_DummyGroup" transform="translate(147.1, 211.9)">
       <path d="M 3 0
             L 108.3125 0
             A 3 3 0 0 1 111.3125 3
@@ -517,13 +526,15 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
+            fill="#000000">AOption_IN</text>
       <!-- Instance Name -->
       <text x="55.65625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">DummyGroup</text>
     </g>
-    <g id="fb_OptionalGroup_001b" transform="translate(150.4, 185.6)">
+  </g>
+  <g transform="translate(155.82,379.28) scale(0.96) translate(-155.82,-379.28)">
+    <g id="fb_OptionalGroup_001b" transform="translate(155.8, 379.3)">
       <path d="M 3 0
             L 131.5625 0
             A 3 3 0 0 1 134.5625 3
@@ -594,12 +605,13 @@
             L 0 48.5
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
-            fill="#000000">OPTION</text>
+            fill="#000000">AOption_IN</text>
       <!-- Instance Name -->
       <text x="67.28125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">OptionalGroup_001b</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_094b3c_AX</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Wie Uebung_094b3_AX, aber K=2 aktiviert zwei</text>

@@ -56,10 +56,11 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="168.1,94.5 177.1,94.5 182.1,99.5 182.1,193.0 177.1,198.0 97.4,198.0 92.4,203.0 92.4,228.5 97.4,233.5 106.4,233.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="163.3,94.0 176.3,94.0 181.3,99.0 181.3,197.7 176.3,202.7 108.5,202.7 103.5,207.7 103.5,234.1 107.5,238.1 113.5,238.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 50.0)">
+  <g transform="translate(48.00,51.28) scale(0.96) translate(-48.00,-51.28)">
+    <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 51.3)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -152,7 +153,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SoftKey_UP_F1</text>
     </g>
-    <g id="fb_Q_CtrlAudioSignal" transform="translate(106.4, 206.0)">
+  </g>
+  <g transform="translate(113.52,211.68) scale(0.96) translate(-113.52,-211.68)">
+    <g id="fb_Q_CtrlAudioSignal" transform="translate(113.5, 211.7)">
       <path d="M 3 0
             L 175.625 0
             A 3 3 0 0 1 178.625 3
@@ -261,6 +264,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_CtrlAudioSignal</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_017</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Control Audio Signal</text>

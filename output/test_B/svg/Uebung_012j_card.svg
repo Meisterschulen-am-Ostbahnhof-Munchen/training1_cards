@@ -56,13 +56,14 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="249.1,152.8 258.1,152.8 263.1,157.8 263.1,238.2 258.1,243.2 121.9,243.2 117.2,238.5 117.2,236.2 121.9,231.5 131.2,231.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="249.1,101.8 258.1,101.8 263.1,106.8 263.1,289.3 258.1,294.3 83.6,294.3 78.6,289.3 78.6,140.8 83.6,135.8 92.6,135.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="164.8,79.5 173.8,79.5 178.8,84.5 178.8,119.7 173.8,124.7 80.9,124.7 78.6,122.3 78.6,121.2 80.9,118.8 92.6,118.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="249.1,238.8 261.4,238.8 263.1,240.6 263.1,241.4 261.4,243.2 122.2,243.2 117.2,248.2 117.2,295.5 122.2,300.5 131.2,300.5" fill="none" stroke="#BD8663" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="164.8,148.5 173.8,148.5 178.8,143.5 178.8,129.7 173.8,124.7 83.6,124.7 78.6,129.7 78.6,250.8 83.6,255.8 92.6,255.8" fill="none" stroke="#BD8663" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="246.3,215.1 259.3,215.1 264.3,220.1 264.3,339.9 259.3,344.9 132.4,344.9 127.4,349.9 127.4,364.8 131.4,368.8 137.4,368.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="246.3,166.2 259.3,166.2 264.3,171.2 264.3,350.4 259.3,355.4 91.1,355.4 86.1,350.4 86.1,202.8 90.1,198.8 96.1,198.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="160.1,77.7 173.1,77.7 178.1,82.7 178.1,153.6 173.1,158.6 91.1,158.6 86.1,163.6 86.1,178.5 90.1,182.5 96.1,182.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="246.3,297.7 255.3,297.7 260.3,302.7 260.3,335.9 255.3,340.9 128.4,340.9 123.4,345.9 123.4,430.1 128.4,435.1 137.4,435.1" fill="none" stroke="#BD8663" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="160.1,144.0 169.9,144.0 174.1,148.2 174.1,150.3 169.9,154.6 87.1,154.6 82.1,159.6 82.1,309.0 87.1,314.0 96.1,314.0" fill="none" stroke="#BD8663" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_StringValue_IS" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 113.8125 0
@@ -155,7 +156,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">StringValue_IS</text>
     </g>
-    <g id="fb_INI" transform="translate(92.6, 91.3)">
+  </g>
+  <g transform="translate(96.05,156.08) scale(0.96) translate(-96.05,-156.08)">
+    <g id="fb_INI" transform="translate(96.1, 156.1)">
       <path d="M 3 0
             L 153.5 0
             A 3 3 0 0 1 156.5 3
@@ -264,7 +267,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">INI</text>
     </g>
-    <g id="fb_Q_StringValue" transform="translate(131.2, 204.0)">
+  </g>
+  <g transform="translate(137.40,342.44) scale(0.96) translate(-137.40,-342.44)">
+    <g id="fb_Q_StringValue" transform="translate(137.4, 342.4)">
       <path d="M 3 0
             L 150.75 0
             A 3 3 0 0 1 153.75 3
@@ -355,6 +360,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_StringValue</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_012j</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">String Input und Speichern INI</text>

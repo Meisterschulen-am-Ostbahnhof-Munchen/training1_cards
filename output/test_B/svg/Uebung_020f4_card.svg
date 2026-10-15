@@ -56,12 +56,13 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="285.0,77.5 294.0,77.5 299.0,82.5 299.0,210.0 294.0,215.0 39.0,215.0 34.0,220.0 34.0,228.5 39.0,233.5 48.0,233.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="147.2,320.5 156.2,320.5 161.2,315.5 161.2,220.0 156.2,215.0 137.9,215.0 132.9,210.0 132.9,203.5 137.9,198.5 146.9,198.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="147.2,320.5 156.2,320.5 161.2,315.5 161.2,220.0 156.2,215.0 137.9,215.0 132.9,210.0 132.9,203.5 137.9,198.5 146.9,198.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="299.8,152.9 312.8,152.9 317.8,157.9 317.8,214.0 312.8,219.0 43.0,219.0 38.0,214.0 38.0,166.9 42.0,162.9 48.0,162.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="143.2,246.4 150.4,246.4 155.2,251.2 155.2,264.2 160.0,269.0 167.2,269.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="143.2,246.4 150.4,246.4 155.2,251.2 155.2,264.2 160.0,269.0 167.2,269.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AX_BLINK" transform="translate(48.0, 223.0)">
+  <g transform="translate(48.00,152.80) scale(0.96) translate(-48.00,-152.80)">
+    <g id="fb_AX_BLINK" transform="translate(48.0, 152.8)">
       <path d="M 3 0
             L 96.1875 0
             A 3 3 0 0 1 99.1875 3
@@ -146,7 +147,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_BLINK</text>
     </g>
-    <g id="fb_DigitalOutput_1A" transform="translate(146.9, 67.0)">
+  </g>
+  <g transform="translate(167.22,142.80) scale(0.96) translate(-167.22,-142.80)">
+    <g id="fb_DigitalOutput_1A" transform="translate(167.2, 142.8)">
       <path d="M 3 0
             L 135.125 0
             A 3 3 0 0 1 138.125 3
@@ -247,6 +250,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">DigitalOutput_1A</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_020f4</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">DigitalInput_I1 auf DataPanel_1A; BLINKER</text>

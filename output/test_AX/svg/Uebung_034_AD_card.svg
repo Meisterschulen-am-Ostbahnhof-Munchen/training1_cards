@@ -57,13 +57,14 @@
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
     <polyline points="15.0,350.0 170.0,350.0 175.0,345.0 175.0,205.0 180.0,200.0 335.0,200.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,372.5 38.0,377.5 128.3,377.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,372.5 38.0,377.5 128.3,377.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="221.7,377.5 312.0,377.5 317.0,372.5 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="221.7,377.5 312.0,377.5 317.0,372.5 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,371.4 38.0,376.4 130.2,376.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,371.4 38.0,376.4 130.2,376.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="219.8,376.4 312.0,376.4 317.0,371.4 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="219.8,376.4 312.0,376.4 317.0,371.4 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_AD_SHL" transform="translate(128.3, 314.0)">
+  <g transform="translate(130.21,315.44) scale(0.96) translate(-130.21,-315.44)">
+    <g id="fb_AD_SHL" transform="translate(130.2, 315.4)">
       <path d="M 3 0
             L 90.3125 0
             A 3 3 0 0 1 93.3125 3
@@ -156,6 +157,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_SHL</text>
     </g>
+  </g>
   </g>
   <path d="M 0,336.5 L 2,336.5 A 13.5,13.5 0 0,1 2,363.5 L 0,363.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="350.0" x2="15" y2="350.0" stroke="#BDC3C7" stroke-width="0.6"/>

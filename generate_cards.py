@@ -43,6 +43,10 @@ CARD_H_MM = 90.0
 SVG_W = 350.0
 SVG_H = 450.0
 UNITS_PER_CM = 50.0
+# Blocks are drawn 4 % smaller so that the port rows fit the 1 cm pin grid (52 -> 50 units between REQ and CD)
+BLOCK_SCALE = 0.96
+# Vertical clearance between stacked blocks: room for the instance name drawn above the lower block
+BLOCK_LABEL_GAP = 26.0
 
 DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
 DEFAULT_EXERCISES_DIRS = [
@@ -499,6 +503,18 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
     pins = get_pin_positions()
 
+    # Scale block geometry (placement uses the scaled sizes, rendering draws the original and scales the group)
+    block_orig = {}
+    for inst in logic_instances:
+        block_orig[inst.name] = (inst.block_width, inst.block_height, inst.name_section_bottom,
+                                 getattr(inst, "adapter_section_top", None))
+        inst.block_width *= BLOCK_SCALE
+        inst.block_height *= BLOCK_SCALE
+        inst.name_section_bottom *= BLOCK_SCALE
+        if getattr(inst, "adapter_section_top", None) is not None:
+            inst.adapter_section_top *= BLOCK_SCALE
+    port_row = renderer.PORT_ROW_HEIGHT * BLOCK_SCALE
+
     # 4. Map connections and find active pins
     card_connections = []
     active_pins = set()
@@ -614,6 +630,23 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 inst_avail_w = max(0.0, (x_safe_max - x_safe_min) - inst.block_width)
                 inst.render_x = x_safe_min + norm_x * inst_avail_w
 
+        # Blocks in the leftmost column that are fed directly by input pins get 1 cm extra room, so the
+        # event/data wires from the pins have space (skipped if the shift would make blocks overlap horizontally)
+        fed_by_pin = {c["dest_inst"] for c in card_connections if c.get("source_pin") and c.get("dest_inst")}
+        for inst in logic_instances:
+            if inst.name not in fed_by_pin or inst.x != min_4d_x:
+                continue
+            shift = UNITS_PER_CM
+            new_x = inst.render_x + shift
+            if new_x + inst.block_width > x_safe_max:
+                continue
+            def x_overlap(a_x, a_w, b):
+                return a_x < b.render_x + b.block_width and b.render_x < a_x + a_w
+            if any(o is not inst and not x_overlap(inst.render_x, inst.block_width, o)
+                   and x_overlap(new_x, inst.block_width, o) for o in logic_instances):
+                continue
+            inst.render_x = new_x
+
         # Snap blocks that are in different columns but placed on roughly the same row in 4diac (dy <= 60.0)
         # to the exact same row to prevent artificial vertical staggering, but only if they do not overlap horizontally
         sorted_logic = sorted(logic_instances, key=lambda inst: inst.y)
@@ -642,7 +675,7 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                                  inst_b.render_x < inst_a.render_x + inst_a.block_width)
                 in_same_column = horiz_overlap or (abs(inst_a.x - inst_b.x) <= 400.0)
                 if dy_4d > 10.0 and in_same_column:
-                    req_scale = (inst_a.block_height + 16.0) / dy_4d
+                    req_scale = (inst_a.block_height + BLOCK_LABEL_GAP) / dy_4d
                     if req_scale > min_scale_needed:
                         min_scale_needed = req_scale
 
@@ -663,41 +696,156 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         for inst in logic_instances:
             inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
 
+        # Blocks that still overlap (the 4diac y-spacing was compressed too much to fit the card) are stacked
+        # on top of each other in 4diac order within the remaining free space
+        def overlaps(a, b, gap):
+            return (a.render_x < b.render_x + b.block_width and b.render_x < a.render_x + a.block_width and
+                    a.render_y < b.render_y + b.block_height + gap and b.render_y < a.render_y + a.block_height + gap)
+
+        if any(overlaps(a, b, 0.0) for i, a in enumerate(logic_instances) for b in logic_instances[i + 1:]):
+            # Stacking order follows the data flow (sources above sinks), not the 4diac y-position
+            names = {i.name for i in logic_instances}
+            links = {(c["source_inst"], c["dest_inst"]) for c in card_connections
+                     if c.get("source_inst") in names and c.get("dest_inst") in names
+                     and c["source_inst"] != c["dest_inst"]}
+            depth = {n: 0 for n in names}
+            for _ in range(len(names)):
+                for s, d in links:
+                    if depth[d] < depth[s] + 1 and depth[s] + 1 < len(names):
+                        depth[d] = depth[s] + 1
+            def flow_key(i):
+                return (depth[i.name], i.render_y, i.y)
+            for gap in (10.0, 6.0, 3.0):
+                for inst in logic_instances:
+                    inst.render_y = group_top_y + (inst.y - min_4d_y) * scale_y
+                order = sorted(logic_instances, key=flow_key)
+                for _ in range(len(order)):
+                    moved = False
+                    for bi, b in enumerate(order):
+                        for a in order[:bi]:
+                            if overlaps(a, b, gap):
+                                b.render_y = a.render_y + a.block_height + gap
+                                moved = True
+                    if not moved:
+                        break
+                if max(i.render_y + i.block_height for i in logic_instances) <= y_safe_max:
+                    break
+            # Close gaps left by the compressed spacing (blocks move up, in order), then spread the
+            # remaining free space evenly between the stacked blocks
+            order = sorted(logic_instances, key=flow_key)
+            for bi, b in enumerate(order):
+                above = [a.render_y + a.block_height + gap for a in order[:bi]
+                         if a.render_x < b.render_x + b.block_width and b.render_x < a.render_x + a.block_width]
+                b.render_y = max([y_safe_min] + above)
+            stacked = [bi for bi, b in enumerate(order)
+                       if any(a.render_x < b.render_x + b.block_width and b.render_x < a.render_x + a.block_width
+                              for a in order[:bi])]
+            free = y_safe_max - max(i.render_y + i.block_height for i in logic_instances)
+            if stacked and free > 0:
+                extra = min(20.0, free / len(stacked))
+                for bi, b in enumerate(order):
+                    b.render_y += extra * sum(1 for s in stacked if s <= bi)
+
+    # Snap blocks fed by input pins to the 1 cm pin grid: shift each block so that the port of its topmost
+    # nearly aligned pin->port connection (max. 20 units off) sits exactly at the pin height; the other
+    # ports keep their fixed spacing and are bent normally by the router
+    def in_port_dy(inst, port_name):
+        row = port_row
+        for k, port in enumerate(inst.event_inputs):
+            if port.name == port_name:
+                return 2 * BLOCK_SCALE + row / 2 + k * row
+        for k, port in enumerate(inst.data_inputs):
+            if port.name == port_name:
+                return inst.name_section_bottom + 2 * BLOCK_SCALE + row / 2 + k * row
+        return None
+
+    inst_by_name_snap = {i.name: i for i in logic_instances}
+    for inst in logic_instances:
+        diffs = []
+        for c in card_connections:
+            if c.get("source_pin") in pins and c.get("dest_inst") == inst.name:
+                dy_port = in_port_dy(inst, c.get("dest_port"))
+                if dy_port is not None:
+                    d = pins[c["source_pin"]].y - (inst.render_y + dy_port)
+                    if abs(d) <= 20.0:
+                        diffs.append((pins[c["source_pin"]].y, d))
+        if not diffs:
+            continue
+        shift = min(diffs)[1]
+        new_y = inst.render_y + shift
+        if new_y < 30.0 or new_y + inst.block_height > 395.0:
+            continue
+        old_y = inst.render_y
+        inst.render_y = new_y
+        if any(o is not inst and o.render_x < inst.render_x + inst.block_width and inst.render_x < o.render_x + o.block_width
+               and o.render_y < inst.render_y + inst.block_height + 4.0 and inst.render_y < o.render_y + o.block_height + 4.0
+               for o in logic_instances):
+            inst.render_y = old_y
+
+    # Block-to-block connections whose ports are (almost) vertically above each other would be routed as a
+    # straight vertical line; give them room for a Z (destination block right, then source block left)
+    Z_MIN_GAP = 24.0
+    X_MAX_RIGHT = 300.0
+    X_MIN_LEFT = 60.0
+    inst_names_z = {i.name: i for i in logic_instances}
+
+    def x_clash(inst):
+        return any(o is not inst and o.render_x < inst.render_x + inst.block_width and inst.render_x < o.render_x + o.block_width
+                   and o.render_y < inst.render_y + inst.block_height + 4.0 and inst.render_y < o.render_y + o.block_height + 4.0
+                   for o in logic_instances)
+
+    for c in card_connections:
+        a = inst_names_z.get(c.get("source_inst"))
+        b = inst_names_z.get(c.get("dest_inst"))
+        if a is None or b is None or a is b:
+            continue
+        gap = b.render_x - (a.render_x + a.block_width)
+        if not (0.0 <= gap < Z_MIN_GAP) or abs(a.render_y - b.render_y) < 2.0:
+            continue
+        need = Z_MIN_GAP - gap
+        old_bx, old_ax = b.render_x, a.render_x
+        b.render_x += max(0.0, min(need, X_MAX_RIGHT - (b.render_x + b.block_width)))
+        need -= b.render_x - old_bx
+        if need > 0.0:
+            a.render_x -= max(0.0, min(need, a.render_x - X_MIN_LEFT))
+        if x_clash(a) or x_clash(b):
+            a.render_x, b.render_x = old_ax, old_bx
+
     # Recompute port positions on the placed logic instances
     instance_map = {}
     for inst in logic_instances:
         instance_map[inst.name] = inst
         inst.port_positions = {}
         # Event inputs
-        y = inst.render_y + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.event_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Event outputs
-        y = inst.render_y + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.event_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Data inputs
-        y = inst.render_y + inst.name_section_bottom + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.data_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Data outputs
-        y = inst.render_y + inst.name_section_bottom + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.data_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Sockets (adapter inputs)
-        y = inst.render_y + inst.adapter_section_top + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.sockets:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
         # Plugs (adapter outputs)
-        y = inst.render_y + inst.adapter_section_top + 2 + renderer.PORT_ROW_HEIGHT / 2
+        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
         for port in inst.plugs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += renderer.PORT_ROW_HEIGHT
+            y += port_row
 
     # 6. Build SVG content
     svg = []
@@ -794,11 +942,57 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                     "dx": dx,
                 })
 
-    for item, t in zip(left_conns, assign_connection_tracks(left_conns)):
-        item["cinfo"]["assigned_mid_x"] = min(item["dx"] - 12.0, item["sx"] + 18.0 + t * 6.0)
+    # Event lines run slightly offset from data lines (wires leaving one pin towards an event and a
+    # data port would otherwise be drawn exactly on top of each other)
+    EVENT_LINE_OFFSET = 3.0
+    inst_by_name_all = {inst.name: inst for inst in model.instances}
 
-    for item, t in zip(right_conns, assign_connection_tracks(right_conns)):
-        item["cinfo"]["assigned_mid_x"] = max(item["sx"] + 12.0, item["dx"] - 18.0 - t * 6.0)
+    def is_event_port(inst_name, port_name, outputs):
+        inst = inst_by_name_all.get(inst_name)
+        if inst is None:
+            return False
+        ports = inst.event_outputs if outputs else inst.event_inputs
+        return any(p.name == port_name for p in ports)
+
+    def share_tracks(conns, tracks, key):
+        """Connections of the same signal (same destination/source port) share one vertical track."""
+        best = {}
+        for item, tr in zip(conns, tracks):
+            k = key(item["cinfo"])
+            if k[0] is not None and item["needs_bend"]:
+                best[k] = min(best.get(k, tr), tr)
+        return [best.get(key(item["cinfo"]), tr) if item["needs_bend"] else tr
+                for item, tr in zip(conns, tracks)]
+
+    left_tracks = share_tracks(left_conns, assign_connection_tracks(left_conns),
+                               lambda c: (c.get("dest_inst"), c.get("dest_port")))
+    right_tracks = share_tracks(right_conns, assign_connection_tracks(right_conns),
+                                lambda c: (c.get("source_inst"), c.get("source_port")))
+
+    def place_tracks(conns, tracks, outputs):
+        """Data lines take their own tracks; all event lines of a channel (one signal per port) run
+        on a common x in the middle between the outermost data lines (default: slightly offset)."""
+        left = conns is left_conns
+        def base_x(item, tr):
+            if left:
+                return min(item["dx"] - 12.0, item["sx"] + 18.0 + tr * 6.0)
+            return max(item["sx"] + 12.0, item["dx"] - 18.0 - tr * 6.0)
+        is_ev = []
+        for item in conns:
+            ci = item["cinfo"]
+            name, port = (ci.get("source_inst"), ci.get("source_port")) if outputs else (ci.get("dest_inst"), ci.get("dest_port"))
+            is_ev.append(is_event_port(name, port, outputs))
+        data_x = [base_x(it, tr) for it, tr, ev in zip(conns, tracks, is_ev) if not ev and it["needs_bend"]]
+        mid = (min(data_x) + max(data_x)) / 2.0 if len(set(data_x)) > 1 else None
+        for item, tr, ev in zip(conns, tracks, is_ev):
+            x = base_x(item, tr)
+            if ev:
+                x = mid if (mid is not None and item["needs_bend"]) else x + (EVENT_LINE_OFFSET if left else -EVENT_LINE_OFFSET)
+                x = min(item["dx"] - 12.0, x) if left else max(item["sx"] + 12.0, x)
+            item["cinfo"]["assigned_mid_x"] = x
+
+    place_tracks(left_conns, left_tracks, False)
+    place_tracks(right_conns, right_tracks, True)
 
     # Internal block-to-block connections (sx <= dx) that share a vertical routing channel
     internal_conns = []
@@ -933,6 +1127,14 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
                 out_x = sx + 14.0
                 in_x = dx - 14.0
+                # Event wires of a block-to-block cascade run slightly offset (x and y) from the data wires so both
+                # stay visible without crossing. Event ports sit above data ports: going down the event wire is the
+                # outer one at the first bend and the inner one at the last; going up it is the other way round
+                if is_event_port(cinfo.get("source_inst"), cinfo.get("source_port"), True):
+                    sign = 1.0 if dy > sy else -1.0
+                    out_x += 4.0 * sign
+                    in_x += 4.0 * sign
+                    gap_y += 4.0
                 waypoints = [
                     (sx, sy),
                     (out_x, sy),
@@ -1036,7 +1238,18 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     # Render logic FB instances
     svg.append('  <g id="instances">')
     for inst in logic_instances:
+        bw, bh, nsb, ast = block_orig[inst.name]
+        scaled = (inst.block_width, inst.block_height, inst.name_section_bottom, getattr(inst, "adapter_section_top", None))
+        inst.block_width, inst.block_height, inst.name_section_bottom = bw, bh, nsb
+        if ast is not None:
+            inst.adapter_section_top = ast
+        svg.append(f'  <g transform="translate({inst.render_x:.2f},{inst.render_y:.2f}) scale({BLOCK_SCALE}) '
+                   f'translate({-inst.render_x:.2f},{-inst.render_y:.2f})">')
         svg.append(renderer._render_instance(inst))
+        svg.append('  </g>')
+        inst.block_width, inst.block_height, inst.name_section_bottom = scaled[:3]
+        if ast is not None:
+            inst.adapter_section_top = scaled[3]
     svg.append('  </g>')
 
     # Left margin pins: I1 to I8 and AI1 to AI8 (only if used!)
@@ -1423,15 +1636,19 @@ def analyze_exercise_layout(
             if dst_port in all_in_ports:
                 port_idx = all_in_ports.index(dst_port)
                 pnum = io_pins[src_inst][1]
-                blk_in_conns.setdefault(dst_inst, []).append((pnum, dst_port, port_idx))
+                is_event = dst_port in [p.name for p in inst.event_inputs]
+                blk_in_conns.setdefault(dst_inst, []).append((pnum, dst_port, port_idx, is_event))
 
     for blk_name, conns in blk_in_conns.items():
         if len(conns) > 1:
             conns_sorted = sorted(conns, key=lambda x: x[0])
             for i in range(len(conns_sorted) - 1):
                 for j in range(i + 1, len(conns_sorted)):
-                    p1, port1, idx1 = conns_sorted[i]
-                    p2, port2, idx2 = conns_sorted[j]
+                    p1, port1, idx1, ev1 = conns_sorted[i]
+                    p2, port2, idx2, ev2 = conns_sorted[j]
+                    # Crossings between an event line and a data line are not worth reporting
+                    if ev1 != ev2:
+                        continue
                     if p1 < p2 and idx1 > idx2:
                         blk_type = blocks[blk_name][0].split('::')[-1]
                         issues.append(
@@ -1452,15 +1669,19 @@ def analyze_exercise_layout(
             if src_port in all_out_ports:
                 port_idx = all_out_ports.index(src_port)
                 pnum = io_pins[dst_inst][1]
-                blk_out_conns.setdefault(src_inst, []).append((pnum, src_port, port_idx))
+                is_event = src_port in [p.name for p in inst.event_outputs]
+                blk_out_conns.setdefault(src_inst, []).append((pnum, src_port, port_idx, is_event))
 
     for blk_name, conns in blk_out_conns.items():
         if len(conns) > 1:
             conns_sorted = sorted(conns, key=lambda x: x[0])
             for i in range(len(conns_sorted) - 1):
                 for j in range(i + 1, len(conns_sorted)):
-                    p1, port1, idx1 = conns_sorted[i]
-                    p2, port2, idx2 = conns_sorted[j]
+                    p1, port1, idx1, ev1 = conns_sorted[i]
+                    p2, port2, idx2, ev2 = conns_sorted[j]
+                    # Crossings between an event line and a data line are not worth reporting
+                    if ev1 != ev2:
+                        continue
                     if p1 < p2 and idx1 > idx2:
                         blk_type = blocks[blk_name][0].split('::')[-1]
                         issues.append(

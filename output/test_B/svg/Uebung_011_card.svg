@@ -56,11 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="175.5,128.5 184.5,128.5 189.5,133.5 189.5,210.0 184.5,215.0 128.7,215.0 123.7,220.0 123.7,228.5 128.7,233.5 137.7,233.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="175.5,197.5 184.5,197.5 189.5,202.5 189.5,210.0 184.5,215.0 128.7,215.0 123.7,220.0 123.7,263.5 128.7,268.5 137.7,268.5" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,126.6 183.4,126.6 188.4,131.6 188.4,214.0 183.4,219.0 138.6,219.0 133.6,224.0 133.6,234.1 137.6,238.1 143.6,238.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,192.9 179.4,192.9 184.4,197.9 184.4,210.0 179.4,215.0 134.6,215.0 129.6,220.0 129.6,266.7 134.6,271.7 143.6,271.7" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_F_DWORD_TO_UDINT" transform="translate(137.7, 223.0)">
+  <g transform="translate(143.58,228.00) scale(0.96) translate(-143.58,-228.00)">
+    <g id="fb_F_DWORD_TO_UDINT" transform="translate(143.6, 228.0)">
       <path d="M 3 0
             L 144.3125 0
             A 3 3 0 0 1 147.3125 3
@@ -130,7 +131,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_DWORD_TO_UDINT</text>
     </g>
-    <g id="fb_InputNumber_I1" transform="translate(48.0, 84.0)">
+  </g>
+  <g transform="translate(48.00,83.92) scale(0.96) translate(-48.00,-83.92)">
+    <g id="fb_InputNumber_I1" transform="translate(48.0, 83.9)">
       <path d="M 3 0
             L 124.5 0
             A 3 3 0 0 1 127.5 3
@@ -222,6 +225,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">InputNumber_I1</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_011</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">Numeric Value Input</text>

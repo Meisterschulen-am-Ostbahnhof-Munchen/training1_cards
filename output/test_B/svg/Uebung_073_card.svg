@@ -56,12 +56,13 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="185.6,62.5 194.6,62.5 199.6,67.5 199.6,91.5 194.6,96.5 119.9,96.5 114.9,91.5 114.9,67.5 119.9,62.5 128.9,62.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="171.5,197.5 180.5,197.5 185.5,202.5 185.5,226.5 180.5,231.5 120.1,231.5 115.1,226.5 115.1,202.5 120.1,197.5 129.1,197.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="185.6,199.5 194.6,199.5 199.6,194.5 199.6,101.5 194.6,96.5 119.9,96.5 114.9,101.5 114.9,126.5 119.9,131.5 128.9,131.5" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="171.5,351.5 180.5,351.5 185.5,346.5 185.5,236.5 180.5,231.5 120.1,231.5 115.1,236.5 115.1,261.5 120.1,266.5 129.1,266.5" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="180.1,61.4 193.1,61.4 198.1,66.4 198.1,344.7 193.1,349.7 130.1,349.7 125.1,354.7 125.1,479.1 129.1,483.1 135.1,483.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="166.6,264.1 179.6,264.1 184.6,269.1 184.6,514.7 179.6,519.7 130.4,519.7 125.4,524.7 125.4,600.2 129.4,604.2 135.4,604.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="180.1,192.9 189.1,192.9 194.1,197.9 194.1,340.7 189.1,345.7 126.1,345.7 121.1,350.7 121.1,544.3 126.1,549.3 135.1,549.3" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="166.6,411.9 175.6,411.9 180.6,416.9 180.6,510.7 175.6,515.7 126.4,515.7 121.4,520.7 121.4,665.4 126.4,670.4 135.4,670.4" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
+  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
     <g id="fb_I_GBSD" transform="translate(48.0, 35.0)">
       <path d="M 3 0
             L 134.625 0
@@ -159,7 +160,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">I_GBSD</text>
     </g>
-    <g id="fb_Q_NumericValue_GBSD" transform="translate(128.9, 35.0)">
+  </g>
+  <g transform="translate(135.10,456.68) scale(0.96) translate(-135.10,-456.68)">
+    <g id="fb_Q_NumericValue_GBSD" transform="translate(135.1, 456.7)">
       <path d="M 3 0
             L 152.875 0
             A 3 3 0 0 1 155.875 3
@@ -250,7 +253,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_GBSD</text>
     </g>
-    <g id="fb_I_VDS" transform="translate(48.3, 170.0)">
+  </g>
+  <g transform="translate(48.35,237.68) scale(0.96) translate(-48.35,-237.68)">
+    <g id="fb_I_VDS" transform="translate(48.3, 237.7)">
       <path d="M 3 0
             L 120.1875 0
             A 3 3 0 0 1 123.1875 3
@@ -350,7 +355,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">I_VDS</text>
     </g>
-    <g id="fb_Q_NumericValue_WBSD" transform="translate(129.1, 170.0)">
+  </g>
+  <g transform="translate(135.36,577.76) scale(0.96) translate(-135.36,-577.76)">
+    <g id="fb_Q_NumericValue_WBSD" transform="translate(135.4, 577.8)">
       <path d="M 3 0
             L 152.875 0
             A 3 3 0 0 1 155.875 3
@@ -441,6 +448,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Q_NumericValue_WBSD</text>
     </g>
+  </g>
   </g>
   <text x="175" y="415" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="10.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Uebung_073</text>
   <text x="175" y="428.0" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="7.5" fill="#566573" text-anchor="middle">VDS auf UT ausgeben</text>

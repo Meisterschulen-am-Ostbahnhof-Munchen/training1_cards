@@ -57,18 +57,19 @@
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
     <polyline points="15.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,350.0 46.0,350.0 51.0,345.0 51.0,186.0 56.0,181.0 137.7,181.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,200.0 28.0,200.0 33.0,195.0 33.0,115.0 38.0,110.0 48.0,110.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,350.0 31.0,350.0 36.0,345.0 36.0,190.6 41.0,185.6 143.6,185.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,200.0 31.0,200.0 36.0,195.0 36.0,111.8 41.0,106.8 98.0,106.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 170.0,50.0 175.0,55.0 175.0,195.0 180.0,200.0 335.0,200.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 170.0,50.0 175.0,55.0 175.0,345.0 180.0,350.0 335.0,350.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,350.0 40.0,350.0 45.0,345.0 45.0,186.0 50.0,181.0 137.7,181.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,200.0 28.0,200.0 33.0,195.0 33.0,115.0 38.0,110.0 48.0,110.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,350.0 31.0,350.0 36.0,345.0 36.0,190.6 41.0,185.6 143.6,185.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,200.0 31.0,200.0 36.0,195.0 36.0,111.8 41.0,106.8 98.0,106.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 335.0,50.0" fill="none" stroke="#3366FF" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,350.0 28.0,350.0 33.0,345.0 33.0,221.0 38.0,216.0 137.7,216.0" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,200.0 31.0,200.0 36.0,195.0 36.0,149.8 40.8,145.0 48.0,145.0" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,350.0 28.0,350.0 33.0,345.0 33.0,224.2 38.0,219.2 143.6,219.2" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="15.0,200.0 34.0,200.0 39.0,195.0 39.0,145.4 44.0,140.4 98.0,140.4" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-    <g id="fb_F_DWORD_TO_UDINT_I7" transform="translate(137.7, 170.5)">
+  <g transform="translate(143.58,175.50) scale(0.96) translate(-143.58,-175.50)">
+    <g id="fb_F_DWORD_TO_UDINT_I7" transform="translate(143.6, 175.5)">
       <path d="M 3 0
             L 144.3125 0
             A 3 3 0 0 1 147.3125 3
@@ -138,7 +139,9 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_DWORD_TO_UDINT_I7</text>
     </g>
-    <g id="fb_F_DWORD_TO_UDINT_I4" transform="translate(48.0, 99.5)">
+  </g>
+  <g transform="translate(98.00,96.70) scale(0.96) translate(-98.00,-96.70)">
+    <g id="fb_F_DWORD_TO_UDINT_I4" transform="translate(98.0, 96.7)">
       <path d="M 3 0
             L 144.3125 0
             A 3 3 0 0 1 147.3125 3
@@ -208,6 +211,7 @@
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F_DWORD_TO_UDINT_I4</text>
     </g>
+  </g>
   </g>
   <path d="M 0,36.5 L 2,36.5 A 13.5,13.5 0 0,1 2,63.5 L 0,63.5 Z" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1.2"/>
   <line x1="12" y1="50.0" x2="15" y2="50.0" stroke="#BDC3C7" stroke-width="0.6"/>
