@@ -1134,7 +1134,7 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
     svg_content = generate_card_svg(subapp_file)
-    c = canvas.Canvas(output_pdf, pagesize=A4)
+    c = canvas.Canvas(output_pdf, pagesize=A4, invariant=1)
     page_w, page_h = A4
 
     card_w = 7.0 * cm
@@ -1186,7 +1186,7 @@ def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    c = canvas.Canvas(output_pdf, pagesize=A4)
+    c = canvas.Canvas(output_pdf, pagesize=A4, invariant=1)
     page_w, page_h = A4
 
     card_w = 7.0 * cm
@@ -1281,7 +1281,7 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
     page_w = card_w + 2 * margin
     page_h = card_h + 2 * margin
 
-    c = canvas.Canvas(output_pdf, pagesize=(page_w, page_h))
+    c = canvas.Canvas(output_pdf, pagesize=(page_w, page_h), invariant=1)
 
     # Set PDF prepress boxes
     c.setTrimBox((margin, margin, margin + card_w, margin + card_h))
@@ -1310,7 +1310,7 @@ def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_7
         os.makedirs(out_dir, exist_ok=True)
     card_w = 7.0 * cm
     card_h = 9.0 * cm
-    c = canvas.Canvas(output_pdf, pagesize=(card_w, card_h))
+    c = canvas.Canvas(output_pdf, pagesize=(card_w, card_h), invariant=1)
     c.setTrimBox((0, 0, card_w, card_h))
     svg_content = generate_card_svg(subapp_file)
     render_card_on_pdf(c, svg_content, 0, 0, card_w, card_h)
