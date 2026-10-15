@@ -35,15 +35,15 @@ w = L.append
 
 w("# Schönheits-Report: Übungskarten `output/test_AX/exact_70x90`")
 w("")
-w("Automatische ästhetische Bewertung aller 498 Karten im 70 × 90 mm-Format.")
+w(f"Automatische ästhetische Bewertung aller {N} Karten im 70 × 90 mm-Format.")
 w("")
 w("| | |")
 w("|---|---|")
 w("| Ordner | `output/test_AX/exact_70x90` |")
-w("| Karten | 498 PDF-Dateien |")
+w(f"| Karten | {N} PDF-Dateien |")
 w("| Kartenformat | 70,0 × 90,0 mm (198,43 × 255,12 pt) |")
 w("| Bewertungsgrundlage | Vektorgeometrie der PDF + Rasterauswertung (150 dpi) |")
-w("| Ergebnis | Median 84,6 von 100 Punkten |")
+w(f"| Ergebnis | Median {de(D['median_total'])} von 100 Punkten |")
 w("")
 w("> [!NOTE]")
 w("> Bewertet wird ausschließlich das **Layout der fertigen Karte** (Linienführung, Flächennutzung,")
@@ -93,6 +93,19 @@ def pct_of(key):
     return de(s[key].split(' (')[0].replace('%', '').strip()) + " %"
 def stat_line(label, key):
     return f"| {label} | {pct_of(key)} ({cnt_of(key)} Karten) |"
+def get(name, field):
+    for r in rows:
+        if r['ex'] == name:
+            return f(r, field)
+    return 0.0
+def num(x):
+    return str(int(round(x)))
+# top crossing examples, taken from the data so the text follows re-runs
+by_cross = sorted(rows, key=lambda r: -f(r, 'crossings'))
+CROSS1, CROSS2 = by_cross[0]['ex'], by_cross[1]['ex']
+CROSS1_N, CROSS2_N = num(f(by_cross[0], 'crossings')), num(f(by_cross[1], 'crossings'))
+# worst overhang beyond the bottom edge (stored in scores.csv by score.py)
+WORST_B = de(f"{max(f(r, 'clip_worst_b') for r in rows):.1f}")
 w("| Beobachtung | Anteil der Karten |")
 w("|---|---|")
 w(stat_line("mindestens eine Linienkreuzung", 'crossings_gt0'))
@@ -157,8 +170,8 @@ w("### 5.1 Linienkreuzungen")
 w("")
 w(f"{pct_of('crossings_gt0')} ({cnt_of('crossings_gt0')} Karten) weisen mindestens eine echte "
   f"Kreuzung zweier Leitungen auf, {pct_of('crossings_ge20')} ({cnt_of('crossings_ge20')} Karten) sogar mehr als 20. "
-  "Spitzenreiter sind `Uebung_122b_AX` (6575 erkannte "
-  "Schnittpunkte) und `Uebung_122_AX` (3590). Bereits ab etwa 5 Kreuzungen wird der Signalfluss "
+  f"Spitzenreiter sind `{CROSS1}` ({CROSS1_N} erkannte "
+  f"Schnittpunkte) und `{CROSS2}` ({CROSS2_N}). Bereits ab etwa 5 Kreuzungen wird der Signalfluss "
   "schwer nachvollziehbar; die Kreuzungen stammen überwiegend aus invertierten Pin-Zuordnungen "
   "(siehe [`fix-TODO.md`](fix-TODO.md)) und aus der schieren Netzdichte.")
 w("")
@@ -190,7 +203,7 @@ w(f"Konkret messbar: {pct_of('clip_left')} ({cnt_of('clip_left')} Karten) haben 
   f"`Uebung_011b1_AX`), und {pct_of('clip_bottom')} ({cnt_of('clip_bottom')} Karten) haben Text, der über "
   "den **unteren Rand** hinausragt "
   "(`Uebung_020e2_AX`, `Uebung_020f2_AX`, `Uebung_094b_AX`, `Uebung_103c2`, `Uebung_160b_AX`, "
-  "`Uebung_248_AX` – bis zu 5,8 pt ≈ 2 mm abgeschnitten; das ist echte, im Druck sichtbare Kürzung).")
+  f"`Uebung_248_AX` – bis zu {WORST_B} pt ≈ 2 mm abgeschnitten; das ist echte, im Druck sichtbare Kürzung).")
 w("")
 w("### 5.5 Top-lastige Karten / ungenutzte Kartenfläche")
 w("")
@@ -198,11 +211,12 @@ w(f"{pct_of('bottom_gap_gt40')} ({cnt_of('bottom_gap_gt40')} Karten) lassen mehr
   "unterhalb des Netzwerks leer, "
   "weil der Baustein auf die mittlere Höhe der genutzten Eingänge zentriert wird und niedrige Klemmen "
   "(I1, I2 …) physikalisch weit oben liegen. Das ist funktional richtig, wirkt aber leer und "
-  "unausgewogen – Beispiele `Uebung_001_AX` (83 % Leerraum unten), `Uebung_001c_AX`, "
+  f"unausgewogen – Beispiele `Uebung_001_AX` ({num(get('Uebung_001_AX', 'centre_bottom_gap_pct'))} % Leerraum "
+  "unten), `Uebung_001c_AX`, "
   "`Uebung_004a_AX`, `Uebung_001e_AX`, `Uebung_004b6_AX`, `Uebung_005_AX`.")
 w("")
-w("Umgekehrt gibt es nur 5 Karten mit großem Freiraum oben (`Uebung_034_AX` mit 61 %), weil dort nur "
-  "hohe Klemmen genutzt werden.")
+w(f"Umgekehrt gibt es nur {cnt_of('top_gap_gt40')} Karten mit großem Freiraum oben (`Uebung_034_AX` mit "
+  f"{num(get('Uebung_034_AX', 'centre_top_gap_pct'))} %), weil dort nur hohe Klemmen genutzt werden.")
 w("")
 w("### 5.6 Zu leere und zu volle Karten")
 w("")
@@ -229,10 +243,10 @@ w("---")
 w("")
 w("## 6. Was durchgängig gut ist")
 w("")
-w("- Einheitliches Grundraster (1-cm-Klemmenraster, Halbkreis-Badges links/rechts) über alle 498 Karten.")
+w(f"- Einheitliches Grundraster (1-cm-Klemmenraster, Halbkreis-Badges links/rechts) über alle {N} Karten.")
 w("- Konsequente TGL-Normschrift, klare Titel-/Beschreibungstypografie im unteren Band.")
 w(f"- {pc(N - int(s['crossings_gt0'].split('(')[1].rstrip(')')))} aller Karten kommen **ohne jede Kreuzung** aus.")
-w("- Keine einzige überlappende Bausteinfläche wurde gefunden (`n_block_overlaps` = 0 auf allen 498 Karten).")
+w(f"- Keine einzige überlappende Bausteinfläche wurde gefunden (`n_block_overlaps` = 0 auf allen {N} Karten).")
 w("- Gute Ergebnisqualität bei den Standard-Ein-/Ausgangsübungen (`Uebung_011*`, `Uebung_070*`, "
   "`Uebung_010*`, `Uebung_012*`, `Uebung_201*`).")
 w("")
@@ -264,7 +278,7 @@ w("7. **Pin-Inversionen weiter abbauen.** Die in `fix-TODO.md` gelisteten Fälle
 w("")
 w("---")
 w("")
-w("## 8. Anhang: Gesamtranking aller 498 Karten")
+w(f"## 8. Anhang: Gesamtranking aller {N} Karten")
 w("")
 w("Sortiert nach Gesamtpunktzahl (absteigend). Kreuz. = erkannte Linienkreuzungen, "
   "Textü. = Text-über-Text-Überlappungen, Leer unten = ungenutzte Kartenhöhe unterhalb des Netzwerks, "
@@ -292,6 +306,17 @@ w("3. Aus einer 150-dpi-Rasterisierung werden Tintendeckung, Clutter-Hotspot, Fr
   "Schwerpunktverschiebung bestimmt.")
 w("4. Textzeilen (Bounding-Boxen) liefern Zeilenzahl, Überlappungen und Randüberstände.")
 w("5. Gewichtung nach Abschnitt 1 → Gesamtpunktzahl → Note.")
+w("")
+w("Die Skripte liegen im Repository unter [`tools/beauty_report/`](tools/beauty_report/) und laufen in "
+  "dieser Reihenfolge:")
+w("")
+w("```bash")
+w("python tools/beauty_report/analyze.py     # Karten -> thumbs/ + metrics.csv")
+w("python tools/beauty_report/clipcheck.py   # Randüberstände -> clip.csv")
+w("python tools/beauty_report/score.py       # metrics + clip -> scores.csv")
+w("python tools/beauty_report/reportdata.py  # scores -> report_data.json")
+w("python tools/beauty_report/make_report.py # -> dieses Dokument")
+w("```")
 w("")
 w("> [!IMPORTANT]")
 w("> Die Bewertung ist ein **heuristisches Modell**, keine objektive Wahrheit. Es priorisiert technische")
