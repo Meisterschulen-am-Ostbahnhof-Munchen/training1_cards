@@ -811,6 +811,11 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         top_y = 35.0 if needed > (395.0 - top_y_current) else top_y_current
         avail = 395.0 - top_y
         if needed <= avail:
+            # Fits after moving the column up to the top: stack it there without shrinking
+            if top_y != top_y_current:
+                tops, _ = _stack(column, top_y, 1.0)
+                for inst, y in zip(column, tops):
+                    inst.render_y = y
             continue
         shrink = max(0.01, avail / needed)
         if shrink >= 1.0:
