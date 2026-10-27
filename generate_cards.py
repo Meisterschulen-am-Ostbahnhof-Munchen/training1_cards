@@ -16,16 +16,24 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional, Set
 
+REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+# Sibling checkouts (default) or explicit paths via environment variables
+_PARENT_DIR = os.path.dirname(REPO_DIR)
+
 # Add path to IEC61499_FunctionBlock_SVG renderer
-SVG_LIB_PATH = r"/home/moritz/Git-Repos/IEC61499_FunctionBlock_SVG"
+SVG_LIB_PATH = os.environ.get("IEC61499_SVG_TOOL", os.path.join(_PARENT_DIR, "IEC61499_FunctionBlock_SVG"))
 if SVG_LIB_PATH not in sys.path and os.path.exists(SVG_LIB_PATH):
     sys.path.append(SVG_LIB_PATH)
 
-from iec61499_network_to_svg import (
-    NetworkParser, TypeResolver, NetworkSVGRenderer, NetworkLayoutEngine,
-    load_block_size_settings, FBInstance, Connection, NetworkModel,
-    _xml_escape
-)
+try:
+    from iec61499_network_to_svg import (
+        NetworkParser, TypeResolver, NetworkSVGRenderer, NetworkLayoutEngine,
+        load_block_size_settings, FBInstance, Connection, NetworkModel,
+        _xml_escape
+    )
+except ImportError as exc:
+    sys.exit(f"[FEHLER] IEC61499_FunctionBlock_SVG nicht gefunden unter {SVG_LIB_PATH}: {exc}\n"
+             f"         Repository daneben auschecken oder Umgebungsvariable IEC61499_SVG_TOOL setzen.")
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -48,33 +56,29 @@ BLOCK_SCALE = 0.96
 # Vertical clearance between stacked blocks: room for the instance name drawn above the lower block
 BLOCK_LABEL_GAP = 26.0
 
-# DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
-# DEFAULT_EXERCISES_DIRS = [
-#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
-#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
-# ]
-# DEFAULT_EXERCISES_DIR = DEFAULT_EXERCISES_DIRS[0]
-# DEFAULT_TYPE_LIBS = [
-#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib",
-#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
-#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
-# ]
+WORKSPACE_DIR = os.environ.get(
+    "TRAINING1_WORKSPACE",
+    os.path.join(_PARENT_DIR, "4diac_training1", "Ventilsteuerung", "4diacIDE-workspace"))
 
-DEFAULT_EXERCISE = r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_002a_AX.SUB"
+DEFAULT_EXERCISE = os.path.join(WORKSPACE_DIR, "test_AX", "Uebungen", "Uebung_002a_AX.SUB")
 DEFAULT_EXERCISES_DIRS = [
-    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX",
-    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B",
+    os.path.join(WORKSPACE_DIR, "test_AX"),
+    os.path.join(WORKSPACE_DIR, "test_B"),
 ]
 DEFAULT_EXERCISES_DIR = DEFAULT_EXERCISES_DIRS[0]
 DEFAULT_TYPE_LIBS = [
-    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/.lib",
-    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX",
-    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B",
+    os.path.join(WORKSPACE_DIR, ".lib"),
+    os.path.join(WORKSPACE_DIR, "test_AX"),
+    os.path.join(WORKSPACE_DIR, "test_B"),
 ]
 
-_FONTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
-TGL_17_PATH = os.path.join(_FONTS_DIR, "TGL 0-17.ttf")
-TGL_16_PATH = os.path.join(_FONTS_DIR, "TGL 0-16.ttf")
+# TGL-Normschrift ships with this repository (tgl/, corrected _std variants)
+_FONTS_DIR = os.path.join(REPO_DIR, "tgl")
+TGL_17_PATH = os.path.join(_FONTS_DIR, "TGL 0-17_std.ttf")
+TGL_16_PATH = os.path.join(_FONTS_DIR, "TGL 0-16_std.ttf")
+for _font_path in (TGL_17_PATH, TGL_16_PATH):
+    if not os.path.exists(_font_path):
+        print(f"[WARNUNG] TGL-Schrift fehlt: {_font_path} - Karten nutzen Ersatzschrift.", file=sys.stderr)
 
 EVENT_LABELS = {
     "BUTTON_SINGLE_CLICK": "Klicken",
@@ -786,14 +790,24 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     # Blocks are stacked with the same BLOCK_LABEL_GAP clearance used elsewhere (rendered-space,
     # calibrated for extra_scale=1.0); it shrinks together with the blocks themselves so the
     # instance name above each block never collides with the block above it.
+    # A block is only stacked below the blocks it actually overlaps horizontally, so blocks of a
+    # (transitively connected) column that do not overlap each other share rows; the height
+    # needed is the tallest such chain, not the sum of all blocks in the column.
+    def _stack(column, top_y, scale):
+        """Returns the stacked top y of every block (column sorted top to bottom) and the height used."""
+        tops = []
+        for bi, b in enumerate(column):
+            above = [tops[ai] + a.block_height * scale + BLOCK_LABEL_GAP * scale
+                     for ai, a in enumerate(column[:bi]) if _x_overlap(a, b)]
+            tops.append(max([top_y] + above))
+        return tops, max(t + i.block_height * scale for t, i in zip(tops, column)) - top_y
+
     for column in columns:
         column.sort(key=lambda i: i.render_y)
-        sum_h = sum(i.block_height for i in column)
-        if sum_h <= 0:
+        if sum(i.block_height for i in column) <= 0:
             continue
-        n = len(column)
-        needed = sum_h + (n - 1) * BLOCK_LABEL_GAP
         top_y_current = min(i.render_y for i in column)
+        _, needed = _stack(column, top_y_current, 1.0)
         top_y = 35.0 if needed > (395.0 - top_y_current) else top_y_current
         avail = 395.0 - top_y
         if needed <= avail:
@@ -801,8 +815,9 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         shrink = max(0.01, avail / needed)
         if shrink >= 1.0:
             continue
-        y = top_y
-        for inst in column:
+        # Positions are computed from the unshrunk widths, i.e. with the same overlaps as `needed`
+        tops, _ = _stack(column, top_y, shrink)
+        for inst, y in zip(column, tops):
             old_w = inst.block_width
             inst.block_width *= shrink
             inst.block_height *= shrink
@@ -812,7 +827,6 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             inst.extra_scale *= shrink
             inst.render_x += (old_w - inst.block_width) / 2.0
             inst.render_y = y
-            y += inst.block_height + BLOCK_LABEL_GAP * shrink
 
     # Snap blocks fed by input pins to the 1 cm pin grid: shift each block so that the port of its topmost
     # nearly aligned pin->port connection (max. 20 units off) sits exactly at the pin height; the other
