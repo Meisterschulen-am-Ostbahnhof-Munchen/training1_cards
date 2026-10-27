@@ -17,7 +17,7 @@ from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional, Set
 
 # Add path to IEC61499_FunctionBlock_SVG renderer
-SVG_LIB_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG"
+SVG_LIB_PATH = r"/home/moritz/Git-Repos/IEC61499_FunctionBlock_SVG"
 if SVG_LIB_PATH not in sys.path and os.path.exists(SVG_LIB_PATH):
     sys.path.append(SVG_LIB_PATH)
 
@@ -48,20 +48,33 @@ BLOCK_SCALE = 0.96
 # Vertical clearance between stacked blocks: room for the instance name drawn above the lower block
 BLOCK_LABEL_GAP = 26.0
 
-DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
+# DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
+# DEFAULT_EXERCISES_DIRS = [
+#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
+#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+# ]
+# DEFAULT_EXERCISES_DIR = DEFAULT_EXERCISES_DIRS[0]
+# DEFAULT_TYPE_LIBS = [
+#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib",
+#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
+#     r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+# ]
+
+DEFAULT_EXERCISE = r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_002a_AX.SUB"
 DEFAULT_EXERCISES_DIRS = [
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX",
+    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B",
 ]
 DEFAULT_EXERCISES_DIR = DEFAULT_EXERCISES_DIRS[0]
 DEFAULT_TYPE_LIBS = [
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib",
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/.lib",
+    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX",
+    r"/home/moritz/Git-Repos/4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_B",
 ]
 
-TGL_17_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-17_std.ttf"
-TGL_16_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-16_std.ttf"
+_FONTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
+TGL_17_PATH = os.path.join(_FONTS_DIR, "TGL 0-17.ttf")
+TGL_16_PATH = os.path.join(_FONTS_DIR, "TGL 0-16.ttf")
 
 EVENT_LABELS = {
     "BUTTON_SINGLE_CLICK": "Klicken",
@@ -746,17 +759,73 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 for bi, b in enumerate(order):
                     b.render_y += extra * sum(1 for s in stacked if s <= bi)
 
+    # Final safety net: a column can still be too tall to fit the card after stacking at the
+    # minimum gap (too many blocks, or a single block that is inherently very tall/wide, e.g.
+    # Uebung_028c2_AR or Uebung_009a_AX). Shrink just the blocks of that column further, in place
+    # around their own center, until the whole column fits within the card's safe area.
+    for inst in logic_instances:
+        inst.extra_scale = 1.0
+
+    def _x_overlap(a, b):
+        return a.render_x < b.render_x + b.block_width and b.render_x < a.render_x + a.block_width
+
+    remaining = list(logic_instances)
+    columns = []
+    while remaining:
+        column = [remaining.pop()]
+        changed = True
+        while changed:
+            changed = False
+            for inst in remaining[:]:
+                if any(_x_overlap(inst, c) for c in column):
+                    column.append(inst)
+                    remaining.remove(inst)
+                    changed = True
+        columns.append(column)
+
+    # Blocks are stacked with the same BLOCK_LABEL_GAP clearance used elsewhere (rendered-space,
+    # calibrated for extra_scale=1.0); it shrinks together with the blocks themselves so the
+    # instance name above each block never collides with the block above it.
+    for column in columns:
+        column.sort(key=lambda i: i.render_y)
+        sum_h = sum(i.block_height for i in column)
+        if sum_h <= 0:
+            continue
+        n = len(column)
+        needed = sum_h + (n - 1) * BLOCK_LABEL_GAP
+        top_y_current = min(i.render_y for i in column)
+        top_y = 35.0 if needed > (395.0 - top_y_current) else top_y_current
+        avail = 395.0 - top_y
+        if needed <= avail:
+            continue
+        shrink = max(0.01, avail / needed)
+        if shrink >= 1.0:
+            continue
+        y = top_y
+        for inst in column:
+            old_w = inst.block_width
+            inst.block_width *= shrink
+            inst.block_height *= shrink
+            inst.name_section_bottom *= shrink
+            if getattr(inst, "adapter_section_top", None) is not None:
+                inst.adapter_section_top *= shrink
+            inst.extra_scale *= shrink
+            inst.render_x += (old_w - inst.block_width) / 2.0
+            inst.render_y = y
+            y += inst.block_height + BLOCK_LABEL_GAP * shrink
+
     # Snap blocks fed by input pins to the 1 cm pin grid: shift each block so that the port of its topmost
     # nearly aligned pin->port connection (max. 20 units off) sits exactly at the pin height; the other
     # ports keep their fixed spacing and are bent normally by the router
     def in_port_dy(inst, port_name):
-        row = port_row
+        extra = inst.extra_scale
+        row = port_row * extra
         for k, port in enumerate(inst.event_inputs):
             if port.name == port_name:
-                return 2 * BLOCK_SCALE + row / 2 + k * row
+                return 2 * BLOCK_SCALE * extra + row / 2 + k * row
         for k, port in enumerate(inst.data_inputs):
             if port.name == port_name:
-                return inst.name_section_bottom + 2 * BLOCK_SCALE + row / 2 + k * row
+                return inst.name_section_bottom + 2 * BLOCK_SCALE * extra + row / 2 + k * row
         return None
 
     inst_by_name_snap = {i.name: i for i in logic_instances}
@@ -816,36 +885,39 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     for inst in logic_instances:
         instance_map[inst.name] = inst
         inst.port_positions = {}
+        extra = inst.extra_scale
+        inst_port_row = port_row * extra
+        top_offset = 2 * BLOCK_SCALE * extra
         # Event inputs
-        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + top_offset + inst_port_row / 2
         for port in inst.event_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += port_row
+            y += inst_port_row
         # Event outputs
-        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + top_offset + inst_port_row / 2
         for port in inst.event_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += port_row
+            y += inst_port_row
         # Data inputs
-        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.name_section_bottom + top_offset + inst_port_row / 2
         for port in inst.data_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += port_row
+            y += inst_port_row
         # Data outputs
-        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.name_section_bottom + top_offset + inst_port_row / 2
         for port in inst.data_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += port_row
+            y += inst_port_row
         # Sockets (adapter inputs)
-        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.adapter_section_top + top_offset + inst_port_row / 2
         for port in inst.sockets:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += port_row
+            y += inst_port_row
         # Plugs (adapter outputs)
-        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.adapter_section_top + top_offset + inst_port_row / 2
         for port in inst.plugs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += port_row
+            y += inst_port_row
 
     # 6. Build SVG content
     svg = []
@@ -1243,7 +1315,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         inst.block_width, inst.block_height, inst.name_section_bottom = bw, bh, nsb
         if ast is not None:
             inst.adapter_section_top = ast
-        svg.append(f'  <g transform="translate({inst.render_x:.2f},{inst.render_y:.2f}) scale({BLOCK_SCALE}) '
+        total_scale = BLOCK_SCALE * inst.extra_scale
+        svg.append(f'  <g transform="translate({inst.render_x:.2f},{inst.render_y:.2f}) scale({total_scale}) '
                    f'translate({-inst.render_x:.2f},{-inst.render_y:.2f})">')
         svg.append(renderer._render_instance(inst))
         svg.append('  </g>')
