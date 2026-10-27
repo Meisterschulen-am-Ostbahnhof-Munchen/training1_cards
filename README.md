@@ -66,7 +66,12 @@ Für die Ausführung wird Python 3.10 oder neuer benötigt sowie folgende Python
 pip install reportlab svglib
 ```
 
-Die Schriftarten (`TGL 0-17_std.ttf`, `TGL 0-16_std.ttf`) und der IEC 61499 Renderer liegen im Repository `IEC61499_FunctionBlock_SVG`. Die Typbibliothek liegt in `4diac_training1`.
+Die Schriftarten (`TGL 0-17_std.ttf`, `TGL 0-16_std.ttf`) liegen in diesem Repository im Ordner `tgl/`. Der IEC 61499 Renderer liegt im Repository `IEC61499_FunctionBlock_SVG`, die Übungen und die Typbibliothek in `4diac_training1`. Beide werden standardmäßig neben diesem Repository erwartet; andere Orte lassen sich über Umgebungsvariablen angeben:
+
+| Variable | Standard | Inhalt |
+|---|---|---|
+| `IEC61499_SVG_TOOL` | `../IEC61499_FunctionBlock_SVG` | IEC 61499 Renderer |
+| `TRAINING1_WORKSPACE` | `../4diac_training1/Ventilsteuerung/4diacIDE-workspace` | 4diac-Workspace mit Übungen und `.lib` |
 
 ---
 
