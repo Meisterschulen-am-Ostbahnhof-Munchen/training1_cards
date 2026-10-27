@@ -58,19 +58,19 @@
   <g id="connections">
   </g>
   <g id="instances">
-  <g transform="translate(109.66,30.00) scale(0.96) translate(-109.66,-30.00)">
-    <g id="fb_Uebung_012c_sub" transform="translate(109.7, 30.0)">
+  <g transform="translate(109.64,30.00) scale(0.96) translate(-109.64,-30.00)">
+    <g id="fb_Uebung_012c_sub" transform="translate(109.6, 30.0)">
       <path d="M 3 0
-            L 133.125 0
-            A 3 3 0 0 1 136.125 3
-            L 136.125 35
-            A 3 3 0 0 1 133.125 38
-            L 127.125 38
-            L 127.125 52
-            L 133.125 52
-            A 3 3 0 0 1 136.125 55
-            L 136.125 120
-            A 3 3 0 0 1 133.125 123
+            L 133.16015625 0
+            A 3 3 0 0 1 136.16015625 3
+            L 136.16015625 35
+            A 3 3 0 0 1 133.16015625 38
+            L 127.16015625 38
+            L 127.16015625 52
+            L 133.16015625 52
+            A 3 3 0 0 1 136.16015625 55
+            L 136.16015625 120
+            A 3 3 0 0 1 133.16015625 123
             L 3 123
             A 3 3 0 0 1 0 120
             L 0 55
@@ -116,11 +116,11 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">INIT</text>
-      <polygon points="131.125,5.5 136.125,10.5 131.125,15.5" fill="#63B31F"/>
-      <text x="130.125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="131.16015625,5.5 136.16015625,10.5 131.16015625,15.5" fill="#63B31F"/>
+      <text x="130.16015625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
-      <polygon points="131.125,22.5 136.125,27.5 131.125,32.5" fill="#63B31F"/>
-      <text x="130.125" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="131.16015625,22.5 136.16015625,27.5 131.16015625,32.5" fill="#63B31F"/>
+      <text x="130.16015625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">IND</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#A3B08F"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -134,18 +134,18 @@
       <polygon points="0,107.5 5,112.5 0,117.5" fill="#18519E"/>
       <text x="6" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">u16ObjId</text>
-      <polygon points="131.125,56.5 136.125,61.5 131.125,66.5" fill="#A3B08F"/>
-      <text x="130.125" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="131.16015625,56.5 136.16015625,61.5 131.16015625,66.5" fill="#A3B08F"/>
+      <text x="130.16015625" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">QO</text>
-      <polygon points="131.125,73.5 136.125,78.5 131.125,83.5" fill="#18519E"/>
-      <text x="130.125" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="131.16015625,73.5 136.16015625,78.5 131.16015625,83.5" fill="#18519E"/>
+      <text x="130.16015625" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">VALUEO</text>
       <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">KEY_I1_STORE</text>
       <text x="-3" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">SECTION_I1_STORE</text>
       <text x="-3" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">InputNumber_I1</text>
 
       <!-- Instance Name -->
-      <text x="68.0625" y="-5"
+      <text x="68.080078125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Uebung_012c_sub</text>
     </g>

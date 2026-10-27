@@ -56,25 +56,25 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="214.3,91.0 312.0,91.0 317.0,86.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="214.3,91.0 312.0,91.0 317.0,86.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,86.0 38.0,91.0 135.7,91.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,86.0 38.0,91.0 135.7,91.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="214.4,91.0 312.0,91.0 317.0,86.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="214.4,91.0 312.0,91.0 317.0,86.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,86.0 38.0,91.0 135.6,91.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,86.0 38.0,91.0 135.6,91.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(135.67,30.00) scale(0.96) translate(-135.67,-30.00)">
-    <g id="fb_AX_TON" transform="translate(135.7, 30.0)">
+  <g transform="translate(135.65,30.00) scale(0.96) translate(-135.65,-30.00)">
+    <g id="fb_AX_TON" transform="translate(135.6, 30.0)">
       <path d="M 3 0
-            L 78.9375 0
-            A 3 3 0 0 1 81.9375 3
-            L 81.9375 18
-            A 3 3 0 0 1 78.9375 21
-            L 72.9375 21
-            L 72.9375 35
-            L 78.9375 35
-            A 3 3 0 0 1 81.9375 38
-            L 81.9375 69
-            A 3 3 0 0 1 78.9375 72
+            L 78.984375 0
+            A 3 3 0 0 1 81.984375 3
+            L 81.984375 18
+            A 3 3 0 0 1 78.984375 21
+            L 72.984375 21
+            L 72.984375 35
+            L 78.984375 35
+            A 3 3 0 0 1 81.984375 38
+            L 81.984375 69
+            A 3 3 0 0 1 78.984375 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 38
@@ -136,23 +136,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN</text>
-      <path d="M 71.9375 56.5
-            L 74.4375 56.5
-            L 74.4375 58.166666666666664
-            L 76.9375 58.166666666666664
-            L 76.9375 56.5
-            L 81.9375 56.5
-            L 81.9375 66.5
-            L 76.9375 66.5
-            L 76.9375 64.83333333333333
-            L 74.4375 64.83333333333333
-            L 74.4375 66.5
-            L 71.9375 66.5
+      <path d="M 71.984375 56.5
+            L 74.484375 56.5
+            L 74.484375 58.166666666666664
+            L 76.984375 58.166666666666664
+            L 76.984375 56.5
+            L 81.984375 56.5
+            L 81.984375 66.5
+            L 76.984375 66.5
+            L 76.984375 64.83333333333333
+            L 74.484375 64.83333333333333
+            L 74.484375 66.5
+            L 71.984375 66.5
             Z" fill="#845DAF"/>
-      <text x="68.9375" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="68.984375" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="40.96875" y="-5"
+      <text x="40.9921875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_TON</text>
     </g>

@@ -62,19 +62,19 @@
     <polyline points="215.0,99.9 312.0,99.9 317.0,94.9 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(135.01,39.92) scale(0.96) translate(-135.01,-39.92)">
+  <g transform="translate(134.99,39.92) scale(0.96) translate(-134.99,-39.92)">
     <g id="fb_AUI_CTU" transform="translate(135.0, 39.9)">
       <path d="M 3 0
-            L 80.3125 0
-            A 3 3 0 0 1 83.3125 3
-            L 83.3125 35
-            A 3 3 0 0 1 80.3125 38
-            L 74.3125 38
-            L 74.3125 52
-            L 80.3125 52
-            A 3 3 0 0 1 83.3125 55
-            L 83.3125 86
-            A 3 3 0 0 1 80.3125 89
+            L 80.361328125 0
+            A 3 3 0 0 1 83.361328125 3
+            L 83.361328125 35
+            A 3 3 0 0 1 80.361328125 38
+            L 74.361328125 38
+            L 74.361328125 52
+            L 80.361328125 52
+            A 3 3 0 0 1 83.361328125 55
+            L 83.361328125 86
+            A 3 3 0 0 1 80.361328125 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 55
@@ -120,11 +120,11 @@
       <polygon points="0,22.5 5,27.5 0,32.5" fill="#63B31F"/>
       <text x="6" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">R</text>
-      <polygon points="78.3125,5.5 83.3125,10.5 78.3125,15.5" fill="#63B31F"/>
-      <text x="77.3125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="78.361328125,5.5 83.361328125,10.5 78.361328125,15.5" fill="#63B31F"/>
+      <text x="77.361328125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">CUO</text>
-      <polygon points="78.3125,22.5 83.3125,27.5 78.3125,32.5" fill="#63B31F"/>
-      <text x="77.3125" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="78.361328125,22.5 83.361328125,27.5 78.361328125,32.5" fill="#63B31F"/>
+      <text x="77.361328125" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">RO</text>
 
 
@@ -143,38 +143,38 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">PV</text>
-      <path d="M 73.3125 55.5
-            L 75.8125 55.5
-            L 75.8125 57.166666666666664
-            L 78.3125 57.166666666666664
-            L 78.3125 55.5
-            L 83.3125 55.5
-            L 83.3125 65.5
-            L 78.3125 65.5
-            L 78.3125 63.833333333333336
-            L 75.8125 63.833333333333336
-            L 75.8125 65.5
-            L 73.3125 65.5
+      <path d="M 73.361328125 55.5
+            L 75.861328125 55.5
+            L 75.861328125 57.166666666666664
+            L 78.361328125 57.166666666666664
+            L 78.361328125 55.5
+            L 83.361328125 55.5
+            L 83.361328125 65.5
+            L 78.361328125 65.5
+            L 78.361328125 63.833333333333336
+            L 75.861328125 63.833333333333336
+            L 75.861328125 65.5
+            L 73.361328125 65.5
             Z" fill="#845DAF"/>
-      <text x="70.3125" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="70.361328125" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
-      <path d="M 73.3125 72.5
-            L 75.8125 72.5
-            L 75.8125 74.16666666666667
-            L 78.3125 74.16666666666667
-            L 78.3125 72.5
-            L 83.3125 72.5
-            L 83.3125 82.5
-            L 78.3125 82.5
-            L 78.3125 80.83333333333333
-            L 75.8125 80.83333333333333
-            L 75.8125 82.5
-            L 73.3125 82.5
+      <path d="M 73.361328125 72.5
+            L 75.861328125 72.5
+            L 75.861328125 74.16666666666667
+            L 78.361328125 74.16666666666667
+            L 78.361328125 72.5
+            L 83.361328125 72.5
+            L 83.361328125 82.5
+            L 78.361328125 82.5
+            L 78.361328125 80.83333333333333
+            L 75.861328125 80.83333333333333
+            L 75.861328125 82.5
+            L 73.361328125 82.5
             Z" fill="#845DAF"/>
-      <text x="70.3125" y="81.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="70.361328125" y="81.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">CV</text>
       <!-- Instance Name -->
-      <text x="41.65625" y="-5"
+      <text x="41.6806640625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AUI_CTU</text>
     </g>
