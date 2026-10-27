@@ -56,29 +56,29 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="219.8,101.0 312.0,101.0 317.0,96.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="219.8,101.0 312.0,101.0 317.0,96.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,96.0 44.0,101.0 130.2,101.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,96.0 44.0,101.0 130.2,101.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,112.3 38.0,117.3 130.2,117.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,112.3 38.0,117.3 130.2,117.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 28.0,150.0 33.0,145.0 33.0,138.6 38.0,133.6 130.2,133.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,150.0 28.0,150.0 33.0,145.0 33.0,138.6 38.0,133.6 130.2,133.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="219.7,101.0 312.0,101.0 317.0,96.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="219.7,101.0 312.0,101.0 317.0,96.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,96.0 44.0,101.0 130.3,101.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,96.0 44.0,101.0 130.3,101.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,112.3 38.0,117.3 130.3,117.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,100.0 28.0,100.0 33.0,105.0 33.0,112.3 38.0,117.3 130.3,117.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 28.0,150.0 33.0,145.0 33.0,138.6 38.0,133.6 130.3,133.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,150.0 28.0,150.0 33.0,145.0 33.0,138.6 38.0,133.6 130.3,133.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(130.24,57.28) scale(0.96) translate(-130.24,-57.28)">
-    <g id="fb_AX_AND_3" transform="translate(130.2, 57.3)">
+  <g transform="translate(130.30,57.28) scale(0.96) translate(-130.30,-57.28)">
+    <g id="fb_AX_AND_3" transform="translate(130.3, 57.3)">
       <path d="M 3 0
-            L 90.240234375 0
-            A 3 3 0 0 1 93.240234375 3
-            L 93.240234375 18
-            A 3 3 0 0 1 90.240234375 21
-            L 84.240234375 21
-            L 84.240234375 35
-            L 90.240234375 35
-            A 3 3 0 0 1 93.240234375 38
-            L 93.240234375 86
-            A 3 3 0 0 1 90.240234375 89
+            L 90.125 0
+            A 3 3 0 0 1 93.125 3
+            L 93.125 18
+            A 3 3 0 0 1 90.125 21
+            L 84.125 21
+            L 84.125 35
+            L 90.125 35
+            A 3 3 0 0 1 93.125 38
+            L 93.125 86
+            A 3 3 0 0 1 90.125 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -166,23 +166,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="81.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN3</text>
-      <path d="M 83.240234375 38.5
-            L 85.740234375 38.5
-            L 85.740234375 40.166666666666664
-            L 88.240234375 40.166666666666664
-            L 88.240234375 38.5
-            L 93.240234375 38.5
-            L 93.240234375 48.5
-            L 88.240234375 48.5
-            L 88.240234375 46.833333333333336
-            L 85.740234375 46.833333333333336
-            L 85.740234375 48.5
-            L 83.240234375 48.5
+      <path d="M 83.125 38.5
+            L 85.625 38.5
+            L 85.625 40.166666666666664
+            L 88.125 40.166666666666664
+            L 88.125 38.5
+            L 93.125 38.5
+            L 93.125 48.5
+            L 88.125 48.5
+            L 88.125 46.833333333333336
+            L 85.625 46.833333333333336
+            L 85.625 48.5
+            L 83.125 48.5
             Z" fill="#845DAF"/>
-      <text x="80.240234375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="80.125" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT</text>
       <!-- Instance Name -->
-      <text x="46.6201171875" y="-5"
+      <text x="46.5625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_AND_3</text>
     </g>

@@ -70,16 +70,16 @@
   <g transform="translate(48.00,73.60) scale(0.96) translate(-48.00,-73.60)">
     <g id="fb_AX_T_FF_SR" transform="translate(48.0, 73.6)">
       <path d="M 3 0
-            L 102.17578125 0
-            A 3 3 0 0 1 105.17578125 3
-            L 105.17578125 52
-            A 3 3 0 0 1 102.17578125 55
-            L 96.17578125 55
-            L 96.17578125 69
-            L 102.17578125 69
-            A 3 3 0 0 1 105.17578125 72
-            L 105.17578125 86
-            A 3 3 0 0 1 102.17578125 89
+            L 102.1875 0
+            A 3 3 0 0 1 105.1875 3
+            L 105.1875 52
+            A 3 3 0 0 1 102.1875 55
+            L 96.1875 55
+            L 96.1875 69
+            L 102.1875 69
+            A 3 3 0 0 1 105.1875 72
+            L 105.1875 86
+            A 3 3 0 0 1 102.1875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 72
@@ -130,40 +130,40 @@
             fill="#000000">CLK</text>
 
 
-      <path d="M 95.17578125 72.5
-            L 97.67578125 72.5
-            L 97.67578125 74.16666666666667
-            L 100.17578125 74.16666666666667
-            L 100.17578125 72.5
-            L 105.17578125 72.5
-            L 105.17578125 82.5
-            L 100.17578125 82.5
-            L 100.17578125 80.83333333333333
-            L 97.67578125 80.83333333333333
-            L 97.67578125 82.5
-            L 95.17578125 82.5
+      <path d="M 95.1875 72.5
+            L 97.6875 72.5
+            L 97.6875 74.16666666666667
+            L 100.1875 74.16666666666667
+            L 100.1875 72.5
+            L 105.1875 72.5
+            L 105.1875 82.5
+            L 100.1875 82.5
+            L 100.1875 80.83333333333333
+            L 97.6875 80.83333333333333
+            L 97.6875 82.5
+            L 95.1875 82.5
             Z" fill="#845DAF"/>
-      <text x="92.17578125" y="81.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="92.1875" y="81.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="52.587890625" y="-5"
+      <text x="52.59375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF_SR</text>
     </g>
   </g>
-  <g transform="translate(172.97,35.00) scale(0.96) translate(-172.97,-35.00)">
+  <g transform="translate(172.98,35.00) scale(0.96) translate(-172.98,-35.00)">
     <g id="fb_LinksRechts" transform="translate(173.0, 35.0)">
       <path d="M 3 0
-            L 121.3125 0
-            A 3 3 0 0 1 124.3125 3
-            L 124.3125 18
-            A 3 3 0 0 1 121.3125 21
-            L 115.3125 21
-            L 115.3125 35
-            L 121.3125 35
-            A 3 3 0 0 1 124.3125 38
-            L 124.3125 103
-            A 3 3 0 0 1 121.3125 106
+            L 121.25 0
+            A 3 3 0 0 1 124.25 3
+            L 124.25 18
+            A 3 3 0 0 1 121.25 21
+            L 115.25 21
+            L 115.25 35
+            L 121.25 35
+            A 3 3 0 0 1 124.25 38
+            L 124.25 103
+            A 3 3 0 0 1 121.25 106
             L 3 106
             A 3 3 0 0 1 0 103
             L 0 38
@@ -203,11 +203,11 @@
       <text x="30.0" y="32.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">LinksRechts_AX</text>
-      <polygon points="119.3125,5.5 124.3125,10.5 119.3125,15.5" fill="#63B31F"/>
-      <text x="118.3125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="119.25,5.5 124.25,10.5 119.25,15.5" fill="#63B31F"/>
+      <text x="118.25" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
-      <polygon points="119.3125,39.5 124.3125,44.5 119.3125,49.5" fill="#BD8663"/>
-      <text x="118.3125" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="119.25,39.5 124.25,44.5 119.25,49.5" fill="#BD8663"/>
+      <text x="118.25" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">STATE</text>
 
       <path d="M 0 56.5
@@ -255,38 +255,38 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">DI_Links</text>
-      <path d="M 114.3125 56.5
-            L 116.8125 56.5
-            L 116.8125 58.166666666666664
-            L 119.3125 58.166666666666664
-            L 119.3125 56.5
-            L 124.3125 56.5
-            L 124.3125 66.5
-            L 119.3125 66.5
-            L 119.3125 64.83333333333333
-            L 116.8125 64.83333333333333
-            L 116.8125 66.5
-            L 114.3125 66.5
+      <path d="M 114.25 56.5
+            L 116.75 56.5
+            L 116.75 58.166666666666664
+            L 119.25 58.166666666666664
+            L 119.25 56.5
+            L 124.25 56.5
+            L 124.25 66.5
+            L 119.25 66.5
+            L 119.25 64.83333333333333
+            L 116.75 64.83333333333333
+            L 116.75 66.5
+            L 114.25 66.5
             Z" fill="#845DAF"/>
-      <text x="111.3125" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="111.25" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Rechts</text>
-      <path d="M 114.3125 73.5
-            L 116.8125 73.5
-            L 116.8125 75.16666666666667
-            L 119.3125 75.16666666666667
-            L 119.3125 73.5
-            L 124.3125 73.5
-            L 124.3125 83.5
-            L 119.3125 83.5
-            L 119.3125 81.83333333333333
-            L 116.8125 81.83333333333333
-            L 116.8125 83.5
-            L 114.3125 83.5
+      <path d="M 114.25 73.5
+            L 116.75 73.5
+            L 116.75 75.16666666666667
+            L 119.25 75.16666666666667
+            L 119.25 73.5
+            L 124.25 73.5
+            L 124.25 83.5
+            L 119.25 83.5
+            L 119.25 81.83333333333333
+            L 116.75 81.83333333333333
+            L 116.75 83.5
+            L 114.25 83.5
             Z" fill="#845DAF"/>
-      <text x="111.3125" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="111.25" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Links</text>
       <!-- Instance Name -->
-      <text x="62.15625" y="-5"
+      <text x="62.125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">LinksRechts</text>
     </g>

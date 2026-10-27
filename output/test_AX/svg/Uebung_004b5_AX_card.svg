@@ -63,19 +63,19 @@
     <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,73.7 38.0,78.7 98.0,78.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(213.79,40.00) scale(0.96) translate(-213.79,-40.00)">
+  <g transform="translate(213.80,40.00) scale(0.96) translate(-213.80,-40.00)">
     <g id="fb_AX_T_FF" transform="translate(213.8, 40.0)">
       <path d="M 3 0
-            L 83.396484375 0
-            A 3 3 0 0 1 86.396484375 3
-            L 86.396484375 18
-            A 3 3 0 0 1 83.396484375 21
-            L 77.396484375 21
-            L 77.396484375 35
-            L 83.396484375 35
-            A 3 3 0 0 1 86.396484375 38
-            L 86.396484375 52
-            A 3 3 0 0 1 83.396484375 55
+            L 83.375 0
+            A 3 3 0 0 1 86.375 3
+            L 86.375 18
+            A 3 3 0 0 1 83.375 21
+            L 77.375 21
+            L 77.375 35
+            L 83.375 35
+            A 3 3 0 0 1 86.375 38
+            L 86.375 52
+            A 3 3 0 0 1 83.375 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -120,23 +120,23 @@
             fill="#000000">CLK</text>
 
 
-      <path d="M 76.396484375 38.5
-            L 78.896484375 38.5
-            L 78.896484375 40.166666666666664
-            L 81.396484375 40.166666666666664
-            L 81.396484375 38.5
-            L 86.396484375 38.5
-            L 86.396484375 48.5
-            L 81.396484375 48.5
-            L 81.396484375 46.833333333333336
-            L 78.896484375 46.833333333333336
-            L 78.896484375 48.5
-            L 76.396484375 48.5
+      <path d="M 76.375 38.5
+            L 78.875 38.5
+            L 78.875 40.166666666666664
+            L 81.375 40.166666666666664
+            L 81.375 38.5
+            L 86.375 38.5
+            L 86.375 48.5
+            L 81.375 48.5
+            L 81.375 46.833333333333336
+            L 78.875 46.833333333333336
+            L 78.875 48.5
+            L 76.375 48.5
             Z" fill="#845DAF"/>
-      <text x="73.396484375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="73.375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="43.1982421875" y="-5"
+      <text x="43.1875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF</text>
     </g>
@@ -144,16 +144,16 @@
   <g transform="translate(98.00,35.00) scale(0.96) translate(-98.00,-35.00)">
     <g id="fb_AX_R_TRIG" transform="translate(98.0, 35.0)">
       <path d="M 3 0
-            L 92.61328125 0
-            A 3 3 0 0 1 95.61328125 3
-            L 95.61328125 18
-            A 3 3 0 0 1 92.61328125 21
-            L 86.61328125 21
-            L 86.61328125 35
-            L 92.61328125 35
-            A 3 3 0 0 1 95.61328125 38
-            L 95.61328125 52
-            A 3 3 0 0 1 92.61328125 55
+            L 92.625 0
+            A 3 3 0 0 1 95.625 3
+            L 95.625 18
+            A 3 3 0 0 1 92.625 21
+            L 86.625 21
+            L 86.625 35
+            L 92.625 35
+            A 3 3 0 0 1 95.625 38
+            L 95.625 52
+            A 3 3 0 0 1 92.625 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -193,8 +193,8 @@
       <text x="30.0" y="32.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">AX_R_TRIG</text>
-      <polygon points="90.61328125,5.5 95.61328125,10.5 90.61328125,15.5" fill="#63B31F"/>
-      <text x="89.61328125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="90.625,5.5 95.625,10.5 90.625,15.5" fill="#63B31F"/>
+      <text x="89.625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
 
 
@@ -214,7 +214,7 @@
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">QI</text>
       <!-- Instance Name -->
-      <text x="47.806640625" y="-5"
+      <text x="47.8125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_R_TRIG</text>
     </g>

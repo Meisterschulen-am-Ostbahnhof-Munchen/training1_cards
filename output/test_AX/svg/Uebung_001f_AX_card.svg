@@ -56,25 +56,25 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 124.4,73.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 124.4,73.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 124.5,73.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 124.5,73.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
     <polyline points="225.6,73.7 312.0,73.7 317.0,68.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
     <polyline points="225.6,73.7 312.0,73.7 317.0,68.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(124.42,30.00) scale(0.96) translate(-124.42,-30.00)">
-    <g id="fb_AX_NOT_INIT" transform="translate(124.4, 30.0)">
+  <g transform="translate(124.45,30.00) scale(0.96) translate(-124.45,-30.00)">
+    <g id="fb_AX_NOT_INIT" transform="translate(124.5, 30.0)">
       <path d="M 3 0
-            L 102.380859375 0
-            A 3 3 0 0 1 105.380859375 3
-            L 105.380859375 18
-            A 3 3 0 0 1 102.380859375 21
-            L 96.380859375 21
-            L 96.380859375 35
-            L 102.380859375 35
-            A 3 3 0 0 1 105.380859375 38
-            L 105.380859375 52
-            A 3 3 0 0 1 102.380859375 55
+            L 102.3125 0
+            A 3 3 0 0 1 105.3125 3
+            L 105.3125 18
+            A 3 3 0 0 1 102.3125 21
+            L 96.3125 21
+            L 96.3125 35
+            L 102.3125 35
+            A 3 3 0 0 1 105.3125 38
+            L 105.3125 52
+            A 3 3 0 0 1 102.3125 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -117,8 +117,8 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">INIT</text>
-      <polygon points="100.380859375,5.5 105.380859375,10.5 100.380859375,15.5" fill="#63B31F"/>
-      <text x="99.380859375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="100.3125,5.5 105.3125,10.5 100.3125,15.5" fill="#63B31F"/>
+      <text x="99.3125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
 
 
@@ -137,23 +137,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN</text>
-      <path d="M 95.380859375 38.5
-            L 97.880859375 38.5
-            L 97.880859375 40.166666666666664
-            L 100.380859375 40.166666666666664
-            L 100.380859375 38.5
-            L 105.380859375 38.5
-            L 105.380859375 48.5
-            L 100.380859375 48.5
-            L 100.380859375 46.833333333333336
-            L 97.880859375 46.833333333333336
-            L 97.880859375 48.5
-            L 95.380859375 48.5
+      <path d="M 95.3125 38.5
+            L 97.8125 38.5
+            L 97.8125 40.166666666666664
+            L 100.3125 40.166666666666664
+            L 100.3125 38.5
+            L 105.3125 38.5
+            L 105.3125 48.5
+            L 100.3125 48.5
+            L 100.3125 46.833333333333336
+            L 97.8125 46.833333333333336
+            L 97.8125 48.5
+            L 95.3125 48.5
             Z" fill="#845DAF"/>
-      <text x="92.380859375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="92.3125" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT</text>
       <!-- Instance Name -->
-      <text x="52.6904296875" y="-5"
+      <text x="52.65625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_NOT_INIT</text>
     </g>

@@ -63,19 +63,19 @@
     <polyline points="218.1,73.7 312.0,73.7 317.0,68.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(131.88,30.00) scale(0.96) translate(-131.88,-30.00)">
+  <g transform="translate(131.92,30.00) scale(0.96) translate(-131.92,-30.00)">
     <g id="fb_AX_NOOP" transform="translate(131.9, 30.0)">
       <path d="M 3 0
-            L 86.8359375 0
-            A 3 3 0 0 1 89.8359375 3
-            L 89.8359375 18
-            A 3 3 0 0 1 86.8359375 21
-            L 80.8359375 21
-            L 80.8359375 35
-            L 86.8359375 35
-            A 3 3 0 0 1 89.8359375 38
-            L 89.8359375 52
-            A 3 3 0 0 1 86.8359375 55
+            L 86.75 0
+            A 3 3 0 0 1 89.75 3
+            L 89.75 18
+            A 3 3 0 0 1 86.75 21
+            L 80.75 21
+            L 80.75 35
+            L 86.75 35
+            A 3 3 0 0 1 89.75 38
+            L 89.75 52
+            A 3 3 0 0 1 86.75 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -133,23 +133,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN</text>
-      <path d="M 79.8359375 38.5
-            L 82.3359375 38.5
-            L 82.3359375 40.166666666666664
-            L 84.8359375 40.166666666666664
-            L 84.8359375 38.5
-            L 89.8359375 38.5
-            L 89.8359375 48.5
-            L 84.8359375 48.5
-            L 84.8359375 46.833333333333336
-            L 82.3359375 46.833333333333336
-            L 82.3359375 48.5
-            L 79.8359375 48.5
+      <path d="M 79.75 38.5
+            L 82.25 38.5
+            L 82.25 40.166666666666664
+            L 84.75 40.166666666666664
+            L 84.75 38.5
+            L 89.75 38.5
+            L 89.75 48.5
+            L 84.75 48.5
+            L 84.75 46.833333333333336
+            L 82.25 46.833333333333336
+            L 82.25 48.5
+            L 79.75 48.5
             Z" fill="#845DAF"/>
-      <text x="76.8359375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="76.75" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT</text>
       <!-- Instance Name -->
-      <text x="44.91796875" y="-5"
+      <text x="44.875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_NOOP</text>
     </g>

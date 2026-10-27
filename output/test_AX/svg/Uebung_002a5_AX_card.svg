@@ -66,19 +66,19 @@
     <polyline points="15.0,150.0 28.0,150.0 33.0,145.0 33.0,138.6 38.0,133.6 133.8,133.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(133.79,57.28) scale(0.96) translate(-133.79,-57.28)">
+  <g transform="translate(133.81,57.28) scale(0.96) translate(-133.81,-57.28)">
     <g id="fb_AX_OR_3" transform="translate(133.8, 57.3)">
       <path d="M 3 0
-            L 82.845703125 0
-            A 3 3 0 0 1 85.845703125 3
-            L 85.845703125 18
-            A 3 3 0 0 1 82.845703125 21
-            L 76.845703125 21
-            L 76.845703125 35
-            L 82.845703125 35
-            A 3 3 0 0 1 85.845703125 38
-            L 85.845703125 86
-            A 3 3 0 0 1 82.845703125 89
+            L 82.8125 0
+            A 3 3 0 0 1 85.8125 3
+            L 85.8125 18
+            A 3 3 0 0 1 82.8125 21
+            L 76.8125 21
+            L 76.8125 35
+            L 82.8125 35
+            A 3 3 0 0 1 85.8125 38
+            L 85.8125 86
+            A 3 3 0 0 1 82.8125 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -166,23 +166,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="81.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN3</text>
-      <path d="M 75.845703125 38.5
-            L 78.345703125 38.5
-            L 78.345703125 40.166666666666664
-            L 80.845703125 40.166666666666664
-            L 80.845703125 38.5
-            L 85.845703125 38.5
-            L 85.845703125 48.5
-            L 80.845703125 48.5
-            L 80.845703125 46.833333333333336
-            L 78.345703125 46.833333333333336
-            L 78.345703125 48.5
-            L 75.845703125 48.5
+      <path d="M 75.8125 38.5
+            L 78.3125 38.5
+            L 78.3125 40.166666666666664
+            L 80.8125 40.166666666666664
+            L 80.8125 38.5
+            L 85.8125 38.5
+            L 85.8125 48.5
+            L 80.8125 48.5
+            L 80.8125 46.833333333333336
+            L 78.3125 46.833333333333336
+            L 78.3125 48.5
+            L 75.8125 48.5
             Z" fill="#845DAF"/>
-      <text x="72.845703125" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="72.8125" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT</text>
       <!-- Instance Name -->
-      <text x="42.9228515625" y="-5"
+      <text x="42.90625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_OR_3</text>
     </g>

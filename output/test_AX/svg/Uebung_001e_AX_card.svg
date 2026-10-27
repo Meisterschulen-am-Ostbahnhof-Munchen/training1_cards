@@ -56,25 +56,25 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 135.6,73.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 135.6,73.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="214.4,73.7 312.0,73.7 317.0,68.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="214.4,73.7 312.0,73.7 317.0,68.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 135.7,73.7" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,68.7 38.0,73.7 135.7,73.7" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="214.3,73.7 312.0,73.7 317.0,68.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="214.3,73.7 312.0,73.7 317.0,68.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(135.65,30.00) scale(0.96) translate(-135.65,-30.00)">
-    <g id="fb_AX_NOT" transform="translate(135.6, 30.0)">
+  <g transform="translate(135.67,30.00) scale(0.96) translate(-135.67,-30.00)">
+    <g id="fb_AX_NOT" transform="translate(135.7, 30.0)">
       <path d="M 3 0
-            L 78.984375 0
-            A 3 3 0 0 1 81.984375 3
-            L 81.984375 18
-            A 3 3 0 0 1 78.984375 21
-            L 72.984375 21
-            L 72.984375 35
-            L 78.984375 35
-            A 3 3 0 0 1 81.984375 38
-            L 81.984375 52
-            A 3 3 0 0 1 78.984375 55
+            L 78.9375 0
+            A 3 3 0 0 1 81.9375 3
+            L 81.9375 18
+            A 3 3 0 0 1 78.9375 21
+            L 72.9375 21
+            L 72.9375 35
+            L 78.9375 35
+            A 3 3 0 0 1 81.9375 38
+            L 81.9375 52
+            A 3 3 0 0 1 78.9375 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -132,23 +132,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN</text>
-      <path d="M 71.984375 38.5
-            L 74.484375 38.5
-            L 74.484375 40.166666666666664
-            L 76.984375 40.166666666666664
-            L 76.984375 38.5
-            L 81.984375 38.5
-            L 81.984375 48.5
-            L 76.984375 48.5
-            L 76.984375 46.833333333333336
-            L 74.484375 46.833333333333336
-            L 74.484375 48.5
-            L 71.984375 48.5
+      <path d="M 71.9375 38.5
+            L 74.4375 38.5
+            L 74.4375 40.166666666666664
+            L 76.9375 40.166666666666664
+            L 76.9375 38.5
+            L 81.9375 38.5
+            L 81.9375 48.5
+            L 76.9375 48.5
+            L 76.9375 46.833333333333336
+            L 74.4375 46.833333333333336
+            L 74.4375 48.5
+            L 71.9375 48.5
             Z" fill="#845DAF"/>
-      <text x="68.984375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="68.9375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT</text>
       <!-- Instance Name -->
-      <text x="40.9921875" y="-5"
+      <text x="40.96875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_NOT</text>
     </g>
