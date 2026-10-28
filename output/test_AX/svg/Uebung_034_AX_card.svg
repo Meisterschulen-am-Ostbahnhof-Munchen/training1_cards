@@ -57,25 +57,25 @@
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
     <polyline points="15.0,350.0 170.0,350.0 175.0,345.0 175.0,205.0 180.0,200.0 335.0,200.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,371.4 38.0,376.4 130.3,376.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,371.4 38.0,376.4 130.3,376.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="219.7,376.4 312.0,376.4 317.0,371.4 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="219.7,376.4 312.0,376.4 317.0,371.4 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,371.4 38.0,376.4 130.2,376.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="15.0,350.0 28.0,350.0 33.0,355.0 33.0,371.4 38.0,376.4 130.2,376.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="219.8,376.4 312.0,376.4 317.0,371.4 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="219.8,376.4 312.0,376.4 317.0,371.4 317.0,205.0 322.0,200.0 335.0,200.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(130.28,315.44) scale(0.96) translate(-130.28,-315.44)">
-    <g id="fb_AD_SHL" transform="translate(130.3, 315.4)">
+  <g transform="translate(130.21,315.44) scale(0.96) translate(-130.21,-315.44)">
+    <g id="fb_AD_SHL" transform="translate(130.2, 315.4)">
       <path d="M 3 0
-            L 90.162109375 0
-            A 3 3 0 0 1 93.162109375 3
-            L 93.162109375 18
-            A 3 3 0 0 1 90.162109375 21
-            L 84.162109375 21
-            L 84.162109375 35
-            L 90.162109375 35
-            A 3 3 0 0 1 93.162109375 38
-            L 93.162109375 69
-            A 3 3 0 0 1 90.162109375 72
+            L 90.3125 0
+            A 3 3 0 0 1 93.3125 3
+            L 93.3125 18
+            A 3 3 0 0 1 90.3125 21
+            L 84.3125 21
+            L 84.3125 35
+            L 90.3125 35
+            A 3 3 0 0 1 93.3125 38
+            L 93.3125 69
+            A 3 3 0 0 1 90.3125 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 38
@@ -90,29 +90,29 @@
             fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1.5"
             stroke-linejoin="round" filter="url(#dropShadow)"/>
       <!-- Name Section -->
-      <path d="M 18.46875 20.0
-            L 32.46875 20.0
-            A 1 1 0 0 1 33.46875 21.0
-            L 33.46875 24.0
-            L 31.96875 24.0
-            L 31.96875 26.666666666666668
-            L 33.46875 26.666666666666668
-            L 33.46875 35.0
-            A 1 1 0 0 1 32.46875 36.0
-            L 18.46875 36.0
-            A 1 1 0 0 1 17.46875 35.0
-            L 17.46875 26.666666666666668
-            L 18.96875 26.666666666666668
-            L 18.96875 24.0
-            L 17.46875 24.0
-            L 17.46875 21.0
-            A 1 1 0 0 1 18.46875 20.0
+      <path d="M 18.5625 20.0
+            L 32.5625 20.0
+            A 1 1 0 0 1 33.5625 21.0
+            L 33.5625 24.0
+            L 32.0625 24.0
+            L 32.0625 26.666666666666668
+            L 33.5625 26.666666666666668
+            L 33.5625 35.0
+            A 1 1 0 0 1 32.5625 36.0
+            L 18.5625 36.0
+            A 1 1 0 0 1 17.5625 35.0
+            L 17.5625 26.666666666666668
+            L 19.0625 26.666666666666668
+            L 19.0625 24.0
+            L 17.5625 24.0
+            L 17.5625 21.0
+            A 1 1 0 0 1 18.5625 20.0
             Z"
             fill="#87CEEB" stroke="#1565C0" stroke-width="1"/>
-      <text x="25.46875" y="32.0"
+      <text x="25.5625" y="32.0"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="10" font-weight="bold"
             fill="#000000" text-anchor="middle">C</text>
-      <text x="35.46875" y="32.0"
+      <text x="35.5625" y="32.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">AD_SHL</text>
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
@@ -137,23 +137,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN</text>
-      <path d="M 83.162109375 56.5
-            L 85.662109375 56.5
-            L 85.662109375 58.166666666666664
-            L 88.162109375 58.166666666666664
-            L 88.162109375 56.5
-            L 93.162109375 56.5
-            L 93.162109375 66.5
-            L 88.162109375 66.5
-            L 88.162109375 64.83333333333333
-            L 85.662109375 64.83333333333333
-            L 85.662109375 66.5
-            L 83.162109375 66.5
+      <path d="M 83.3125 56.5
+            L 85.8125 56.5
+            L 85.8125 58.166666666666664
+            L 88.3125 58.166666666666664
+            L 88.3125 56.5
+            L 93.3125 56.5
+            L 93.3125 66.5
+            L 88.3125 66.5
+            L 88.3125 64.83333333333333
+            L 85.8125 64.83333333333333
+            L 85.8125 66.5
+            L 83.3125 66.5
             Z" fill="#845DAF"/>
-      <text x="80.162109375" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="80.3125" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT</text>
       <!-- Instance Name -->
-      <text x="46.5810546875" y="-5"
+      <text x="46.65625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AD_SHL</text>
     </g>

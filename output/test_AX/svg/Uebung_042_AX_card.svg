@@ -59,19 +59,19 @@
     <polyline points="15.0,50.0 137.9,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(137.88,39.92) scale(0.96) translate(-137.88,-39.92)">
+  <g transform="translate(137.89,39.92) scale(0.96) translate(-137.89,-39.92)">
     <g id="fb_SCALE" transform="translate(137.9, 39.9)">
       <path d="M 3 0
-            L 74.33203125 0
-            A 3 3 0 0 1 77.33203125 3
-            L 77.33203125 18
-            A 3 3 0 0 1 74.33203125 21
-            L 68.33203125 21
-            L 68.33203125 35
-            L 74.33203125 35
-            A 3 3 0 0 1 77.33203125 38
-            L 77.33203125 120
-            A 3 3 0 0 1 74.33203125 123
+            L 74.3125 0
+            A 3 3 0 0 1 77.3125 3
+            L 77.3125 18
+            A 3 3 0 0 1 74.3125 21
+            L 68.3125 21
+            L 68.3125 35
+            L 74.3125 35
+            A 3 3 0 0 1 77.3125 38
+            L 77.3125 120
+            A 3 3 0 0 1 74.3125 123
             L 3 123
             A 3 3 0 0 1 0 120
             L 0 38
@@ -136,7 +136,7 @@
       <text x="-3" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">0.0</text>
 
       <!-- Instance Name -->
-      <text x="38.666015625" y="-5"
+      <text x="38.65625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SCALE</text>
     </g>

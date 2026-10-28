@@ -63,16 +63,16 @@
   <g transform="translate(120.94,30.00) scale(0.96) translate(-120.94,-30.00)">
     <g id="fb_AX_E_SWITCH" transform="translate(120.9, 30.0)">
       <path d="M 3 0
-            L 109.634765625 0
-            A 3 3 0 0 1 112.634765625 3
-            L 112.634765625 35
-            A 3 3 0 0 1 109.634765625 38
-            L 103.634765625 38
-            L 103.634765625 52
-            L 109.634765625 52
-            A 3 3 0 0 1 112.634765625 55
-            L 112.634765625 69
-            A 3 3 0 0 1 109.634765625 72
+            L 109.625 0
+            A 3 3 0 0 1 112.625 3
+            L 112.625 35
+            A 3 3 0 0 1 109.625 38
+            L 103.625 38
+            L 103.625 52
+            L 109.625 52
+            A 3 3 0 0 1 112.625 55
+            L 112.625 69
+            A 3 3 0 0 1 109.625 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -115,11 +115,11 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">EI</text>
-      <polygon points="107.634765625,5.5 112.634765625,10.5 107.634765625,15.5" fill="#63B31F"/>
-      <text x="106.634765625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="107.625,5.5 112.625,10.5 107.625,15.5" fill="#63B31F"/>
+      <text x="106.625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO0</text>
-      <polygon points="107.634765625,22.5 112.634765625,27.5 107.634765625,32.5" fill="#63B31F"/>
-      <text x="106.634765625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="107.625,22.5 112.625,27.5 107.625,32.5" fill="#63B31F"/>
+      <text x="106.625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO1</text>
 
 
@@ -139,7 +139,7 @@
       <text x="13" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">G</text>
       <!-- Instance Name -->
-      <text x="56.3173828125" y="-5"
+      <text x="56.3125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_E_SWITCH</text>
     </g>

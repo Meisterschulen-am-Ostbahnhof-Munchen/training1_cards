@@ -57,7 +57,7 @@
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
     <polyline points="15.0,100.0 31.0,100.0 36.0,95.0 36.0,55.1 40.8,50.3 48.0,50.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="155.8,50.3 202.1,50.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="155.9,50.3 202.1,50.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,78.9 38.0,83.9 48.0,83.9" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,78.9 38.0,83.9 48.0,83.9" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
     <polyline points="285.0,83.9 312.0,83.9 317.0,78.9 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
@@ -67,16 +67,16 @@
   <g transform="translate(48.00,40.27) scale(0.96) translate(-48.00,-40.27)">
     <g id="fb_E_PERMIT" transform="translate(48.0, 40.3)">
       <path d="M 3 0
-            L 109.330078125 0
-            A 3 3 0 0 1 112.330078125 3
-            L 112.330078125 18
-            A 3 3 0 0 1 109.330078125 21
-            L 103.330078125 21
-            L 103.330078125 35
-            L 109.330078125 35
-            A 3 3 0 0 1 112.330078125 38
-            L 112.330078125 52
-            A 3 3 0 0 1 109.330078125 55
+            L 109.375 0
+            A 3 3 0 0 1 112.375 3
+            L 112.375 18
+            A 3 3 0 0 1 109.375 21
+            L 103.375 21
+            L 103.375 35
+            L 109.375 35
+            A 3 3 0 0 1 112.375 38
+            L 112.375 52
+            A 3 3 0 0 1 109.375 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -119,8 +119,8 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">EI</text>
-      <polygon points="107.330078125,5.5 112.330078125,10.5 107.330078125,15.5" fill="#63B31F"/>
-      <text x="106.330078125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="107.375,5.5 112.375,10.5 107.375,15.5" fill="#63B31F"/>
+      <text x="106.375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
 
 
@@ -140,24 +140,24 @@
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">PERMIT</text>
       <!-- Instance Name -->
-      <text x="56.1650390625" y="-5"
+      <text x="56.1875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_PERMIT</text>
     </g>
   </g>
-  <g transform="translate(202.06,40.27) scale(0.96) translate(-202.06,-40.27)">
+  <g transform="translate(202.08,40.27) scale(0.96) translate(-202.08,-40.27)">
     <g id="fb_E_T_FF" transform="translate(202.1, 40.3)">
       <path d="M 3 0
-            L 83.396484375 0
-            A 3 3 0 0 1 86.396484375 3
-            L 86.396484375 18
-            A 3 3 0 0 1 83.396484375 21
-            L 77.396484375 21
-            L 77.396484375 35
-            L 83.396484375 35
-            A 3 3 0 0 1 86.396484375 38
-            L 86.396484375 52
-            A 3 3 0 0 1 83.396484375 55
+            L 83.375 0
+            A 3 3 0 0 1 86.375 3
+            L 86.375 18
+            A 3 3 0 0 1 83.375 21
+            L 77.375 21
+            L 77.375 35
+            L 83.375 35
+            A 3 3 0 0 1 86.375 38
+            L 86.375 52
+            A 3 3 0 0 1 83.375 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -202,23 +202,23 @@
             fill="#000000">CLK</text>
 
 
-      <path d="M 76.396484375 38.5
-            L 78.896484375 38.5
-            L 78.896484375 40.166666666666664
-            L 81.396484375 40.166666666666664
-            L 81.396484375 38.5
-            L 86.396484375 38.5
-            L 86.396484375 48.5
-            L 81.396484375 48.5
-            L 81.396484375 46.833333333333336
-            L 78.896484375 46.833333333333336
-            L 78.896484375 48.5
-            L 76.396484375 48.5
+      <path d="M 76.375 38.5
+            L 78.875 38.5
+            L 78.875 40.166666666666664
+            L 81.375 40.166666666666664
+            L 81.375 38.5
+            L 86.375 38.5
+            L 86.375 48.5
+            L 81.375 48.5
+            L 81.375 46.833333333333336
+            L 78.875 46.833333333333336
+            L 78.875 48.5
+            L 76.375 48.5
             Z" fill="#845DAF"/>
-      <text x="73.396484375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="73.375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="43.1982421875" y="-5"
+      <text x="43.1875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_T_FF</text>
     </g>
