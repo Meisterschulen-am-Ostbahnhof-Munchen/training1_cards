@@ -1136,43 +1136,91 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         chan_dx = min(c["dx"] for c in chan)
         mid_base = (chan_sx + chan_dx) / 2.0
 
-        def eval_chan_cost(c_list, assignment):
+        def chan_pair_cost(ci, cj, ti, tj):
             cost = 0
-            m = len(c_list)
-            for i in range(m):
-                for j in range(i + 1, m):
-                    ci, cj = c_list[i], c_list[j]
-                    ti, tj = assignment[i], assignment[j]
-                    if ti == tj:
-                        if max(ci["y_min"], cj["y_min"]) < min(ci["y_max"], cj["y_max"]) - 1.0:
-                            cost += 10000
-                        elif ci["dest"] == cj["dest"]:
-                            cost -= 500
-                        elif ci["src"] == cj["src"]:
-                            cost -= 500
-                    elif ti < tj:
-                        if ci["y_min"] - 0.5 <= cj["sy"] <= ci["y_max"] + 0.5:
-                            cost += 2000
-                        if cj["y_min"] - 0.5 <= ci["dy"] <= cj["y_max"] + 0.5:
-                            cost += 2000
-                    else:
-                        if cj["y_min"] - 0.5 <= ci["sy"] <= cj["y_max"] + 0.5:
-                            cost += 2000
-                        if ci["y_min"] - 0.5 <= cj["dy"] <= ci["y_max"] + 0.5:
-                            cost += 2000
+            if ti == tj:
+                if max(ci["y_min"], cj["y_min"]) < min(ci["y_max"], cj["y_max"]) - 1.0:
+                    cost += 10000
+                elif ci["dest"] == cj["dest"]:
+                    cost -= 500
+                elif ci["src"] == cj["src"]:
+                    cost -= 500
+            elif ti < tj:
+                if ci["y_min"] - 0.5 <= cj["sy"] <= ci["y_max"] + 0.5:
+                    cost += 2000
+                if cj["y_min"] - 0.5 <= ci["dy"] <= cj["y_max"] + 0.5:
+                    cost += 2000
+            else:
+                if cj["y_min"] - 0.5 <= ci["sy"] <= cj["y_max"] + 0.5:
+                    cost += 2000
+                if ci["y_min"] - 0.5 <= cj["dy"] <= ci["y_max"] + 0.5:
+                    cost += 2000
             return cost
+
+        def eval_chan_cost(c_list, assignment):
+            m = len(c_list)
+            return sum(chan_pair_cost(c_list[i], c_list[j], assignment[i], assignment[j])
+                       for i in range(m) for j in range(i + 1, m))
+
+        def chan_item_cost(c_list, assignment, i, t, upto):
+            # Cost contribution of item i on track t against items [0, upto) except i itself
+            cost = 0
+            for j in range(upto):
+                if j < i:
+                    cost += chan_pair_cost(c_list[j], c_list[i], assignment[j], t)
+                elif j > i:
+                    cost += chan_pair_cost(c_list[i], c_list[j], t, assignment[j])
+            return cost
+
+        def search_chan_tracks(c_list, num_tracks):
+            m = len(c_list)
+            # Exhaustive search only for small problem sizes (<= 4096 combinations);
+            # num_tracks ** m grows exponentially and must never be materialized.
+            if num_tracks ** m <= 4096:
+                best_cost = float("inf")
+                cur_best = None
+                for a in itertools.product(range(num_tracks), repeat=m):
+                    c = eval_chan_cost(c_list, a)
+                    if c < best_cost:
+                        best_cost = c
+                        cur_best = a
+                return cur_best, best_cost
+
+            # Greedy constructive pass for larger channels; only the cost delta of
+            # item i against the already placed items is evaluated (O(m) per candidate).
+            assignment = [0] * m
+            for i in range(m):
+                best_t, best_c = 0, float("inf")
+                for t in range(num_tracks):
+                    c = chan_item_cost(c_list, assignment, i, t, i)
+                    if c < best_c:
+                        best_c, best_t = c, t
+                assignment[i] = best_t
+
+            # Hill-climbing refinement passes, updating the total cost incrementally
+            cur_cost = eval_chan_cost(c_list, assignment)
+            improved = True
+            passes = 0
+            while improved and passes < 5:
+                improved = False
+                passes += 1
+                for i in range(m):
+                    cur_t = assignment[i]
+                    cur_item = chan_item_cost(c_list, assignment, i, cur_t, m)
+                    for t in range(num_tracks):
+                        if t == cur_t:
+                            continue
+                        new_item = chan_item_cost(c_list, assignment, i, t, m)
+                        if new_item < cur_item:
+                            cur_cost += new_item - cur_item
+                            cur_item, cur_t = new_item, t
+                            improved = True
+                    assignment[i] = cur_t
+            return tuple(assignment), cur_cost
 
         best_assignment = None
         for num_tracks in range(2, min(len(chan) + 1, 5)):
-            domains = [list(range(num_tracks)) for _ in chan]
-            combos = list(itertools.product(*domains))
-            best_cost = float("inf")
-            cur_best = None
-            for a in combos:
-                c = eval_chan_cost(chan, a)
-                if c < best_cost:
-                    best_cost = c
-                    cur_best = a
+            cur_best, best_cost = search_chan_tracks(chan, num_tracks)
             if cur_best and best_cost < 10000:
                 best_assignment = cur_best
                 break
