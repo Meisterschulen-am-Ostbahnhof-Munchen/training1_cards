@@ -56,16 +56,16 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="185.0,144.9 194.0,144.9 199.0,149.9 199.0,210.1 194.0,215.1 138.2,215.1 133.2,220.1 133.2,315.8 138.2,320.8 147.2,320.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="185.0,144.9 194.0,144.9 199.0,149.9 199.0,210.1 194.0,215.1 138.2,215.1 133.2,220.1 133.2,315.8 138.2,320.8 147.2,320.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="183.1,266.0 193.3,266.0 197.1,269.9 197.1,271.8 193.3,275.7 138.2,275.7 133.2,280.7 133.2,332.2 138.2,337.2 147.2,337.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="183.1,266.0 193.3,266.0 197.1,269.9 197.1,271.8 193.3,275.7 138.2,275.7 133.2,280.7 133.2,332.2 138.2,337.2 147.2,337.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="235.4,320.8 244.4,320.8 249.4,325.8 249.4,342.8 244.4,347.8 144.4,347.8 139.4,352.8 139.4,454.2 144.4,459.2 153.4,459.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="235.4,320.8 244.4,320.8 249.4,325.8 249.4,342.8 244.4,347.8 144.4,347.8 139.4,352.8 139.4,454.2 144.4,459.2 153.4,459.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="164.4,111.4 173.4,111.4 178.4,116.4 178.4,171.3 173.4,176.3 151.6,176.3 146.6,181.3 146.6,260.8 151.6,265.8 160.6,265.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="164.4,111.4 173.4,111.4 178.4,116.4 178.4,171.3 173.4,176.3 151.6,176.3 146.6,181.3 146.6,260.8 151.6,265.8 160.6,265.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="162.5,211.6 171.5,211.6 176.5,216.6 176.5,221.3 171.5,226.3 151.6,226.3 146.6,231.3 146.6,272.1 151.6,277.1 160.6,277.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="162.5,211.6 171.5,211.6 176.5,216.6 176.5,221.3 171.5,226.3 151.6,226.3 146.6,231.3 146.6,272.1 151.6,277.1 160.6,277.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="222.0,265.8 231.0,265.8 236.0,270.8 236.0,287.5 231.0,292.5 164.4,292.5 159.4,297.5 159.4,373.0 164.4,378.0 173.4,378.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="222.0,265.8 231.0,265.8 236.0,270.8 236.0,287.5 231.0,292.5 164.4,292.5 159.4,297.5 159.4,373.0 164.4,378.0 173.4,378.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(49.89,35.00) scale(0.96) translate(-49.89,-35.00)">
-    <g id="fb_NumericValue_PHYSA_I3" transform="translate(49.9, 35.0)">
+  <g transform="translate(70.46,35.00) scale(0.6675938803894298) translate(-70.46,-35.00)">
+    <g id="fb_NumericValue_PHYSA_I3" transform="translate(70.5, 35.0)">
       <path d="M 3 0
             L 137.75 0
             A 3 3 0 0 1 140.75 3
@@ -163,8 +163,8 @@
             fill="#000000" text-anchor="middle">NumericValue_PHYSA_I3</text>
     </g>
   </g>
-  <g transform="translate(48.00,156.08) scale(0.96) translate(-48.00,-156.08)">
-    <g id="fb_NumericValue_PHYSA_I4" transform="translate(48.0, 156.1)">
+  <g transform="translate(68.58,135.19) scale(0.6675938803894298) translate(-68.58,-135.19)">
+    <g id="fb_NumericValue_PHYSA_I4" transform="translate(68.6, 135.2)">
       <path d="M 3 0
             L 137.75 0
             A 3 3 0 0 1 140.75 3
@@ -262,8 +262,8 @@
             fill="#000000" text-anchor="middle">NumericValue_PHYSA_I4</text>
     </g>
   </g>
-  <g transform="translate(147.20,277.16) scale(0.96) translate(-147.20,-277.16)">
-    <g id="fb_AR_ADD_2" transform="translate(147.2, 277.2)">
+  <g transform="translate(160.63,235.39) scale(0.6675938803894298) translate(-160.63,-235.39)">
+    <g id="fb_AR_ADD_2" transform="translate(160.6, 235.4)">
       <path d="M 3 0
             L 88.875 0
             A 3 3 0 0 1 91.875 3
@@ -368,8 +368,8 @@
             fill="#000000" text-anchor="middle">AR_ADD_2</text>
     </g>
   </g>
-  <g transform="translate(153.36,349.28) scale(0.96) translate(-153.36,-349.28)">
-    <g id="fb_Q_NumericValue_PHYSA" transform="translate(153.4, 349.3)">
+  <g transform="translate(173.41,301.54) scale(0.6675938803894298) translate(-173.41,-301.54)">
+    <g id="fb_Q_NumericValue_PHYSA" transform="translate(173.4, 301.5)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3

@@ -56,16 +56,16 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="186.5,77.7 199.5,77.7 204.5,82.7 204.5,202.5 199.5,207.5 74.8,207.5 71.7,210.6 71.7,212.1 74.8,215.1 81.7,215.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="223.2,215.1 236.2,215.1 241.2,220.1 241.2,258.3 236.2,263.3 112.6,263.3 109.5,266.4 109.5,267.9 112.6,270.9 119.5,270.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="249.2,270.9 262.2,270.9 267.2,275.9 267.2,314.1 262.2,319.1 192.0,319.1 187.0,324.1 187.0,339.0 191.0,343.0 197.0,343.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="186.5,144.0 195.5,144.0 200.5,149.0 200.5,198.5 195.5,203.5 72.7,203.5 67.7,208.5 67.7,243.7 72.7,248.7 81.7,248.7" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="223.2,248.7 232.9,248.7 237.2,253.0 237.2,255.1 232.9,259.3 110.5,259.3 105.5,264.3 105.5,299.5 110.5,304.5 119.5,304.5" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="249.2,304.5 259.0,304.5 263.2,308.8 263.2,310.9 259.0,315.1 188.0,315.1 183.0,320.1 183.0,388.0 188.0,393.0 197.0,393.0" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,67.8 183.4,67.8 188.4,72.8 188.4,172.3 183.4,177.3 93.1,177.3 88.1,182.3 88.1,187.0 92.1,191.0 98.1,191.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="206.8,191.0 219.8,191.0 224.8,196.0 224.8,232.8 219.8,237.8 129.6,237.8 124.6,242.8 124.6,247.5 128.6,251.5 134.6,251.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="234.2,251.5 247.2,251.5 252.2,256.5 252.2,293.3 247.2,298.3 202.2,298.3 197.2,303.3 197.2,320.6 201.2,324.6 207.2,324.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="170.4,118.7 179.4,118.7 184.4,123.7 184.4,168.3 179.4,173.3 89.1,173.3 84.1,178.3 84.1,211.8 89.1,216.8 98.1,216.8" fill="none" stroke="#82A3A9" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="206.8,216.8 215.8,216.8 220.8,221.8 220.8,228.8 215.8,233.8 125.6,233.8 120.6,238.8 120.6,272.3 125.6,277.3 134.6,277.3" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="234.2,277.3 243.2,277.3 248.2,282.3 248.2,289.3 243.2,294.3 198.2,294.3 193.2,299.3 193.2,357.9 198.2,362.9 207.2,362.9" fill="none" stroke="#DBB418" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
-    <g id="fb_logiBUS_PI_ID" transform="translate(48.0, 35.0)">
+  <g transform="translate(64.06,35.00) scale(0.7373271889400922) translate(-64.06,-35.00)">
+    <g id="fb_logiBUS_PI_ID" transform="translate(64.1, 35.0)">
       <path d="M 3 0
             L 141.25 0
             A 3 3 0 0 1 144.25 3
@@ -170,8 +170,8 @@
             fill="#000000" text-anchor="middle">logiBUS_PI_ID</text>
     </g>
   </g>
-  <g transform="translate(197.04,316.64) scale(0.96) translate(-197.04,-316.64)">
-    <g id="fb_FT_DERIV" transform="translate(197.0, 316.6)">
+  <g transform="translate(207.24,304.31) scale(0.7373271889400922) translate(-207.24,-304.31)">
+    <g id="fb_FT_DERIV" transform="translate(207.2, 304.3)">
       <path d="M 3 0
             L 88.625 0
             A 3 3 0 0 1 91.625 3
@@ -264,8 +264,8 @@
             fill="#000000" text-anchor="middle">FT_DERIV</text>
     </g>
   </g>
-  <g transform="translate(81.73,205.04) scale(0.96) translate(-81.73,-205.04)">
-    <g id="fb_F_DWORD_TO_UDINT" transform="translate(81.7, 205.0)">
+  <g transform="translate(98.14,183.26) scale(0.7373271889400922) translate(-98.14,-183.26)">
+    <g id="fb_F_DWORD_TO_UDINT" transform="translate(98.1, 183.3)">
       <path d="M 3 0
             L 144.3125 0
             A 3 3 0 0 1 147.3125 3
@@ -336,8 +336,8 @@
             fill="#000000" text-anchor="middle">F_DWORD_TO_UDINT</text>
     </g>
   </g>
-  <g transform="translate(119.52,260.84) scale(0.96) translate(-119.52,-260.84)">
-    <g id="fb_F_UDINT_TO_REAL" transform="translate(119.5, 260.8)">
+  <g transform="translate(134.56,243.79) scale(0.7373271889400922) translate(-134.56,-243.79)">
+    <g id="fb_F_UDINT_TO_REAL" transform="translate(134.6, 243.8)">
       <path d="M 3 0
             L 132.125 0
             A 3 3 0 0 1 135.125 3

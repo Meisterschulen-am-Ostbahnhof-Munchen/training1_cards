@@ -56,15 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="163.3,77.7 176.3,77.7 181.3,82.7 181.3,307.3 176.3,312.3 83.3,312.3 78.3,317.3 78.3,453.3 82.3,457.3 88.3,457.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="163.3,215.1 176.3,215.1 181.3,220.1 181.3,376.0 176.3,381.0 83.3,381.0 78.3,386.0 78.3,469.6 82.3,473.6 88.3,473.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="163.3,352.5 176.3,352.5 181.3,357.5 181.3,444.7 176.3,449.7 83.3,449.7 78.3,454.7 78.3,485.9 82.3,489.9 88.3,489.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="221.5,573.4 231.6,573.4 235.5,577.3 235.5,579.2 231.6,583.1 116.8,583.1 111.8,588.1 111.8,689.5 116.8,694.5 125.8,694.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="221.5,573.4 231.6,573.4 235.5,577.3 235.5,579.2 231.6,583.1 116.8,583.1 111.8,588.1 111.8,689.5 116.8,694.5 125.8,694.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="133.0,55.2 146.0,55.2 151.0,60.2 151.0,179.9 146.0,184.9 118.3,184.9 113.3,189.9 113.3,263.8 117.3,267.8 123.3,267.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="133.0,131.3 146.0,131.3 151.0,136.3 151.0,217.9 146.0,222.9 118.3,222.9 113.3,227.9 113.3,271.5 117.3,275.5 123.3,275.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="133.0,207.3 146.0,207.3 151.0,212.3 151.0,255.9 146.0,260.9 118.3,260.9 113.3,265.9 113.3,279.3 117.3,283.3 123.3,283.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="186.4,322.9 196.4,322.9 200.4,326.9 200.4,328.9 196.4,332.9 158.6,332.9 153.6,337.9 153.6,386.1 158.6,391.1 167.6,391.1" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="186.4,322.9 196.4,322.9 200.4,326.9 200.4,328.9 196.4,332.9 158.6,332.9 153.6,337.9 153.6,386.1 158.6,391.1 167.6,391.1" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
-    <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 35.0)">
+  <g transform="translate(78.34,35.00) scale(0.4549283909014321) translate(-78.34,-35.00)">
+    <g id="fb_SoftKey_UP_F1" transform="translate(78.3, 35.0)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -158,8 +158,8 @@
             fill="#000000" text-anchor="middle">SoftKey_UP_F1</text>
     </g>
   </g>
-  <g transform="translate(48.00,172.40) scale(0.96) translate(-48.00,-172.40)">
-    <g id="fb_SoftKey_UP_F2" transform="translate(48.0, 172.4)">
+  <g transform="translate(78.34,111.01) scale(0.4549283909014321) translate(-78.34,-111.01)">
+    <g id="fb_SoftKey_UP_F2" transform="translate(78.3, 111.0)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -253,8 +253,8 @@
             fill="#000000" text-anchor="middle">SoftKey_UP_F2</text>
     </g>
   </g>
-  <g transform="translate(48.00,309.80) scale(0.96) translate(-48.00,-309.80)">
-    <g id="fb_SoftKey_UP_F3" transform="translate(48.0, 309.8)">
+  <g transform="translate(78.34,187.02) scale(0.4549283909014321) translate(-78.34,-187.02)">
+    <g id="fb_SoftKey_UP_F3" transform="translate(78.3, 187.0)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -348,8 +348,8 @@
             fill="#000000" text-anchor="middle">SoftKey_UP_F3</text>
     </g>
   </g>
-  <g transform="translate(125.76,584.60) scale(0.96) translate(-125.76,-584.60)">
-    <g id="fb_Q_NumericValue_AUDI" transform="translate(125.8, 584.6)">
+  <g transform="translate(167.65,339.04) scale(0.4549283909014321) translate(-167.65,-339.04)">
+    <g id="fb_Q_NumericValue_AUDI" transform="translate(167.6, 339.0)">
       <path d="M 3 0
             L 162.875 0
             A 3 3 0 0 1 165.875 3
@@ -461,8 +461,8 @@
             fill="#000000" text-anchor="middle">Q_NumericValue_AUDI</text>
     </g>
   </g>
-  <g transform="translate(88.32,447.20) scale(0.96) translate(-88.32,-447.20)">
-    <g id="fb_Select_3_AUDI" transform="translate(88.3, 447.2)">
+  <g transform="translate(123.35,263.03) scale(0.4549283909014321) translate(-123.35,-263.03)">
+    <g id="fb_Select_3_AUDI" transform="translate(123.3, 263.0)">
       <path d="M 3 0
             L 135.6875 0
             A 3 3 0 0 1 138.6875 3
