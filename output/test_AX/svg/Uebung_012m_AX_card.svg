@@ -61,16 +61,16 @@
   <g transform="translate(111.22,30.00) scale(0.96) translate(-111.22,-30.00)">
     <g id="fb_Uebung_012m_sub" transform="translate(111.2, 30.0)">
       <path d="M 3 0
-            L 129.87890625 0
-            A 3 3 0 0 1 132.87890625 3
-            L 132.87890625 35
-            A 3 3 0 0 1 129.87890625 38
-            L 123.87890625 38
-            L 123.87890625 52
-            L 129.87890625 52
-            A 3 3 0 0 1 132.87890625 55
-            L 132.87890625 103
-            A 3 3 0 0 1 129.87890625 106
+            L 129.875 0
+            A 3 3 0 0 1 132.875 3
+            L 132.875 35
+            A 3 3 0 0 1 129.875 38
+            L 123.875 38
+            L 123.875 52
+            L 129.875 52
+            A 3 3 0 0 1 132.875 55
+            L 132.875 103
+            A 3 3 0 0 1 129.875 106
             L 3 106
             A 3 3 0 0 1 0 103
             L 0 55
@@ -116,11 +116,11 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">INIT</text>
-      <polygon points="127.87890625,5.5 132.87890625,10.5 127.87890625,15.5" fill="#63B31F"/>
-      <text x="126.87890625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="127.875,5.5 132.875,10.5 127.875,15.5" fill="#63B31F"/>
+      <text x="126.875" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
-      <polygon points="127.87890625,22.5 132.87890625,27.5 127.87890625,32.5" fill="#63B31F"/>
-      <text x="126.87890625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="127.875,22.5 132.875,27.5 127.875,32.5" fill="#63B31F"/>
+      <text x="126.875" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">IND</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#A3B08F"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -131,17 +131,17 @@
       <polygon points="0,90.5 5,95.5 0,100.5" fill="#18519E"/>
       <text x="6" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">u16ObjId</text>
-      <polygon points="127.87890625,56.5 132.87890625,61.5 127.87890625,66.5" fill="#A3B08F"/>
-      <text x="126.87890625" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="127.875,56.5 132.875,61.5 127.875,66.5" fill="#A3B08F"/>
+      <text x="126.875" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">QO</text>
-      <polygon points="127.87890625,73.5 132.87890625,78.5 127.87890625,83.5" fill="#BD8663"/>
-      <text x="126.87890625" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="127.875,73.5 132.875,78.5 127.875,83.5" fill="#BD8663"/>
+      <text x="126.875" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">VALUEO</text>
       <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">KEY_I1_STORE</text>
       <text x="-3" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">InputString_S1</text>
 
       <!-- Instance Name -->
-      <text x="66.439453125" y="-5"
+      <text x="66.4375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Uebung_012m_sub</text>
     </g>

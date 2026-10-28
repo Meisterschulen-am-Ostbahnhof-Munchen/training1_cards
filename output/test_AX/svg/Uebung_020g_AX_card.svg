@@ -62,19 +62,19 @@
     <polyline points="221.3,107.3 312.0,107.3 317.0,102.3 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(128.66,30.00) scale(0.96) translate(-128.66,-30.00)">
+  <g transform="translate(128.68,30.00) scale(0.96) translate(-128.68,-30.00)">
     <g id="fb_AX_TONOF" transform="translate(128.7, 30.0)">
       <path d="M 3 0
-            L 93.55078125 0
-            A 3 3 0 0 1 96.55078125 3
-            L 96.55078125 18
-            A 3 3 0 0 1 93.55078125 21
-            L 87.55078125 21
-            L 87.55078125 35
-            L 93.55078125 35
-            A 3 3 0 0 1 96.55078125 38
-            L 96.55078125 86
-            A 3 3 0 0 1 93.55078125 89
+            L 93.5 0
+            A 3 3 0 0 1 96.5 3
+            L 96.5 18
+            A 3 3 0 0 1 93.5 21
+            L 87.5 21
+            L 87.5 35
+            L 93.5 35
+            A 3 3 0 0 1 96.5 38
+            L 96.5 86
+            A 3 3 0 0 1 93.5 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -140,23 +140,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN</text>
-      <path d="M 86.55078125 73.5
-            L 89.05078125 73.5
-            L 89.05078125 75.16666666666667
-            L 91.55078125 75.16666666666667
-            L 91.55078125 73.5
-            L 96.55078125 73.5
-            L 96.55078125 83.5
-            L 91.55078125 83.5
-            L 91.55078125 81.83333333333333
-            L 89.05078125 81.83333333333333
-            L 89.05078125 83.5
-            L 86.55078125 83.5
+      <path d="M 86.5 73.5
+            L 89.0 73.5
+            L 89.0 75.16666666666667
+            L 91.5 75.16666666666667
+            L 91.5 73.5
+            L 96.5 73.5
+            L 96.5 83.5
+            L 91.5 83.5
+            L 91.5 81.83333333333333
+            L 89.0 81.83333333333333
+            L 89.0 83.5
+            L 86.5 83.5
             Z" fill="#845DAF"/>
-      <text x="83.55078125" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="83.5" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="48.275390625" y="-5"
+      <text x="48.25" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_TONOF</text>
     </g>

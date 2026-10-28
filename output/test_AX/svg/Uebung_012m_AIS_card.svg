@@ -58,19 +58,19 @@
   <g id="connections">
   </g>
   <g id="instances">
-  <g transform="translate(105.48,30.00) scale(0.96) translate(-105.48,-30.00)">
+  <g transform="translate(105.52,30.00) scale(0.96) translate(-105.52,-30.00)">
     <g id="fb_Uebung_012m_sub_AIS" transform="translate(105.5, 30.0)">
       <path d="M 3 0
-            L 141.837890625 0
-            A 3 3 0 0 1 144.837890625 3
-            L 144.837890625 18
-            A 3 3 0 0 1 141.837890625 21
-            L 135.837890625 21
-            L 135.837890625 35
-            L 141.837890625 35
-            A 3 3 0 0 1 144.837890625 38
-            L 144.837890625 103
-            A 3 3 0 0 1 141.837890625 106
+            L 141.75 0
+            A 3 3 0 0 1 144.75 3
+            L 144.75 18
+            A 3 3 0 0 1 141.75 21
+            L 135.75 21
+            L 135.75 35
+            L 141.75 35
+            A 3 3 0 0 1 144.75 38
+            L 144.75 103
+            A 3 3 0 0 1 141.75 106
             L 3 106
             A 3 3 0 0 1 0 103
             L 0 38
@@ -116,8 +116,8 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">INIT</text>
-      <polygon points="139.837890625,5.5 144.837890625,10.5 139.837890625,15.5" fill="#63B31F"/>
-      <text x="138.837890625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.75,5.5 144.75,10.5 139.75,15.5" fill="#63B31F"/>
+      <text x="138.75" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
       <polygon points="0,39.5 5,44.5 0,49.5" fill="#A3B08F"/>
       <text x="6" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -128,28 +128,28 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#18519E"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">u16ObjId</text>
-      <polygon points="139.837890625,39.5 144.837890625,44.5 139.837890625,49.5" fill="#A3B08F"/>
-      <text x="138.837890625" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.75,39.5 144.75,44.5 139.75,49.5" fill="#A3B08F"/>
+      <text x="138.75" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">QO</text>
       <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">KEY_I1_STORE</text>
       <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">InputString_S1</text>
-      <path d="M 134.837890625 90.5
-            L 137.337890625 90.5
-            L 137.337890625 92.16666666666667
-            L 139.837890625 92.16666666666667
-            L 139.837890625 90.5
-            L 144.837890625 90.5
-            L 144.837890625 100.5
-            L 139.837890625 100.5
-            L 139.837890625 98.83333333333333
-            L 137.337890625 98.83333333333333
-            L 137.337890625 100.5
-            L 134.837890625 100.5
+      <path d="M 134.75 90.5
+            L 137.25 90.5
+            L 137.25 92.16666666666667
+            L 139.75 92.16666666666667
+            L 139.75 90.5
+            L 144.75 90.5
+            L 144.75 100.5
+            L 139.75 100.5
+            L 139.75 98.83333333333333
+            L 137.25 98.83333333333333
+            L 137.25 100.5
+            L 134.75 100.5
             Z" fill="#845DAF"/>
-      <text x="131.837890625" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="131.75" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">VALUEO</text>
       <!-- Instance Name -->
-      <text x="72.4189453125" y="-5"
+      <text x="72.375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">Uebung_012m_sub_AIS</text>
     </g>

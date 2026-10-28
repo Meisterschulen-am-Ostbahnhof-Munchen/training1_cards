@@ -71,16 +71,16 @@
   <g transform="translate(49.23,40.21) scale(0.9320388349514563) translate(-49.23,-40.21)">
     <g id="fb_E_CYCLE" transform="translate(49.2, 40.2)">
       <path d="M 3 0
-            L 84.78515625 0
-            A 3 3 0 0 1 87.78515625 3
-            L 87.78515625 35
-            A 3 3 0 0 1 84.78515625 38
-            L 78.78515625 38
-            L 78.78515625 52
-            L 84.78515625 52
-            A 3 3 0 0 1 87.78515625 55
-            L 87.78515625 69
-            A 3 3 0 0 1 84.78515625 72
+            L 84.75 0
+            A 3 3 0 0 1 87.75 3
+            L 87.75 35
+            A 3 3 0 0 1 84.75 38
+            L 78.75 38
+            L 78.75 52
+            L 84.75 52
+            A 3 3 0 0 1 87.75 55
+            L 87.75 69
+            A 3 3 0 0 1 84.75 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -126,8 +126,8 @@
       <polygon points="0,22.5 5,27.5 0,32.5" fill="#63B31F"/>
       <text x="6" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">STOP</text>
-      <polygon points="82.78515625,5.5 87.78515625,10.5 82.78515625,15.5" fill="#63B31F"/>
-      <text x="81.78515625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="82.75,5.5 87.75,10.5 82.75,15.5" fill="#63B31F"/>
+      <text x="81.75" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#3366FF"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -135,24 +135,24 @@
       <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">T#10ms</text>
 
       <!-- Instance Name -->
-      <text x="43.892578125" y="-5"
+      <text x="43.875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_CYCLE</text>
     </g>
   </g>
-  <g transform="translate(203.27,343.74) scale(0.9320388349514563) translate(-203.27,-343.74)">
+  <g transform="translate(203.29,343.74) scale(0.9320388349514563) translate(-203.29,-343.74)">
     <g id="fb_E_T_FF" transform="translate(203.3, 343.7)">
       <path d="M 3 0
-            L 83.396484375 0
-            A 3 3 0 0 1 86.396484375 3
-            L 86.396484375 18
-            A 3 3 0 0 1 83.396484375 21
-            L 77.396484375 21
-            L 77.396484375 35
-            L 83.396484375 35
-            A 3 3 0 0 1 86.396484375 38
-            L 86.396484375 52
-            A 3 3 0 0 1 83.396484375 55
+            L 83.375 0
+            A 3 3 0 0 1 86.375 3
+            L 86.375 18
+            A 3 3 0 0 1 83.375 21
+            L 77.375 21
+            L 77.375 35
+            L 83.375 35
+            A 3 3 0 0 1 86.375 38
+            L 86.375 52
+            A 3 3 0 0 1 83.375 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -197,40 +197,40 @@
             fill="#000000">CLK</text>
 
 
-      <path d="M 76.396484375 38.5
-            L 78.896484375 38.5
-            L 78.896484375 40.166666666666664
-            L 81.396484375 40.166666666666664
-            L 81.396484375 38.5
-            L 86.396484375 38.5
-            L 86.396484375 48.5
-            L 81.396484375 48.5
-            L 81.396484375 46.833333333333336
-            L 78.896484375 46.833333333333336
-            L 78.896484375 48.5
-            L 76.396484375 48.5
+      <path d="M 76.375 38.5
+            L 78.875 38.5
+            L 78.875 40.166666666666664
+            L 81.375 40.166666666666664
+            L 81.375 38.5
+            L 86.375 38.5
+            L 86.375 48.5
+            L 81.375 48.5
+            L 81.375 46.833333333333336
+            L 78.875 46.833333333333336
+            L 78.875 48.5
+            L 76.375 48.5
             Z" fill="#845DAF"/>
-      <text x="73.396484375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="73.375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="43.1982421875" y="-5"
+      <text x="43.1875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_T_FF</text>
     </g>
   </g>
-  <g transform="translate(101.00,127.35) scale(0.9320388349514563) translate(-101.00,-127.35)">
+  <g transform="translate(101.01,127.35) scale(0.9320388349514563) translate(-101.01,-127.35)">
     <g id="fb_E_SPLIT_4" transform="translate(101.0, 127.3)">
       <path d="M 3 0
-            L 91.353515625 0
-            A 3 3 0 0 1 94.353515625 3
-            L 94.353515625 69
-            A 3 3 0 0 1 91.353515625 72
-            L 85.353515625 72
-            L 85.353515625 86
-            L 91.353515625 86
-            A 3 3 0 0 1 94.353515625 89
-            L 94.353515625 86
-            A 3 3 0 0 1 91.353515625 89
+            L 91.3125 0
+            A 3 3 0 0 1 94.3125 3
+            L 94.3125 69
+            A 3 3 0 0 1 91.3125 72
+            L 85.3125 72
+            L 85.3125 86
+            L 91.3125 86
+            A 3 3 0 0 1 94.3125 89
+            L 94.3125 86
+            A 3 3 0 0 1 91.3125 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 89
@@ -273,40 +273,40 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">EI</text>
-      <polygon points="89.353515625,5.5 94.353515625,10.5 89.353515625,15.5" fill="#63B31F"/>
-      <text x="88.353515625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="89.3125,5.5 94.3125,10.5 89.3125,15.5" fill="#63B31F"/>
+      <text x="88.3125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO1</text>
-      <polygon points="89.353515625,22.5 94.353515625,27.5 89.353515625,32.5" fill="#63B31F"/>
-      <text x="88.353515625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="89.3125,22.5 94.3125,27.5 89.3125,32.5" fill="#63B31F"/>
+      <text x="88.3125" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO2</text>
-      <polygon points="89.353515625,39.5 94.353515625,44.5 89.353515625,49.5" fill="#63B31F"/>
-      <text x="88.353515625" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="89.3125,39.5 94.3125,44.5 89.3125,49.5" fill="#63B31F"/>
+      <text x="88.3125" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO3</text>
-      <polygon points="89.353515625,56.5 94.353515625,61.5 89.353515625,66.5" fill="#63B31F"/>
-      <text x="88.353515625" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="89.3125,56.5 94.3125,61.5 89.3125,66.5" fill="#63B31F"/>
+      <text x="88.3125" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO4</text>
 
 
 
       <!-- Instance Name -->
-      <text x="47.1767578125" y="-5"
+      <text x="47.15625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SPLIT_4</text>
     </g>
   </g>
-  <g transform="translate(147.44,235.54) scale(0.9320388349514563) translate(-147.44,-235.54)">
+  <g transform="translate(147.43,235.54) scale(0.9320388349514563) translate(-147.43,-235.54)">
     <g id="fb_E_MERGE_4" transform="translate(147.4, 235.5)">
       <path d="M 3 0
-            L 99.234375 0
-            A 3 3 0 0 1 102.234375 3
-            L 102.234375 69
-            A 3 3 0 0 1 99.234375 72
-            L 93.234375 72
-            L 93.234375 86
-            L 99.234375 86
-            A 3 3 0 0 1 102.234375 89
-            L 102.234375 86
-            A 3 3 0 0 1 99.234375 89
+            L 99.25 0
+            A 3 3 0 0 1 102.25 3
+            L 102.25 69
+            A 3 3 0 0 1 99.25 72
+            L 93.25 72
+            L 93.25 86
+            L 99.25 86
+            A 3 3 0 0 1 102.25 89
+            L 102.25 86
+            A 3 3 0 0 1 99.25 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 89
@@ -358,14 +358,14 @@
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#63B31F"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">EI4</text>
-      <polygon points="97.234375,5.5 102.234375,10.5 97.234375,15.5" fill="#63B31F"/>
-      <text x="96.234375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.25,5.5 102.25,10.5 97.25,15.5" fill="#63B31F"/>
+      <text x="96.25" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
 
 
 
       <!-- Instance Name -->
-      <text x="51.1171875" y="-5"
+      <text x="51.125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_MERGE_4</text>
     </g>

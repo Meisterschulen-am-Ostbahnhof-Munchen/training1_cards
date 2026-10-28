@@ -56,33 +56,33 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="223.2,245.3 229.2,245.3 233.2,241.3 233.2,177.8 228.2,172.8 174.9,172.8 169.9,167.8 169.9,49.8 174.9,44.8 187.9,44.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="223.2,261.2 229.2,261.2 233.2,257.2 233.2,177.8 228.2,172.8 174.9,172.8 169.9,167.8 169.9,65.6 174.9,60.6 187.9,60.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="258.4,93.3 267.4,93.3 272.4,98.3 272.4,210.0 267.4,215.0 180.1,215.0 175.1,220.0 175.1,365.3 180.1,370.3 189.1,370.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="258.4,93.3 267.4,93.3 272.4,98.3 272.4,210.0 267.4,215.0 180.1,215.0 175.1,220.0 175.1,365.3 180.1,370.3 189.1,370.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="283.6,370.3 292.6,370.3 297.6,365.3 297.6,274.1 292.6,269.1 74.9,269.1 69.9,264.1 69.9,206.4 74.9,201.4 83.9,201.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="283.6,370.3 292.6,370.3 297.6,365.3 297.6,274.1 292.6,269.1 74.9,269.1 69.9,264.1 69.9,206.4 74.9,201.4 83.9,201.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="137.5,110.0 146.5,110.0 151.5,115.0 151.5,125.6 146.5,130.6 74.9,130.6 69.9,135.6 69.9,180.6 74.9,185.6 83.9,185.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="137.5,110.0 146.5,110.0 151.5,115.0 151.5,125.6 146.5,130.6 74.9,130.6 69.9,135.6 69.9,180.6 74.9,185.6 83.9,185.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="193.4,185.6 202.4,185.6 207.4,190.6 207.4,217.9 202.4,222.9 120.1,222.9 115.1,227.9 115.1,288.8 120.1,293.8 129.1,293.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="193.4,185.6 202.4,185.6 207.4,190.6 207.4,217.9 202.4,222.9 120.1,222.9 115.1,227.9 115.1,288.8 120.1,293.8 129.1,293.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="283.6,386.1 312.0,386.1 317.0,381.1 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="283.6,386.1 312.0,386.1 317.0,381.1 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="213.6,128.9 226.6,128.9 231.6,133.9 231.6,220.3 226.6,225.3 190.1,225.3 185.1,230.3 185.1,271.9 189.1,275.9 195.1,275.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="213.6,141.5 226.6,141.5 231.6,146.5 231.6,220.3 226.6,225.3 190.1,225.3 185.1,230.3 185.1,284.5 189.1,288.5 195.1,288.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="251.2,314.5 260.2,314.5 265.2,309.5 265.2,263.1 260.2,258.1 189.8,258.1 184.8,253.1 184.8,233.4 189.8,228.4 198.8,228.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="251.2,314.5 260.2,314.5 265.2,309.5 265.2,263.1 260.2,258.1 189.8,258.1 184.8,253.1 184.8,233.4 189.8,228.4 198.8,228.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="273.9,228.4 282.9,228.4 287.9,233.4 287.9,289.8 282.9,294.8 86.1,294.8 81.1,299.8 81.1,383.0 86.1,388.0 95.1,388.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="273.9,228.4 282.9,228.4 287.9,233.4 287.9,289.8 282.9,294.8 86.1,294.8 81.1,299.8 81.1,383.0 86.1,388.0 95.1,388.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="128.4,94.7 137.4,94.7 142.4,99.7 142.4,216.3 137.4,221.3 86.1,221.3 81.1,226.3 81.1,370.3 86.1,375.3 95.1,375.3" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="128.4,94.7 137.4,94.7 142.4,99.7 142.4,216.3 137.4,221.3 86.1,221.3 81.1,226.3 81.1,370.3 86.1,375.3 95.1,375.3" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="182.3,375.3 191.3,375.3 196.3,370.3 196.3,263.1 191.3,258.1 129.7,258.1 124.7,253.1 124.7,172.5 129.7,167.5 138.7,167.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="182.3,375.3 191.3,375.3 196.3,370.3 196.3,263.1 191.3,258.1 129.7,258.1 124.7,253.1 124.7,172.5 129.7,167.5 138.7,167.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="273.9,241.0 312.0,241.0 317.0,236.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="273.9,241.0 312.0,241.0 317.0,236.0 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(49.32,35.00) scale(0.9320388349514563) translate(-49.32,-35.00)">
-    <g id="fb_AE_CYCLE" transform="translate(49.3, 35.0)">
+  <g transform="translate(58.31,35.00) scale(0.7417582417582417) translate(-58.31,-35.00)">
+    <g id="fb_AE_CYCLE" transform="translate(58.3, 35.0)">
       <path d="M 3 0
-            L 91.55859375 0
-            A 3 3 0 0 1 94.55859375 3
-            L 94.55859375 35
-            A 3 3 0 0 1 91.55859375 38
-            L 85.55859375 38
-            L 85.55859375 52
-            L 91.55859375 52
-            A 3 3 0 0 1 94.55859375 55
-            L 94.55859375 86
-            A 3 3 0 0 1 91.55859375 89
+            L 91.5 0
+            A 3 3 0 0 1 94.5 3
+            L 94.5 35
+            A 3 3 0 0 1 91.5 38
+            L 85.5 38
+            L 85.5 52
+            L 91.5 52
+            A 3 3 0 0 1 94.5 55
+            L 94.5 86
+            A 3 3 0 0 1 91.5 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 55
@@ -132,40 +132,40 @@
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">DT</text>
       <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">T#1s</text>
-      <path d="M 84.55859375 73.5
-            L 87.05859375 73.5
-            L 87.05859375 75.16666666666667
-            L 89.55859375 75.16666666666667
-            L 89.55859375 73.5
-            L 94.55859375 73.5
-            L 94.55859375 83.5
-            L 89.55859375 83.5
-            L 89.55859375 81.83333333333333
-            L 87.05859375 81.83333333333333
-            L 87.05859375 83.5
-            L 84.55859375 83.5
+      <path d="M 84.5 73.5
+            L 87.0 73.5
+            L 87.0 75.16666666666667
+            L 89.5 75.16666666666667
+            L 89.5 73.5
+            L 94.5 73.5
+            L 94.5 83.5
+            L 89.5 83.5
+            L 89.5 81.83333333333333
+            L 87.0 81.83333333333333
+            L 87.0 83.5
+            L 84.5 83.5
             Z" fill="#845DAF"/>
-      <text x="81.55859375" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="81.5" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
       <!-- Instance Name -->
-      <text x="47.279296875" y="-5"
+      <text x="47.25" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AE_CYCLE</text>
     </g>
   </g>
-  <g transform="translate(129.12,235.54) scale(0.9320388349514563) translate(-129.12,-235.54)">
-    <g id="fb_AX_SWITCH" transform="translate(129.1, 235.5)">
+  <g transform="translate(138.73,121.11) scale(0.7417582417582417) translate(-138.73,-121.11)">
+    <g id="fb_AX_SWITCH" transform="translate(138.7, 121.1)">
       <path d="M 3 0
-            L 97.9453125 0
-            A 3 3 0 0 1 100.9453125 3
-            L 100.9453125 35
-            A 3 3 0 0 1 97.9453125 38
-            L 91.9453125 38
-            L 91.9453125 52
-            L 97.9453125 52
-            A 3 3 0 0 1 100.9453125 55
-            L 100.9453125 69
-            A 3 3 0 0 1 97.9453125 72
+            L 97.9375 0
+            A 3 3 0 0 1 100.9375 3
+            L 100.9375 35
+            A 3 3 0 0 1 97.9375 38
+            L 91.9375 38
+            L 91.9375 52
+            L 97.9375 52
+            A 3 3 0 0 1 100.9375 55
+            L 100.9375 69
+            A 3 3 0 0 1 97.9375 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -205,11 +205,11 @@
       <text x="30.0" y="49.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">AX_SWITCH</text>
-      <polygon points="95.9453125,5.5 100.9453125,10.5 95.9453125,15.5" fill="#63B31F"/>
-      <text x="94.9453125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="95.9375,5.5 100.9375,10.5 95.9375,15.5" fill="#63B31F"/>
+      <text x="94.9375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO0</text>
-      <polygon points="95.9453125,22.5 100.9453125,27.5 95.9453125,32.5" fill="#63B31F"/>
-      <text x="94.9453125" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="95.9375,22.5 100.9375,27.5 95.9375,32.5" fill="#63B31F"/>
+      <text x="94.9375" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO1</text>
 
 
@@ -229,24 +229,24 @@
       <text x="13" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">G</text>
       <!-- Instance Name -->
-      <text x="50.47265625" y="-5"
+      <text x="50.46875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_SWITCH</text>
     </g>
   </g>
-  <g transform="translate(187.93,35.00) scale(0.9320388349514563) translate(-187.93,-35.00)">
-    <g id="fb_AX_SR" transform="translate(187.9, 35.0)">
+  <g transform="translate(195.10,268.10) scale(0.7417582417582417) translate(-195.10,-268.10)">
+    <g id="fb_AX_SR" transform="translate(195.1, 268.1)">
       <path d="M 3 0
-            L 72.650390625 0
-            A 3 3 0 0 1 75.650390625 3
-            L 75.650390625 35
-            A 3 3 0 0 1 72.650390625 38
-            L 66.650390625 38
-            L 66.650390625 52
-            L 72.650390625 52
-            A 3 3 0 0 1 75.650390625 55
-            L 75.650390625 69
-            A 3 3 0 0 1 72.650390625 72
+            L 72.6875 0
+            A 3 3 0 0 1 75.6875 3
+            L 75.6875 35
+            A 3 3 0 0 1 72.6875 38
+            L 66.6875 38
+            L 66.6875 52
+            L 72.6875 52
+            A 3 3 0 0 1 75.6875 55
+            L 75.6875 69
+            A 3 3 0 0 1 72.6875 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -294,40 +294,40 @@
             fill="#000000">R</text>
 
 
-      <path d="M 65.650390625 55.5
-            L 68.150390625 55.5
-            L 68.150390625 57.166666666666664
-            L 70.650390625 57.166666666666664
-            L 70.650390625 55.5
-            L 75.650390625 55.5
-            L 75.650390625 65.5
-            L 70.650390625 65.5
-            L 70.650390625 63.833333333333336
-            L 68.150390625 63.833333333333336
-            L 68.150390625 65.5
-            L 65.650390625 65.5
+      <path d="M 65.6875 55.5
+            L 68.1875 55.5
+            L 68.1875 57.166666666666664
+            L 70.6875 57.166666666666664
+            L 70.6875 55.5
+            L 75.6875 55.5
+            L 75.6875 65.5
+            L 70.6875 65.5
+            L 70.6875 63.833333333333336
+            L 68.1875 63.833333333333336
+            L 68.1875 65.5
+            L 65.6875 65.5
             Z" fill="#845DAF"/>
-      <text x="62.650390625" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="62.6875" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="37.8251953125" y="-5"
+      <text x="37.84375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_SR</text>
     </g>
   </g>
-  <g transform="translate(189.12,327.89) scale(0.9320388349514563) translate(-189.12,-327.89)">
-    <g id="fb_AX_SPLIT_2" transform="translate(189.1, 327.9)">
+  <g transform="translate(198.80,194.60) scale(0.7417582417582417) translate(-198.80,-194.60)">
+    <g id="fb_AX_SPLIT_2" transform="translate(198.8, 194.6)">
       <path d="M 3 0
-            L 98.349609375 0
-            A 3 3 0 0 1 101.349609375 3
-            L 101.349609375 18
-            A 3 3 0 0 1 98.349609375 21
-            L 92.349609375 21
-            L 92.349609375 35
-            L 98.349609375 35
-            A 3 3 0 0 1 101.349609375 38
-            L 101.349609375 69
-            A 3 3 0 0 1 98.349609375 72
+            L 98.3125 0
+            A 3 3 0 0 1 101.3125 3
+            L 101.3125 18
+            A 3 3 0 0 1 98.3125 21
+            L 92.3125 21
+            L 92.3125 35
+            L 98.3125 35
+            A 3 3 0 0 1 101.3125 38
+            L 101.3125 69
+            A 3 3 0 0 1 98.3125 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 38
@@ -385,55 +385,55 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN</text>
-      <path d="M 91.349609375 38.5
-            L 93.849609375 38.5
-            L 93.849609375 40.166666666666664
-            L 96.349609375 40.166666666666664
-            L 96.349609375 38.5
-            L 101.349609375 38.5
-            L 101.349609375 48.5
-            L 96.349609375 48.5
-            L 96.349609375 46.833333333333336
-            L 93.849609375 46.833333333333336
-            L 93.849609375 48.5
-            L 91.349609375 48.5
+      <path d="M 91.3125 38.5
+            L 93.8125 38.5
+            L 93.8125 40.166666666666664
+            L 96.3125 40.166666666666664
+            L 96.3125 38.5
+            L 101.3125 38.5
+            L 101.3125 48.5
+            L 96.3125 48.5
+            L 96.3125 46.833333333333336
+            L 93.8125 46.833333333333336
+            L 93.8125 48.5
+            L 91.3125 48.5
             Z" fill="#845DAF"/>
-      <text x="88.349609375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="88.3125" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT1</text>
-      <path d="M 91.349609375 55.5
-            L 93.849609375 55.5
-            L 93.849609375 57.166666666666664
-            L 96.349609375 57.166666666666664
-            L 96.349609375 55.5
-            L 101.349609375 55.5
-            L 101.349609375 65.5
-            L 96.349609375 65.5
-            L 96.349609375 63.833333333333336
-            L 93.849609375 63.833333333333336
-            L 93.849609375 65.5
-            L 91.349609375 65.5
+      <path d="M 91.3125 55.5
+            L 93.8125 55.5
+            L 93.8125 57.166666666666664
+            L 96.3125 57.166666666666664
+            L 96.3125 55.5
+            L 101.3125 55.5
+            L 101.3125 65.5
+            L 96.3125 65.5
+            L 96.3125 63.833333333333336
+            L 93.8125 63.833333333333336
+            L 93.8125 65.5
+            L 91.3125 65.5
             Z" fill="#845DAF"/>
-      <text x="88.349609375" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="88.3125" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT2</text>
       <!-- Instance Name -->
-      <text x="50.6748046875" y="-5"
+      <text x="50.65625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_SPLIT_2</text>
     </g>
   </g>
-  <g transform="translate(83.89,143.19) scale(0.9320388349514563) translate(-83.89,-143.19)">
-    <g id="fb_AX_AE_MERGE" transform="translate(83.9, 143.2)">
+  <g transform="translate(95.07,341.59) scale(0.7417582417582417) translate(-95.07,-341.59)">
+    <g id="fb_AX_AE_MERGE" transform="translate(95.1, 341.6)">
       <path d="M 3 0
-            L 114.5390625 0
-            A 3 3 0 0 1 117.5390625 3
-            L 117.5390625 18
-            A 3 3 0 0 1 114.5390625 21
-            L 108.5390625 21
-            L 108.5390625 35
-            L 114.5390625 35
-            A 3 3 0 0 1 117.5390625 38
-            L 117.5390625 69
-            A 3 3 0 0 1 114.5390625 72
+            L 114.5625 0
+            A 3 3 0 0 1 117.5625 3
+            L 117.5625 18
+            A 3 3 0 0 1 114.5625 21
+            L 108.5625 21
+            L 108.5625 35
+            L 114.5625 35
+            A 3 3 0 0 1 117.5625 38
+            L 117.5625 69
+            A 3 3 0 0 1 114.5625 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 38
@@ -506,23 +506,23 @@
             Z" fill="none" stroke="#845DAF" stroke-width="1"/>
       <text x="13" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">IN_AX</text>
-      <path d="M 107.5390625 38.5
-            L 110.0390625 38.5
-            L 110.0390625 40.166666666666664
-            L 112.5390625 40.166666666666664
-            L 112.5390625 38.5
-            L 117.5390625 38.5
-            L 117.5390625 48.5
-            L 112.5390625 48.5
-            L 112.5390625 46.833333333333336
-            L 110.0390625 46.833333333333336
-            L 110.0390625 48.5
-            L 107.5390625 48.5
+      <path d="M 107.5625 38.5
+            L 110.0625 38.5
+            L 110.0625 40.166666666666664
+            L 112.5625 40.166666666666664
+            L 112.5625 38.5
+            L 117.5625 38.5
+            L 117.5625 48.5
+            L 112.5625 48.5
+            L 112.5625 46.833333333333336
+            L 110.0625 46.833333333333336
+            L 110.0625 48.5
+            L 107.5625 48.5
             Z" fill="#845DAF"/>
-      <text x="104.5390625" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="104.5625" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">OUT</text>
       <!-- Instance Name -->
-      <text x="58.76953125" y="-5"
+      <text x="58.78125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_AE_MERGE</text>
     </g>
