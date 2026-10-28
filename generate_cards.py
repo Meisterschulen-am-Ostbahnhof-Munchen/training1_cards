@@ -1162,17 +1162,54 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                             cost += 2000
             return cost
 
+        def search_chan_tracks(c_list, num_tracks):
+            m = len(c_list)
+            # Exhaustive search only for small problem sizes (<= 4096 combinations);
+            # num_tracks ** m grows exponentially and must never be materialized.
+            if num_tracks ** m <= 4096:
+                best_cost = float("inf")
+                cur_best = None
+                for a in itertools.product(range(num_tracks), repeat=m):
+                    c = eval_chan_cost(c_list, a)
+                    if c < best_cost:
+                        best_cost = c
+                        cur_best = a
+                return cur_best, best_cost
+
+            # Greedy constructive pass for larger channels
+            assignment = [0] * m
+            for i in range(m):
+                best_t, best_c = 0, float("inf")
+                for t in range(num_tracks):
+                    assignment[i] = t
+                    c = eval_chan_cost(c_list[:i + 1], assignment[:i + 1])
+                    if c < best_c:
+                        best_c, best_t = c, t
+                assignment[i] = best_t
+
+            # Hill-climbing refinement passes
+            cur_cost = eval_chan_cost(c_list, assignment)
+            improved = True
+            passes = 0
+            while improved and passes < 5:
+                improved = False
+                passes += 1
+                for i in range(m):
+                    cur_t = assignment[i]
+                    for t in range(num_tracks):
+                        if t == cur_t:
+                            continue
+                        assignment[i] = t
+                        new_cost = eval_chan_cost(c_list, assignment)
+                        if new_cost < cur_cost:
+                            cur_cost, cur_t = new_cost, t
+                            improved = True
+                    assignment[i] = cur_t
+            return tuple(assignment), cur_cost
+
         best_assignment = None
         for num_tracks in range(2, min(len(chan) + 1, 5)):
-            domains = [list(range(num_tracks)) for _ in chan]
-            combos = list(itertools.product(*domains))
-            best_cost = float("inf")
-            cur_best = None
-            for a in combos:
-                c = eval_chan_cost(chan, a)
-                if c < best_cost:
-                    best_cost = c
-                    cur_best = a
+            cur_best, best_cost = search_chan_tracks(chan, num_tracks)
             if cur_best and best_cost < 10000:
                 best_assignment = cur_best
                 break
