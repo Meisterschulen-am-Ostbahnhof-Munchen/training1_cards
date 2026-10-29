@@ -72,6 +72,11 @@ DEFAULT_TYPE_LIBS = [
     os.path.join(WORKSPACE_DIR, "test_B"),
 ]
 
+# Online exercise documentation; the card back links to <DOCS_BASE_URL>/<test_X>/Uebungen_doc/<exercise>/
+DOCS_BASE_URL = os.environ.get(
+    "TRAINING1_DOCS_URL",
+    "https://meisterschulen-am-ostbahnhof-munchen-docs.readthedocs.io/projects/4diac-exercises-docs/de/latest/Uebungen")
+
 # TGL-Normschrift ships with this repository (tgl/, corrected _std variants)
 _FONTS_DIR = os.path.join(REPO_DIR, "tgl")
 TGL_17_PATH = os.path.join(_FONTS_DIR, "TGL 0-17_std.ttf")
@@ -1445,6 +1450,61 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     return "\n".join(svg)
 
 
+def get_exercise_doc_url(subapp_file: str) -> str:
+    """Returns the URL of the exercise's page in the online documentation."""
+    folder = get_exercise_subfolder(subapp_file)
+    b_name = os.path.splitext(os.path.basename(subapp_file))[0]
+    return f"{DOCS_BASE_URL}/{folder}/Uebungen_doc/{b_name}/"
+
+
+def generate_card_back_svg(subapp_file: str) -> str:
+    """Generates the card back: exercise name and a QR code linking to the exercise's documentation page."""
+    from reportlab.graphics.barcode.qr import QrCodeWidget
+
+    parser = NetworkParser()
+    model = parser.parse(subapp_file)
+    ex_name = model.name or os.path.splitext(os.path.basename(subapp_file))[0]
+    url = get_exercise_doc_url(subapp_file)
+
+    widget = QrCodeWidget(url, barLevel="M")
+    widget.qr.make()
+    modules = widget.qr.modules
+    count = len(modules)
+
+    # QR code 46 x 46 mm, centered; the white card margin around it serves as quiet zone
+    qr_size = 230.0
+    qr_x = (SVG_W - qr_size) / 2.0
+    qr_y = 105.0
+    # One path on a module grid (1 unit per module), scaled to qr_size
+    path = []
+    for r, row in enumerate(modules):
+        c = 0
+        for dark, run in itertools.groupby(bool(m) for m in row):
+            n = len(list(run))
+            if dark:
+                path.append(f"M{c},{r}h{n}v1h-{n}z")
+            c += n
+
+    font = "'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif"
+    svg = []
+    svg.append('<svg xmlns="http://www.w3.org/2000/svg"')
+    svg.append(f'     viewBox="0 0 {SVG_W} {SVG_H}"')
+    svg.append(f'     width="{CARD_W_MM}mm" height="{CARD_H_MM}mm">')
+    svg.append(get_embedded_font_style())
+    svg.append(f'  <rect x="0" y="0" width="{SVG_W}" height="{SVG_H}" fill="white"/>')
+    svg.append(f'  <rect x="0.5" y="0.5" width="{SVG_W-1}" height="{SVG_H-1}" fill="none" stroke="#BDC3C7" stroke-width="1"/>')
+    # Helvetica: TGL has no ® glyph
+    svg.append('  <text x="175" y="45" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#7F8C8D" text-anchor="middle">logiBUS® Mini-Trainer</text>')
+    svg.append(f'  <text x="175" y="78" font-family="{font}" font-size="15" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ex_name)}</text>')
+    svg.append(f'  <g transform="translate({qr_x:.2f},{qr_y:.2f}) scale({qr_size / count:.4f})">')
+    svg.append(f'    <path d="{"".join(path)}" fill="#000000"/>')
+    svg.append('  </g>')
+    svg.append(f'  <text x="175" y="372" font-family="{font}" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Scannen: Übung online</text>')
+    svg.append(f'  <text x="175" y="388" font-family="{font}" font-size="7.5" fill="#566573" text-anchor="middle">Beschreibung, Bausteine und Programmablauf</text>')
+    svg.append('</svg>')
+    return "\n".join(svg)
+
+
 def draw_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: float, length: float = 6 * mm, offset: float = 2 * mm):
     """Draws cutting crop marks around the card boundary."""
     c.setStrokeColor(colors.HexColor('#7F8C8D'))
@@ -1481,8 +1541,8 @@ def render_card_on_pdf(c: canvas.Canvas, svg_content: str, x: float, y: float, w
         renderPDF.draw(drawing, c, x, y)
 
 
-def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf"):
-    """Generates a single-card PDF page centered on A4 with crop marks."""
+def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf", with_back: bool = True):
+    """Generates a single-card PDF page centered on A4 with crop marks (plus the card back as page 2)."""
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -1530,12 +1590,23 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
             curr_y -= 0.4 * cm
 
     c.showPage()
+
+    if with_back:
+        # Page 2: card back at the same (centered) position for duplex printing
+        render_card_on_pdf(c, generate_card_back_svg(subapp_file), x, y, card_w, card_h)
+        draw_crop_marks(c, x, y, card_w, card_h)
+        c.showPage()
+
     c.save()
     print(f"Generated single card PDF: {output_pdf}", flush=True)
 
 
-def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf"):
-    """Generates a multi-card PDF with a 2x3 grid (6 cards per A4 page) for easy printing and cutting."""
+def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf", with_back: bool = True):
+    """Generates a multi-card PDF with a 2x3 grid (6 cards per A4 page) for easy printing and cutting.
+
+    With with_back, every front page is followed by a page of card backs with mirrored columns,
+    so the backs line up when printed duplex (flip on long edge).
+    """
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -1589,6 +1660,30 @@ def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS
 
         c.showPage()
 
+        if with_back:
+            draw_crop_marks(c, start_x, start_y, grid_w, grid_h, length=8 * mm, offset=3 * mm)
+            for slot in range(cards_per_page):
+                idx = page_idx * cards_per_page + slot
+                if idx >= total_files:
+                    break
+
+                sub_file = subapp_files[idx]
+                col = (cols - 1) - slot % cols
+                grid_row = (rows - 1) - slot // cols
+
+                x = start_x + col * card_w
+                y = start_y + grid_row * card_h
+
+                try:
+                    render_card_on_pdf(c, generate_card_back_svg(sub_file), x, y, card_w, card_h)
+                except Exception as e:
+                    sub_name = os.path.splitext(os.path.basename(sub_file))[0]
+                    print(f"    [WARNUNG] Fehler bei Rückseite {sub_name}: {e}", flush=True)
+
+                draw_crop_marks(c, x, y, card_w, card_h, length=4 * mm, offset=1.5 * mm)
+
+            c.showPage()
+
     c.save()
     print(f"Generated multi card PDF: {output_pdf}\n", flush=True)
 
@@ -1615,13 +1710,15 @@ def draw_offset_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: fl
     c.line(x + w, y + h + offset, x + w, y + h + offset + length)
 
 
-def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printshop.pdf", bleed_mm: float = 3.0, slug_mm: float = 6.0):
+def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printshop.pdf", bleed_mm: float = 3.0, slug_mm: float = 6.0,
+                           with_back: bool = True):
     """Generates an offset print-ready PDF for commercial print shops.
 
     - TrimBox: exactly 70.0 mm x 90.0 mm (defining the final cut size / Endformat).
     - BleedBox: 76.0 mm x 96.0 mm (standard 3mm bleed).
     - MediaBox: 82.0 mm x 102.0 mm (with 6mm slug margin).
     - Crop marks (Schnittmarken): positioned outside the paper trim area pointing to the 70x90mm boundary.
+    - Page 1 = front, page 2 = back (with_back).
     """
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
@@ -1640,24 +1737,28 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
     c.setTrimBox((margin, margin, margin + card_w, margin + card_h))
     c.setBleedBox((margin - bleed, margin - bleed, margin + card_w + bleed, margin + card_h + bleed))
 
-    # Fill BleedBox area with background color so trimming tolerance has full bleed
-    c.setFillColor(colors.white)
-    c.rect(margin - bleed, margin - bleed, card_w + 2 * bleed, card_h + 2 * bleed, fill=1, stroke=0)
+    sides = [generate_card_svg(subapp_file)]
+    if with_back:
+        sides.append(generate_card_back_svg(subapp_file))
 
-    # Render card inside the TrimBox
-    svg_content = generate_card_svg(subapp_file)
-    render_card_on_pdf(c, svg_content, margin, margin, card_w, card_h)
+    for svg_content in sides:
+        # Fill BleedBox area with background color so trimming tolerance has full bleed
+        c.setFillColor(colors.white)
+        c.rect(margin - bleed, margin - bleed, card_w + 2 * bleed, card_h + 2 * bleed, fill=1, stroke=0)
 
-    # Draw offset crop marks in the margin outside the trim box
-    draw_offset_crop_marks(c, margin, margin, card_w, card_h, length=3.5 * mm, offset=1.5 * mm)
+        # Render card inside the TrimBox
+        render_card_on_pdf(c, svg_content, margin, margin, card_w, card_h)
 
-    c.showPage()
+        # Draw offset crop marks in the margin outside the trim box
+        draw_offset_crop_marks(c, margin, margin, card_w, card_h, length=3.5 * mm, offset=1.5 * mm)
+
+        c.showPage()
     c.save()
     print(f"Generated print shop offset PDF: {output_pdf}", flush=True)
 
 
-def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf"):
-    """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm."""
+def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf", with_back: bool = True):
+    """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm (page 2 = back)."""
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -1668,6 +1769,9 @@ def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_7
     svg_content = generate_card_svg(subapp_file)
     render_card_on_pdf(c, svg_content, 0, 0, card_w, card_h)
     c.showPage()
+    if with_back:
+        render_card_on_pdf(c, generate_card_back_svg(subapp_file), 0, 0, card_w, card_h)
+        c.showPage()
     c.save()
     print(f"Generated exact 70x90mm PDF: {output_pdf}", flush=True)
 
@@ -1985,6 +2089,7 @@ def main():
     arg_parser.add_argument("--all", action="store_true", help="Generate multi-card PDF for all exercises in folder")
     arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
     arg_parser.add_argument("--check-layout", action="store_true", help="Analyze exercise layouts and generate fix-TODO.md")
+    arg_parser.add_argument("--no-back", action="store_true", help="Omit the card back (QR code to the exercise documentation) in all PDFs")
     arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
     arg_parser.add_argument(
         "--folder", "--folders",
@@ -2020,6 +2125,7 @@ def main():
         return
 
     output_root = args.output_dir
+    with_back = not args.no_back
 
     if args.batch_all:
         files = find_sub_files(args.folders)
@@ -2039,9 +2145,12 @@ def main():
                 svg_content = generate_card_svg(fpath)
                 with open(os.path.join(out_paths["svg"], f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
                     f.write(svg_content)
-                generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"))
-                generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"))
-                generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"))
+                if with_back:
+                    with open(os.path.join(out_paths["svg"], f"{b_name}_card_back.svg"), "w", encoding="utf-8") as f:
+                        f.write(generate_card_back_svg(fpath))
+                generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"), with_back=with_back)
+                generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"), with_back=with_back)
+                generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"), with_back=with_back)
             except Exception as e:
                 print(f"  [WARNUNG] Fehler bei {b_name}: {e}", flush=True)
 
@@ -2053,7 +2162,7 @@ def main():
             multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
             multi_out = args.multi_out or os.path.join(folder_multi_dir, multi_name)
             print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
-            generate_multi_cards_pdf(folder_files, multi_out)
+            generate_multi_cards_pdf(folder_files, multi_out, with_back=with_back)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -2081,7 +2190,7 @@ def main():
             multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
             multi_out = os.path.join(folder_multi_dir, multi_name)
             print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
-            generate_multi_cards_pdf(folder_files, multi_out)
+            generate_multi_cards_pdf(folder_files, multi_out, with_back=with_back)
 
             if folder_files:
                 first_file = folder_files[0]
@@ -2093,15 +2202,20 @@ def main():
                 with open(svg_out, "w", encoding="utf-8") as f:
                     f.write(svg_content)
                 print(f"Saved SVG: {svg_out}", flush=True)
+                if with_back:
+                    back_out = os.path.join(out_paths["svg"], f"{first_base}_card_back.svg")
+                    with open(back_out, "w", encoding="utf-8") as f:
+                        f.write(generate_card_back_svg(first_file))
+                    print(f"Saved SVG: {back_out}", flush=True)
 
                 single_out = os.path.join(out_paths["single"], f"{first_base}_single.pdf")
-                generate_single_card_pdf(first_file, single_out)
+                generate_single_card_pdf(first_file, single_out, with_back=with_back)
 
                 printshop_out = os.path.join(out_paths["printshop"], f"{first_base}_printshop.pdf")
-                generate_printshop_pdf(first_file, printshop_out)
+                generate_printshop_pdf(first_file, printshop_out, with_back=with_back)
 
                 exact_out = os.path.join(out_paths["exact_70x90"], f"{first_base}_exact_70x90.pdf")
-                generate_exact_size_pdf(first_file, exact_out)
+                generate_exact_size_pdf(first_file, exact_out, with_back=with_back)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -2133,23 +2247,28 @@ def main():
         with open(svg_out, "w", encoding="utf-8") as f:
             f.write(svg_content)
         print(f"Saved SVG: {svg_out}", flush=True)
+        if with_back:
+            back_out = os.path.join(os.path.dirname(svg_out) or ".", f"{base_name}_card_back.svg")
+            with open(back_out, "w", encoding="utf-8") as f:
+                f.write(generate_card_back_svg(target_sub))
+            print(f"Saved SVG: {back_out}", flush=True)
 
         # Variant 1: Single card on DIN A4
         single_out = args.single_out or os.path.join(out_paths["single"], f"{base_name}_single.pdf")
-        generate_single_card_pdf(target_sub, single_out)
+        generate_single_card_pdf(target_sub, single_out, with_back=with_back)
 
         # Variant 2: Multi card sheet (6 cards on A4)
         multi_out = args.multi_out or os.path.join(out_paths["multi"], f"{base_name}_multi.pdf")
         multi_list = [target_sub] * 6
-        generate_multi_cards_pdf(multi_list, multi_out)
+        generate_multi_cards_pdf(multi_list, multi_out, with_back=with_back)
 
         # Variant 3: Print shop offset PDF (TrimBox=70x90mm, crop marks outside)
         printshop_out = args.printshop_out or os.path.join(out_paths["printshop"], f"{base_name}_printshop.pdf")
-        generate_printshop_pdf(target_sub, printshop_out)
+        generate_printshop_pdf(target_sub, printshop_out, with_back=with_back)
 
         # Variant 3b: Print shop exact 70x90mm PDF (MediaBox=70x90mm)
         exact_out = args.exact_out or os.path.join(out_paths["exact_70x90"], f"{base_name}_exact_70x90.pdf")
-        generate_exact_size_pdf(target_sub, exact_out)
+        generate_exact_size_pdf(target_sub, exact_out, with_back=with_back)
 
     print("Generation complete!", flush=True)
 
