@@ -16,16 +16,24 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional, Set
 
+REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+# Sibling checkouts (default) or explicit paths via environment variables
+_PARENT_DIR = os.path.dirname(REPO_DIR)
+
 # Add path to IEC61499_FunctionBlock_SVG renderer
-SVG_LIB_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG"
+SVG_LIB_PATH = os.environ.get("IEC61499_SVG_TOOL", os.path.join(_PARENT_DIR, "IEC61499_FunctionBlock_SVG"))
 if SVG_LIB_PATH not in sys.path and os.path.exists(SVG_LIB_PATH):
     sys.path.append(SVG_LIB_PATH)
 
-from iec61499_network_to_svg import (
-    NetworkParser, TypeResolver, NetworkSVGRenderer, NetworkLayoutEngine,
-    load_block_size_settings, FBInstance, Connection, NetworkModel,
-    _xml_escape
-)
+try:
+    from iec61499_network_to_svg import (
+        NetworkParser, TypeResolver, NetworkSVGRenderer, NetworkLayoutEngine,
+        load_block_size_settings, FBInstance, Connection, NetworkModel,
+        _xml_escape
+    )
+except ImportError as exc:
+    sys.exit(f"[FEHLER] IEC61499_FunctionBlock_SVG nicht gefunden unter {SVG_LIB_PATH}: {exc}\n"
+             f"         Repository daneben auschecken oder Umgebungsvariable IEC61499_SVG_TOOL setzen.")
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
@@ -48,20 +56,34 @@ BLOCK_SCALE = 0.96
 # Vertical clearance between stacked blocks: room for the instance name drawn above the lower block
 BLOCK_LABEL_GAP = 26.0
 
-DEFAULT_EXERCISE = r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX\Uebungen\Uebung_002a_AX.SUB"
+WORKSPACE_DIR = os.environ.get(
+    "TRAINING1_WORKSPACE",
+    os.path.join(_PARENT_DIR, "4diac_training1", "Ventilsteuerung", "4diacIDE-workspace"))
+
+DEFAULT_EXERCISE = os.path.join(WORKSPACE_DIR, "test_AX", "Uebungen", "Uebung_002a_AX.SUB")
 DEFAULT_EXERCISES_DIRS = [
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+    os.path.join(WORKSPACE_DIR, "test_AX"),
+    os.path.join(WORKSPACE_DIR, "test_B"),
 ]
 DEFAULT_EXERCISES_DIR = DEFAULT_EXERCISES_DIRS[0]
 DEFAULT_TYPE_LIBS = [
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\.lib",
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_AX",
-    r"C:\git\ms-docs\4diac_training1\Ventilsteuerung\4diacIDE-workspace\test_B",
+    os.path.join(WORKSPACE_DIR, ".lib"),
+    os.path.join(WORKSPACE_DIR, "test_AX"),
+    os.path.join(WORKSPACE_DIR, "test_B"),
 ]
 
-TGL_17_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-17_std.ttf"
-TGL_16_PATH = r"C:\git\fh\IEC61499_FunctionBlock_SVG\tgl\TGL 0-16_std.ttf"
+# Online exercise documentation; the card back links to <DOCS_BASE_URL>/<test_X>/Uebungen_doc/<exercise>/
+DOCS_BASE_URL = os.environ.get(
+    "TRAINING1_DOCS_URL",
+    "https://meisterschulen-am-ostbahnhof-munchen-docs.readthedocs.io/projects/4diac-exercises-docs/de/latest/Uebungen")
+
+# TGL-Normschrift ships with this repository (tgl/, corrected _std variants)
+_FONTS_DIR = os.path.join(REPO_DIR, "tgl")
+TGL_17_PATH = os.path.join(_FONTS_DIR, "TGL 0-17_std.ttf")
+TGL_16_PATH = os.path.join(_FONTS_DIR, "TGL 0-16_std.ttf")
+for _font_path in (TGL_17_PATH, TGL_16_PATH):
+    if not os.path.exists(_font_path):
+        print(f"[WARNUNG] TGL-Schrift fehlt: {_font_path} - Karten nutzen Ersatzschrift.", file=sys.stderr)
 
 EVENT_LABELS = {
     "BUTTON_SINGLE_CLICK": "Klicken",
@@ -746,17 +768,88 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                 for bi, b in enumerate(order):
                     b.render_y += extra * sum(1 for s in stacked if s <= bi)
 
+    # Final safety net: a column can still be too tall to fit the card after stacking at the
+    # minimum gap (too many blocks, or a single block that is inherently very tall/wide, e.g.
+    # Uebung_028c2_AR or Uebung_009a_AX). Shrink just the blocks of that column further, in place
+    # around their own center, until the whole column fits within the card's safe area.
+    for inst in logic_instances:
+        inst.extra_scale = 1.0
+
+    def _x_overlap(a, b):
+        return a.render_x < b.render_x + b.block_width and b.render_x < a.render_x + a.block_width
+
+    remaining = list(logic_instances)
+    columns = []
+    while remaining:
+        column = [remaining.pop()]
+        changed = True
+        while changed:
+            changed = False
+            for inst in remaining[:]:
+                if any(_x_overlap(inst, c) for c in column):
+                    column.append(inst)
+                    remaining.remove(inst)
+                    changed = True
+        columns.append(column)
+
+    # Blocks are stacked with the same BLOCK_LABEL_GAP clearance used elsewhere (rendered-space,
+    # calibrated for extra_scale=1.0); it shrinks together with the blocks themselves so the
+    # instance name above each block never collides with the block above it.
+    # A block is only stacked below the blocks it actually overlaps horizontally, so blocks of a
+    # (transitively connected) column that do not overlap each other share rows; the height
+    # needed is the tallest such chain, not the sum of all blocks in the column.
+    def _stack(column, top_y, scale):
+        """Returns the stacked top y of every block (column sorted top to bottom) and the height used."""
+        tops = []
+        for bi, b in enumerate(column):
+            above = [tops[ai] + a.block_height * scale + BLOCK_LABEL_GAP * scale
+                     for ai, a in enumerate(column[:bi]) if _x_overlap(a, b)]
+            tops.append(max([top_y] + above))
+        return tops, max(t + i.block_height * scale for t, i in zip(tops, column)) - top_y
+
+    for column in columns:
+        column.sort(key=lambda i: i.render_y)
+        if sum(i.block_height for i in column) <= 0:
+            continue
+        top_y_current = min(i.render_y for i in column)
+        _, needed = _stack(column, top_y_current, 1.0)
+        top_y = 35.0 if needed > (395.0 - top_y_current) else top_y_current
+        avail = 395.0 - top_y
+        if needed <= avail:
+            # Fits after moving the column up to the top: stack it there without shrinking
+            if top_y != top_y_current:
+                tops, _ = _stack(column, top_y, 1.0)
+                for inst, y in zip(column, tops):
+                    inst.render_y = y
+            continue
+        shrink = max(0.01, avail / needed)
+        if shrink >= 1.0:
+            continue
+        # Positions are computed from the unshrunk widths, i.e. with the same overlaps as `needed`
+        tops, _ = _stack(column, top_y, shrink)
+        for inst, y in zip(column, tops):
+            old_w = inst.block_width
+            inst.block_width *= shrink
+            inst.block_height *= shrink
+            inst.name_section_bottom *= shrink
+            if getattr(inst, "adapter_section_top", None) is not None:
+                inst.adapter_section_top *= shrink
+            inst.extra_scale *= shrink
+            inst.render_x += (old_w - inst.block_width) / 2.0
+            inst.render_y = y
+
     # Snap blocks fed by input pins to the 1 cm pin grid: shift each block so that the port of its topmost
     # nearly aligned pin->port connection (max. 20 units off) sits exactly at the pin height; the other
     # ports keep their fixed spacing and are bent normally by the router
     def in_port_dy(inst, port_name):
-        row = port_row
+        extra = inst.extra_scale
+        row = port_row * extra
         for k, port in enumerate(inst.event_inputs):
             if port.name == port_name:
-                return 2 * BLOCK_SCALE + row / 2 + k * row
+                return 2 * BLOCK_SCALE * extra + row / 2 + k * row
         for k, port in enumerate(inst.data_inputs):
             if port.name == port_name:
-                return inst.name_section_bottom + 2 * BLOCK_SCALE + row / 2 + k * row
+                return inst.name_section_bottom + 2 * BLOCK_SCALE * extra + row / 2 + k * row
         return None
 
     inst_by_name_snap = {i.name: i for i in logic_instances}
@@ -816,36 +909,39 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     for inst in logic_instances:
         instance_map[inst.name] = inst
         inst.port_positions = {}
+        extra = inst.extra_scale
+        inst_port_row = port_row * extra
+        top_offset = 2 * BLOCK_SCALE * extra
         # Event inputs
-        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + top_offset + inst_port_row / 2
         for port in inst.event_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += port_row
+            y += inst_port_row
         # Event outputs
-        y = inst.render_y + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + top_offset + inst_port_row / 2
         for port in inst.event_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += port_row
+            y += inst_port_row
         # Data inputs
-        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.name_section_bottom + top_offset + inst_port_row / 2
         for port in inst.data_inputs:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += port_row
+            y += inst_port_row
         # Data outputs
-        y = inst.render_y + inst.name_section_bottom + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.name_section_bottom + top_offset + inst_port_row / 2
         for port in inst.data_outputs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += port_row
+            y += inst_port_row
         # Sockets (adapter inputs)
-        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.adapter_section_top + top_offset + inst_port_row / 2
         for port in inst.sockets:
             inst.port_positions[port.name] = (inst.render_x, y)
-            y += port_row
+            y += inst_port_row
         # Plugs (adapter outputs)
-        y = inst.render_y + inst.adapter_section_top + 2 * BLOCK_SCALE + port_row / 2
+        y = inst.render_y + inst.adapter_section_top + top_offset + inst_port_row / 2
         for port in inst.plugs:
             inst.port_positions[port.name] = (inst.render_x + inst.block_width, y)
-            y += port_row
+            y += inst_port_row
 
     # 6. Build SVG content
     svg = []
@@ -1045,43 +1141,91 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         chan_dx = min(c["dx"] for c in chan)
         mid_base = (chan_sx + chan_dx) / 2.0
 
-        def eval_chan_cost(c_list, assignment):
+        def chan_pair_cost(ci, cj, ti, tj):
             cost = 0
-            m = len(c_list)
-            for i in range(m):
-                for j in range(i + 1, m):
-                    ci, cj = c_list[i], c_list[j]
-                    ti, tj = assignment[i], assignment[j]
-                    if ti == tj:
-                        if max(ci["y_min"], cj["y_min"]) < min(ci["y_max"], cj["y_max"]) - 1.0:
-                            cost += 10000
-                        elif ci["dest"] == cj["dest"]:
-                            cost -= 500
-                        elif ci["src"] == cj["src"]:
-                            cost -= 500
-                    elif ti < tj:
-                        if ci["y_min"] - 0.5 <= cj["sy"] <= ci["y_max"] + 0.5:
-                            cost += 2000
-                        if cj["y_min"] - 0.5 <= ci["dy"] <= cj["y_max"] + 0.5:
-                            cost += 2000
-                    else:
-                        if cj["y_min"] - 0.5 <= ci["sy"] <= cj["y_max"] + 0.5:
-                            cost += 2000
-                        if ci["y_min"] - 0.5 <= cj["dy"] <= ci["y_max"] + 0.5:
-                            cost += 2000
+            if ti == tj:
+                if max(ci["y_min"], cj["y_min"]) < min(ci["y_max"], cj["y_max"]) - 1.0:
+                    cost += 10000
+                elif ci["dest"] == cj["dest"]:
+                    cost -= 500
+                elif ci["src"] == cj["src"]:
+                    cost -= 500
+            elif ti < tj:
+                if ci["y_min"] - 0.5 <= cj["sy"] <= ci["y_max"] + 0.5:
+                    cost += 2000
+                if cj["y_min"] - 0.5 <= ci["dy"] <= cj["y_max"] + 0.5:
+                    cost += 2000
+            else:
+                if cj["y_min"] - 0.5 <= ci["sy"] <= cj["y_max"] + 0.5:
+                    cost += 2000
+                if ci["y_min"] - 0.5 <= cj["dy"] <= ci["y_max"] + 0.5:
+                    cost += 2000
             return cost
+
+        def eval_chan_cost(c_list, assignment):
+            m = len(c_list)
+            return sum(chan_pair_cost(c_list[i], c_list[j], assignment[i], assignment[j])
+                       for i in range(m) for j in range(i + 1, m))
+
+        def chan_item_cost(c_list, assignment, i, t, upto):
+            # Cost contribution of item i on track t against items [0, upto) except i itself
+            cost = 0
+            for j in range(upto):
+                if j < i:
+                    cost += chan_pair_cost(c_list[j], c_list[i], assignment[j], t)
+                elif j > i:
+                    cost += chan_pair_cost(c_list[i], c_list[j], t, assignment[j])
+            return cost
+
+        def search_chan_tracks(c_list, num_tracks):
+            m = len(c_list)
+            # Exhaustive search only for small problem sizes (<= 4096 combinations);
+            # num_tracks ** m grows exponentially and must never be materialized.
+            if num_tracks ** m <= 4096:
+                best_cost = float("inf")
+                cur_best = None
+                for a in itertools.product(range(num_tracks), repeat=m):
+                    c = eval_chan_cost(c_list, a)
+                    if c < best_cost:
+                        best_cost = c
+                        cur_best = a
+                return cur_best, best_cost
+
+            # Greedy constructive pass for larger channels; only the cost delta of
+            # item i against the already placed items is evaluated (O(m) per candidate).
+            assignment = [0] * m
+            for i in range(m):
+                best_t, best_c = 0, float("inf")
+                for t in range(num_tracks):
+                    c = chan_item_cost(c_list, assignment, i, t, i)
+                    if c < best_c:
+                        best_c, best_t = c, t
+                assignment[i] = best_t
+
+            # Hill-climbing refinement passes, updating the total cost incrementally
+            cur_cost = eval_chan_cost(c_list, assignment)
+            improved = True
+            passes = 0
+            while improved and passes < 5:
+                improved = False
+                passes += 1
+                for i in range(m):
+                    cur_t = assignment[i]
+                    cur_item = chan_item_cost(c_list, assignment, i, cur_t, m)
+                    for t in range(num_tracks):
+                        if t == cur_t:
+                            continue
+                        new_item = chan_item_cost(c_list, assignment, i, t, m)
+                        if new_item < cur_item:
+                            cur_cost += new_item - cur_item
+                            cur_item, cur_t = new_item, t
+                            improved = True
+                    assignment[i] = cur_t
+            return tuple(assignment), cur_cost
 
         best_assignment = None
         for num_tracks in range(2, min(len(chan) + 1, 5)):
-            domains = [list(range(num_tracks)) for _ in chan]
-            combos = list(itertools.product(*domains))
-            best_cost = float("inf")
-            cur_best = None
-            for a in combos:
-                c = eval_chan_cost(chan, a)
-                if c < best_cost:
-                    best_cost = c
-                    cur_best = a
+            cur_best, best_cost = search_chan_tracks(chan, num_tracks)
             if cur_best and best_cost < 10000:
                 best_assignment = cur_best
                 break
@@ -1243,7 +1387,8 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
         inst.block_width, inst.block_height, inst.name_section_bottom = bw, bh, nsb
         if ast is not None:
             inst.adapter_section_top = ast
-        svg.append(f'  <g transform="translate({inst.render_x:.2f},{inst.render_y:.2f}) scale({BLOCK_SCALE}) '
+        total_scale = BLOCK_SCALE * inst.extra_scale
+        svg.append(f'  <g transform="translate({inst.render_x:.2f},{inst.render_y:.2f}) scale({total_scale}) '
                    f'translate({-inst.render_x:.2f},{-inst.render_y:.2f})">')
         svg.append(renderer._render_instance(inst))
         svg.append('  </g>')
@@ -1305,6 +1450,75 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
     return "\n".join(svg)
 
 
+def get_exercise_doc_url(subapp_file: str) -> str:
+    """Returns the URL of the exercise's page in the online documentation.
+
+    The documentation mirrors the workspace tree below test_X, except that the
+    Uebungen folder is published as Uebungen_doc:
+      test_AX/Uebungen/Uebung_028c2_AR.SUB          -> test_AX/Uebungen_doc/Uebung_028c2_AR/
+      test_AX/Meins/OPC_UA_Lokal/Uebung_OPC_L01_AX.SUB -> test_AX/Meins/OPC_UA_Lokal/Uebung_OPC_L01_AX/
+    """
+    folder = get_exercise_subfolder(subapp_file)
+    parts = os.path.normpath(os.path.abspath(subapp_file)).split(os.sep)
+    b_name = os.path.splitext(parts[-1])[0]
+    if folder in parts:
+        folder_idx = len(parts) - 1 - parts[::-1].index(folder)  # last occurrence of test_X
+        dirs = parts[folder_idx + 1:-1]
+    else:
+        dirs = ["Uebungen"]
+    if dirs[:1] == ["Uebungen"]:
+        dirs[0] = "Uebungen_doc"
+    return "/".join([DOCS_BASE_URL, folder] + dirs + [b_name]) + "/"
+
+
+def generate_card_back_svg(subapp_file: str) -> str:
+    """Generates the card back: exercise name and a QR code linking to the exercise's documentation page."""
+    from reportlab.graphics.barcode.qr import QrCodeWidget
+
+    parser = NetworkParser()
+    model = parser.parse(subapp_file)
+    ex_name = model.name or os.path.splitext(os.path.basename(subapp_file))[0]
+    url = get_exercise_doc_url(subapp_file)
+
+    widget = QrCodeWidget(url, barLevel="M")
+    widget.qr.make()
+    modules = widget.qr.modules
+    count = len(modules)
+
+    # QR code 46 x 46 mm, centered; the white card margin around it serves as quiet zone
+    qr_size = 230.0
+    qr_x = (SVG_W - qr_size) / 2.0
+    qr_y = 105.0
+    # One path on a module grid (1 unit per module), scaled to qr_size
+    path = []
+    for r, row in enumerate(modules):
+        c = 0
+        for dark, run in itertools.groupby(bool(m) for m in row):
+            n = len(list(run))
+            if dark:
+                path.append(f"M{c},{r}h{n}v1h-{n}z")
+            c += n
+
+    font = "'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif"
+    svg = []
+    svg.append('<svg xmlns="http://www.w3.org/2000/svg"')
+    svg.append(f'     viewBox="0 0 {SVG_W} {SVG_H}"')
+    svg.append(f'     width="{CARD_W_MM}mm" height="{CARD_H_MM}mm">')
+    svg.append(get_embedded_font_style())
+    svg.append(f'  <rect x="0" y="0" width="{SVG_W}" height="{SVG_H}" fill="white"/>')
+    svg.append(f'  <rect x="0.5" y="0.5" width="{SVG_W-1}" height="{SVG_H-1}" fill="none" stroke="#BDC3C7" stroke-width="1"/>')
+    # Helvetica: TGL has no ® glyph
+    svg.append('  <text x="175" y="45" font-family="Helvetica, Arial, sans-serif" font-size="8.5" fill="#7F8C8D" text-anchor="middle">logiBUS® Mini-Trainer</text>')
+    svg.append(f'  <text x="175" y="78" font-family="{font}" font-size="15" font-weight="bold" fill="#2C3E50" text-anchor="middle">{_xml_escape(ex_name)}</text>')
+    svg.append(f'  <g transform="translate({qr_x:.2f},{qr_y:.2f}) scale({qr_size / count:.4f})">')
+    svg.append(f'    <path d="{"".join(path)}" fill="#000000"/>')
+    svg.append('  </g>')
+    svg.append(f'  <text x="175" y="372" font-family="{font}" font-size="9.5" font-weight="bold" fill="#2C3E50" text-anchor="middle">Scannen: Übung online</text>')
+    svg.append(f'  <text x="175" y="388" font-family="{font}" font-size="7.5" fill="#566573" text-anchor="middle">Beschreibung, Bausteine und Programmablauf</text>')
+    svg.append('</svg>')
+    return "\n".join(svg)
+
+
 def draw_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: float, length: float = 6 * mm, offset: float = 2 * mm):
     """Draws cutting crop marks around the card boundary."""
     c.setStrokeColor(colors.HexColor('#7F8C8D'))
@@ -1341,8 +1555,8 @@ def render_card_on_pdf(c: canvas.Canvas, svg_content: str, x: float, y: float, w
         renderPDF.draw(drawing, c, x, y)
 
 
-def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf"):
-    """Generates a single-card PDF page centered on A4 with crop marks."""
+def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf", with_back: bool = True):
+    """Generates a single-card PDF page centered on A4 with crop marks (plus the card back as page 2)."""
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -1390,12 +1604,23 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
             curr_y -= 0.4 * cm
 
     c.showPage()
+
+    if with_back:
+        # Page 2: card back at the same (centered) position for duplex printing
+        render_card_on_pdf(c, generate_card_back_svg(subapp_file), x, y, card_w, card_h)
+        draw_crop_marks(c, x, y, card_w, card_h)
+        c.showPage()
+
     c.save()
     print(f"Generated single card PDF: {output_pdf}", flush=True)
 
 
-def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf"):
-    """Generates a multi-card PDF with a 2x3 grid (6 cards per A4 page) for easy printing and cutting."""
+def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf", with_back: bool = True):
+    """Generates a multi-card PDF with a 2x3 grid (6 cards per A4 page) for easy printing and cutting.
+
+    With with_back, every front page is followed by a page of card backs with mirrored columns,
+    so the backs line up when printed duplex (flip on long edge).
+    """
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -1449,6 +1674,30 @@ def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS
 
         c.showPage()
 
+        if with_back:
+            draw_crop_marks(c, start_x, start_y, grid_w, grid_h, length=8 * mm, offset=3 * mm)
+            for slot in range(cards_per_page):
+                idx = page_idx * cards_per_page + slot
+                if idx >= total_files:
+                    break
+
+                sub_file = subapp_files[idx]
+                col = (cols - 1) - slot % cols
+                grid_row = (rows - 1) - slot // cols
+
+                x = start_x + col * card_w
+                y = start_y + grid_row * card_h
+
+                try:
+                    render_card_on_pdf(c, generate_card_back_svg(sub_file), x, y, card_w, card_h)
+                except Exception as e:
+                    sub_name = os.path.splitext(os.path.basename(sub_file))[0]
+                    print(f"    [WARNUNG] Fehler bei Rückseite {sub_name}: {e}", flush=True)
+
+                draw_crop_marks(c, x, y, card_w, card_h, length=4 * mm, offset=1.5 * mm)
+
+            c.showPage()
+
     c.save()
     print(f"Generated multi card PDF: {output_pdf}\n", flush=True)
 
@@ -1475,13 +1724,15 @@ def draw_offset_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: fl
     c.line(x + w, y + h + offset, x + w, y + h + offset + length)
 
 
-def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printshop.pdf", bleed_mm: float = 3.0, slug_mm: float = 6.0):
+def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printshop.pdf", bleed_mm: float = 3.0, slug_mm: float = 6.0,
+                           with_back: bool = True):
     """Generates an offset print-ready PDF for commercial print shops.
 
     - TrimBox: exactly 70.0 mm x 90.0 mm (defining the final cut size / Endformat).
     - BleedBox: 76.0 mm x 96.0 mm (standard 3mm bleed).
     - MediaBox: 82.0 mm x 102.0 mm (with 6mm slug margin).
     - Crop marks (Schnittmarken): positioned outside the paper trim area pointing to the 70x90mm boundary.
+    - Page 1 = front, page 2 = back (with_back).
     """
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
@@ -1500,24 +1751,28 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
     c.setTrimBox((margin, margin, margin + card_w, margin + card_h))
     c.setBleedBox((margin - bleed, margin - bleed, margin + card_w + bleed, margin + card_h + bleed))
 
-    # Fill BleedBox area with background color so trimming tolerance has full bleed
-    c.setFillColor(colors.white)
-    c.rect(margin - bleed, margin - bleed, card_w + 2 * bleed, card_h + 2 * bleed, fill=1, stroke=0)
+    sides = [generate_card_svg(subapp_file)]
+    if with_back:
+        sides.append(generate_card_back_svg(subapp_file))
 
-    # Render card inside the TrimBox
-    svg_content = generate_card_svg(subapp_file)
-    render_card_on_pdf(c, svg_content, margin, margin, card_w, card_h)
+    for svg_content in sides:
+        # Fill BleedBox area with background color so trimming tolerance has full bleed
+        c.setFillColor(colors.white)
+        c.rect(margin - bleed, margin - bleed, card_w + 2 * bleed, card_h + 2 * bleed, fill=1, stroke=0)
 
-    # Draw offset crop marks in the margin outside the trim box
-    draw_offset_crop_marks(c, margin, margin, card_w, card_h, length=3.5 * mm, offset=1.5 * mm)
+        # Render card inside the TrimBox
+        render_card_on_pdf(c, svg_content, margin, margin, card_w, card_h)
 
-    c.showPage()
+        # Draw offset crop marks in the margin outside the trim box
+        draw_offset_crop_marks(c, margin, margin, card_w, card_h, length=3.5 * mm, offset=1.5 * mm)
+
+        c.showPage()
     c.save()
     print(f"Generated print shop offset PDF: {output_pdf}", flush=True)
 
 
-def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf"):
-    """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm."""
+def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf", with_back: bool = True):
+    """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm (page 2 = back)."""
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
@@ -1528,6 +1783,9 @@ def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_7
     svg_content = generate_card_svg(subapp_file)
     render_card_on_pdf(c, svg_content, 0, 0, card_w, card_h)
     c.showPage()
+    if with_back:
+        render_card_on_pdf(c, generate_card_back_svg(subapp_file), 0, 0, card_w, card_h)
+        c.showPage()
     c.save()
     print(f"Generated exact 70x90mm PDF: {output_pdf}", flush=True)
 
@@ -1845,6 +2103,7 @@ def main():
     arg_parser.add_argument("--all", action="store_true", help="Generate multi-card PDF for all exercises in folder")
     arg_parser.add_argument("--batch-all", action="store_true", help="Generate all card variants for every exercise in folder")
     arg_parser.add_argument("--check-layout", action="store_true", help="Analyze exercise layouts and generate fix-TODO.md")
+    arg_parser.add_argument("--no-back", action="store_true", help="Omit the card back (QR code to the exercise documentation) in all PDFs")
     arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
     arg_parser.add_argument(
         "--folder", "--folders",
@@ -1880,6 +2139,7 @@ def main():
         return
 
     output_root = args.output_dir
+    with_back = not args.no_back
 
     if args.batch_all:
         files = find_sub_files(args.folders)
@@ -1899,9 +2159,12 @@ def main():
                 svg_content = generate_card_svg(fpath)
                 with open(os.path.join(out_paths["svg"], f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
                     f.write(svg_content)
-                generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"))
-                generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"))
-                generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"))
+                if with_back:
+                    with open(os.path.join(out_paths["svg"], f"{b_name}_card_back.svg"), "w", encoding="utf-8") as f:
+                        f.write(generate_card_back_svg(fpath))
+                generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"), with_back=with_back)
+                generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"), with_back=with_back)
+                generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"), with_back=with_back)
             except Exception as e:
                 print(f"  [WARNUNG] Fehler bei {b_name}: {e}", flush=True)
 
@@ -1913,7 +2176,7 @@ def main():
             multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
             multi_out = args.multi_out or os.path.join(folder_multi_dir, multi_name)
             print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
-            generate_multi_cards_pdf(folder_files, multi_out)
+            generate_multi_cards_pdf(folder_files, multi_out, with_back=with_back)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -1941,7 +2204,7 @@ def main():
             multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
             multi_out = os.path.join(folder_multi_dir, multi_name)
             print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
-            generate_multi_cards_pdf(folder_files, multi_out)
+            generate_multi_cards_pdf(folder_files, multi_out, with_back=with_back)
 
             if folder_files:
                 first_file = folder_files[0]
@@ -1953,15 +2216,20 @@ def main():
                 with open(svg_out, "w", encoding="utf-8") as f:
                     f.write(svg_content)
                 print(f"Saved SVG: {svg_out}", flush=True)
+                if with_back:
+                    back_out = os.path.join(out_paths["svg"], f"{first_base}_card_back.svg")
+                    with open(back_out, "w", encoding="utf-8") as f:
+                        f.write(generate_card_back_svg(first_file))
+                    print(f"Saved SVG: {back_out}", flush=True)
 
                 single_out = os.path.join(out_paths["single"], f"{first_base}_single.pdf")
-                generate_single_card_pdf(first_file, single_out)
+                generate_single_card_pdf(first_file, single_out, with_back=with_back)
 
                 printshop_out = os.path.join(out_paths["printshop"], f"{first_base}_printshop.pdf")
-                generate_printshop_pdf(first_file, printshop_out)
+                generate_printshop_pdf(first_file, printshop_out, with_back=with_back)
 
                 exact_out = os.path.join(out_paths["exact_70x90"], f"{first_base}_exact_70x90.pdf")
-                generate_exact_size_pdf(first_file, exact_out)
+                generate_exact_size_pdf(first_file, exact_out, with_back=with_back)
 
         # Generate fix-TODO.md
         if not args.limit and files:
@@ -1993,23 +2261,28 @@ def main():
         with open(svg_out, "w", encoding="utf-8") as f:
             f.write(svg_content)
         print(f"Saved SVG: {svg_out}", flush=True)
+        if with_back:
+            back_out = os.path.join(os.path.dirname(svg_out) or ".", f"{base_name}_card_back.svg")
+            with open(back_out, "w", encoding="utf-8") as f:
+                f.write(generate_card_back_svg(target_sub))
+            print(f"Saved SVG: {back_out}", flush=True)
 
         # Variant 1: Single card on DIN A4
         single_out = args.single_out or os.path.join(out_paths["single"], f"{base_name}_single.pdf")
-        generate_single_card_pdf(target_sub, single_out)
+        generate_single_card_pdf(target_sub, single_out, with_back=with_back)
 
         # Variant 2: Multi card sheet (6 cards on A4)
         multi_out = args.multi_out or os.path.join(out_paths["multi"], f"{base_name}_multi.pdf")
         multi_list = [target_sub] * 6
-        generate_multi_cards_pdf(multi_list, multi_out)
+        generate_multi_cards_pdf(multi_list, multi_out, with_back=with_back)
 
         # Variant 3: Print shop offset PDF (TrimBox=70x90mm, crop marks outside)
         printshop_out = args.printshop_out or os.path.join(out_paths["printshop"], f"{base_name}_printshop.pdf")
-        generate_printshop_pdf(target_sub, printshop_out)
+        generate_printshop_pdf(target_sub, printshop_out, with_back=with_back)
 
         # Variant 3b: Print shop exact 70x90mm PDF (MediaBox=70x90mm)
         exact_out = args.exact_out or os.path.join(out_paths["exact_70x90"], f"{base_name}_exact_70x90.pdf")
-        generate_exact_size_pdf(target_sub, exact_out)
+        generate_exact_size_pdf(target_sub, exact_out, with_back=with_back)
 
     print("Generation complete!", flush=True)
 
