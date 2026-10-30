@@ -8,7 +8,7 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 > Sobald die betroffenen FBs oder Anschlüsse in der 4diacIDE angepasst und gespeichert werden, erzeugt der Generator beim nächsten Durchlauf automatisch ein sauberes, kreuzungsfreies Kartenlayout!
 
 ## Übersicht
-- **Geprüfte Übungen:** 874
+- **Geprüfte Übungen:** 875
 - **Übungen mit Optimierungsbedarf:** 40
 - **test_AX:** 22 Übungen
 - **test_B:** 18 Übungen
