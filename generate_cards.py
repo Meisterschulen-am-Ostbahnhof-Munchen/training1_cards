@@ -1451,10 +1451,24 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
 
 def get_exercise_doc_url(subapp_file: str) -> str:
-    """Returns the URL of the exercise's page in the online documentation."""
+    """Returns the URL of the exercise's page in the online documentation.
+
+    The documentation mirrors the workspace tree below test_X, except that the
+    Uebungen folder is published as Uebungen_doc:
+      test_AX/Uebungen/Uebung_028c2_AR.SUB          -> test_AX/Uebungen_doc/Uebung_028c2_AR/
+      test_AX/Meins/OPC_UA_Lokal/Uebung_OPC_L01_AX.SUB -> test_AX/Meins/OPC_UA_Lokal/Uebung_OPC_L01_AX/
+    """
     folder = get_exercise_subfolder(subapp_file)
-    b_name = os.path.splitext(os.path.basename(subapp_file))[0]
-    return f"{DOCS_BASE_URL}/{folder}/Uebungen_doc/{b_name}/"
+    parts = os.path.normpath(os.path.abspath(subapp_file)).split(os.sep)
+    b_name = os.path.splitext(parts[-1])[0]
+    if folder in parts:
+        folder_idx = len(parts) - 1 - parts[::-1].index(folder)  # last occurrence of test_X
+        dirs = parts[folder_idx + 1:-1]
+    else:
+        dirs = ["Uebungen"]
+    if dirs[:1] == ["Uebungen"]:
+        dirs[0] = "Uebungen_doc"
+    return "/".join([DOCS_BASE_URL, folder] + dirs + [b_name]) + "/"
 
 
 def generate_card_back_svg(subapp_file: str) -> str:
