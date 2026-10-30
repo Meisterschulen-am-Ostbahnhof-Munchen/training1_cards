@@ -56,12 +56,12 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="173.9,61.4 186.9,61.4 191.9,66.4 191.9,349.4 186.9,354.4 130.4,354.4 125.4,359.4 125.4,374.3 129.4,378.3 135.4,378.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="173.9,192.9 182.9,192.9 187.9,197.9 187.9,345.4 182.9,350.4 126.4,350.4 121.4,355.4 121.4,439.6 126.4,444.6 135.4,444.6" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="160.5,55.8 173.5,55.8 178.5,60.8 178.5,291.0 173.5,296.0 146.4,296.0 141.4,301.0 141.4,318.9 145.4,322.9 151.4,322.9" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="160.5,159.1 169.5,159.1 174.5,164.1 174.5,287.0 169.5,292.0 142.4,292.0 137.4,297.0 137.4,370.0 142.4,375.0 151.4,375.0" fill="none" stroke="#18519E" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
-    <g id="fb_I_RPTO" transform="translate(48.0, 35.0)">
+  <g transform="translate(61.47,35.00) scale(0.7545851528384279) translate(-61.47,-35.00)">
+    <g id="fb_I_RPTO" transform="translate(61.5, 35.0)">
       <path d="M 3 0
             L 128.1875 0
             A 3 3 0 0 1 131.1875 3
@@ -180,8 +180,8 @@
             fill="#000000" text-anchor="middle">I_RPTO</text>
     </g>
   </g>
-  <g transform="translate(135.36,351.92) scale(0.96) translate(-135.36,-351.92)">
-    <g id="fb_Q_NumericValue_GBSD" transform="translate(135.4, 351.9)">
+  <g transform="translate(151.37,302.19) scale(0.7545851528384279) translate(-151.37,-302.19)">
+    <g id="fb_Q_NumericValue_GBSD" transform="translate(151.4, 302.2)">
       <path d="M 3 0
             L 152.875 0
             A 3 3 0 0 1 155.875 3

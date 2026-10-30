@@ -56,26 +56,26 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="163.3,77.7 171.2,77.7 176.2,72.7 176.2,50.1 181.2,45.1 205.1,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="163.3,215.1 179.2,215.1 184.2,210.1 184.2,66.4 189.2,61.4 205.1,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="151.3,68.8 165.2,68.8 170.2,63.8 170.2,50.1 175.2,45.1 205.1,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="151.3,195.6 173.2,195.6 178.2,190.6 178.2,66.4 183.2,61.4 205.1,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="270.7,45.1 306.0,45.1 308.0,47.0 308.0,48.0 310.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="285.0,117.2 303.0,117.2 308.0,112.2 308.0,105.0 313.0,100.0 335.0,100.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="163.3,215.1 171.2,215.1 176.2,210.1 176.2,122.2 181.2,117.2 219.4,117.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="163.3,352.5 187.2,352.5 192.2,347.5 192.2,138.5 197.2,133.5 219.4,133.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="151.3,195.6 165.2,195.6 170.2,190.6 170.2,122.2 175.2,117.2 219.4,117.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="151.3,322.5 181.2,322.5 186.2,317.5 186.2,138.5 191.2,133.5 219.4,133.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="270.7,95.0 300.0,95.0 305.0,90.0 305.0,55.0 310.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="285.0,167.1 306.0,167.1 311.0,162.1 311.0,105.0 316.0,100.0 335.0,100.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
-    <rect x="163.5" y="36.1" width="54.2" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="190.6" y="41.8" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Losgelassen</text>
-    <rect x="173.8" y="52.4" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="194.6" y="58.1" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
-    <rect x="177.0" y="108.2" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="197.8" y="113.9" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
-    <rect x="185.0" y="124.5" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
-    <text x="205.8" y="130.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
+    <rect x="160.5" y="36.1" width="54.2" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="187.6" y="41.8" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Losgelassen</text>
+    <rect x="170.8" y="52.4" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="191.6" y="58.1" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
+    <rect x="174.0" y="108.2" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="194.8" y="113.9" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
+    <rect x="182.0" y="124.5" width="41.6" height="7.5" rx="2" fill="#FFFFFF" fill-opacity="0.95" stroke="#BDC3C7" stroke-width="0.6"/>
+    <text x="202.8" y="130.2" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Gedrückt</text>
   </g>
   <g id="instances">
-  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
-    <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 35.0)">
+  <g transform="translate(60.06,35.00) scale(0.7592267135325131) translate(-60.06,-35.00)">
+    <g id="fb_SoftKey_UP_F1" transform="translate(60.1, 35.0)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -241,8 +241,8 @@
             fill="#000000" text-anchor="middle">E_SR_Ausfahren_Cyl_1</text>
     </g>
   </g>
-  <g transform="translate(48.00,172.40) scale(0.96) translate(-48.00,-172.40)">
-    <g id="fb_SoftKey_F2_DOWN" transform="translate(48.0, 172.4)">
+  <g transform="translate(60.06,161.85) scale(0.7592267135325131) translate(-60.06,-161.85)">
+    <g id="fb_SoftKey_F2_DOWN" transform="translate(60.1, 161.9)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -408,8 +408,8 @@
             fill="#000000" text-anchor="middle">E_SR_Ausfahren_Cyl_2</text>
     </g>
   </g>
-  <g transform="translate(48.00,309.80) scale(0.96) translate(-48.00,-309.80)">
-    <g id="fb_SoftKey_F3_DOWN" transform="translate(48.0, 309.8)">
+  <g transform="translate(60.06,288.71) scale(0.7592267135325131) translate(-60.06,-288.71)">
+    <g id="fb_SoftKey_F3_DOWN" transform="translate(60.1, 288.7)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3

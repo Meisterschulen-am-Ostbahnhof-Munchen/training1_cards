@@ -56,16 +56,16 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="183.1,144.9 193.3,144.9 197.1,148.8 197.1,150.7 193.3,154.6 116.7,154.6 111.7,159.6 111.7,194.8 116.7,199.8 125.7,199.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="183.1,144.9 193.3,144.9 197.1,148.8 197.1,150.7 193.3,154.6 116.7,154.6 111.7,159.6 111.7,194.8 116.7,199.8 125.7,199.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="222.2,216.1 231.2,216.1 236.2,221.1 236.2,282.2 231.2,287.2 144.4,287.2 139.4,292.2 139.4,454.2 144.4,459.2 153.4,459.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="222.2,216.1 231.2,216.1 236.2,221.1 236.2,282.2 231.2,287.2 144.4,287.2 139.4,292.2 139.4,454.2 144.4,459.2 153.4,459.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="222.2,199.8 231.2,199.8 236.2,204.8 236.2,221.7 231.2,226.7 143.6,226.7 138.6,231.7 138.6,316.8 143.6,321.8 152.6,321.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="222.2,199.8 231.2,199.8 236.2,204.8 236.2,221.7 231.2,226.7 143.6,226.7 138.6,231.7 138.6,316.8 143.6,321.8 152.6,321.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="162.5,111.4 171.5,111.4 176.5,116.4 176.5,121.2 171.5,126.2 131.4,126.2 126.4,131.2 126.4,160.6 131.4,165.6 140.4,165.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="162.5,111.4 171.5,111.4 176.5,116.4 176.5,121.2 171.5,126.2 131.4,126.2 126.4,131.2 126.4,160.6 131.4,165.6 140.4,165.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="207.5,176.9 216.5,176.9 221.5,181.9 221.5,237.4 216.5,242.4 164.4,242.4 159.4,247.4 159.4,373.0 164.4,378.0 173.4,378.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="207.5,176.9 216.5,176.9 221.5,181.9 221.5,237.4 216.5,242.4 164.4,242.4 159.4,247.4 159.4,373.0 164.4,378.0 173.4,378.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="207.5,165.6 216.5,165.6 221.5,170.6 221.5,187.3 216.5,192.3 163.7,192.3 158.7,197.3 158.7,261.4 163.7,266.4 172.7,266.4" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="207.5,165.6 216.5,165.6 221.5,170.6 221.5,187.3 216.5,192.3 163.7,192.3 158.7,197.3 158.7,261.4 163.7,266.4 172.7,266.4" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
-    <g id="fb_Sollwert_N" transform="translate(48.0, 35.0)">
+  <g transform="translate(68.58,35.00) scale(0.6675938803894298) translate(-68.58,-35.00)">
+    <g id="fb_Sollwert_N" transform="translate(68.6, 35.0)">
       <path d="M 3 0
             L 137.75 0
             A 3 3 0 0 1 140.75 3
@@ -163,8 +163,8 @@
             fill="#000000" text-anchor="middle">Sollwert_N</text>
     </g>
   </g>
-  <g transform="translate(125.70,156.08) scale(0.96) translate(-125.70,-156.08)">
-    <g id="fb_Split" transform="translate(125.7, 156.1)">
+  <g transform="translate(140.40,135.19) scale(0.6675938803894298) translate(-140.40,-135.19)">
+    <g id="fb_Split" transform="translate(140.4, 135.2)">
       <path d="M 3 0
             L 97.5625 0
             A 3 3 0 0 1 100.5625 3
@@ -269,8 +269,8 @@
             fill="#000000" text-anchor="middle">Split</text>
     </g>
   </g>
-  <g transform="translate(152.58,228.20) scale(0.96) translate(-152.58,-228.20)">
-    <g id="fb_Marker_Dreieck" transform="translate(152.6, 228.2)">
+  <g transform="translate(172.75,201.34) scale(0.6675938803894298) translate(-172.75,-201.34)">
+    <g id="fb_Marker_Dreieck" transform="translate(172.7, 201.3)">
       <path d="M 3 0
             L 134.9375 0
             A 3 3 0 0 1 137.9375 3
@@ -395,8 +395,8 @@
             fill="#000000" text-anchor="middle">Marker_Dreieck</text>
     </g>
   </g>
-  <g transform="translate(153.36,349.28) scale(0.96) translate(-153.36,-349.28)">
-    <g id="fb_Istwert_N" transform="translate(153.4, 349.3)">
+  <g transform="translate(173.41,301.54) scale(0.6675938803894298) translate(-173.41,-301.54)">
+    <g id="fb_Istwert_N" transform="translate(173.4, 301.5)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3

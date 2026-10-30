@@ -56,15 +56,15 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="15.0,50.0 31.4,50.0 36.0,54.6 36.0,56.8 40.6,61.4 98.0,61.4" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="173.7,249.7 183.8,249.7 187.7,253.5 187.7,255.5 183.8,259.3 108.7,259.3 103.7,264.3 103.7,299.5 108.7,304.5 117.7,304.5" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="173.7,249.7 183.8,249.7 187.7,253.5 187.7,255.5 183.8,259.3 108.7,259.3 103.7,264.3 103.7,299.5 108.7,304.5 117.7,304.5" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
-    <polyline points="232.7,304.5 242.4,304.5 246.7,308.8 246.7,310.9 242.4,315.1 144.4,315.1 139.4,320.1 139.4,421.6 144.4,426.6 153.4,426.6" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="232.7,304.5 242.4,304.5 246.7,308.8 246.7,310.9 242.4,315.1 144.4,315.1 139.4,320.1 139.4,421.6 144.4,426.6 153.4,426.6" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="15.0,50.0 111.6,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="159.9,211.4 168.9,211.4 173.9,216.4 173.9,222.1 168.9,227.1 123.6,227.1 118.6,232.1 118.6,264.2 123.6,269.2 132.6,269.2" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="159.9,211.4 168.9,211.4 173.9,216.4 173.9,222.1 168.9,227.1 123.6,227.1 118.6,232.1 118.6,264.2 123.6,269.2 132.6,269.2" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="217.9,269.2 226.9,269.2 231.9,274.2 231.9,280.6 226.9,285.6 161.3,285.6 156.3,290.6 156.3,371.8 161.3,376.8 170.3,376.8" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="217.9,269.2 226.9,269.2 231.9,274.2 231.9,280.6 226.9,285.6 161.3,285.6 156.3,290.6 156.3,371.8 161.3,376.8 170.3,376.8" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(98.00,35.00) scale(0.96) translate(-98.00,-35.00)">
-    <g id="fb_GetAttribute_I1" transform="translate(98.0, 35.0)">
+  <g transform="translate(111.63,30.41) scale(0.7125185551707074) translate(-111.63,-30.41)">
+    <g id="fb_GetAttribute_I1" transform="translate(111.6, 30.4)">
       <path d="M 3 0
             L 107.1875 0
             A 3 3 0 0 1 110.1875 3
@@ -148,8 +148,8 @@
             fill="#000000" text-anchor="middle">GetAttribute_I1</text>
     </g>
   </g>
-  <g transform="translate(66.56,123.44) scale(0.96) translate(-66.56,-123.44)">
-    <g id="fb_Attribute_IDA_I1" transform="translate(66.6, 123.4)">
+  <g transform="translate(80.36,117.71) scale(0.7125185551707074) translate(-80.36,-117.71)">
+    <g id="fb_Attribute_IDA_I1" transform="translate(80.4, 117.7)">
       <path d="M 3 0
             L 108.5625 0
             A 3 3 0 0 1 111.5625 3
@@ -251,8 +251,8 @@
             fill="#000000" text-anchor="middle">Attribute_IDA_I1</text>
     </g>
   </g>
-  <g transform="translate(117.74,260.84) scale(0.96) translate(-117.74,-260.84)">
-    <g id="fb_AD_TO_AR_NUM" transform="translate(117.7, 260.8)">
+  <g transform="translate(132.56,236.76) scale(0.7125185551707074) translate(-132.56,-236.76)">
+    <g id="fb_AD_TO_AR_NUM" transform="translate(132.6, 236.8)">
       <path d="M 3 0
             L 116.75 0
             A 3 3 0 0 1 119.75 3
@@ -342,8 +342,8 @@
             fill="#000000" text-anchor="middle">AD_TO_AR_NUM</text>
     </g>
   </g>
-  <g transform="translate(153.36,316.64) scale(0.96) translate(-153.36,-316.64)">
-    <g id="fb_OutputNumber_N1" transform="translate(153.4, 316.6)">
+  <g transform="translate(170.33,295.25) scale(0.7125185551707074) translate(-170.33,-295.25)">
+    <g id="fb_OutputNumber_N1" transform="translate(170.3, 295.2)">
       <path d="M 3 0
             L 134.125 0
             A 3 3 0 0 1 137.125 3

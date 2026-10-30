@@ -56,13 +56,13 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="163.3,77.7 176.3,77.7 181.3,82.7 181.3,169.9 176.3,174.9 63.7,174.9 58.7,179.9 58.7,194.8 62.7,198.8 68.7,198.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="242.3,352.5 255.3,352.5 260.3,357.5 260.3,412.1 255.3,417.1 108.5,417.1 103.5,422.1 103.5,437.0 107.5,441.0 113.5,441.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="240.2,198.8 253.2,198.8 258.2,203.8 258.2,339.9 253.2,344.9 150.5,344.9 147.4,348.0 147.4,349.5 150.5,352.5 157.4,352.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="139.4,60.0 152.4,60.0 157.4,65.0 157.4,120.2 152.4,125.2 99.3,125.2 94.3,130.2 94.3,140.2 98.3,144.2 104.3,144.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="224.7,247.6 237.7,247.6 242.7,252.6 242.7,288.7 237.7,293.7 144.1,293.7 139.1,298.7 139.1,308.8 143.1,312.8 149.1,312.8" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="204.6,144.2 217.6,144.2 222.6,149.2 222.6,233.1 217.6,238.1 168.9,238.1 165.1,241.9 165.1,243.8 168.9,247.6 175.1,247.6" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(48.00,35.00) scale(0.96) translate(-48.00,-35.00)">
-    <g id="fb_SoftKey_UP_F1" transform="translate(48.0, 35.0)">
+  <g transform="translate(71.94,35.00) scale(0.5614035087719298) translate(-71.94,-35.00)">
+    <g id="fb_SoftKey_UP_F1" transform="translate(71.9, 35.0)">
       <path d="M 3 0
             L 117.125 0
             A 3 3 0 0 1 120.125 3
@@ -156,8 +156,8 @@
             fill="#000000" text-anchor="middle">SoftKey_UP_F1</text>
     </g>
   </g>
-  <g transform="translate(68.69,172.40) scale(0.96) translate(-68.69,-172.40)">
-    <g id="fb_Q_CtrlAudioSignal_0" transform="translate(68.7, 172.4)">
+  <g transform="translate(104.29,128.80) scale(0.5614035087719298) translate(-104.29,-128.80)">
+    <g id="fb_Q_CtrlAudioSignal_0" transform="translate(104.3, 128.8)">
       <path d="M 3 0
             L 175.625 0
             A 3 3 0 0 1 178.625 3
@@ -267,8 +267,8 @@
             fill="#000000" text-anchor="middle">Q_CtrlAudioSignal_0</text>
     </g>
   </g>
-  <g transform="translate(113.52,414.56) scale(0.96) translate(-113.52,-414.56)">
-    <g id="fb_Q_CtrlAudioSignal_1" transform="translate(113.5, 414.6)">
+  <g transform="translate(149.12,297.32) scale(0.5614035087719298) translate(-149.12,-297.32)">
+    <g id="fb_Q_CtrlAudioSignal_1" transform="translate(149.1, 297.3)">
       <path d="M 3 0
             L 175.625 0
             A 3 3 0 0 1 178.625 3
@@ -378,8 +378,8 @@
             fill="#000000" text-anchor="middle">Q_CtrlAudioSignal_1</text>
     </g>
   </g>
-  <g transform="translate(157.45,342.44) scale(0.96) translate(-157.45,-342.44)">
-    <g id="fb_E_DELAY" transform="translate(157.4, 342.4)">
+  <g transform="translate(175.06,241.69) scale(0.5614035087719298) translate(-175.06,-241.69)">
+    <g id="fb_E_DELAY" transform="translate(175.1, 241.7)">
       <path d="M 3 0
             L 85.375 0
             A 3 3 0 0 1 88.375 3
