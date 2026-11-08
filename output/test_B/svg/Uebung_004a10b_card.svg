@@ -61,19 +61,19 @@
     <polyline points="224.2,106.3 312.0,106.3 317.0,101.3 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(125.83,30.00) scale(0.96) translate(-125.83,-30.00)">
+  <g transform="translate(125.82,30.00) scale(0.96) translate(-125.82,-30.00)">
     <g id="fb_AX_T_FF_INIT" transform="translate(125.8, 30.0)">
       <path d="M 3 0
-            L 99.4375 0
-            A 3 3 0 0 1 102.4375 3
-            L 102.4375 35
-            A 3 3 0 0 1 99.4375 38
-            L 93.4375 38
-            L 93.4375 52
-            L 99.4375 52
-            A 3 3 0 0 1 102.4375 55
-            L 102.4375 86
-            A 3 3 0 0 1 99.4375 89
+            L 99.462890625 0
+            A 3 3 0 0 1 102.462890625 3
+            L 102.462890625 35
+            A 3 3 0 0 1 99.462890625 38
+            L 93.462890625 38
+            L 93.462890625 52
+            L 99.462890625 52
+            A 3 3 0 0 1 102.462890625 55
+            L 102.462890625 86
+            A 3 3 0 0 1 99.462890625 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 55
@@ -119,11 +119,11 @@
       <polygon points="0,22.5 5,27.5 0,32.5" fill="#63B31F"/>
       <text x="6" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">CLK</text>
-      <polygon points="97.4375,5.5 102.4375,10.5 97.4375,15.5" fill="#63B31F"/>
-      <text x="96.4375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.462890625,5.5 102.462890625,10.5 97.462890625,15.5" fill="#63B31F"/>
+      <text x="96.462890625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
-      <polygon points="97.4375,22.5 102.4375,27.5 97.4375,32.5" fill="#63B31F"/>
-      <text x="96.4375" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.462890625,22.5 102.462890625,27.5 97.462890625,32.5" fill="#63B31F"/>
+      <text x="96.462890625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#A3B08F"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -131,17 +131,17 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#A3B08F"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Q_INIT</text>
-      <polygon points="97.4375,56.5 102.4375,61.5 97.4375,66.5" fill="#A3B08F"/>
-      <text x="96.4375" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.462890625,56.5 102.462890625,61.5 97.462890625,66.5" fill="#A3B08F"/>
+      <text x="96.462890625" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">QO</text>
-      <polygon points="97.4375,73.5 102.4375,78.5 97.4375,83.5" fill="#A3B08F"/>
-      <text x="96.4375" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.462890625,73.5 102.462890625,78.5 97.462890625,83.5" fill="#A3B08F"/>
+      <text x="96.462890625" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">TRUE</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">TRUE</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">BOOL#TRUE</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">BOOL#TRUE</text>
 
       <!-- Instance Name -->
-      <text x="51.21875" y="-5"
+      <text x="51.2314453125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF_INIT</text>
     </g>

@@ -58,19 +58,19 @@
   <g id="connections">
   </g>
   <g id="instances">
-  <g transform="translate(123.73,40.44) scale(0.96) translate(-123.73,-40.44)">
-    <g id="fb_SYS_ONTIME" transform="translate(123.7, 40.4)">
+  <g transform="translate(123.77,40.44) scale(0.96) translate(-123.77,-40.44)">
+    <g id="fb_SYS_ONTIME" transform="translate(123.8, 40.4)">
       <path d="M 3 0
-            L 103.8125 0
-            A 3 3 0 0 1 106.8125 3
-            L 106.8125 35
-            A 3 3 0 0 1 103.8125 38
-            L 97.8125 38
-            L 97.8125 52
-            L 103.8125 52
-            A 3 3 0 0 1 106.8125 55
-            L 106.8125 69
-            A 3 3 0 0 1 103.8125 72
+            L 103.734375 0
+            A 3 3 0 0 1 106.734375 3
+            L 106.734375 35
+            A 3 3 0 0 1 103.734375 38
+            L 97.734375 38
+            L 97.734375 52
+            L 103.734375 52
+            A 3 3 0 0 1 106.734375 55
+            L 106.734375 69
+            A 3 3 0 0 1 103.734375 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -113,19 +113,19 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">INIT</text>
-      <polygon points="101.8125,5.5 106.8125,10.5 101.8125,15.5" fill="#63B31F"/>
-      <text x="100.8125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="101.734375,5.5 106.734375,10.5 101.734375,15.5" fill="#63B31F"/>
+      <text x="100.734375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
-      <polygon points="101.8125,22.5 106.8125,27.5 101.8125,32.5" fill="#63B31F"/>
-      <text x="100.8125" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="101.734375,22.5 106.734375,27.5 101.734375,32.5" fill="#63B31F"/>
+      <text x="100.734375" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">IND</text>
-      <polygon points="101.8125,56.5 106.8125,61.5 101.8125,66.5" fill="#18519E"/>
-      <text x="100.8125" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="101.734375,56.5 106.734375,61.5 101.734375,66.5" fill="#18519E"/>
+      <text x="100.734375" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">ONTIME</text>
 
 
       <!-- Instance Name -->
-      <text x="53.40625" y="-5"
+      <text x="53.3671875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">SYS_ONTIME</text>
     </g>

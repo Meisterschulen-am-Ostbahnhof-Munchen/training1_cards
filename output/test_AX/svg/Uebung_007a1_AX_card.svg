@@ -56,7 +56,7 @@
   <line x1="0" y1="350.0" x2="350.0" y2="350.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
-    <polyline points="182.2,50.0 192.3,50.0 194.2,48.0 194.2,47.0 196.2,45.1 206.2,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="182.3,50.0 192.3,50.0 194.3,48.0 194.3,47.0 196.2,45.1 206.3,45.1" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 98.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,100.0 31.0,100.0 36.0,95.0 36.0,71.3 41.0,66.3 98.0,66.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="289.2,78.7 312.0,78.7 317.0,73.7 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
@@ -66,16 +66,16 @@
   <g transform="translate(98.00,39.92) scale(0.96) translate(-98.00,-39.92)">
     <g id="fb_E_CYCLE" transform="translate(98.0, 39.9)">
       <path d="M 3 0
-            L 84.75 0
-            A 3 3 0 0 1 87.75 3
-            L 87.75 35
-            A 3 3 0 0 1 84.75 38
-            L 78.75 38
-            L 78.75 52
-            L 84.75 52
-            A 3 3 0 0 1 87.75 55
-            L 87.75 69
-            A 3 3 0 0 1 84.75 72
+            L 84.78515625 0
+            A 3 3 0 0 1 87.78515625 3
+            L 87.78515625 35
+            A 3 3 0 0 1 84.78515625 38
+            L 78.78515625 38
+            L 78.78515625 52
+            L 84.78515625 52
+            A 3 3 0 0 1 87.78515625 55
+            L 87.78515625 69
+            A 3 3 0 0 1 84.78515625 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -121,8 +121,8 @@
       <polygon points="0,22.5 5,27.5 0,32.5" fill="#63B31F"/>
       <text x="6" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">STOP</text>
-      <polygon points="82.75,5.5 87.75,10.5 82.75,15.5" fill="#63B31F"/>
-      <text x="81.75" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="82.78515625,5.5 87.78515625,10.5 82.78515625,15.5" fill="#63B31F"/>
+      <text x="81.78515625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#3366FF"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -130,24 +130,24 @@
       <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">T#1s</text>
 
       <!-- Instance Name -->
-      <text x="43.875" y="-5"
+      <text x="43.892578125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_CYCLE</text>
     </g>
   </g>
-  <g transform="translate(206.24,35.00) scale(0.96) translate(-206.24,-35.00)">
-    <g id="fb_AX_T_FF" transform="translate(206.2, 35.0)">
+  <g transform="translate(206.27,35.00) scale(0.96) translate(-206.27,-35.00)">
+    <g id="fb_AX_T_FF" transform="translate(206.3, 35.0)">
       <path d="M 3 0
-            L 83.375 0
-            A 3 3 0 0 1 86.375 3
-            L 86.375 18
-            A 3 3 0 0 1 83.375 21
-            L 77.375 21
-            L 77.375 35
-            L 83.375 35
-            A 3 3 0 0 1 86.375 38
-            L 86.375 52
-            A 3 3 0 0 1 83.375 55
+            L 83.396484375 0
+            A 3 3 0 0 1 86.396484375 3
+            L 86.396484375 18
+            A 3 3 0 0 1 83.396484375 21
+            L 77.396484375 21
+            L 77.396484375 35
+            L 83.396484375 35
+            A 3 3 0 0 1 86.396484375 38
+            L 86.396484375 52
+            A 3 3 0 0 1 83.396484375 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -192,23 +192,23 @@
             fill="#000000">CLK</text>
 
 
-      <path d="M 76.375 38.5
-            L 78.875 38.5
-            L 78.875 40.166666666666664
-            L 81.375 40.166666666666664
-            L 81.375 38.5
-            L 86.375 38.5
-            L 86.375 48.5
-            L 81.375 48.5
-            L 81.375 46.833333333333336
-            L 78.875 46.833333333333336
-            L 78.875 48.5
-            L 76.375 48.5
+      <path d="M 76.396484375 38.5
+            L 78.896484375 38.5
+            L 78.896484375 40.166666666666664
+            L 81.396484375 40.166666666666664
+            L 81.396484375 38.5
+            L 86.396484375 38.5
+            L 86.396484375 48.5
+            L 81.396484375 48.5
+            L 81.396484375 46.833333333333336
+            L 78.896484375 46.833333333333336
+            L 78.896484375 48.5
+            L 76.396484375 48.5
             Z" fill="#845DAF"/>
-      <text x="73.375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="73.396484375" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="43.1875" y="-5"
+      <text x="43.1982421875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_T_FF</text>
     </g>

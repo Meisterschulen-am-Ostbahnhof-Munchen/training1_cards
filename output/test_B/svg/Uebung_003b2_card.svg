@@ -61,16 +61,16 @@
   <g transform="translate(160.50,35.00) scale(0.21001458434613507) translate(-160.50,-35.00)">
     <g id="fb_F1" transform="translate(160.5, 35.0)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -123,12 +123,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_STOP</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_1A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F1</text>
     </g>
@@ -136,16 +136,16 @@
   <g transform="translate(160.50,59.38) scale(0.21001458434613507) translate(-160.50,-59.38)">
     <g id="fb_F2" transform="translate(160.5, 59.4)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -198,12 +198,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_START</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_1B</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F2</text>
     </g>
@@ -211,16 +211,16 @@
   <g transform="translate(160.50,83.76) scale(0.21001458434613507) translate(-160.50,-83.76)">
     <g id="fb_F3" transform="translate(160.5, 83.8)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -273,12 +273,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_01</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_2A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F3</text>
     </g>
@@ -286,16 +286,16 @@
   <g transform="translate(160.50,108.14) scale(0.21001458434613507) translate(-160.50,-108.14)">
     <g id="fb_F4" transform="translate(160.5, 108.1)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -348,12 +348,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_02</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_2B</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F4</text>
     </g>
@@ -361,16 +361,16 @@
   <g transform="translate(160.50,132.52) scale(0.21001458434613507) translate(-160.50,-132.52)">
     <g id="fb_F5" transform="translate(160.5, 132.5)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -423,12 +423,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_03</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_3A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F5</text>
     </g>
@@ -436,16 +436,16 @@
   <g transform="translate(160.50,156.90) scale(0.21001458434613507) translate(-160.50,-156.90)">
     <g id="fb_F6" transform="translate(160.5, 156.9)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -498,12 +498,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_04</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_3B</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F6</text>
     </g>
@@ -511,16 +511,16 @@
   <g transform="translate(160.50,181.28) scale(0.21001458434613507) translate(-160.50,-181.28)">
     <g id="fb_F7" transform="translate(160.5, 181.3)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -573,12 +573,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_05</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_4A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F7</text>
     </g>
@@ -586,16 +586,16 @@
   <g transform="translate(160.50,205.65) scale(0.21001458434613507) translate(-160.50,-205.65)">
     <g id="fb_F8" transform="translate(160.5, 205.7)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -648,12 +648,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_06</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_4B</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F8</text>
     </g>
@@ -661,16 +661,16 @@
   <g transform="translate(160.50,230.03) scale(0.21001458434613507) translate(-160.50,-230.03)">
     <g id="fb_F9" transform="translate(160.5, 230.0)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -723,12 +723,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_07</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_5A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F9</text>
     </g>
@@ -736,16 +736,16 @@
   <g transform="translate(160.50,254.41) scale(0.21001458434613507) translate(-160.50,-254.41)">
     <g id="fb_F10" transform="translate(160.5, 254.4)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -798,12 +798,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_08</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_5B</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F10</text>
     </g>
@@ -811,16 +811,16 @@
   <g transform="translate(160.50,278.79) scale(0.21001458434613507) translate(-160.50,-278.79)">
     <g id="fb_F11" transform="translate(160.5, 278.8)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -873,12 +873,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_09</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_6A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F11</text>
     </g>
@@ -886,16 +886,16 @@
   <g transform="translate(160.50,303.17) scale(0.21001458434613507) translate(-160.50,-303.17)">
     <g id="fb_F12" transform="translate(160.5, 303.2)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -948,12 +948,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_10</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_6B</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F12</text>
     </g>
@@ -961,16 +961,16 @@
   <g transform="translate(160.50,327.55) scale(0.21001458434613507) translate(-160.50,-327.55)">
     <g id="fb_F13" transform="translate(160.5, 327.6)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -1023,12 +1023,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_11</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_7A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F13</text>
     </g>
@@ -1036,16 +1036,16 @@
   <g transform="translate(160.50,351.93) scale(0.21001458434613507) translate(-160.50,-351.93)">
     <g id="fb_F14" transform="translate(160.5, 351.9)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -1098,12 +1098,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_12</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_7B</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F14</text>
     </g>
@@ -1111,16 +1111,16 @@
   <g transform="translate(160.50,376.31) scale(0.21001458434613507) translate(-160.50,-376.31)">
     <g id="fb_F15" transform="translate(160.5, 376.3)">
       <path d="M 3 0
-            L 135.125 0
-            A 3 3 0 0 1 138.125 3
-            L 138.125 18
-            A 3 3 0 0 1 135.125 21
-            L 129.125 21
-            L 129.125 35
-            L 135.125 35
-            A 3 3 0 0 1 138.125 38
-            L 138.125 86
-            A 3 3 0 0 1 135.125 89
+            L 135.10546875 0
+            A 3 3 0 0 1 138.10546875 3
+            L 138.10546875 18
+            A 3 3 0 0 1 135.10546875 21
+            L 129.10546875 21
+            L 129.10546875 35
+            L 135.10546875 35
+            A 3 3 0 0 1 138.10546875 38
+            L 138.10546875 86
+            A 3 3 0 0 1 135.10546875 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 38
@@ -1173,12 +1173,12 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">Output</text>
-      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalInput_Key_13</text>
-      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">MI_00</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DigitalOutput_8A</text>
+      <text x="-3" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">Funk::io::DI::Funk_DI_S#D…</text>
+      <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#MI_00</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DataPanel::io::MI::DQ::Da…</text>
 
       <!-- Instance Name -->
-      <text x="69.0625" y="-5"
+      <text x="69.052734375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">F15</text>
     </g>

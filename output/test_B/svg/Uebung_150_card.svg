@@ -58,19 +58,19 @@
   <g id="connections">
   </g>
   <g id="instances">
-  <g transform="translate(105.76,30.00) scale(0.96) translate(-105.76,-30.00)">
+  <g transform="translate(105.81,30.00) scale(0.96) translate(-105.81,-30.00)">
     <g id="fb_logiBUS_PI_ID" transform="translate(105.8, 30.0)">
       <path d="M 3 0
-            L 141.25 0
-            A 3 3 0 0 1 144.25 3
-            L 144.25 52
-            A 3 3 0 0 1 141.25 55
-            L 135.25 55
-            L 135.25 69
-            L 141.25 69
-            A 3 3 0 0 1 144.25 72
-            L 144.25 171
-            A 3 3 0 0 1 141.25 174
+            L 141.13671875 0
+            A 3 3 0 0 1 144.13671875 3
+            L 144.13671875 52
+            A 3 3 0 0 1 141.13671875 55
+            L 135.13671875 55
+            L 135.13671875 69
+            L 141.13671875 69
+            A 3 3 0 0 1 144.13671875 72
+            L 144.13671875 171
+            A 3 3 0 0 1 141.13671875 174
             L 3 174
             A 3 3 0 0 1 0 171
             L 0 72
@@ -85,29 +85,29 @@
             fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1.5"
             stroke-linejoin="round" filter="url(#dropShadow)"/>
       <!-- Name Section -->
-      <path d="M 29.6875 54.0
-            L 43.6875 54.0
-            A 1 1 0 0 1 44.6875 55.0
-            L 44.6875 58.0
-            L 43.1875 58.0
-            L 43.1875 60.666666666666664
-            L 44.6875 60.666666666666664
-            L 44.6875 69.0
-            A 1 1 0 0 1 43.6875 70.0
-            L 29.6875 70.0
-            A 1 1 0 0 1 28.6875 69.0
-            L 28.6875 60.666666666666664
-            L 30.1875 60.666666666666664
-            L 30.1875 58.0
-            L 28.6875 58.0
-            L 28.6875 55.0
-            A 1 1 0 0 1 29.6875 54.0
+      <path d="M 29.6005859375 54.0
+            L 43.6005859375 54.0
+            A 1 1 0 0 1 44.6005859375 55.0
+            L 44.6005859375 58.0
+            L 43.1005859375 58.0
+            L 43.1005859375 60.666666666666664
+            L 44.6005859375 60.666666666666664
+            L 44.6005859375 69.0
+            A 1 1 0 0 1 43.6005859375 70.0
+            L 29.6005859375 70.0
+            A 1 1 0 0 1 28.6005859375 69.0
+            L 28.6005859375 60.666666666666664
+            L 30.1005859375 60.666666666666664
+            L 30.1005859375 58.0
+            L 28.6005859375 58.0
+            L 28.6005859375 55.0
+            A 1 1 0 0 1 29.6005859375 54.0
             Z"
             fill="#87CEEB" stroke="#1565C0" stroke-width="1"/>
-      <text x="36.6875" y="66.0"
+      <text x="36.6005859375" y="66.0"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="10" font-weight="bold"
             fill="#000000" text-anchor="middle">Si</text>
-      <text x="46.6875" y="66.0"
+      <text x="46.6005859375" y="66.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">logiBUS_PI_ID</text>
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
@@ -116,14 +116,14 @@
       <polygon points="0,22.5 5,27.5 0,32.5" fill="#63B31F"/>
       <text x="6" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">REQ</text>
-      <polygon points="139.25,5.5 144.25,10.5 139.25,15.5" fill="#63B31F"/>
-      <text x="138.25" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.13671875,5.5 144.13671875,10.5 139.13671875,15.5" fill="#63B31F"/>
+      <text x="138.13671875" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
-      <polygon points="139.25,22.5 144.25,27.5 139.25,32.5" fill="#63B31F"/>
-      <text x="138.25" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.13671875,22.5 144.13671875,27.5 139.13671875,32.5" fill="#63B31F"/>
+      <text x="138.13671875" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">CNF</text>
-      <polygon points="139.25,39.5 144.25,44.5 139.25,49.5" fill="#63B31F"/>
-      <text x="138.25" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.13671875,39.5 144.13671875,44.5 139.13671875,49.5" fill="#63B31F"/>
+      <text x="138.13671875" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">IND</text>
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#A3B08F"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -143,23 +143,23 @@
       <polygon points="0,158.5 5,163.5 0,168.5" fill="#82A3A9"/>
       <text x="6" y="167.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">TimeRateLimi…</text>
-      <polygon points="139.25,73.5 144.25,78.5 139.25,83.5" fill="#A3B08F"/>
-      <text x="138.25" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.13671875,73.5 144.13671875,78.5 139.13671875,83.5" fill="#A3B08F"/>
+      <text x="138.13671875" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">QO</text>
-      <polygon points="139.25,90.5 144.25,95.5 139.25,100.5" fill="#BD8663"/>
-      <text x="138.25" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.13671875,90.5 144.13671875,95.5 139.13671875,100.5" fill="#BD8663"/>
+      <text x="138.13671875" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">STATUS</text>
-      <polygon points="139.25,107.5 144.25,112.5 139.25,117.5" fill="#82A3A9"/>
-      <text x="138.25" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="139.13671875,107.5 144.13671875,112.5 139.13671875,117.5" fill="#82A3A9"/>
+      <text x="138.13671875" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">IN</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">TRUE</text>
-      <text x="-3" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">PulseInput_I8</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">BOOL#TRUE</text>
+      <text x="-3" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">logiBUS::io::PI::logiBUS_…</text>
       <text x="-3" y="133.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DWORD#100</text>
       <text x="-3" y="150.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DWORD#50000</text>
       <text x="-3" y="167.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">DWORD#10000</text>
 
       <!-- Instance Name -->
-      <text x="72.125" y="-5"
+      <text x="72.068359375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">logiBUS_PI_ID</text>
     </g>

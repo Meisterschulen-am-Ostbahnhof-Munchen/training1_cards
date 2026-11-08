@@ -8,16 +8,16 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 > Sobald die betroffenen FBs oder Anschlüsse in der 4diacIDE angepasst und gespeichert werden, erzeugt der Generator beim nächsten Durchlauf automatisch ein sauberes, kreuzungsfreies Kartenlayout!
 
 ## Übersicht
-- **Geprüfte Übungen:** 875
-- **Übungen mit Optimierungsbedarf:** 40
-- **test_AX:** 22 Übungen
+- **Geprüfte Übungen:** 893
+- **Übungen mit Optimierungsbedarf:** 44
+- **test_AX:** 26 Übungen
 - **test_B:** 18 Übungen
 
 ---
 
 ## Offene Layout-TODOs
 
-### test_AX (22 Übungen)
+### test_AX (26 Übungen)
 
 - [ ] **Uebung_006a2_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_006a2_AX.SUB`)
   - Baustein unglücklich platziert: `AX_T_FF_SR_Q1` (AX_T_FF_SR, verbunden mit I2) liegt bei y=-900 oberhalb von `AX_T_FF_SR_Q2` (AX_T_FF_SR, verbunden mit I1, y=100). Empfehlung: `AX_T_FF_SR_Q1` in 4diac nach unten verschieben (unterhalb von `AX_T_FF_SR_Q2`, z.B. y > 100).
@@ -133,6 +133,37 @@ Dieses Dokument erfasst alle Übungen, bei denen die Platzierung der Bausteine o
 
 - [ ] **Uebung_248_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_248_AX.SUB`)
   - Baustein unglücklich platziert: `AR_AX_SEL_AR_Hoch` (AR_AX_SEL_AR, verbunden mit I2) liegt bei y=0 oberhalb von `AR_AX_SEL_AR_Runter` (AR_AX_SEL_AR, verbunden mit I1, y=1000). Empfehlung: `AR_AX_SEL_AR_Hoch` in 4diac nach unten verschieben (unterhalb von `AR_AX_SEL_AR_Runter`, z.B. y > 1000).
+
+- [ ] **Uebung_251_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_251_AX.SUB`)
+  - Signalleitungen kreuzen sich an `Section_Switch` (SEC_SWITCH_LR_BIT_WORD): Eingang I7 ist mit unterem Port `RIGHT_OFF_DEC` (Position 6) verbunden, während I8 mit oberem Port `RIGHT_OFF_INC` (Position 5) verbunden ist. Hinweis: Am Baustein liegt `RIGHT_OFF_DEC` unterhalb von `RIGHT_OFF_INC`, auf der Karte jedoch I7 oberhalb von I8. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I7 für `RIGHT_OFF_INC` und I8 für `RIGHT_OFF_DEC` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
+
+- [ ] **Uebung_252_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_252_AX.SUB`)
+  - Pin-Reihenfolge invertiert: Eingang I8 (`Alle_Aus_I8`, y=-2400) liegt oberhalb von I1 (`Links_Ab_I1`, y=-1200)
+  - Pin-Reihenfolge invertiert: Eingang I8 (`Alle_Aus_I8`, y=-2400) liegt oberhalb von I2 (`Links_Zu_I2`, y=0)
+  - Pin-Reihenfolge invertiert: Eingang I7 (`Rechts_Zu_I7`, y=1200) liegt oberhalb von I2 (`Alle_Ein_I2`, y=3600)
+  - Pin-Reihenfolge invertiert: Eingang I8 (`Rechts_Ab_I8`, y=2400) liegt oberhalb von I2 (`Alle_Ein_I2`, y=3600)
+  - Pin-Reihenfolge invertiert: Eingang I8 (`Alle_Aus_I8`, y=-2400) liegt oberhalb von I2 (`Alle_Ein_I2`, y=3600)
+  - Pin-Reihenfolge invertiert: Eingang I8 (`Alle_Aus_I8`, y=-2400) liegt oberhalb von I7 (`Rechts_Zu_I7`, y=1200)
+  - Pin-Reihenfolge invertiert: Eingang I8 (`Rechts_Ab_I8`, y=2400) liegt oberhalb von I7 (`Alle_Ein_I7`, y=4800)
+  - Pin-Reihenfolge invertiert: Eingang I8 (`Alle_Aus_I8`, y=-2400) liegt oberhalb von I7 (`Alle_Ein_I7`, y=4800)
+  - Baustein unglücklich platziert: `Section_Switch` (SEC_SWITCH_LR_BIT_WORD, verbunden mit I7) liegt bei y=-200 oberhalb von `E_MERGE_Alle_Ein` (E_MERGE_2, verbunden mit I2, y=3800). Empfehlung: `Section_Switch` in 4diac nach unten verschieben (unterhalb von `E_MERGE_Alle_Ein`, z.B. y > 3800).
+  - Baustein unglücklich platziert: `Section_Switch` (SEC_SWITCH_LR_BIT_WORD, verbunden mit I8) liegt bei y=-200 oberhalb von `E_MERGE_Alle_Ein` (E_MERGE_2, verbunden mit I2, y=3800). Empfehlung: `Section_Switch` in 4diac nach unten verschieben (unterhalb von `E_MERGE_Alle_Ein`, z.B. y > 3800).
+  - Baustein unglücklich platziert: `Section_Switch` (SEC_SWITCH_LR_BIT_WORD, verbunden mit I8) liegt bei y=-200 oberhalb von `E_MERGE_Alle_Ein` (E_MERGE_2, verbunden mit I7, y=3800). Empfehlung: `Section_Switch` in 4diac nach unten verschieben (unterhalb von `E_MERGE_Alle_Ein`, z.B. y > 3800).
+  - Baustein unglücklich platziert: `E_MERGE_Alle_Aus` (E_MERGE_2, verbunden mit I8) liegt bei y=-3000 oberhalb von `Section_Switch` (SEC_SWITCH_LR_BIT_WORD, verbunden mit I1, y=-200). Empfehlung: `E_MERGE_Alle_Aus` in 4diac nach unten verschieben (unterhalb von `Section_Switch`, z.B. y > -200).
+  - Baustein unglücklich platziert: `E_MERGE_Alle_Aus` (E_MERGE_2, verbunden mit I8) liegt bei y=-3000 oberhalb von `Section_Switch` (SEC_SWITCH_LR_BIT_WORD, verbunden mit I2, y=-200). Empfehlung: `E_MERGE_Alle_Aus` in 4diac nach unten verschieben (unterhalb von `Section_Switch`, z.B. y > -200).
+  - Baustein unglücklich platziert: `E_MERGE_Alle_Aus` (E_MERGE_2, verbunden mit I8) liegt bei y=-3000 oberhalb von `Section_Switch` (SEC_SWITCH_LR_BIT_WORD, verbunden mit I7, y=-200). Empfehlung: `E_MERGE_Alle_Aus` in 4diac nach unten verschieben (unterhalb von `Section_Switch`, z.B. y > -200).
+  - Baustein unglücklich platziert: `E_MERGE_Alle_Aus` (E_MERGE_2, verbunden mit I8) liegt bei y=-3000 oberhalb von `E_MERGE_Alle_Ein` (E_MERGE_2, verbunden mit I2, y=3800). Empfehlung: `E_MERGE_Alle_Aus` in 4diac nach unten verschieben (unterhalb von `E_MERGE_Alle_Ein`, z.B. y > 3800).
+  - Baustein unglücklich platziert: `E_MERGE_Alle_Aus` (E_MERGE_2, verbunden mit I8) liegt bei y=-3000 oberhalb von `E_MERGE_Alle_Ein` (E_MERGE_2, verbunden mit I7, y=3800). Empfehlung: `E_MERGE_Alle_Aus` in 4diac nach unten verschieben (unterhalb von `E_MERGE_Alle_Ein`, z.B. y > 3800).
+  - Signalleitungen kreuzen sich an `Section_Switch` (SEC_SWITCH_LR_BIT_WORD): Eingang I7 ist mit unterem Port `RIGHT_OFF_DEC` (Position 6) verbunden, während I8 mit oberem Port `RIGHT_OFF_INC` (Position 5) verbunden ist. Hinweis: Am Baustein liegt `RIGHT_OFF_DEC` unterhalb von `RIGHT_OFF_INC`, auf der Karte jedoch I7 oberhalb von I8. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I7 für `RIGHT_OFF_INC` und I8 für `RIGHT_OFF_DEC` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
+
+- [ ] **Uebung_253_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_253_AX.SUB`)
+  - Signalleitungen kreuzen sich an `Section_Switch` (SEC_SWITCH_LR_QUARTER_WORD): Eingang I7 ist mit unterem Port `RIGHT_OFF_DEC` (Position 6) verbunden, während I8 mit oberem Port `RIGHT_OFF_INC` (Position 5) verbunden ist. Hinweis: Am Baustein liegt `RIGHT_OFF_DEC` unterhalb von `RIGHT_OFF_INC`, auf der Karte jedoch I7 oberhalb von I8. Falls die Pin-Zuordnung der Übung anpassbar ist, empfiehlt sich I7 für `RIGHT_OFF_INC` und I8 für `RIGHT_OFF_DEC` für eine kreuzungsfreie Signalführung; andernfalls wird die Kreuzung im Kartengenerator über gestaffelte Kanäle geführt.
+
+- [ ] **Uebung_257_AX** (`../4diac_training1/Ventilsteuerung/4diacIDE-workspace/test_AX/Uebungen/Uebung_257_AX.SUB`)
+  - Pin-Reihenfolge invertiert: Ausgang Q5 (`LED_Q5_1HZ`, y=600) liegt oberhalb von Q1 (`PWMOutput_Q1_100Hz`, y=2400)
+  - Pin-Reihenfolge invertiert: Ausgang Q5 (`LED_Q5_1HZ`, y=600) liegt oberhalb von Q2 (`PWMOutput_Q2_200Hz`, y=3800)
+  - Pin-Reihenfolge invertiert: Ausgang Q5 (`LED_Q5_1HZ`, y=600) liegt oberhalb von Q3 (`PWMOutput_Q3_400Hz`, y=5200)
+  - Pin-Reihenfolge invertiert: Ausgang Q5 (`LED_Q5_1HZ`, y=600) liegt oberhalb von Q4 (`PWMOutput_Q4_1000Hz`, y=6600)
 
 ### test_B (18 Übungen)
 

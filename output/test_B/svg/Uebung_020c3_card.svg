@@ -59,26 +59,26 @@
     <polyline points="285.0,243.3 309.0,243.3 314.0,238.3 314.0,55.0 319.0,50.0 335.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="208.6,144.2 221.6,144.2 226.6,149.2 226.6,217.2 221.6,222.2 201.0,222.2 196.0,227.2 196.0,239.3 200.0,243.3 206.0,243.3" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 98.0,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="190.0,66.3 203.0,66.3 208.0,71.3 208.0,120.6 203.0,125.6 119.4,125.6 114.4,130.6 114.4,156.5 118.4,160.5 124.4,160.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="190.0,50.0 203.0,50.0 208.0,55.0 208.0,120.6 203.0,125.6 119.4,125.6 114.4,130.6 114.4,140.2 118.4,144.2 124.4,144.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="189.9,66.3 202.9,66.3 207.9,71.3 207.9,120.6 202.9,125.6 119.4,125.6 114.4,130.6 114.4,156.5 118.4,160.5 124.4,160.5" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
+    <polyline points="189.9,50.0 208.9,50.0 213.9,55.0 213.9,125.6 208.9,130.6 113.4,130.6 108.4,135.6 108.4,139.2 113.4,144.2 124.4,144.2" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 28.0,50.0 33.0,55.0 33.0,271.9 38.0,276.9 206.0,276.9" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="285.0,276.9 306.0,276.9 311.0,271.9 311.0,55.0 316.0,50.0 335.0,50.0" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
     <polyline points="15.0,50.0 34.0,50.0 39.0,55.0 39.0,94.9 44.0,99.9 98.0,99.9" fill="none" stroke="#A3B08F" stroke-width="1.5" stroke-linejoin="round"/>
   </g>
   <g id="instances">
-  <g transform="translate(206.04,233.24) scale(0.96) translate(-206.04,-233.24)">
+  <g transform="translate(205.97,233.24) scale(0.96) translate(-205.97,-233.24)">
     <g id="fb_FB_TON" transform="translate(206.0, 233.2)">
       <path d="M 3 0
-            L 79.25 0
-            A 3 3 0 0 1 82.25 3
-            L 82.25 18
-            A 3 3 0 0 1 79.25 21
-            L 73.25 21
-            L 73.25 35
-            L 79.25 35
-            A 3 3 0 0 1 82.25 38
-            L 82.25 69
-            A 3 3 0 0 1 79.25 72
+            L 79.32421875 0
+            A 3 3 0 0 1 82.32421875 3
+            L 82.32421875 18
+            A 3 3 0 0 1 79.32421875 21
+            L 73.32421875 21
+            L 73.32421875 35
+            L 79.32421875 35
+            A 3 3 0 0 1 82.32421875 38
+            L 82.32421875 69
+            A 3 3 0 0 1 79.32421875 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 38
@@ -121,8 +121,8 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">REQ</text>
-      <polygon points="77.25,5.5 82.25,10.5 77.25,15.5" fill="#63B31F"/>
-      <text x="76.25" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="77.32421875,5.5 82.32421875,10.5 77.32421875,15.5" fill="#63B31F"/>
+      <text x="76.32421875" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">CNF</text>
       <polygon points="0,39.5 5,44.5 0,49.5" fill="#A3B08F"/>
       <text x="6" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -130,16 +130,16 @@
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#3366FF"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">PT</text>
-      <polygon points="77.25,39.5 82.25,44.5 77.25,49.5" fill="#A3B08F"/>
-      <text x="76.25" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="77.32421875,39.5 82.32421875,44.5 77.32421875,49.5" fill="#A3B08F"/>
+      <text x="76.32421875" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
-      <polygon points="77.25,56.5 82.25,61.5 77.25,66.5" fill="#3366FF"/>
-      <text x="76.25" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="77.32421875,56.5 82.32421875,61.5 77.32421875,66.5" fill="#3366FF"/>
+      <text x="76.32421875" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">ET</text>
       <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">T#5s</text>
 
       <!-- Instance Name -->
-      <text x="41.125" y="-5"
+      <text x="41.162109375" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">FB_TON</text>
     </g>
@@ -147,16 +147,16 @@
   <g transform="translate(98.00,39.92) scale(0.96) translate(-98.00,-39.92)">
     <g id="fb_E_RF_TRIG_I1" transform="translate(98.0, 39.9)">
       <path d="M 3 0
-            L 92.8125 0
-            A 3 3 0 0 1 95.8125 3
-            L 95.8125 35
-            A 3 3 0 0 1 92.8125 38
-            L 86.8125 38
-            L 86.8125 52
-            L 92.8125 52
-            A 3 3 0 0 1 95.8125 55
-            L 95.8125 69
-            A 3 3 0 0 1 92.8125 72
+            L 92.77734375 0
+            A 3 3 0 0 1 95.77734375 3
+            L 95.77734375 35
+            A 3 3 0 0 1 92.77734375 38
+            L 86.77734375 38
+            L 86.77734375 52
+            L 92.77734375 52
+            A 3 3 0 0 1 95.77734375 55
+            L 95.77734375 69
+            A 3 3 0 0 1 92.77734375 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -199,11 +199,11 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">EI</text>
-      <polygon points="90.8125,5.5 95.8125,10.5 90.8125,15.5" fill="#63B31F"/>
-      <text x="89.8125" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="90.77734375,5.5 95.77734375,10.5 90.77734375,15.5" fill="#63B31F"/>
+      <text x="89.77734375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">ER</text>
-      <polygon points="90.8125,22.5 95.8125,27.5 90.8125,32.5" fill="#63B31F"/>
-      <text x="89.8125" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="90.77734375,22.5 95.77734375,27.5 90.77734375,32.5" fill="#63B31F"/>
+      <text x="89.77734375" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EF</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#A3B08F"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -211,24 +211,24 @@
 
 
       <!-- Instance Name -->
-      <text x="47.90625" y="-5"
+      <text x="47.888671875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_RF_TRIG_I1</text>
     </g>
   </g>
-  <g transform="translate(124.38,134.12) scale(0.96) translate(-124.38,-134.12)">
+  <g transform="translate(124.36,134.12) scale(0.96) translate(-124.36,-134.12)">
     <g id="fb_E_CYCLE" transform="translate(124.4, 134.1)">
       <path d="M 3 0
-            L 84.75 0
-            A 3 3 0 0 1 87.75 3
-            L 87.75 35
-            A 3 3 0 0 1 84.75 38
-            L 78.75 38
-            L 78.75 52
-            L 84.75 52
-            A 3 3 0 0 1 87.75 55
-            L 87.75 69
-            A 3 3 0 0 1 84.75 72
+            L 84.78515625 0
+            A 3 3 0 0 1 87.78515625 3
+            L 87.78515625 35
+            A 3 3 0 0 1 84.78515625 38
+            L 78.78515625 38
+            L 78.78515625 52
+            L 84.78515625 52
+            A 3 3 0 0 1 87.78515625 55
+            L 87.78515625 69
+            A 3 3 0 0 1 84.78515625 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -274,8 +274,8 @@
       <polygon points="0,22.5 5,27.5 0,32.5" fill="#63B31F"/>
       <text x="6" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">STOP</text>
-      <polygon points="82.75,5.5 87.75,10.5 82.75,15.5" fill="#63B31F"/>
-      <text x="81.75" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="82.78515625,5.5 87.78515625,10.5 82.78515625,15.5" fill="#63B31F"/>
+      <text x="81.78515625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#3366FF"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -283,7 +283,7 @@
       <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">T#500ms</text>
 
       <!-- Instance Name -->
-      <text x="43.875" y="-5"
+      <text x="43.892578125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_CYCLE</text>
     </g>

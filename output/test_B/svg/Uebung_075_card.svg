@@ -58,19 +58,19 @@
   <g id="connections">
   </g>
   <g id="instances">
-  <g transform="translate(124.75,35.00) scale(0.6779661016949152) translate(-124.75,-35.00)">
+  <g transform="translate(124.71,35.00) scale(0.6779661016949152) translate(-124.71,-35.00)">
     <g id="fb_FB_MM710_IMU" transform="translate(124.7, 35.0)">
       <path d="M 3 0
-            L 145.25 0
-            A 3 3 0 0 1 148.25 3
-            L 148.25 52
-            A 3 3 0 0 1 145.25 55
-            L 139.25 55
-            L 139.25 69
-            L 145.25 69
-            A 3 3 0 0 1 148.25 72
-            L 148.25 528
-            A 3 3 0 0 1 145.25 531
+            L 145.349609375 0
+            A 3 3 0 0 1 148.349609375 3
+            L 148.349609375 52
+            A 3 3 0 0 1 145.349609375 55
+            L 139.349609375 55
+            L 139.349609375 69
+            L 145.349609375 69
+            A 3 3 0 0 1 148.349609375 72
+            L 148.349609375 528
+            A 3 3 0 0 1 145.349609375 531
             L 3 531
             A 3 3 0 0 1 0 528
             L 0 72
@@ -85,42 +85,42 @@
             fill="#FFFFFF" stroke="#A0A0A0" stroke-width="1.5"
             stroke-linejoin="round" filter="url(#dropShadow)"/>
       <!-- Name Section -->
-      <path d="M 27.4375 54.0
-            L 41.4375 54.0
-            A 1 1 0 0 1 42.4375 55.0
-            L 42.4375 58.0
-            L 40.9375 58.0
-            L 40.9375 60.666666666666664
-            L 42.4375 60.666666666666664
-            L 42.4375 69.0
-            A 1 1 0 0 1 41.4375 70.0
-            L 27.4375 70.0
-            A 1 1 0 0 1 26.4375 69.0
-            L 26.4375 60.666666666666664
-            L 27.9375 60.666666666666664
-            L 27.9375 58.0
-            L 26.4375 58.0
-            L 26.4375 55.0
-            A 1 1 0 0 1 27.4375 54.0
+      <path d="M 27.482421875 54.0
+            L 41.482421875 54.0
+            A 1 1 0 0 1 42.482421875 55.0
+            L 42.482421875 58.0
+            L 40.982421875 58.0
+            L 40.982421875 60.666666666666664
+            L 42.482421875 60.666666666666664
+            L 42.482421875 69.0
+            A 1 1 0 0 1 41.482421875 70.0
+            L 27.482421875 70.0
+            A 1 1 0 0 1 26.482421875 69.0
+            L 26.482421875 60.666666666666664
+            L 27.982421875 60.666666666666664
+            L 27.982421875 58.0
+            L 26.482421875 58.0
+            L 26.482421875 55.0
+            A 1 1 0 0 1 27.482421875 54.0
             Z"
             fill="#87CEEB" stroke="#1565C0" stroke-width="1"/>
-      <text x="34.4375" y="66.0"
+      <text x="34.482421875" y="66.0"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="10" font-weight="bold"
             fill="#000000" text-anchor="middle">Si</text>
-      <text x="44.4375" y="66.0"
+      <text x="44.482421875" y="66.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">FB_MM710_IMU</text>
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">INIT</text>
-      <polygon points="143.25,5.5 148.25,10.5 143.25,15.5" fill="#63B31F"/>
-      <text x="142.25" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,5.5 148.349609375,10.5 143.349609375,15.5" fill="#63B31F"/>
+      <text x="142.349609375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">INITO</text>
-      <polygon points="143.25,22.5 148.25,27.5 143.25,32.5" fill="#63B31F"/>
-      <text x="142.25" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,22.5 148.349609375,27.5 143.349609375,32.5" fill="#63B31F"/>
+      <text x="142.349609375" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">IND</text>
-      <polygon points="143.25,39.5 148.25,44.5 143.25,49.5" fill="#63B31F"/>
-      <text x="142.25" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,39.5 148.349609375,44.5 143.349609375,49.5" fill="#63B31F"/>
+      <text x="142.349609375" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">ERROR</text>
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#A3B08F"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -134,93 +134,93 @@
       <polygon points="0,124.5 5,129.5 0,134.5" fill="#82A3A9"/>
       <text x="6" y="133.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">SA</text>
-      <polygon points="143.25,73.5 148.25,78.5 143.25,83.5" fill="#A3B08F"/>
-      <text x="142.25" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,73.5 148.349609375,78.5 143.349609375,83.5" fill="#A3B08F"/>
+      <text x="142.349609375" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">QO</text>
-      <polygon points="143.25,90.5 148.25,95.5 143.25,100.5" fill="#BD8663"/>
-      <text x="142.25" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,90.5 148.349609375,95.5 143.349609375,100.5" fill="#BD8663"/>
+      <text x="142.349609375" y="99.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">STATUS</text>
-      <polygon points="143.25,107.5 148.25,112.5 143.25,117.5" fill="#DBB418"/>
-      <text x="142.25" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,107.5 148.349609375,112.5 143.349609375,117.5" fill="#DBB418"/>
+      <text x="142.349609375" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rAccX</text>
-      <polygon points="143.25,124.5 148.25,129.5 143.25,134.5" fill="#DBB418"/>
-      <text x="142.25" y="133.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,124.5 148.349609375,129.5 143.349609375,134.5" fill="#DBB418"/>
+      <text x="142.349609375" y="133.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rAccY</text>
-      <polygon points="143.25,141.5 148.25,146.5 143.25,151.5" fill="#DBB418"/>
-      <text x="142.25" y="150.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,141.5 148.349609375,146.5 143.349609375,151.5" fill="#DBB418"/>
+      <text x="142.349609375" y="150.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rAccZ</text>
-      <polygon points="143.25,158.5 148.25,163.5 143.25,168.5" fill="#DBB418"/>
-      <text x="142.25" y="167.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,158.5 148.349609375,163.5 143.349609375,168.5" fill="#DBB418"/>
+      <text x="142.349609375" y="167.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rRateX</text>
-      <polygon points="143.25,175.5 148.25,180.5 143.25,185.5" fill="#DBB418"/>
-      <text x="142.25" y="184.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,175.5 148.349609375,180.5 143.349609375,185.5" fill="#DBB418"/>
+      <text x="142.349609375" y="184.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rRateY</text>
-      <polygon points="143.25,192.5 148.25,197.5 143.25,202.5" fill="#DBB418"/>
-      <text x="142.25" y="201.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,192.5 148.349609375,197.5 143.349609375,202.5" fill="#DBB418"/>
+      <text x="142.349609375" y="201.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rRateZ</text>
-      <polygon points="143.25,209.5 148.25,214.5 143.25,219.5" fill="#DBB418"/>
-      <text x="142.25" y="218.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,209.5 148.349609375,214.5 143.349609375,219.5" fill="#DBB418"/>
+      <text x="142.349609375" y="218.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rRoll</text>
-      <polygon points="143.25,226.5 148.25,231.5 143.25,236.5" fill="#DBB418"/>
-      <text x="142.25" y="235.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,226.5 148.349609375,231.5 143.349609375,236.5" fill="#DBB418"/>
+      <text x="142.349609375" y="235.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rPitch</text>
-      <polygon points="143.25,243.5 148.25,248.5 143.25,253.5" fill="#DBB418"/>
-      <text x="142.25" y="252.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,243.5 148.349609375,248.5 143.349609375,253.5" fill="#DBB418"/>
+      <text x="142.349609375" y="252.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rYaw</text>
-      <polygon points="143.25,260.5 148.25,265.5 143.25,270.5" fill="#DBB418"/>
-      <text x="142.25" y="269.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,260.5 148.349609375,265.5 143.349609375,270.5" fill="#DBB418"/>
+      <text x="142.349609375" y="269.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">rTempRateZ</text>
-      <polygon points="143.25,277.5 148.25,282.5 143.25,287.5" fill="#18519E"/>
-      <text x="142.25" y="286.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,277.5 148.349609375,282.5 143.349609375,287.5" fill="#18519E"/>
+      <text x="142.349609375" y="286.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">uiHW_Index</text>
-      <polygon points="143.25,294.5 148.25,299.5 143.25,304.5" fill="#82A3A9"/>
-      <text x="142.25" y="303.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,294.5 148.349609375,299.5 143.349609375,304.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="303.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">eStatusAccX</text>
-      <polygon points="143.25,311.5 148.25,316.5 143.25,321.5" fill="#82A3A9"/>
-      <text x="142.25" y="320.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,311.5 148.349609375,316.5 143.349609375,321.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="320.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">eStatusAccY</text>
-      <polygon points="143.25,328.5 148.25,333.5 143.25,338.5" fill="#82A3A9"/>
-      <text x="142.25" y="337.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,328.5 148.349609375,333.5 143.349609375,338.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="337.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">eStatusAccZ</text>
-      <polygon points="143.25,345.5 148.25,350.5 143.25,355.5" fill="#82A3A9"/>
-      <text x="142.25" y="354.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,345.5 148.349609375,350.5 143.349609375,355.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="354.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">eStatusRateX</text>
-      <polygon points="143.25,362.5 148.25,367.5 143.25,372.5" fill="#82A3A9"/>
-      <text x="142.25" y="371.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,362.5 148.349609375,367.5 143.349609375,372.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="371.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">eStatusRateY</text>
-      <polygon points="143.25,379.5 148.25,384.5 143.25,389.5" fill="#82A3A9"/>
-      <text x="142.25" y="388.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,379.5 148.349609375,384.5 143.349609375,389.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="388.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">eStatusRateZ</text>
-      <polygon points="143.25,396.5 148.25,401.5 143.25,406.5" fill="#A3B08F"/>
-      <text x="142.25" y="405.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,396.5 148.349609375,401.5 143.349609375,406.5" fill="#A3B08F"/>
+      <text x="142.349609375" y="405.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">bAllSignalsR…</text>
-      <polygon points="143.25,413.5 148.25,418.5 143.25,423.5" fill="#82A3A9"/>
-      <text x="142.25" y="422.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,413.5 148.349609375,418.5 143.349609375,423.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="422.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">uiSysStatus</text>
-      <polygon points="143.25,430.5 148.25,435.5 143.25,440.5" fill="#82A3A9"/>
-      <text x="142.25" y="439.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,430.5 148.349609375,435.5 143.349609375,440.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="439.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">uiSysStatus5</text>
-      <polygon points="143.25,447.5 148.25,452.5 143.25,457.5" fill="#82A3A9"/>
-      <text x="142.25" y="456.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,447.5 148.349609375,452.5 143.349609375,457.5" fill="#82A3A9"/>
+      <text x="142.349609375" y="456.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">uiSysDiag</text>
-      <polygon points="143.25,464.5 148.25,469.5 143.25,474.5" fill="#18519E"/>
-      <text x="142.25" y="473.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,464.5 148.349609375,469.5 143.349609375,474.5" fill="#18519E"/>
+      <text x="142.349609375" y="473.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">uiMessageCou…</text>
-      <polygon points="143.25,481.5 148.25,486.5 143.25,491.5" fill="#A3B08F"/>
-      <text x="142.25" y="490.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,481.5 148.349609375,486.5 143.349609375,491.5" fill="#A3B08F"/>
+      <text x="142.349609375" y="490.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">bCommError</text>
-      <polygon points="143.25,498.5 148.25,503.5 143.25,508.5" fill="#A3B08F"/>
-      <text x="142.25" y="507.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,498.5 148.349609375,503.5 143.349609375,508.5" fill="#A3B08F"/>
+      <text x="142.349609375" y="507.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">bCRCError</text>
-      <polygon points="143.25,515.5 148.25,520.5 143.25,525.5" fill="#BD8663"/>
-      <text x="142.25" y="524.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="143.349609375,515.5 148.349609375,520.5 143.349609375,525.5" fill="#BD8663"/>
+      <text x="142.349609375" y="524.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">sErrorMsg</text>
-      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">TRUE</text>
-      <text x="-3" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">NODE1</text>
+      <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">BOOL#TRUE</text>
+      <text x="-3" y="116.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">USINT#NODE1</text>
       <text x="-3" y="133.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">16#D8</text>
 
       <!-- Instance Name -->
-      <text x="74.125" y="-5"
+      <text x="74.1748046875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">FB_MM710_IMU</text>
     </g>

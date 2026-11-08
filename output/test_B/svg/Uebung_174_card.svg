@@ -58,19 +58,19 @@
   <g id="connections">
   </g>
   <g id="instances">
-  <g transform="translate(125.77,40.44) scale(0.96) translate(-125.77,-40.44)">
+  <g transform="translate(125.82,40.44) scale(0.96) translate(-125.82,-40.44)">
     <g id="fb_E_RESTART_1" transform="translate(125.8, 40.4)">
       <path d="M 3 0
-            L 99.5625 0
-            A 3 3 0 0 1 102.5625 3
-            L 102.5625 52
-            A 3 3 0 0 1 99.5625 55
-            L 93.5625 55
-            L 93.5625 69
-            L 99.5625 69
-            A 3 3 0 0 1 102.5625 72
-            L 102.5625 69
-            A 3 3 0 0 1 99.5625 72
+            L 99.462890625 0
+            A 3 3 0 0 1 102.462890625 3
+            L 102.462890625 52
+            A 3 3 0 0 1 99.462890625 55
+            L 93.462890625 55
+            L 93.462890625 69
+            L 99.462890625 69
+            A 3 3 0 0 1 102.462890625 72
+            L 102.462890625 69
+            A 3 3 0 0 1 99.462890625 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 72
@@ -110,20 +110,20 @@
       <text x="30.0" y="66.0"
             font-family="'TGL 0-16_std', 'TGL 0-16', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">E_RESTART</text>
-      <polygon points="97.5625,5.5 102.5625,10.5 97.5625,15.5" fill="#63B31F"/>
-      <text x="96.5625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.462890625,5.5 102.462890625,10.5 97.462890625,15.5" fill="#63B31F"/>
+      <text x="96.462890625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">COLD</text>
-      <polygon points="97.5625,22.5 102.5625,27.5 97.5625,32.5" fill="#63B31F"/>
-      <text x="96.5625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.462890625,22.5 102.462890625,27.5 97.462890625,32.5" fill="#63B31F"/>
+      <text x="96.462890625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">WARM</text>
-      <polygon points="97.5625,39.5 102.5625,44.5 97.5625,49.5" fill="#63B31F"/>
-      <text x="96.5625" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="97.462890625,39.5 102.462890625,44.5 97.462890625,49.5" fill="#63B31F"/>
+      <text x="96.462890625" y="48.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">STOP</text>
 
 
 
       <!-- Instance Name -->
-      <text x="51.28125" y="-5"
+      <text x="51.2314453125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_RESTART_1</text>
     </g>

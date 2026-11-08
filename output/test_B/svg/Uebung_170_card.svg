@@ -58,19 +58,19 @@
   <g id="connections">
   </g>
   <g id="instances">
-  <g transform="translate(125.74,48.60) scale(0.96) translate(-125.74,-48.60)">
-    <g id="fb_ARTimeOut_1" transform="translate(125.7, 48.6)">
+  <g transform="translate(125.75,48.60) scale(0.96) translate(-125.75,-48.60)">
+    <g id="fb_ARTimeOut_1" transform="translate(125.8, 48.6)">
       <path d="M 3 0
-            L 99.625 0
-            A 3 3 0 0 1 102.625 3
-            L 102.625 18
-            A 3 3 0 0 1 99.625 21
-            L 93.625 21
-            L 93.625 35
-            L 99.625 35
-            A 3 3 0 0 1 102.625 38
-            L 102.625 52
-            A 3 3 0 0 1 99.625 55
+            L 99.603515625 0
+            A 3 3 0 0 1 102.603515625 3
+            L 102.603515625 18
+            A 3 3 0 0 1 99.603515625 21
+            L 93.603515625 21
+            L 93.603515625 35
+            L 99.603515625 35
+            A 3 3 0 0 1 102.603515625 38
+            L 102.603515625 52
+            A 3 3 0 0 1 99.603515625 55
             L 3 55
             A 3 3 0 0 1 0 52
             L 0 38
@@ -129,7 +129,7 @@
       <text x="13" y="47.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">TimeOutSocke…</text>
       <!-- Instance Name -->
-      <text x="51.3125" y="-5"
+      <text x="51.3017578125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">ARTimeOut_1</text>
     </g>

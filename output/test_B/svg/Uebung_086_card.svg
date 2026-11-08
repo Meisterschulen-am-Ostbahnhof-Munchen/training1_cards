@@ -63,16 +63,16 @@
   <g transform="translate(130.06,39.92) scale(0.96) translate(-130.06,-39.92)">
     <g id="fb_E_SWITCH" transform="translate(130.1, 39.9)">
       <path d="M 3 0
-            L 90.625 0
-            A 3 3 0 0 1 93.625 3
-            L 93.625 35
-            A 3 3 0 0 1 90.625 38
-            L 84.625 38
-            L 84.625 52
-            L 90.625 52
-            A 3 3 0 0 1 93.625 55
-            L 93.625 69
-            A 3 3 0 0 1 90.625 72
+            L 90.615234375 0
+            A 3 3 0 0 1 93.615234375 3
+            L 93.615234375 35
+            A 3 3 0 0 1 90.615234375 38
+            L 84.615234375 38
+            L 84.615234375 52
+            L 90.615234375 52
+            A 3 3 0 0 1 93.615234375 55
+            L 93.615234375 69
+            A 3 3 0 0 1 90.615234375 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -115,11 +115,11 @@
       <polygon points="0,5.5 5,10.5 0,15.5" fill="#63B31F"/>
       <text x="6" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">EI</text>
-      <polygon points="88.625,5.5 93.625,10.5 88.625,15.5" fill="#63B31F"/>
-      <text x="87.625" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="88.615234375,5.5 93.615234375,10.5 88.615234375,15.5" fill="#63B31F"/>
+      <text x="87.615234375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO0</text>
-      <polygon points="88.625,22.5 93.625,27.5 88.625,32.5" fill="#63B31F"/>
-      <text x="87.625" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="88.615234375,22.5 93.615234375,27.5 88.615234375,32.5" fill="#63B31F"/>
+      <text x="87.615234375" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">EO1</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#A3B08F"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -127,7 +127,7 @@
 
 
       <!-- Instance Name -->
-      <text x="46.8125" y="-5"
+      <text x="46.8076171875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_SWITCH</text>
     </g>

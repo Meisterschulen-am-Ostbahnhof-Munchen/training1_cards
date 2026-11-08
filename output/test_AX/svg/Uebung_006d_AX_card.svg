@@ -66,19 +66,19 @@
     <text x="90.3" y="53.1" font-family="'TGL 0-17_std', 'TGL 0-17', Helvetica, Arial, sans-serif" font-size="6.8" font-weight="bold" fill="#2C3E50" text-anchor="middle">Klicken</text>
   </g>
   <g id="instances">
-  <g transform="translate(138.67,30.00) scale(0.96) translate(-138.67,-30.00)">
+  <g transform="translate(138.69,30.00) scale(0.96) translate(-138.69,-30.00)">
     <g id="fb_AX_SR" transform="translate(138.7, 30.0)">
       <path d="M 3 0
-            L 72.6875 0
-            A 3 3 0 0 1 75.6875 3
-            L 75.6875 35
-            A 3 3 0 0 1 72.6875 38
-            L 66.6875 38
-            L 66.6875 52
-            L 72.6875 52
-            A 3 3 0 0 1 75.6875 55
-            L 75.6875 69
-            A 3 3 0 0 1 72.6875 72
+            L 72.650390625 0
+            A 3 3 0 0 1 75.650390625 3
+            L 75.650390625 35
+            A 3 3 0 0 1 72.650390625 38
+            L 66.650390625 38
+            L 66.650390625 52
+            L 72.650390625 52
+            A 3 3 0 0 1 75.650390625 55
+            L 75.650390625 69
+            A 3 3 0 0 1 72.650390625 72
             L 3 72
             A 3 3 0 0 1 0 69
             L 0 55
@@ -126,23 +126,23 @@
             fill="#000000">R</text>
 
 
-      <path d="M 65.6875 55.5
-            L 68.1875 55.5
-            L 68.1875 57.166666666666664
-            L 70.6875 57.166666666666664
-            L 70.6875 55.5
-            L 75.6875 55.5
-            L 75.6875 65.5
-            L 70.6875 65.5
-            L 70.6875 63.833333333333336
-            L 68.1875 63.833333333333336
-            L 68.1875 65.5
-            L 65.6875 65.5
+      <path d="M 65.650390625 55.5
+            L 68.150390625 55.5
+            L 68.150390625 57.166666666666664
+            L 70.650390625 57.166666666666664
+            L 70.650390625 55.5
+            L 75.650390625 55.5
+            L 75.650390625 65.5
+            L 70.650390625 65.5
+            L 70.650390625 63.833333333333336
+            L 68.150390625 63.833333333333336
+            L 68.150390625 65.5
+            L 65.650390625 65.5
             Z" fill="#845DAF"/>
-      <text x="62.6875" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="62.650390625" y="64.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="37.84375" y="-5"
+      <text x="37.8251953125" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_SR</text>
     </g>

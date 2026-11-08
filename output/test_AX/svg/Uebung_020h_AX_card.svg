@@ -57,23 +57,23 @@
   <line x1="0" y1="400.0" x2="350.0" y2="400.0" stroke="#F5F7F8" stroke-width="0.8"/>
   <g id="connections">
     <polyline points="15.0,50.0 128.3,50.0" fill="none" stroke="#63B31F" stroke-width="1.5" stroke-linejoin="round"/>
-    <polyline points="221.6,117.2 312.0,117.2 317.0,112.2 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
-    <polyline points="221.6,117.2 312.0,117.2 317.0,112.2 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
+    <polyline points="221.7,117.2 312.0,117.2 317.0,112.2 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#845DAF" stroke-width="3" stroke-linejoin="round"/>
+    <polyline points="221.7,117.2 312.0,117.2 317.0,112.2 317.0,55.0 322.0,50.0 335.0,50.0" fill="none" stroke="#DED4EA" stroke-width="1" stroke-linejoin="round"/>
   </g>
   <g id="instances">
   <g transform="translate(128.35,39.92) scale(0.96) translate(-128.35,-39.92)">
     <g id="fb_AX_PULSE" transform="translate(128.3, 39.9)">
       <path d="M 3 0
-            L 94.1875 0
-            A 3 3 0 0 1 97.1875 3
-            L 97.1875 35
-            A 3 3 0 0 1 94.1875 38
-            L 88.1875 38
-            L 88.1875 52
-            L 94.1875 52
-            A 3 3 0 0 1 97.1875 55
-            L 97.1875 86
-            A 3 3 0 0 1 94.1875 89
+            L 94.189453125 0
+            A 3 3 0 0 1 97.189453125 3
+            L 97.189453125 35
+            A 3 3 0 0 1 94.189453125 38
+            L 88.189453125 38
+            L 88.189453125 52
+            L 94.189453125 52
+            A 3 3 0 0 1 97.189453125 55
+            L 97.189453125 86
+            A 3 3 0 0 1 94.189453125 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 55
@@ -123,23 +123,23 @@
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">PT</text>
       <text x="-3" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">T#5S</text>
-      <path d="M 87.1875 73.5
-            L 89.6875 73.5
-            L 89.6875 75.16666666666667
-            L 92.1875 75.16666666666667
-            L 92.1875 73.5
-            L 97.1875 73.5
-            L 97.1875 83.5
-            L 92.1875 83.5
-            L 92.1875 81.83333333333333
-            L 89.6875 81.83333333333333
-            L 89.6875 83.5
-            L 87.1875 83.5
+      <path d="M 87.189453125 73.5
+            L 89.689453125 73.5
+            L 89.689453125 75.16666666666667
+            L 92.189453125 75.16666666666667
+            L 92.189453125 73.5
+            L 97.189453125 73.5
+            L 97.189453125 83.5
+            L 92.189453125 83.5
+            L 92.189453125 81.83333333333333
+            L 89.689453125 81.83333333333333
+            L 89.689453125 83.5
+            L 87.189453125 83.5
             Z" fill="#845DAF"/>
-      <text x="84.1875" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <text x="84.189453125" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <!-- Instance Name -->
-      <text x="48.59375" y="-5"
+      <text x="48.5947265625" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">AX_PULSE</text>
     </g>

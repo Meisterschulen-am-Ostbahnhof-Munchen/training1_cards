@@ -65,16 +65,16 @@
   <g transform="translate(139.24,39.92) scale(0.96) translate(-139.24,-39.92)">
     <g id="fb_E_TOF" transform="translate(139.2, 39.9)">
       <path d="M 3 0
-            L 71.5 0
-            A 3 3 0 0 1 74.5 3
-            L 74.5 35
-            A 3 3 0 0 1 71.5 38
-            L 65.5 38
-            L 65.5 52
-            L 71.5 52
-            A 3 3 0 0 1 74.5 55
-            L 74.5 86
-            A 3 3 0 0 1 71.5 89
+            L 71.49609375 0
+            A 3 3 0 0 1 74.49609375 3
+            L 74.49609375 35
+            A 3 3 0 0 1 71.49609375 38
+            L 65.49609375 38
+            L 65.49609375 52
+            L 71.49609375 52
+            A 3 3 0 0 1 74.49609375 55
+            L 74.49609375 86
+            A 3 3 0 0 1 71.49609375 89
             L 3 89
             A 3 3 0 0 1 0 86
             L 0 55
@@ -120,8 +120,8 @@
       <polygon points="0,22.5 5,27.5 0,32.5" fill="#63B31F"/>
       <text x="6" y="31.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">R</text>
-      <polygon points="69.5,5.5 74.5,10.5 69.5,15.5" fill="#63B31F"/>
-      <text x="68.5" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="69.49609375,5.5 74.49609375,10.5 69.49609375,15.5" fill="#63B31F"/>
+      <text x="68.49609375" y="14.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">CNF</text>
       <polygon points="0,56.5 5,61.5 0,66.5" fill="#A3B08F"/>
       <text x="6" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
@@ -129,13 +129,13 @@
       <polygon points="0,73.5 5,78.5 0,83.5" fill="#3366FF"/>
       <text x="6" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000">PT</text>
-      <polygon points="69.5,56.5 74.5,61.5 69.5,66.5" fill="#A3B08F"/>
-      <text x="68.5" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
+      <polygon points="69.49609375,56.5 74.49609375,61.5 69.49609375,66.5" fill="#A3B08F"/>
+      <text x="68.49609375" y="65.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="end">Q</text>
       <text x="-3" y="82.7" font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12" fill="#000000" text-anchor="end">T#5s</text>
 
       <!-- Instance Name -->
-      <text x="37.25" y="-5"
+      <text x="37.248046875" y="-5"
             font-family="'TGL 0-17_std', 'TGL 0-17', 'Times New Roman', Times, serif" font-size="12"
             fill="#000000" text-anchor="middle">E_TOF</text>
     </g>
