@@ -26,7 +26,7 @@ concurrency:
 env:
   # Quellen der Übungen und des SVG-Renderers (Nachbar-Checkouts wie lokal)
   TRAINING1_REF: main
-  SVG_TOOL_REF: my_merge
+  SVG_TOOL_REF: main
 
 jobs:
   build:
