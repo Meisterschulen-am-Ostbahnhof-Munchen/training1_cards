@@ -34,25 +34,25 @@ jobs:
     timeout-minutes: 180
     steps:
       - name: Checkout training1_cards
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: training1_cards
 
       - name: Checkout 4diac_training1 (Übungen)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Meisterschulen-am-Ostbahnhof-Munchen/4diac_training1
           ref: ${{ env.TRAINING1_REF }}
           path: 4diac_training1
 
       - name: Checkout IEC61499_FunctionBlock_SVG (Renderer)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Meisterschulen-am-Ostbahnhof-Munchen/IEC61499_FunctionBlock_SVG
           ref: ${{ env.SVG_TOOL_REF }}
           path: IEC61499_FunctionBlock_SVG
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
@@ -82,7 +82,7 @@ jobs:
 
       - name: Sammelbögen als Artefakt (Pull Request)
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: karten-vorschau
           path: |
