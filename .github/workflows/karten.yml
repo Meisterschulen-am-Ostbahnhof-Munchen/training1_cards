@@ -99,8 +99,13 @@ jobs:
         run: |
           notes="Automatisch erzeugt aus ${GITHUB_SHA::7}. Quell-Commits siehe QUELLEN.txt."
           if [[ "$GITHUB_REF" == refs/tags/* ]]; then
-            gh release create "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" \
-              --title "Karten $GITHUB_REF_NAME" --notes "$notes" *
+            # Release schon von Hand angelegt (GitHub-Oberfläche)? Dann nur Dateien anhängen.
+            if gh release view "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+              gh release upload "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" --clobber *
+            else
+              gh release create "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" \
+                --title "Karten $GITHUB_REF_NAME" --notes "$notes" *
+            fi
           else
             gh release delete karten-latest -R "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
             gh release create karten-latest -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease \
