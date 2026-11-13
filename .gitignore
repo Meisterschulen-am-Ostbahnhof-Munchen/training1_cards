@@ -223,3 +223,6 @@ __marimo__/
 
 
 desktop.ini
+
+# Generierte Karten: werden per GitHub Action als Release veröffentlicht, nicht committet
+/output/
