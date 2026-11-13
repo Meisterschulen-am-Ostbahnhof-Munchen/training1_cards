@@ -25,7 +25,7 @@ Für Übungen in der Automatisierungstechnik (IEC 61499) werden Karten auf den T
 
 > **Fertige Karten herunterladen:** Die Karten werden nicht im Repository versioniert (`output/` steht in `.gitignore`).
 > Die GitHub Action `.github/workflows/karten.yml` erzeugt sie mit `--batch-all` und veröffentlicht sie als Release:
-> **`karten-latest`** (aktueller Stand von `main`) bzw. ein festes Release je Tag `v*`.
+> **`karten-latest`** (aktueller Stand von `main`); außerdem werden sie an jedes veröffentlichte Release angehängt (Release in der GitHub-Oberfläche anlegen genügt).
 > Enthalten sind je Quellordner ein ZIP mit allen Varianten, die Sammelbögen (`*_all_exercises_multi.pdf`), `fix-TODO.md` und `QUELLEN.txt` mit den verwendeten Commits.
 > In Pull Requests liegen die Sammelbögen als Artefakt am Workflow-Lauf.
 
