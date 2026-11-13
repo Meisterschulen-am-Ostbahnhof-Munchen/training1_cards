@@ -1,0 +1,108 @@
+# Erzeugt alle Trainingskarten (--batch-all) und veröffentlicht sie als Release.
+#
+# - Pull Request:      nur bauen; Sammelbögen (multi) + fix-TODO.md als Artefakt zum Ansehen
+# - Push auf main:     Release "karten-latest" (Vorabversion, wird bei jedem Push ersetzt)
+# - Tag v*:            festes Release mit diesem Tag
+# - manuell:           wie Push auf main
+#
+# Die generierten Karten werden NICHT ins Repository committet (output/ steht in .gitignore).
+
+name: Karten erzeugen
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: karten-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # Quellen der Übungen und des SVG-Renderers (Nachbar-Checkouts wie lokal)
+  TRAINING1_REF: main
+  SVG_TOOL_REF: main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout training1_cards
+        uses: actions/checkout@v7
+        with:
+          path: training1_cards
+
+      - name: Checkout 4diac_training1 (Übungen)
+        uses: actions/checkout@v7
+        with:
+          repository: Meisterschulen-am-Ostbahnhof-Munchen/4diac_training1
+          ref: ${{ env.TRAINING1_REF }}
+          path: 4diac_training1
+
+      - name: Checkout IEC61499_FunctionBlock_SVG (Renderer)
+        uses: actions/checkout@v7
+        with:
+          repository: Meisterschulen-am-Ostbahnhof-Munchen/IEC61499_FunctionBlock_SVG
+          ref: ${{ env.SVG_TOOL_REF }}
+          path: IEC61499_FunctionBlock_SVG
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Python-Abhängigkeiten
+        run: pip install reportlab svglib pillow
+
+      - name: Karten erzeugen
+        working-directory: training1_cards
+        run: python generate_cards.py --batch-all
+
+      - name: Release-Dateien packen
+        working-directory: training1_cards
+        run: |
+          mkdir -p ../dist
+          for d in output/*/; do
+            name=$(basename "$d")
+            (cd output && zip -qr "../../dist/karten-${name}.zip" "$name")
+            cp "$d"multi/*.pdf ../dist/
+          done
+          cp fix-TODO.md ../dist/
+          {
+            echo "training1_cards:          ${GITHUB_SHA}"
+            echo "4diac_training1:          $(git -C ../4diac_training1 rev-parse HEAD) (${TRAINING1_REF})"
+            echo "IEC61499_FunctionBlock_SVG: $(git -C ../IEC61499_FunctionBlock_SVG rev-parse HEAD) (${SVG_TOOL_REF})"
+          } > ../dist/QUELLEN.txt
+          ls -lh ../dist
+
+      - name: Sammelbögen als Artefakt (Pull Request)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v7
+        with:
+          name: karten-vorschau
+          path: |
+            dist/*.pdf
+            dist/fix-TODO.md
+            dist/QUELLEN.txt
+          retention-days: 14
+
+      - name: Release veröffentlichen
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        working-directory: dist
+        run: |
+          notes="Automatisch erzeugt aus ${GITHUB_SHA::7}. Quell-Commits siehe QUELLEN.txt."
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            gh release create "$GITHUB_REF_NAME" -R "$GITHUB_REPOSITORY" \
+              --title "Karten $GITHUB_REF_NAME" --notes "$notes" *
+          else
+            gh release delete karten-latest -R "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
+            gh release create karten-latest -R "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --prerelease \
+              --title "Karten (aktueller Stand main)" --notes "$notes" *
+          fi

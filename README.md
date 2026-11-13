@@ -23,6 +23,12 @@ Für Übungen in der Automatisierungstechnik (IEC 61499) werden Karten auf den T
 
 ## 2. Erzeugte Ordnerstruktur & Ausgabe-Varianten
 
+> **Fertige Karten herunterladen:** Die Karten werden nicht im Repository versioniert (`output/` steht in `.gitignore`).
+> Die GitHub Action `.github/workflows/karten.yml` erzeugt sie mit `--batch-all` und veröffentlicht sie als Release:
+> **`karten-latest`** (aktueller Stand von `main`) bzw. ein festes Release je Tag `v*`.
+> Enthalten sind je Quellordner ein ZIP mit allen Varianten, die Sammelbögen (`*_all_exercises_multi.pdf`), `fix-TODO.md` und `QUELLEN.txt` mit den verwendeten Commits.
+> In Pull Requests liegen die Sammelbögen als Artefakt am Workflow-Lauf.
+
 Alle Dateien werden standardmäßig im Ordner `output/` getrennt nach Quellordner (`test_AX` und `test_B`, analog zum Workspace in Training1) mit Unterordnern je Typ abgelegt:
 
 ```text
