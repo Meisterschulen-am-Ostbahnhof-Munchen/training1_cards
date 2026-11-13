@@ -12,6 +12,7 @@ import glob
 import base64
 import argparse
 import itertools
+import concurrent.futures
 from collections import defaultdict
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional, Set
@@ -215,12 +216,19 @@ def identify_io_pin(instance: FBInstance) -> Optional[str]:
 
     # Check Input parameter
     input_param = params.get("Input", "")
+    output_param = params.get("Output", "")
     m = re.match(r"^Input_I(\d+)$", input_param)
     if m:
-        return f"I{m.group(1)}"
+        # Forwarding/converter blocks (e.g. *_TO_Aux_QXA, *_TO_logiBUS_LED_strip_QXA) use
+        # "Input" to select which physical pin to read from, but route the signal into a
+        # different subsystem instead of mirroring it 1:1 to a matching Output pin - they are
+        # logic blocks, not the pin FB itself (the symmetric I->Q case is already handled by
+        # identify_passthrough above).
+        is_forwarding_converter = "_TO_" in type_name and not re.match(r"^Output_Q\d+$", output_param)
+        if not is_forwarding_converter:
+            return f"I{m.group(1)}"
 
     # Check Output parameter
-    output_param = params.get("Output", "")
     m = re.match(r"^Output_Q(\d+)$", output_param)
     if m:
         return f"Q{m.group(1)}"
@@ -485,20 +493,24 @@ def assign_connection_tracks(conns: List[Dict]) -> List[int]:
     return assignment
 
 
-def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -> str:
-    """Parses a .SUB file and generates a complete 70mm x 90mm SVG training card."""
-    if type_libs is None:
-        type_libs = list(DEFAULT_TYPE_LIBS)
+def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None,
+                       resolver: Optional[TypeResolver] = None) -> str:
+    """Parses a .SUB file and generates a complete 70mm x 90mm SVG training card.
 
-    # Add the folder containing the .SUB file
-    sub_dir = os.path.dirname(os.path.abspath(subapp_file))
-    if sub_dir not in type_libs:
-        type_libs.append(sub_dir)
-
+    Pass an already-built `resolver` (e.g. from a batch run) to avoid rebuilding the
+    type-library file index on every call: rglob-scanning .lib/test_AX/test_B is by far
+    the most expensive part of this function and is identical across all exercises.
+    """
     # 1. Parse and resolve types
     parser = NetworkParser()
     model = parser.parse(subapp_file)
-    resolver = TypeResolver(type_libs)
+    if resolver is None:
+        if type_libs is None:
+            type_libs = list(DEFAULT_TYPE_LIBS)
+        sub_dir = os.path.dirname(os.path.abspath(subapp_file))
+        if sub_dir not in type_libs:
+            type_libs.append(sub_dir)
+        resolver = TypeResolver(type_libs)
     resolver.resolve(model)
 
     # 2. Standard layout engine to get accurate FB sizes and internal port positions
@@ -725,11 +737,14 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                     a.render_y < b.render_y + b.block_height + gap and b.render_y < a.render_y + a.block_height + gap)
 
         if any(overlaps(a, b, 0.0) for i, a in enumerate(logic_instances) for b in logic_instances[i + 1:]):
-            # Stacking order follows the data flow (sources above sinks), not the 4diac y-position
-            names = {i.name for i in logic_instances}
-            links = {(c["source_inst"], c["dest_inst"]) for c in card_connections
-                     if c.get("source_inst") in names and c.get("dest_inst") in names
-                     and c["source_inst"] != c["dest_inst"]}
+            # Stacking order follows the data flow (sources above sinks), not the 4diac y-position.
+            # names/links are sorted (not left as sets) so a cyclic graph - e.g. a feedback loop
+            # block -> block -> block - relaxes to the same depth values on every run instead of
+            # depending on Python's per-process string hash randomization.
+            names = sorted({i.name for i in logic_instances})
+            links = sorted({(c["source_inst"], c["dest_inst"]) for c in card_connections
+                            if c.get("source_inst") in names and c.get("dest_inst") in names
+                            and c["source_inst"] != c["dest_inst"]})
             depth = {n: 0 for n in names}
             for _ in range(len(names)):
                 for s, d in links:
@@ -837,6 +852,34 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             inst.extra_scale *= shrink
             inst.render_x += (old_w - inst.block_width) / 2.0
             inst.render_y = y
+
+    # A handful of exercises fit without overlapping (no warning from the safety net above) but
+    # still read as cluttered: several closely-grouped adapter/socket connections bunch into one
+    # indistinguishable band (e.g. Uebung_004b3_AX, between AX_E_SWITCH and AX_SPLIT_2). Block
+    # positions come from the exercise's own 4diac layout, so we deliberately do not reorder them;
+    # shrinking every block in place (around its own center, same as the safety net above) instead
+    # opens up the fixed-width gaps between columns, giving the connection router visibly more room
+    # to fan parallel lines out instead of bunching them. Curated by eye, not a generic "busy card"
+    # heuristic, since "looks confusing" cannot be measured automatically - and it only helps when
+    # the clutter is this kind of tight parallel-line bunching between two adjacent columns; tried
+    # on Uebung_006_SAFE_AX_02 too, but that card's crossings run card-wide between 8 interface pins
+    # and 4 blocks, which shrinking does not untangle, so it was left out.
+    CARD_DECLUTTER_SCALE = {
+        "Uebung_004b3_AX": 0.82,
+    }
+    exercise_name = os.path.splitext(os.path.basename(subapp_file))[0]
+    declutter_scale = CARD_DECLUTTER_SCALE.get(exercise_name)
+    if declutter_scale is not None:
+        for inst in logic_instances:
+            old_w, old_h = inst.block_width, inst.block_height
+            inst.block_width *= declutter_scale
+            inst.block_height *= declutter_scale
+            inst.name_section_bottom *= declutter_scale
+            if getattr(inst, "adapter_section_top", None) is not None:
+                inst.adapter_section_top *= declutter_scale
+            inst.extra_scale *= declutter_scale
+            inst.render_x += (old_w - inst.block_width) / 2.0
+            inst.render_y += (old_h - inst.block_height) / 2.0
 
     # Snap blocks fed by input pins to the 1 cm pin grid: shift each block so that the port of its topmost
     # nearly aligned pin->port connection (max. 20 units off) sits exactly at the pin height; the other
@@ -1235,11 +1278,184 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             unique_tracks = sorted(list(set(best_assignment)))
             k = len(unique_tracks)
             track_rank = {t: idx for idx, t in enumerate(unique_tracks)}
-            step = min(8.0, (chan_dx - chan_sx - 24.0) / max(1, k - 1)) if k > 1 else 0.0
+            CHAN_MARGIN = 10.0
+            CHAN_MIN_STEP = 3.0
+            CHAN_MAX_STEP = 8.0
+            if k > 1:
+                step = (chan_dx - chan_sx - 2 * CHAN_MARGIN) / (k - 1)
+                if step < CHAN_MIN_STEP:
+                    # Channel too narrow for the default margin to also fit a visibly
+                    # distinct offset between tracks - shrink the margin just enough
+                    # so parallel lines stay distinguishable instead of collapsing
+                    # onto the same x (which happened whenever chan_dx - chan_sx was
+                    # close to 2 * CHAN_MARGIN).
+                    margin = max(2.0, (chan_dx - chan_sx - (k - 1) * CHAN_MIN_STEP) / 2.0)
+                    step = (chan_dx - chan_sx - 2 * margin) / (k - 1)
+                else:
+                    margin = CHAN_MARGIN
+                step = max(0.0, min(CHAN_MAX_STEP, step))
+            else:
+                margin = CHAN_MARGIN
+                step = 0.0
             for item, t in zip(chan, best_assignment):
                 rank = track_rank[t]
                 track_x = mid_base - (k - 1) * step / 2.0 + rank * step
-                item["cinfo"]["assigned_mid_x"] = max(chan_sx + 10.0, min(chan_dx - 10.0, track_x))
+                item["cinfo"]["assigned_mid_x"] = max(chan_sx + margin, min(chan_dx - margin, track_x))
+
+    # Feedback/cascade connections (right-side output back to a left-side input, sx > dx) route
+    # through a Z-shaped detour. Two unrelated connections of this kind can end up computing the
+    # same detour corridor (e.g. two sibling block-pairs feeding sockets in the same left column),
+    # which draws their wires exactly on top of each other. Give each conflicting one its own track,
+    # unless they share a source or destination pin (then overlapping there is expected/correct).
+    FB_TOL_X = 6.0
+    FB_TOL_Y = 8.0
+    FB_TRACK_STEP = 6.0
+    feedback_items = []
+    for cinfo in card_connections:
+        if cinfo.get("source_pin") or cinfo.get("dest_pin"):
+            continue
+        src_pt = cinfo.get("src_pt")
+        dst_pt = cinfo.get("dst_pt")
+        if not (src_pt and dst_pt):
+            continue
+        sx, sy = src_pt
+        dx, dy = dst_pt
+        if not (sx > dx):
+            continue
+        src_inst_obj = instance_map.get(cinfo.get("source_inst"))
+        dst_inst_obj = instance_map.get(cinfo.get("dest_inst"))
+        if src_inst_obj and dst_inst_obj:
+            if src_inst_obj is dst_inst_obj:
+                gap_y = src_inst_obj.render_y + src_inst_obj.block_height + 12.0
+            elif dy > sy:
+                gap_y = (src_inst_obj.render_y + src_inst_obj.block_height + dst_inst_obj.render_y) / 2.0
+            else:
+                gap_y = (dst_inst_obj.render_y + dst_inst_obj.block_height + src_inst_obj.render_y) / 2.0
+        else:
+            gap_y = (sy + dy) / 2.0
+        out_x = sx + 14.0
+        in_x = dx - 14.0
+        if is_event_port(cinfo.get("source_inst"), cinfo.get("source_port"), True):
+            sign = 1.0 if dy > sy else -1.0
+            out_x += 4.0 * sign
+            in_x += 4.0 * sign
+            gap_y += 4.0
+        feedback_items.append({
+            "cinfo": cinfo, "sx": sx, "sy": sy, "dx": dx, "dy": dy,
+            "out_x": out_x, "in_x": in_x, "gap_y": gap_y,
+            "src": (cinfo.get("source_inst"), cinfo.get("source_port")),
+            "dest": (cinfo.get("dest_inst"), cinfo.get("dest_port")),
+        })
+
+    n_fb = len(feedback_items)
+    fb_parent = list(range(n_fb))
+
+    def fb_find(i):
+        while fb_parent[i] != i:
+            fb_parent[i] = fb_parent[fb_parent[i]]
+            i = fb_parent[i]
+        return i
+
+    def fb_union(i, j):
+        ri, rj = fb_find(i), fb_find(j)
+        if ri != rj:
+            fb_parent[ri] = rj
+
+    for i in range(n_fb):
+        for j in range(i + 1, n_fb):
+            a, b = feedback_items[i], feedback_items[j]
+            if a["src"] == b["src"] or a["dest"] == b["dest"]:
+                fb_union(i, j)
+
+    fb_lanes = defaultdict(list)
+    for i in range(n_fb):
+        fb_lanes[fb_find(i)].append(i)
+    fb_lane_ids = list(fb_lanes.keys())
+    fb_lane_index = {lid: idx for idx, lid in enumerate(fb_lane_ids)}
+
+    def fb_conflict(a, b):
+        tail = (abs(a["in_x"] - b["in_x"]) < FB_TOL_X and
+                min(a["gap_y"], a["dy"]) < max(b["gap_y"], b["dy"]) - 1.0 and
+                min(b["gap_y"], b["dy"]) < max(a["gap_y"], a["dy"]) - 1.0)
+        head = (abs(a["out_x"] - b["out_x"]) < FB_TOL_X and
+                min(a["sy"], a["gap_y"]) < max(b["sy"], b["gap_y"]) - 1.0 and
+                min(b["sy"], b["gap_y"]) < max(a["sy"], a["gap_y"]) - 1.0)
+        mid = (abs(a["gap_y"] - b["gap_y"]) < FB_TOL_Y and
+               min(a["out_x"], a["in_x"]) < max(b["out_x"], b["in_x"]) - 1.0 and
+               min(b["out_x"], b["in_x"]) < max(a["out_x"], a["in_x"]) - 1.0)
+        return tail or head or mid
+
+    fb_adjacency = defaultdict(set)
+    for li in range(len(fb_lane_ids)):
+        items_i = [feedback_items[k] for k in fb_lanes[fb_lane_ids[li]]]
+        for lj in range(li + 1, len(fb_lane_ids)):
+            items_j = [feedback_items[k] for k in fb_lanes[fb_lane_ids[lj]]]
+            if any(fb_conflict(a, b) for a in items_i for b in items_j):
+                fb_adjacency[li].add(lj)
+                fb_adjacency[lj].add(li)
+
+    fb_lane_track = {}
+    for li in range(len(fb_lane_ids)):
+        used = {fb_lane_track[nj] for nj in fb_adjacency[li] if nj in fb_lane_track}
+        track = 0
+        while track in used:
+            track += 1
+        fb_lane_track[li] = track
+
+    for i, item in enumerate(feedback_items):
+        track = fb_lane_track[fb_lane_index[fb_find(i)]]
+        if track:
+            item["out_x"] += track * FB_TRACK_STEP
+            item["in_x"] -= track * FB_TRACK_STEP
+            item["gap_y"] += track * 5.0
+        item["cinfo"]["fb_out_x"] = item["out_x"]
+        item["cinfo"]["fb_in_x"] = item["in_x"]
+        item["cinfo"]["fb_gap_y"] = item["gap_y"]
+
+    # A forward connection (sx <= dx) can pass another, unrelated block that sits physically
+    # between its source and destination - e.g. a connection "skips over" one block in a row to
+    # reach a block further right. If that block's own port happens to sit at a similar height,
+    # the straight/Z-shaped route drawn behind the blocks looks like it runs straight through the
+    # obstacle (in one side, out the other) instead of connecting to it. Detour such segments
+    # around the obstacle instead.
+    OBSTACLE_CLEARANCE = 6.0
+    obstacle_boxes = [
+        (inst.name, inst.render_x, inst.render_y,
+         inst.render_x + inst.block_width, inst.render_y + inst.block_height)
+        for inst in logic_instances
+    ]
+
+    def _blocking_obstacles(y, x_lo, x_hi, exclude_names):
+        hits = []
+        for name, ox0, oy0, ox1, oy1 in obstacle_boxes:
+            if name in exclude_names:
+                continue
+            if ox1 <= x_lo + 1.0 or ox0 >= x_hi - 1.0:
+                continue
+            if oy1 <= y + 1.0 or oy0 >= y - 1.0:
+                continue
+            hits.append((ox0, oy0, ox1, oy1))
+        return hits
+
+    def _route_around_obstacles(waypoints, exclude_names):
+        """Replace any left-to-right horizontal segment of `waypoints` that runs through an
+        unrelated block's bounding box with a detour above or below that block."""
+        routed = [waypoints[0]]
+        for (x0, y0), (x1, y1) in zip(waypoints, waypoints[1:]):
+            if y0 == y1 and x1 > x0 + 1.0:
+                blockers = _blocking_obstacles(y0, x0, x1, exclude_names)
+                if blockers:
+                    left_edge = min(b[0] for b in blockers) - OBSTACLE_CLEARANCE
+                    right_edge = max(b[2] for b in blockers) + OBSTACLE_CLEARANCE
+                    top = min(b[1] for b in blockers) - OBSTACLE_CLEARANCE
+                    bottom = max(b[3] for b in blockers) + OBSTACLE_CLEARANCE
+                    detour_y = top if abs(top - y0) <= abs(bottom - y0) else bottom
+                    left_edge = max(left_edge, x0)
+                    right_edge = min(right_edge, x1)
+                    routed += [(left_edge, y0), (left_edge, detour_y),
+                               (right_edge, detour_y), (right_edge, y0)]
+            routed.append((x1, y1))
+        return routed
 
     # Connections group (rendered behind blocks)
     svg.append('  <g id="connections">')
@@ -1255,30 +1471,13 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
             if abs(sy - dy) < 2.0 and sx <= dx:
                 waypoints = [src_pt, dst_pt]
             elif sx > dx:
-                # Feedback or vertical cascade from right-side output to left-side input
-                # Route out of the right port, down/up through the inter-block gap, and into the left port
-                src_inst_obj = instance_map.get(cinfo.get("source_inst"))
-                dst_inst_obj = instance_map.get(cinfo.get("dest_inst"))
-                if src_inst_obj and dst_inst_obj:
-                    if src_inst_obj == dst_inst_obj:
-                        gap_y = src_inst_obj.render_y + src_inst_obj.block_height + 12.0
-                    elif dy > sy:
-                        gap_y = (src_inst_obj.render_y + src_inst_obj.block_height + dst_inst_obj.render_y) / 2.0
-                    else:
-                        gap_y = (dst_inst_obj.render_y + dst_inst_obj.block_height + src_inst_obj.render_y) / 2.0
-                else:
-                    gap_y = (sy + dy) / 2.0
-
-                out_x = sx + 14.0
-                in_x = dx - 14.0
-                # Event wires of a block-to-block cascade run slightly offset (x and y) from the data wires so both
-                # stay visible without crossing. Event ports sit above data ports: going down the event wire is the
-                # outer one at the first bend and the inner one at the last; going up it is the other way round
-                if is_event_port(cinfo.get("source_inst"), cinfo.get("source_port"), True):
-                    sign = 1.0 if dy > sy else -1.0
-                    out_x += 4.0 * sign
-                    in_x += 4.0 * sign
-                    gap_y += 4.0
+                # Feedback or vertical cascade from right-side output to left-side input.
+                # Route out of the right port, down/up through the inter-block gap, and into the
+                # left port; out_x/in_x/gap_y were precomputed above (with a track offset applied
+                # when another, unrelated feedback connection would otherwise draw on top of it).
+                out_x = cinfo["fb_out_x"]
+                in_x = cinfo["fb_in_x"]
+                gap_y = cinfo["fb_gap_y"]
                 waypoints = [
                     (sx, sy),
                     (out_x, sy),
@@ -1300,6 +1499,10 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
                     (dx, dy)
                 ]
 
+            if sx <= dx:
+                waypoints = _route_around_obstacles(
+                    waypoints, {cinfo.get("source_inst"), cinfo.get("dest_inst")})
+
             if conn and conn.conn_type == "adapter":
                 color = renderer.ADAPTER_PORT_COLOR
                 is_double = True
@@ -1316,7 +1519,19 @@ def generate_card_svg(subapp_file: str, type_libs: Optional[List[str]] = None) -
 
             cinfo["waypoints"] = waypoints
             cinfo["color"] = color
-            svg.append(renderer._render_connection(waypoints, color, double_line=is_double))
+            conn_svg = renderer._render_connection(waypoints, color, double_line=is_double)
+            # Thin out the line together with any shrunk block it touches (see the column-fit
+            # safety net above), so a heavily downscaled card doesn't keep full-size wires.
+            src_scale = getattr(instance_map.get(cinfo.get("source_inst")), "extra_scale", 1.0)
+            dst_scale = getattr(instance_map.get(cinfo.get("dest_inst")), "extra_scale", 1.0)
+            conn_scale = min(src_scale, dst_scale)
+            if conn_scale < 0.999:
+                conn_svg = re.sub(
+                    r'stroke-width="([\d.]+)"',
+                    lambda m: f'stroke-width="{max(0.6, float(m.group(1)) * conn_scale):.2f}"',
+                    conn_svg,
+                )
+            svg.append(conn_svg)
 
     # Connection event labels (pills) for multi-event or special event pins
     pin_events = defaultdict(set)
@@ -1555,12 +1770,18 @@ def render_card_on_pdf(c: canvas.Canvas, svg_content: str, x: float, y: float, w
         renderPDF.draw(drawing, c, x, y)
 
 
-def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf", with_back: bool = True):
-    """Generates a single-card PDF page centered on A4 with crop marks (plus the card back as page 2)."""
+def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single_card.pdf", with_back: bool = True,
+                              svg_content: Optional[str] = None, resolver: Optional[TypeResolver] = None):
+    """Generates a single-card PDF page centered on A4 with crop marks (plus the card back as page 2).
+
+    Pass a pre-rendered `svg_content` (e.g. from a batch run that already called
+    generate_card_svg() once for this exercise) to avoid re-parsing/re-laying-out it here.
+    """
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
         os.makedirs(out_dir, exist_ok=True)
-    svg_content = generate_card_svg(subapp_file)
+    if svg_content is None:
+        svg_content = generate_card_svg(subapp_file, resolver=resolver)
     c = canvas.Canvas(output_pdf, pagesize=A4, invariant=1)
     page_w, page_h = A4
 
@@ -1615,7 +1836,8 @@ def generate_single_card_pdf(subapp_file: str, output_pdf: str = "logiBUS_single
     print(f"Generated single card PDF: {output_pdf}", flush=True)
 
 
-def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf", with_back: bool = True):
+def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS_multi_cards.pdf", with_back: bool = True,
+                              resolver: Optional[TypeResolver] = None):
     """Generates a multi-card PDF with a 2x3 grid (6 cards per A4 page) for easy printing and cutting.
 
     With with_back, every front page is followed by a page of card backs with mirrored columns,
@@ -1665,7 +1887,7 @@ def generate_multi_cards_pdf(subapp_files: List[str], output_pdf: str = "logiBUS
             y = start_y + grid_row * card_h
 
             try:
-                svg_content = generate_card_svg(sub_file)
+                svg_content = generate_card_svg(sub_file, resolver=resolver)
                 render_card_on_pdf(c, svg_content, x, y, card_w, card_h)
             except Exception as e:
                 print(f"    [WARNUNG] Fehler bei {sub_name}: {e}", flush=True)
@@ -1725,7 +1947,7 @@ def draw_offset_crop_marks(c: canvas.Canvas, x: float, y: float, w: float, h: fl
 
 
 def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printshop.pdf", bleed_mm: float = 3.0, slug_mm: float = 6.0,
-                           with_back: bool = True):
+                           with_back: bool = True, svg_content: Optional[str] = None, resolver: Optional[TypeResolver] = None):
     """Generates an offset print-ready PDF for commercial print shops.
 
     - TrimBox: exactly 70.0 mm x 90.0 mm (defining the final cut size / Endformat).
@@ -1751,7 +1973,7 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
     c.setTrimBox((margin, margin, margin + card_w, margin + card_h))
     c.setBleedBox((margin - bleed, margin - bleed, margin + card_w + bleed, margin + card_h + bleed))
 
-    sides = [generate_card_svg(subapp_file)]
+    sides = [svg_content if svg_content is not None else generate_card_svg(subapp_file, resolver=resolver)]
     if with_back:
         sides.append(generate_card_back_svg(subapp_file))
 
@@ -1771,7 +1993,8 @@ def generate_printshop_pdf(subapp_file: str, output_pdf: str = "logiBUS_printsho
     print(f"Generated print shop offset PDF: {output_pdf}", flush=True)
 
 
-def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf", with_back: bool = True):
+def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_70x90.pdf", with_back: bool = True,
+                             svg_content: Optional[str] = None, resolver: Optional[TypeResolver] = None):
     """Generates a PDF where the paper size (MediaBox) is EXACTLY 70.0 mm x 90.0 mm (page 2 = back)."""
     out_dir = os.path.dirname(output_pdf)
     if out_dir:
@@ -1780,7 +2003,8 @@ def generate_exact_size_pdf(subapp_file: str, output_pdf: str = "logiBUS_exact_7
     card_h = 9.0 * cm
     c = canvas.Canvas(output_pdf, pagesize=(card_w, card_h), invariant=1)
     c.setTrimBox((0, 0, card_w, card_h))
-    svg_content = generate_card_svg(subapp_file)
+    if svg_content is None:
+        svg_content = generate_card_svg(subapp_file, resolver=resolver)
     render_card_on_pdf(c, svg_content, 0, 0, card_w, card_h)
     c.showPage()
     if with_back:
@@ -2097,6 +2321,41 @@ def resolve_sub_file(sub_arg: str, folders: List[str]) -> str:
     return sub_arg
 
 
+_worker_resolver: Optional[TypeResolver] = None
+
+
+def _init_batch_worker(type_libs: List[str]) -> None:
+    """ProcessPoolExecutor initializer: builds the type-library index once per worker
+    process (the expensive rglob scan over .lib/test_AX/test_B) and keeps it in a module
+    global, so every exercise this worker processes afterwards reuses it."""
+    global _worker_resolver
+    _worker_resolver = TypeResolver(type_libs)
+
+
+def _batch_process_one(fpath: str, output_root: str, folders: List[str], with_back: bool) -> Tuple[str, str, bool, Optional[str]]:
+    """Generates every card variant for one exercise. Runs in a worker process; returns a
+    plain (picklable) result tuple instead of raising, since exceptions from arbitrary
+    library code are not guaranteed to unpickle cleanly across the process boundary."""
+    b_name = os.path.splitext(os.path.basename(fpath))[0]
+    out_paths = get_output_paths(fpath, output_root, folders)
+    try:
+        svg_content = generate_card_svg(fpath, resolver=_worker_resolver)
+        with open(os.path.join(out_paths["svg"], f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
+            f.write(svg_content)
+        if with_back:
+            with open(os.path.join(out_paths["svg"], f"{b_name}_card_back.svg"), "w", encoding="utf-8") as f:
+                f.write(generate_card_back_svg(fpath))
+        generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"), with_back=with_back,
+                                  svg_content=svg_content)
+        generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"), with_back=with_back,
+                                svg_content=svg_content)
+        generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"), with_back=with_back,
+                                 svg_content=svg_content)
+        return b_name, out_paths["subfolder"], True, None
+    except Exception as e:
+        return b_name, out_paths["subfolder"], False, str(e)
+
+
 def main():
     arg_parser = argparse.ArgumentParser(description="Generate 7x9cm portrait training cards from 4diac exercises.")
     arg_parser.add_argument("--sub", type=str, default=DEFAULT_EXERCISE, help="Path to .SUB exercise file")
@@ -2105,6 +2364,8 @@ def main():
     arg_parser.add_argument("--check-layout", action="store_true", help="Analyze exercise layouts and generate fix-TODO.md")
     arg_parser.add_argument("--no-back", action="store_true", help="Omit the card back (QR code to the exercise documentation) in all PDFs")
     arg_parser.add_argument("--limit", type=int, default=None, help="Limit number of exercises to process (useful for testing)")
+    arg_parser.add_argument("--jobs", type=int, default=None,
+                             help="Parallel worker processes for --batch-all (default: CPU count; use 1 to disable parallelism)")
     arg_parser.add_argument(
         "--folder", "--folders",
         dest="folders",
@@ -2147,26 +2408,49 @@ def main():
             files = files[:args.limit]
         print(f"Batch generating cards for {len(files)} exercises across {len(args.folders)} folders into '{output_root}'...", flush=True)
 
+        # Build the type-library file index once and reuse it for every exercise: scanning
+        # .lib/test_AX/test_B is by far the most expensive part of generate_card_svg() and is
+        # identical for all exercises, so rebuilding it per exercise (as a plain per-call
+        # TypeResolver would) wastes the bulk of a full batch run.
+        type_libs = list(DEFAULT_TYPE_LIBS)
+        for f in files:
+            sdir = os.path.dirname(os.path.abspath(f))
+            if sdir not in type_libs:
+                type_libs.append(sdir)
+        batch_resolver = TypeResolver(type_libs)
+
+        # Exercises are fully independent of each other, so the per-exercise generation (by far
+        # the bulk of a batch run) is split across worker processes. Each worker builds its own
+        # TypeResolver once (via the initializer) and reuses it for every exercise it is given,
+        # same as the single-process batch_resolver above - only the file-system scan that builds
+        # it is repeated once per worker instead of once per exercise.
         files_by_folder = defaultdict(list)
-        for i, fpath in enumerate(files):
-            b_name = os.path.splitext(os.path.basename(fpath))[0]
-            out_paths = get_output_paths(fpath, output_root, args.folders)
-            subfolder = out_paths["subfolder"]
+        for fpath in files:
+            subfolder = get_exercise_subfolder(fpath, args.folders)
             files_by_folder[subfolder].append(fpath)
 
-            print(f"[{i+1}/{len(files)}] [{subfolder or 'default'}] Processing {b_name}...", flush=True)
-            try:
-                svg_content = generate_card_svg(fpath)
-                with open(os.path.join(out_paths["svg"], f"{b_name}_card.svg"), "w", encoding="utf-8") as f:
-                    f.write(svg_content)
-                if with_back:
-                    with open(os.path.join(out_paths["svg"], f"{b_name}_card_back.svg"), "w", encoding="utf-8") as f:
-                        f.write(generate_card_back_svg(fpath))
-                generate_single_card_pdf(fpath, os.path.join(out_paths["single"], f"{b_name}_single.pdf"), with_back=with_back)
-                generate_printshop_pdf(fpath, os.path.join(out_paths["printshop"], f"{b_name}_printshop.pdf"), with_back=with_back)
-                generate_exact_size_pdf(fpath, os.path.join(out_paths["exact_70x90"], f"{b_name}_exact_70x90.pdf"), with_back=with_back)
-            except Exception as e:
-                print(f"  [WARNUNG] Fehler bei {b_name}: {e}", flush=True)
+        n_jobs = args.jobs if args.jobs and args.jobs > 0 else (os.cpu_count() or 1)
+        n_jobs = max(1, min(n_jobs, len(files))) if files else 1
+        print(f"Verwende {n_jobs} parallele Worker-Prozesse...", flush=True)
+
+        done = 0
+        if n_jobs > 1:
+            with concurrent.futures.ProcessPoolExecutor(
+                    max_workers=n_jobs, initializer=_init_batch_worker, initargs=(type_libs,)) as pool:
+                futures = [pool.submit(_batch_process_one, fpath, output_root, args.folders, with_back)
+                           for fpath in files]
+                for future in concurrent.futures.as_completed(futures):
+                    b_name, subfolder, ok, err = future.result()
+                    done += 1
+                    status = "OK" if ok else f"[WARNUNG] Fehler bei {b_name}: {err}"
+                    print(f"[{done}/{len(files)}] [{subfolder or 'default'}] {b_name}: {status}", flush=True)
+        else:
+            _init_batch_worker(type_libs)
+            for fpath in files:
+                b_name, subfolder, ok, err = _batch_process_one(fpath, output_root, args.folders, with_back)
+                done += 1
+                status = "OK" if ok else f"[WARNUNG] Fehler bei {b_name}: {err}"
+                print(f"[{done}/{len(files)}] [{subfolder or 'default'}] {b_name}: {status}", flush=True)
 
         # Generate multi-card PDFs per folder
         for sfolder, folder_files in files_by_folder.items():
@@ -2176,7 +2460,7 @@ def main():
             multi_name = f"{sfolder}_all_exercises_multi.pdf" if sfolder else "all_exercises_multi.pdf"
             multi_out = args.multi_out or os.path.join(folder_multi_dir, multi_name)
             print(f"Generating multi-card PDF for {len(folder_files)} exercises in '{sfolder or 'default'}': {multi_out}...", flush=True)
-            generate_multi_cards_pdf(folder_files, multi_out, with_back=with_back)
+            generate_multi_cards_pdf(folder_files, multi_out, with_back=with_back, resolver=batch_resolver)
 
         # Generate fix-TODO.md
         if not args.limit and files:

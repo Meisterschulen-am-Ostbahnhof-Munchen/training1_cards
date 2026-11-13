@@ -223,3 +223,9 @@ __marimo__/
 
 
 desktop.ini
+
+# Generierte Karten: werden per GitHub Action als Release veröffentlicht, nicht committet
+/output/
+
+# Lokales Kanban-Board (persoenliche Aufgabenverwaltung, nicht Teil des Repos)
+/kanban/
